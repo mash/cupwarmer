@@ -11,7 +11,7 @@ Work on the KiCad project in `hardware/kicad/cupwarmer-hw`.
 
 Treat file types differently:
 
-- `.kicad_sch`: KiCad schematic S-expression
+- `.kicad_sch`: KiCad schematic S-expression — **edit via kiutils**
 - `.kicad_pcb`: KiCad board S-expression
 - `.kicad_pro`: project JSON
 - `.kicad_prl`: local preferences; avoid editing unless the task is explicitly about local view state
@@ -21,8 +21,33 @@ Read these files before editing:
 - `hardware/kicad/cupwarmer-hw/README.md`
 - `hardware/schematic/README.md`
 - `hardware/pcb/README.md`
-- `docs/kicad-file-format-research.md`
-- `https://docs.kicad.org/master/en/cli/cli.html`
+
+## kiutils Setup
+
+This project uses a patched version of kiutils (branch `fix/roundtrip-fidelity`) with KiCad v8+ format support. The patched kiutils is at:
+
+```
+/Users/mash/src/github.com/mvnmgrx/kiutils/src/kiutils/
+```
+
+All Python scripts that use kiutils must add the path before importing:
+
+```python
+import sys
+sys.path.insert(0, "/Users/mash/src/github.com/mvnmgrx/kiutils/src")
+from kiutils.schematic import Schematic
+from kiutils.items.schitems import SchematicSymbol, Text, HierarchicalSheet, Connection, GlobalLabel
+from kiutils.items.common import Property, Effects, Position
+from kiutils.symbol import Symbol
+```
+
+The patched kiutils supports these KiCad v8+ tokens that upstream kiutils does not:
+
+- `generator_version`, `embedded_fonts` (Schematic)
+- `exclude_from_sim` (SchematicSymbol, Text, HierarchicalSheet, Symbol)
+- `in_bom`, `on_board`, `dnp` (HierarchicalSheet)
+- `(hide yes/no)` in Effects and pin_numbers
+- `show_name` with yes/no values (Property)
 
 ## Choose The Target
 
@@ -41,9 +66,34 @@ When editing a schematic, decide whether the change belongs in the top sheet, a 
 
 ## Edit Schematics
 
-Preserve the S-expression structure exactly.
+**Use kiutils, not raw text editing, for all .kicad_sch modifications.**
 
-Prefer editing existing `property`, `text`, `wire`, and `global_label` blocks over reshuffling large sections.
+Write a Python script in `tmp/` that:
+
+1. Reads the schematic with `Schematic.from_file()`
+2. Modifies the object model (add symbols, properties, wires, etc.)
+3. Writes back with `sch.to_file()`
+
+Example — adding a symbol property:
+
+```python
+import sys
+sys.path.insert(0, "/Users/mash/src/github.com/mvnmgrx/kiutils/src")
+from kiutils.schematic import Schematic
+
+sch = Schematic.from_file("hardware/kicad/cupwarmer-hw/heater-control.kicad_sch")
+
+for sym in sch.schematicSymbols:
+    if sym.entryName == "PASSIVE_2":
+        # Modify properties, position, etc.
+        for prop in sym.properties:
+            if prop.key == "Value":
+                prop.value = "100R"
+
+sch.to_file("hardware/kicad/cupwarmer-hw/heater-control.kicad_sch")
+```
+
+### Structural rules
 
 Keep these structures coherent:
 
@@ -115,53 +165,89 @@ Use `.kicad_pro` for project-wide design settings and rules. Avoid touching `.ki
 
 ## Validate Changes
 
-Run `kicad-cli` after manual edits.
+After every schematic edit, run validation in this order:
 
-Use `command -v kicad-cli` first. If that is empty on this machine, use:
+### 1. Roundtrip coverage test
+
+Verify kiutils can read and write the file without losing tokens:
 
 ```bash
-/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli
+python3 tmp/roundtrip_sch.py hardware/kicad/cupwarmer-hw/<edited-file>.kicad_sch
 ```
 
-Useful checks:
+Check that OVERALL COVERAGE remains 100%. Any drop means the edit introduced tokens that kiutils cannot roundtrip.
+
+### 2. kicad-cli validation
+
+Use `kicad-cli` to confirm the output is valid KiCad:
 
 ```bash
-'/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli' sch export netlist \
-  --format kicadsexpr \
-  --output /tmp/cupwarmer.net \
-  hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch
+KICAD_CLI='/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'
+```
 
-'/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli' sch erc \
+**ERC (electrical rules check):**
+
+```bash
+"$KICAD_CLI" sch erc \
   --exit-code-violations \
-  --output /tmp/cupwarmer-erc.rpt \
+  --output tmp/cupwarmer-erc.rpt \
   hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch
+```
 
-'/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli' sch export svg \
-  --output /tmp/cupwarmer-sch-svg \
+**Netlist export (circuit equivalence):**
+
+```bash
+"$KICAD_CLI" sch export netlist \
+  --output tmp/cupwarmer.net \
+  hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch
+```
+
+**SVG export (visual check):**
+
+```bash
+"$KICAD_CLI" sch export svg \
+  --output tmp/cupwarmer-sch-svg \
   hardware/kicad/cupwarmer-hw/heater-control.kicad_sch
+```
 
-'/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli' pcb export stats \
+**Board checks:**
+
+```bash
+"$KICAD_CLI" pcb export stats \
   --format json \
-  --output /tmp/cupwarmer-board-stats.json \
+  --output tmp/cupwarmer-board-stats.json \
   hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_pcb
 
-'/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli' pcb drc \
+"$KICAD_CLI" pcb drc \
   --schematic-parity \
-  --output /tmp/cupwarmer-drc.rpt \
+  --output tmp/cupwarmer-drc.rpt \
   hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_pcb
 ```
 
-Also verify with text-level checks:
+### 3. Full validation script
+
+For comprehensive before/after comparison (roundtrip + ERC + netlist diff):
+
+```bash
+python3 tmp/kicad_cli_validate.py
+```
+
+This script roundtrips all .kicad_sch files, then compares ERC results and netlists between originals and roundtripped outputs. The expected result is:
+- ERC exit codes match
+- Netlists identical (except file path)
+
+### 4. Text-level checks
 
 - inspect `git diff`
 - use `rg` to confirm `Sheetfile`, net names, and symbol references
 - confirm edited child sheets still exist and are referenced correctly
 
-Remember the validation boundary:
+### Validation boundary
 
 - syntax errors usually fail fast
 - hierarchy mistakes may still export
 - successful CLI output is necessary, not sufficient
+- **roundtrip coverage 100% + identical netlist = high confidence**
 
 If using `sch upgrade`, upgrade child sheets explicitly. The CLI does not recursively upgrade sub-sheets just because the top sheet was targeted.
 

@@ -6,7 +6,7 @@ C_RES_1,resonant capacitor,C0G/NP0 capacitor,TBD,TBD,TBD,resonant network value 
 C_RES_2,resonant capacitor,C0G/NP0 capacitor,TBD,TBD,TBD,resonant network value TBD
 C_BULK_1,bulk capacitor,output bulk capacitor,TBD,TBD,TBD,VOUT decoupling
 C_BULK_2,bulk capacitor,output bulk capacitor,TBD,TBD,TBD,VOUT decoupling
-C_DEC_1,decoupling,ceramic capacitor,TBD,TBD,TBD,U1 local decoupling
+C4,VDD bypass,100nF ceramic,TBD,TBD,TBD,VDD high-frequency bypass close to U1
 Q1,heater switch,logic-level N-MOSFET,TBD,TBD,TBD,low-side switched heater stage
 R_GATE_1,gate resistor,resistor,TBD,TBD,TBD,Q1 gate damping
 R_GS_1,gate pulldown,resistor,TBD,TBD,TBD,Q1 gate pulldown
@@ -24,3 +24,4 @@ C8,supply decoupling,1uF ceramic,TBD,TBD,TBD,VDD digital supply decoupling
 C9,rectifier decoupling,10uF ceramic,TBD,TBD,TBD,VRECT rectifier decoupling close to U1
 R5,I2C pull-up,10k resistor,TBD,TBD,TBD,SCL pull-up to VDD for service header
 R6,I2C pull-up,10k resistor,TBD,TBD,TBD,SDA pull-up to VDD for service header
+R7,NTC pull-up,10k resistor,TBD,TBD,TBD,NTC -> VAA pull-up for stand-alone default
