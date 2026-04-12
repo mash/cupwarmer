@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "cupwarmer")(type "KiCad")(uri "${KIPRJMOD}/cupwarmer.kicad_sym")(options "")(descr "Cup Warmer local symbols"))
+)

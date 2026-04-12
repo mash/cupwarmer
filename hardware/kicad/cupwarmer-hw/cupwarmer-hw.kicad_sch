@@ -1,0 +1,165 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "f3c63676-f392-4700-9f58-a6787e1eb284")
+	(paper "A4")
+	(title_block
+		(title "Cup Warmer Hardware")
+		(company "mash")
+		(comment 1 "Initial KiCad project scaffold")
+		(comment 2 "Target RX IC: STWLC38JRM")
+		(comment 3 "15W Qi Cup Warmer")
+	)
+	(lib_symbols)
+	(text "Top-level hierarchical structure"
+		(exclude_from_sim no)
+		(at 39.37 31.75 0)
+		(effects
+			(font
+				(size 2 2)
+				(thickness 0.3)
+			)
+			(justify left bottom)
+		)
+		(uuid "6605bf7f-d359-4476-9dca-3ba789770010")
+	)
+	(text "Inter-sheet connectivity currently uses global labels: VOUT_12V, SYS_GND, I2C_SCL, I2C_SDA, HEATER_CTRL, I_HEATER_MON"
+		(exclude_from_sim no)
+		(at 39.37 35.56 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.2)
+			)
+			(justify left bottom)
+		)
+		(uuid "6605bf7f-d359-4476-9dca-3ba789770011")
+	)
+	(sheet
+		(at 38.1 44.45)
+		(size 55.88 34.29)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "11111111-1111-1111-1111-111111111111")
+		(property "Sheetname" "rx-power"
+			(at 38.1 43.18 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "rx-power.kicad_sch"
+			(at 38.1 79.502 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify left top)
+			)
+		)
+	)
+	(sheet
+		(at 101.6 44.45)
+		(size 55.88 34.29)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "22222222-2222-2222-2222-222222222222")
+		(property "Sheetname" "heater-control"
+			(at 101.6 43.18 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "heater-control.kicad_sch"
+			(at 101.6 79.502 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify left top)
+			)
+		)
+	)
+	(sheet
+		(at 63.5 88.9)
+		(size 68.58 34.29)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "33333333-3333-3333-3333-333333333333")
+		(property "Sheetname" "sensors-logic"
+			(at 63.5 87.63 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sensors-logic.kicad_sch"
+			(at 63.5 123.952 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify left top)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

@@ -1,0 +1,4 @@
+interface:
+  display_name: "KiCad Hardware Editing"
+  short_description: "Edit KiCad schematic and PCB files in this repo safely"
+  default_prompt: "Use this skill to inspect or edit KiCad schematic or PCB files under hardware/kicad/cupwarmer-hw while preserving file structure and validating changes with kicad-cli."
