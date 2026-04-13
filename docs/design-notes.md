@@ -55,6 +55,61 @@
 - `via-in-pad` などは設計前に外注 DFM で確定
 - top plate と coil の距離は最小化しつつ、金属干渉は後で実測する
 
+## ブロック図
+
+```mermaid
+%%{init: {'flowchart': {'curve': 'linear'}}}%%
+flowchart TB
+    subgraph POWER[Power Path]
+        direction LR
+        TX[Qi 送電パッド / 外部電源]
+        COIL[受電コイル + 共振ネットワーク]
+        RX[STWLC38JRM<br/>Qi RX / 整流 / 制御]
+        VOUT[VOUT 12V]
+        GATE[heater-control<br/>MOSFET + current path]
+        HEATER[ヒーター / top plate]
+
+        TX --> COIL
+        COIL --> RX
+        RX --> VOUT
+        VOUT --> GATE
+        GATE --> HEATER
+    end
+
+    subgraph PROTECT[Protection]
+        direction LR
+        NTCA[NTC_A<br/>top plate]
+        NTCB[NTC_B<br/>power hotspot]
+        F1[F1<br/>独立ハード遮断]
+        FOD[FOD / thermal protection]
+
+        NTCA --> F1
+        NTCB --> F1
+    end
+
+    subgraph SERVICE[Bring-up / Monitor]
+        direction LR
+        I2C[I2C service header]
+        INTB[INTB optional monitor]
+        ENB[ENB = GND 固定]
+        IEXT[IEXT<br/>RCL + TVS clamp]
+
+        INTB -. optional .-> I2C
+    end
+
+    F1 --> GATE
+    I2C -. service / bring-up .-> RX
+    ENB -. fixed strap .-> RX
+    IEXT -. protection path .-> RX
+    RX -. status / shutdown .-> FOD
+    FOD -. stop power transfer .-> TX
+```
+
+- 初版は外部 `MCU` なし
+- 電力の主経路は `Qi TX → coil → STWLC38JRM → VOUT_12V → heater-control → heater`
+- 温度・異常時の停止は `FOD` と `F1` の二系統で受け持つ
+- `I2C` / `INTB` は製品制御ではなく、bring-up / service 用の観測・設定経路として扱う
+
 ## rx-power 回路図ステータス（2026-04-12 時点）
 
 `rx-power.kicad_sch` に以下の最小外付け回路を反映済み:
