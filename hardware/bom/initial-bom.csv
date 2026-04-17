@@ -1,19 +1,18 @@
 ref,category,part,manufacturer,mpn,status,notes
 U1,Qi receiver IC,15W wireless power receiver,STMicroelectronics,STWLC38JRM,selected,WLCSP40 0.4mm pitch outsourced assembly
-L1,receiver coil,15W Qi receiver coil,TBD,TBD,TBD,match with STWLC38JRM reference design
+L1,receiver coil,8uH Qi RX coil,Luxshare-ICT,LD81FP008-1H,selected,per STEVAL-WLC38RX eval board DCR=190mOhm
 SHIELD1,ferrite sheet,flexible ferrite shield,TBD,TBD,TBD,coil backing shield
-C_RES_1,resonant capacitor,C0G/NP0 capacitor,TBD,TBD,TBD,resonant network value TBD
-C_RES_2,resonant capacitor,C0G/NP0 capacitor,TBD,TBD,TBD,resonant network value TBD
-C_BULK_1,bulk capacitor,output bulk capacitor,TBD,TBD,TBD,VOUT decoupling
-C_BULK_2,bulk capacitor,output bulk capacitor,TBD,TBD,TBD,VOUT decoupling
+C1,resonant capacitor,100nFx5 C0G/NP0 50V,TBD,TBD,TBD,resonant network per DS14078 ref BOM
+C2,output bulk,10uF/25V X5R,TBD,TBD,TBD,VOUT bulk decoupling
+C3,output HF bypass,1uF/25V X7R,TBD,TBD,TBD,VOUT high-frequency bypass
 C4,VDD bypass,100nF ceramic,TBD,TBD,TBD,VDD high-frequency bypass close to U1
-Q1,heater switch,logic-level N-MOSFET,TBD,TBD,TBD,low-side switched heater stage
+Q1,heater switch,N-MOSFET 30V 5.7A SOT-23,Alpha & Omega Semi,AO3400,selected,Rds(on)=29mOhm@10V gate driven from VOUT 12V
 R_GATE_1,gate resistor,resistor,TBD,TBD,TBD,Q1 gate damping
 R_GS_1,gate pulldown,resistor,TBD,TBD,TBD,Q1 gate pulldown
 R_SENSE_1,current sense,current sense resistor,TBD,TBD,optional,placeholder for heater current monitoring
 NTC_A,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,top plate temperature
 NTC_B,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,board hotspot temperature
-F1,independent cutoff,thermal cutoff or thermostat,TBD,TBD,TBD,independent hardware protection
+F1,thermostat,bimetal thermostat 90C,TBD,TBD,TBD,independent thermal protection auto-reset
 H1,heater,flexible heater,TBD,TBD,TBD,target around 10 ohm at 12V nominal
 J1,service header,I2C service header,TBD,TBD,TBD,bring-up and configuration access
 J2,heater / sensor interconnect,board-to-wire pads or connector,TBD,TBD,TBD,mechanical integration dependent
@@ -25,3 +24,6 @@ C9,rectifier decoupling,10uF ceramic,TBD,TBD,TBD,VRECT rectifier decoupling clos
 R5,I2C pull-up,10k resistor,TBD,TBD,TBD,SCL pull-up to VDD for service header
 R6,I2C pull-up,10k resistor,TBD,TBD,TBD,SDA pull-up to VDD for service header
 R7,NTC pull-up,10k resistor,TBD,TBD,TBD,NTC -> VAA pull-up for stand-alone default
+C10,VS bypass,3.3nF/50V ceramic,TBD,TBD,TBD,VS diagnostic bypass capacitor
+C11,ASK modulation,10nF/50V ceramic,TBD,TBD,TBD,COMA modulation capacitor
+C12,ASK modulation,22nF/50V ceramic,TBD,TBD,TBD,COMB modulation capacitor
