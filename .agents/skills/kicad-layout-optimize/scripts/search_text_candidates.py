@@ -11,8 +11,8 @@ import tempfile
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-ROOT = Path(__file__).resolve().parents[3]
-LAYOUT_HELPERS = ROOT / "skills/kicad-schematic-edit/scripts"
+ROOT = Path(__file__).resolve().parents[4]
+LAYOUT_HELPERS = ROOT / ".agents/skills/kicad-schematic-edit/scripts"
 
 if str(LAYOUT_HELPERS) not in sys.path:
     sys.path.insert(0, str(LAYOUT_HELPERS))

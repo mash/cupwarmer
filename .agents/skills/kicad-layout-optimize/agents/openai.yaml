@@ -1,0 +1,4 @@
+interface:
+  display_name: "KiCad Layout Optimize"
+  short_description: "Iteratively improve KiCad schematic readability with local moves"
+  default_prompt: "Use this skill to optimize a KiCad schematic sheet by scoring visible collisions, trying local text and symbol moves, and validating only accepted improvements."

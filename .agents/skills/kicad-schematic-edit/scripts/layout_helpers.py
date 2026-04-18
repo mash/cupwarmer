@@ -141,11 +141,20 @@ class LayoutEditor:
         else:
             raise ValueError(f"Invalid pin spec: {spec}. Use 'REF.PIN' or 'NAME@REF'")
 
-    def move(self, ref, x, y, angle=None):
-        """Move a component to a new position.
+    def symbol_pin_positions(self, ref):
+        """Return absolute pin positions for a symbol keyed by known pin names."""
+        info = self.symbols.get(ref)
+        if not info:
+            raise ValueError(f"Symbol {ref} not found")
+        entry = info["entry"]
+        sym_pins = KNOWN_SYMBOLS.get(entry, {})
+        return {
+            pin_name: pin_schematic_pos(info["x"], info["y"], info["angle"], px, py)
+            for pin_name, (px, py) in sym_pins.items()
+        }
 
-        Does NOT redraw wires — call wire() or wire_between() after moving.
-        """
+    def _update_symbol_position(self, ref, x, y, angle=None):
+        """Update symbol origin and index without touching attached geometry."""
         info = self.symbols.get(ref)
         if not info:
             raise ValueError(f"Symbol {ref} not found")
@@ -154,8 +163,32 @@ class LayoutEditor:
         sym.position.Y = y
         if angle is not None:
             sym.position.angle = angle
-        # Update property positions
+        info["x"] = x
+        info["y"] = y
+        info["angle"] = sym.position.angle or 0
+
+    def shift_symbol_properties(self, ref, dx, dy, angle=None):
+        """Shift all symbol properties by a delta, preserving relative offsets."""
+        info = self.symbols.get(ref)
+        if not info:
+            raise ValueError(f"Symbol {ref} not found")
+        sym = info["sym"]
+        for p in sym.properties:
+            p.position.X = round(p.position.X + dx, 2)
+            p.position.Y = round(p.position.Y + dy, 2)
+            if angle is not None:
+                p.position.angle = angle
+
+    def move_symbol_only(self, ref, x, y, angle=None):
+        """Move a symbol without adjusting properties or wires."""
+        self._update_symbol_position(ref, x, y, angle=angle)
+
+    def move_symbol_with_default_text(self, ref, x, y, angle=None):
+        """Move a symbol and reset common property positions to the default layout."""
+        self._update_symbol_position(ref, x, y, angle=angle)
+        info = self.symbols[ref]
         a = angle if angle is not None else info["angle"]
+        sym = info["sym"]
         for p in sym.properties:
             if p.key == "Reference":
                 p.position = Position(X=x, Y=y - 3.81 if a == 0 else y, angle=a)
@@ -163,10 +196,36 @@ class LayoutEditor:
                 p.position = Position(X=x, Y=y + 3.81 if a == 0 else y, angle=a)
             elif p.key in ("Footprint", "Datasheet", "Description"):
                 p.position = Position(X=x, Y=y)
-        # Update index
-        info["x"] = x
-        info["y"] = y
-        info["angle"] = a
+
+    def shift_wires_touching_points(self, points, dx, dy, tolerance=0.1):
+        """Move wire endpoints that sit on any of the given coordinates."""
+        for gi in self.sch.graphicalItems:
+            if getattr(gi, "type", None) != "wire" or len(getattr(gi, "points", [])) != 2:
+                continue
+            for p in gi.points:
+                if any(abs(p.X - x) < tolerance and abs(p.Y - y) < tolerance for x, y in points):
+                    p.X = round(p.X + dx, 2)
+                    p.Y = round(p.Y + dy, 2)
+
+    def move_symbol_with_attached_wires(self, ref, x, y, angle=None, tolerance=0.1, move_properties=True):
+        """Move a symbol and drag wire endpoints that were attached to its pins."""
+        info = self.symbols.get(ref)
+        if not info:
+            raise ValueError(f"Symbol {ref} not found")
+        before = list(self.symbol_pin_positions(ref).values())
+        dx = round(x - info["x"], 2)
+        dy = round(y - info["y"], 2)
+        self._update_symbol_position(ref, x, y, angle=angle)
+        self.shift_wires_touching_points(before, dx, dy, tolerance=tolerance)
+        if move_properties:
+            self.shift_symbol_properties(ref, dx, dy, angle=angle)
+
+    def move(self, ref, x, y, angle=None):
+        """Move a component and reset visible property placement.
+
+        Does NOT redraw wires — call wire() or wire_between() after moving.
+        """
+        self.move_symbol_with_default_text(ref, x, y, angle=angle)
 
     def wire(self, x1, y1, x2, y2):
         """Add a wire between two absolute coordinates."""
