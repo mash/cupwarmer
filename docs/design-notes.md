@@ -110,7 +110,7 @@ flowchart TB
 - 温度・異常時の停止は `FOD` と `F1` の二系統で受け持つ
 - `I2C` / `INTB` は製品制御ではなく、bring-up / service 用の観測・設定経路として扱う
 
-## rx-power 回路図ステータス（2026-04-12 時点）
+## 回路図ステータス（2026-04-18 時点）
 
 `rx-power.kicad_sch` に以下の最小外付け回路を反映済み:
 
@@ -123,7 +123,15 @@ flowchart TB
 - `SCL/SDA` pull-up `10k` (R5/R6) → `VDD`
 - `VOUT` → heater-control シートへ
 
-ERC 新規エラー: **0 件**。pre-existing placeholder 系 10 件のみ残存。
+`sensors-logic.kicad_sch` には以下を反映済み:
+
+- `J1`: `RX_VDD` 参照付き `I2C` service header
+- `TH1` / `TH2`: `10k NTC` placeholder
+- `R8` / `R9`: `RX_VDD` への `10k` pull-up
+- `J2`: `NTC_TOP` / `NTC_PCB` の thermal monitor header
+- `J3`: `RX_INTB` / `I_HEATER_MON` の status monitor header
+
+ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mismatch` 警告のみ。
 
 ## Open Items
 

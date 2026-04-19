@@ -1,30 +1,29 @@
-(kicad_sch (version 20260306) (generator codex)
-  (generator_version "1.0")
-
-  (uuid 11111111-aaaa-bbbb-cccc-111111111111)
-
-  (paper "A4")
-
-  (title_block
-    (title "rx-power")
-    (company "mash")
-    (comment 1 "Cup Warmer Hardware")
-    (comment 2 "Initial functional draft")
-  )
-
-  (lib_symbols
-		(symbol "cupwarmer:PASSIVE_2"
-			(pin_numbers
-				(hide no)
-			)
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "11111111-aaaa-bbbb-cccc-111111111111")
+	(paper "A4")
+	(title_block
+		(title "rx-power")
+		(company "mash")
+		(comment 1 "Cup Warmer Hardware")
+		(comment 2 "Initial functional draft")
+	)
+	(lib_symbols
+				(symbol "cupwarmer:PASSIVE_2"
 			(pin_names
 				(offset 0.762)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "X"
 				(at 0 3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -33,6 +32,8 @@
 			)
 			(property "Value" "PASSIVE_2"
 				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -41,29 +42,35 @@
 			)
 			(property "Footprint" ""
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
-			(property "Datasheet" "~"
+			(property "Datasheet" ""
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "Description" "Generic 2-pin placeholder"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(symbol "PASSIVE_2_0_1"
@@ -117,19 +124,21 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "cupwarmer:PLACEHOLDER_1"
-			(pin_numbers
-				(hide no)
-			)
 			(pin_names
 				(offset 0.762)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "X"
 				(at 0 3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -138,6 +147,8 @@
 			)
 			(property "Value" "PLACEHOLDER_1"
 				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -146,29 +157,35 @@
 			)
 			(property "Footprint" ""
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "Datasheet" "~"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "Description" "Generic 1-pin placeholder"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(symbol "PLACEHOLDER_1_0_1"
@@ -204,16 +221,21 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
-		(symbol "cupwarmer:STWLC38JRM_MIN"
+				(symbol "cupwarmer:STWLC38JRM_MIN"
 			(pin_names
 				(offset 0.762)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "U"
 				(at 0 10.16 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -221,7 +243,9 @@
 				)
 			)
 			(property "Value" "STWLC38JRM_MIN"
-				(at 0 -19.05 0)
+				(at 0 -24.13 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -230,29 +254,35 @@
 			)
 			(property "Footprint" ""
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
-			(property "Datasheet" "~"
+			(property "Datasheet" ""
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(property "Description" "Stand-alone/service bring-up planning symbol for STWLC38JRM"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(hide yes)
 				)
 			)
 			(symbol "STWLC38JRM_MIN_0_1"
@@ -521,6 +551,24 @@
 						)
 					)
 				)
+				(pin power_out line
+					(at 12.7 2.54 180)
+					(length 5.08)
+					(name "VRECT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin passive line
 					(at -12.7 -10.16 0)
 					(length 5.08)
@@ -532,6 +580,186 @@
 						)
 					)
 					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -10.16 0)
+					(length 5.08)
+					(name "VS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -10.16 0)
+					(length 5.08)
+					(name "VS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -10.16 0)
+					(length 5.08)
+					(name "VS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -10.16 0)
+					(length 5.08)
+					(name "VS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -10.16 0)
+					(length 5.08)
+					(name "VS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -12.7 0)
+					(length 5.08)
+					(name "COMA1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "17"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -12.7 0)
+					(length 5.08)
+					(name "COMA1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "17"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -12.7 0)
+					(length 5.08)
+					(name "COMA1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "17"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -12.7 0)
+					(length 5.08)
+					(name "COMA1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "17"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -12.7 0)
+					(length 5.08)
+					(name "COMA1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "17"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -576,6 +804,186 @@
 					)
 				)
 				(pin passive line
+					(at -12.7 -15.24 0)
+					(length 5.08)
+					(name "COMA2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "18"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -15.24 0)
+					(length 5.08)
+					(name "COMA2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "18"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -15.24 0)
+					(length 5.08)
+					(name "COMA2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "18"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -15.24 0)
+					(length 5.08)
+					(name "COMA2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "18"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -15.24 0)
+					(length 5.08)
+					(name "COMA2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "18"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 12.7 -17.78 180)
+					(length 5.08)
+					(name "COMB1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "19"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 12.7 -17.78 180)
+					(length 5.08)
+					(name "COMB1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "19"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 12.7 -17.78 180)
+					(length 5.08)
+					(name "COMB1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "19"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 12.7 -17.78 180)
+					(length 5.08)
+					(name "COMB1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "19"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 12.7 -17.78 180)
+					(length 5.08)
+					(name "COMB1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "19"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
 					(at 12.7 -17.78 180)
 					(length 5.08)
 					(name "COMB1"
@@ -611,17 +1019,89 @@
 						)
 					)
 				)
-				(pin power_out line
-					(at 12.7 2.54 180)
+				(pin passive line
+					(at 12.7 -20.32 180)
 					(length 5.08)
-					(name "VRECT"
+					(name "COMB2"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "15"
+					(number "20"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 12.7 -20.32 180)
+					(length 5.08)
+					(name "COMB2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "20"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 12.7 -20.32 180)
+					(length 5.08)
+					(name "COMB2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "20"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 12.7 -20.32 180)
+					(length 5.08)
+					(name "COMB2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "20"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 12.7 -20.32 180)
+					(length 5.08)
+					(name "COMB2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "20"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -630,981 +1110,2784 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 	)
-
-  (wire (pts (xy 60.96 58.42) (xy 93.98 58.42))
-    (stroke (width 0) (type solid))
-    (uuid e0362c1f-ceac-4697-85b3-d46eea404f85)
-  )
-  (wire (pts (xy 93.98 68.58) (xy 83.82 68.58))
-    (stroke (width 0) (type solid))
-    (uuid 823ffff6-ef6d-4cc4-b953-3db1f2900c20)
-  )
-  (wire (pts (xy 119.38 58.42) (xy 129.54 58.42))
-    (stroke (width 0) (type solid))
-    (uuid 33d0c11f-6a31-47c7-9ece-63ab3623e02a)
-  )
-  (wire (pts (xy 129.54 58.42) (xy 129.54 45.72))
-    (stroke (width 0) (type solid))
-    (uuid 8b665275-8acf-4c26-a6f6-e18e1c360b42)
-  )
-  (wire (pts (xy 129.54 45.72) (xy 134.62 45.72))
-    (stroke (width 0) (type solid))
-    (uuid cab82702-ec75-4867-8e95-eca637f96b12)
-  )
-  (wire (pts (xy 134.62 45.72) (xy 147.32 45.72))
-    (stroke (width 0) (type solid))
-    (uuid 004efa15-55ef-48a4-b93c-9016b732e001)
-  )
-  (wire (pts (xy 119.38 60.96) (xy 139.7 60.96))
-    (stroke (width 0) (type solid))
-    (uuid f6e87b56-759b-4374-9589-a6962c82b0cc)
-  )
-  (wire (pts (xy 139.7 60.96) (xy 139.7 55.88))
-    (stroke (width 0) (type solid))
-    (uuid a4f7bca9-6101-4f42-883c-985753aeeb12)
-  )
-  (wire (pts (xy 119.38 68.58) (xy 124.46 68.58))
-    (stroke (width 0) (type solid))
-    (uuid dc2c8cac-82fe-47b8-a5f5-ddd39b76ee5e)
-  )
-  (wire (pts (xy 119.38 71.12) (xy 139.7 71.12))
-    (stroke (width 0) (type solid))
-    (uuid 9e2bbb44-0041-45b0-9c67-d84881c93266)
-  )
-  (wire (pts (xy 139.7 66.04) (xy 123.19 66.04))
-    (stroke (width 0) (type solid))
-    (uuid 11f70df5-41d1-40cf-b7ea-1e8ec5992c4b)
-  )
-  (wire (pts (xy 139.7 71.12) (xy 139.7 66.04))
-    (stroke (width 0) (type solid))
-    (uuid 83fdcca2-5ebd-4eac-af6f-802b01759d4c)
-  )
-  (wire (pts (xy 119.38 73.66) (xy 124.46 73.66))
-    (stroke (width 0) (type solid))
-    (uuid 58651528-0736-4650-a49b-b5eb6dbea590)
-  )
-  (wire (pts (xy 119.38 76.2) (xy 139.7 76.2))
-    (stroke (width 0) (type solid))
-    (uuid 198120d5-5c00-43f1-8ab6-a0a5dd707afd)
-  )
-  (wire (pts (xy 139.7 78.74) (xy 132.08 78.74))
-    (stroke (width 0) (type solid))
-    (uuid dd334fb0-38dc-4350-904e-29b214d44c7c)
-  )
-  (wire (pts (xy 139.7 76.2) (xy 139.7 76.2))
-    (stroke (width 0) (type solid))
-    (uuid 48b131d5-78b9-4f2c-a7dd-8336f7dace6a)
-  )
-  (wire (pts (xy 119.38 78.74) (xy 134.62 78.74))
-    (stroke (width 0) (type solid))
-    (uuid 9e6f8fd0-d7c6-4483-92ca-d730e4750c32)
-  )
-  (wire (pts (xy 134.62 78.74) (xy 137.16 83.82))
-    (stroke (width 0) (type solid))
-    (uuid a27a22b8-58b4-484a-b82a-bdc6a92b3060)
-  )
-  (wire (pts (xy 147.32 83.82) (xy 152.4 83.82))
-    (stroke (width 0) (type solid))
-    (uuid c0f79ea5-1177-4445-b9c6-d7ac280686a6)
-  )
-  (wire (pts (xy 152.4 83.82) (xy 152.4 83.82))
-    (stroke (width 0) (type solid))
-    (uuid dcd4d16b-f63b-443c-b8cd-869f18aa85ff)
-  )
-  (wire (pts (xy 152.4 93.98) (xy 152.4 96.52))
-    (stroke (width 0) (type solid))
-    (uuid cccc2336-7edd-41cd-8d67-1cbc6a97cba4)
-  )
-  (wire (pts (xy 152.4 96.52) (xy 157.48 96.52))
-    (stroke (width 0) (type solid))
-    (uuid 6a97e0dc-2d10-44e0-bf3b-e7ef9d80ec11)
-  )
-  (wire (pts (xy 119.38 81.28) (xy 139.7 81.28))
-    (stroke (width 0) (type solid))
-    (uuid 1e675b19-b820-4b53-abd0-5b2c7e647bc2)
-  )
-  (wire (pts (xy 139.7 81.28) (xy 139.7 91.44))
-    (stroke (width 0) (type solid))
-    (uuid cfe47515-782a-4d37-b593-7a3825c0b4fa)
-  )
-  (wire (pts (xy 119.38 83.82) (xy 139.7 83.82))
-    (stroke (width 0) (type solid))
-    (uuid 5e94d4c2-426f-4d99-a602-d1c6b22a1fae)
-  )
-  (wire (pts (xy 139.7 83.82) (xy 139.7 101.6))
-    (stroke (width 0) (type solid))
-    (uuid 75930b2f-a18a-4d04-b6a4-f05e8b7ccab4)
-  )
-  (wire (pts (xy 106.68 90.17) (xy 106.68 93.98))
-    (stroke (width 0) (type solid))
-    (uuid ea84688d-e7cf-4f42-b5da-e076e96a3714)
-  )
-  (wire (pts (xy 106.68 93.98) (xy 111.76 93.98))
-    (stroke (width 0) (type solid))
-    (uuid 9fe113cc-842d-4b5f-80bb-6dbf0f81b90c)
-  )
-  (wire (pts (xy 50.8 58.42) (xy 50.8 67.31))
-    (stroke (width 0) (type solid))
-    (uuid 1b3ed900-696d-411c-be6f-fdcfac20baa2)
-  )
-  (wire (pts (xy 60.96 67.31) (xy 60.96 63.5))
-    (stroke (width 0) (type solid))
-    (uuid ad72366c-e633-409f-a82c-b53e8bc4c965)
-  )
-  (wire (pts (xy 60.96 63.5) (xy 93.98 63.5))
-    (stroke (width 0) (type solid))
-    (uuid c79df49f-99b3-4e75-96e2-40e2a3ad23fc)
-  )
-  (wire (pts (xy 93.98 60.96) (xy 81.28 60.96))
-    (stroke (width 0) (type solid))
-    (uuid 68267e8d-1d68-49bc-8d83-5361b40275cb)
-  )
-  (wire (pts (xy 68.58 55.88) (xy 68.58 50.8))
-    (stroke (width 0) (type solid))
-    (uuid 6f5c737c-1279-4bd5-bae7-fe9015bb85b0)
-  )
-  (wire (pts (xy 68.58 50.8) (xy 58.42 50.8))
-    (stroke (width 0) (type solid))
-    (uuid d6e79f88-a853-4f95-9ec7-cd2236b8dbca)
-  )
-  (wire (pts (xy 93.98 66.04) (xy 68.58 66.04))
-    (stroke (width 0) (type solid))
-    (uuid 947e7dba-d863-42e8-8717-8a2718abebc6)
-  )
-  (wire (pts (xy 73.66 68.58) (xy 71.12 68.58))
-    (stroke (width 0) (type solid))
-    (uuid 5da8a51f-c7b0-44cd-adbb-55bef6e95c9a)
-  )
-  (wire (pts (xy 93.98 71.12) (xy 83.82 71.12))
-    (stroke (width 0) (type solid))
-    (uuid c4ffa5e9-88a4-477c-8253-4ea4ca09dd97)
-  )
-  (wire (pts (xy 83.82 71.12) (xy 83.82 74.93))
-    (stroke (width 0) (type solid))
-    (uuid 4006ea67-78b3-4b65-baac-d092403ff00d)
-  )
-  (wire (pts (xy 73.66 74.93) (xy 68.58 74.93))
-    (stroke (width 0) (type solid))
-    (uuid cc0eeb86-a1ea-4c0b-9564-4b8e8b9bc864)
-  )
-  (wire (pts (xy 93.98 73.66) (xy 88.9 73.66))
-    (stroke (width 0) (type solid))
-    (uuid 357a3d36-ab95-4a37-a4c0-235a756a497c)
-  )
-  (wire (pts (xy 88.9 73.66) (xy 88.9 82.55))
-    (stroke (width 0) (type solid))
-    (uuid 0f971990-2719-4ed7-b876-7dd7bcfa250a)
-  )
-  (wire (pts (xy 88.9 82.55) (xy 73.66 82.55))
-    (stroke (width 0) (type solid))
-    (uuid bf01f874-b999-4c2a-954f-5efa283baca5)
-  )
-  (wire (pts (xy 63.5 82.55) (xy 58.42 82.55))
-    (stroke (width 0) (type solid))
-    (uuid f1e2b78a-dc0c-4077-9447-6165c7a523de)
-  )
-  (wire (pts (xy 93.98 76.2) (xy 88.9 76.2))
-    (stroke (width 0) (type solid))
-    (uuid 7f4708d7-9988-4bdc-a615-9e2ae0982798)
-  )
-  (wire (pts (xy 88.9 76.2) (xy 88.9 78.74))
-    (stroke (width 0) (type solid))
-    (uuid 42d38d33-7124-4b41-b542-7e544fd31f8b)
-  )
-  (wire (pts (xy 88.9 78.74) (xy 83.82 78.74))
-    (stroke (width 0) (type solid))
-    (uuid a10035eb-4d1f-4a15-a35b-4bfcd0c80bd2)
-  )
-  (wire (pts (xy 93.98 78.74) (xy 91.44 78.74))
-    (stroke (width 0) (type solid))
-    (uuid ffc17e89-7461-4ec4-92a7-3fdd3230cb5c)
-  )
-  (wire (pts (xy 91.44 78.74) (xy 91.44 88.9))
-    (stroke (width 0) (type solid))
-    (uuid 8df3da87-0b7b-4a9c-a38e-78e701360f5e)
-  )
-  (wire (pts (xy 91.44 88.9) (xy 83.82 88.9))
-    (stroke (width 0) (type solid))
-    (uuid 7a523e7f-5146-48df-a39b-c2806c8cdab9)
-  )
-  (wire (pts (xy 177.8 58.42) (xy 172.72 58.42))
-    (stroke (width 0) (type solid))
-    (uuid 598a8037-075b-4639-9c3d-08183bf49745)
-  )
-  (wire (pts (xy 177.8 63.5) (xy 172.72 63.5))
-    (stroke (width 0) (type solid))
-    (uuid 136d647d-f9ac-4f6c-80d3-689f02443691)
-  )
-  (wire (pts (xy 187.96 58.42) (xy 195.58 58.42))
-    (stroke (width 0) (type solid))
-    (uuid a1fa4aee-889d-48f0-8a82-158162d1392e)
-  )
-  (wire (pts (xy 187.96 63.5) (xy 195.58 63.5))
-    (stroke (width 0) (type solid))
-    (uuid 981e4471-d628-4fed-8a7f-0381026b5a1f)
-  )
-  (wire (pts (xy 99.06 43.18) (xy 93.98 43.18))
-    (stroke (width 0) (type solid))
-    (uuid 339b6a59-df7f-4f91-b4ab-afcf513d42e2)
-  )
-  (wire (pts (xy 99.06 53.34) (xy 93.98 53.34))
-    (stroke (width 0) (type solid))
-    (uuid 97f90762-2a0b-4647-b94a-1bc0ab1abf44)
-  )
-  (wire (pts (xy 119.38 63.5) (xy 124.46 63.5))
-    (stroke (width 0) (type solid))
-    (uuid a0e9fb04-e35e-459f-9227-f3c191bf5ea5)
-  )
-  (wire (pts (xy 139.7 76.2) (xy 139.7 78.74))
-    (stroke (width 0) (type solid))
-    (uuid bad3236d-d22f-476f-9bbb-5369e5c846f9)
-  )
-  (wire (pts (xy 144.78 45.72) (xy 144.78 50.8))
-    (stroke (width 0) (type solid))
-    (uuid ea60df43-4c8a-4cba-ad4f-0d82cb64c0d1)
-  )
-  (wire (pts (xy 144.78 50.8) (xy 134.62 50.8))
-    (stroke (width 0) (type solid))
-    (uuid 82307c3d-f529-4c0d-b401-074d101491e2)
-  )
-  (wire (pts (xy 157.48 45.72) (xy 167.64 45.72))
-    (stroke (width 0) (type solid))
-    (uuid 88f5a84b-8f97-4cfe-8842-b2da56963b85)
-  )
-
-  (text "Functional draft only: resonant network and exact ST values still TBD"
-    (exclude_from_sim no)
-    (at 27.94 25.4 0)
-    (effects (font (size 1.5 1.5) (thickness 0.2)) (justify left bottom))
-    (uuid 11111111-aaaa-bbbb-cccc-111111111190)
-  )
-  (text "I2C is a service / bring-up connection in this draft, not an external MCU control path"
-    (exclude_from_sim no)
-    (at 27.94 30.48 0)
-    (effects (font (size 1.27 1.27) (thickness 0.2)) (justify left bottom))
-    (uuid 11111111-aaaa-bbbb-cccc-111111111191)
-  )
-  (text "Stand-alone defaults: ENB -> GND if unused, NTC unused -> VAA via 10k, INTB optional for bring-up"
-    (exclude_from_sim no)
-    (at 27.94 35.56 0)
-    (effects (font (size 1.27 1.27) (thickness 0.2)) (justify left bottom))
-    (uuid 11111111-aaaa-bbbb-cccc-111111111301)
-  )
-  (text "All decoupling, modulation, and clamp passives placed. Exact coil/resonant values TBD"
-    (exclude_from_sim no)
-    (at 27.94 40.64 0)
-    (effects (font (size 1.27 1.27) (thickness 0.2)) (justify left bottom))
-    (uuid 11111111-aaaa-bbbb-cccc-111111111302)
-  )
-  (text "I2C pull-ups for service / bring-up header (VDD level)"
-    (exclude_from_sim no)
-    (at 27.94 45.72 0)
-    (effects (font (size 1.27 1.27) (thickness 0.2)) (justify left bottom))
-    (uuid 22222222-aaaa-bbbb-cccc-400000000001)
-  )
-
-  (global_label "SYS_GND" (shape passive) (at 81.28 60.96 0)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 53fd4db8-bc15-475d-9d30-ef80719aba96)
-  )
-  (global_label "RX_VAA" (shape passive) (at 58.42 50.8 0)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 4d2ad4f9-c9e2-4aa9-a06c-3757f31145e6)
-  )
-  (global_label "RX_NTC" (shape passive) (at 93.98 66.04 0)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 6a5c7577-da27-4eaf-90bd-f592649ffce6)
-  )
-  (global_label "SYS_GND" (shape passive) (at 71.12 68.58 0)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 38d88023-39b4-4c81-82d6-898672fd8160)
-  )
-  (global_label "SYS_GND" (shape passive) (at 68.58 74.93 0)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 50a2223b-2b4b-43e1-ada5-592889a5d16e)
-  )
-  (global_label "SYS_GND" (shape passive) (at 58.42 82.55 0)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid e0f7e42b-bf12-4c20-acbb-ec615396fb95)
-  )
-  (global_label "VOUT_12V" (shape passive) (at 116.84 55.88 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid 4719d4d7-aa5b-4f7a-b32f-02cd0f6537f3)
-  )
-  (global_label "SYS_GND" (shape passive) (at 134.62 50.8 0)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid dc0d1bf0-425b-4196-aaf1-1a0d2591f1cc)
-  )
-  (global_label "SYS_GND" (shape passive) (at 167.64 45.72 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid 99f7ac09-745d-4141-b6d0-21a44cff2aaf)
-  )
-  (global_label "SYS_GND" (shape passive) (at 149.86 55.88 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid af82751f-a945-413c-bedf-128e46a9c7f0)
-  )
-  (global_label "I2C_SCL" (shape bidirectional) (at 124.46 63.5 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid d2bb1a94-5a81-4a25-8cf0-188c70423b55)
-  )
-  (global_label "I2C_SDA" (shape bidirectional) (at 124.46 68.58 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid 887826fe-1743-427c-8b51-8670cbdc00a8)
-  )
-  (global_label "SYS_GND" (shape passive) (at 149.86 66.04 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid 0478ec95-6e24-4696-ad71-61b1ba824d89)
-  )
-  (global_label "RX_VAA" (shape passive) (at 123.19 66.04 0)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 0b2129d9-13e1-4daf-bf02-a030d7136f3b)
-  )
-  (global_label "RX_INTB" (shape passive) (at 124.46 73.66 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid d1f3cfde-6404-4f7f-a756-e516dfe77ecf)
-  )
-  (global_label "SYS_GND" (shape passive) (at 149.86 76.2 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid e693b493-540c-47aa-9fe1-8252ccaceff3)
-  )
-  (global_label "RX_VDD" (shape passive) (at 132.08 78.74 0)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid b566e70f-ef56-4b86-9611-d647c83027b7)
-  )
-  (global_label "SYS_GND" (shape passive) (at 157.48 96.52 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid bdecc9d3-6d27-4ae0-955c-6fc5110eb130)
-  )
-  (global_label "SYS_GND" (shape passive) (at 111.76 93.98 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid ddbed389-52be-47f0-8183-51973cea13de)
-  )
-  (global_label "RX_VDD" (shape passive) (at 93.98 43.18 0)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid b1b55a57-67b4-4ae8-af94-1e82babefdb8)
-  )
-  (global_label "SYS_GND" (shape passive) (at 93.98 53.34 0)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid b2c25dc5-3b58-4123-86fe-1ed4c38c1fe3)
-  )
-  (global_label "I2C_SCL" (shape bidirectional) (at 172.72 58.42 180)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid c7126de5-e417-4ec8-a516-68084c4de238)
-  )
-  (global_label "RX_VDD" (shape passive) (at 195.58 58.42 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid 2a040c6f-3223-4be1-a420-1103c84e4517)
-  )
-  (global_label "I2C_SDA" (shape bidirectional) (at 172.72 63.5 180)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid bd15a418-59c1-4a9b-8c59-d0cb985d8f7d)
-  )
-  (global_label "RX_VDD" (shape passive) (at 195.58 63.5 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid 1ccf33ff-7dc0-4498-8ce3-88b234a6a782)
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 55.88 58.42 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 11111111-aaaa-bbbb-cccc-111111111230)
-    (property "Reference" "L1" (at 55.88 53.34 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "8uH RX Coil TBD" (at 38.1 58.42 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 55.88 58.42 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 55.88 58.42 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "Receiver coil placeholder" (at 55.88 58.42 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 11111111-aaaa-bbbb-cccc-111111111231))
-    (pin "2" (uuid 11111111-aaaa-bbbb-cccc-111111111232))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "L1") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 55.88 67.31 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 11111111-aaaa-bbbb-cccc-111111111323)
-    (property "Reference" "C1" (at 55.88 62.23 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "100nFx5 C0G 50V" (at 40.64 67.31 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 55.88 67.31 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 55.88 67.31 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "Resonant capacitor placeholder" (at 55.88 67.31 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 11111111-aaaa-bbbb-cccc-111111111324))
-    (pin "2" (uuid 11111111-aaaa-bbbb-cccc-111111111325))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "C1") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PLACEHOLDER_1") (at 35.56 50.8 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 11111111-aaaa-bbbb-cccc-111111111326)
-    (property "Reference" "SHIELD1" (at 35.56 46.99 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "Ferrite shield placeholder" (at 35.56 54.61 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 35.56 50.8 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 35.56 50.8 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "Ferrite shield / mechanical placeholder" (at 35.56 50.8 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 11111111-aaaa-bbbb-cccc-111111111327))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "SHIELD1") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:STWLC38JRM_MIN") (at 106.68 63.5 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 11111111-aaaa-bbbb-cccc-111111111328)
-    (property "Reference" "U1" (at 106.68 74.93 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "STWLC38JRM" (at 106.68 44.45 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 106.68 63.5 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "https://www.st.com/en/power-management/stwlc38jrm.html" (at 106.68 63.5 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "15 W Qi wireless power receiver controller" (at 106.68 63.5 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 11111111-aaaa-bbbb-cccc-111111111329))
-    (pin "2" (uuid 11111111-aaaa-bbbb-cccc-111111111238))
-    (pin "3" (uuid 11111111-aaaa-bbbb-cccc-111111111239))
-    (pin "4" (uuid 11111111-aaaa-bbbb-cccc-111111111240))
-    (pin "5" (uuid 11111111-aaaa-bbbb-cccc-111111111241))
-    (pin "6" (uuid 11111111-aaaa-bbbb-cccc-111111111242))
-    (pin "7" (uuid 11111111-aaaa-bbbb-cccc-111111111313))
-    (pin "8" (uuid 11111111-aaaa-bbbb-cccc-111111111314))
-    (pin "9" (uuid 11111111-aaaa-bbbb-cccc-111111111315))
-    (pin "10" (uuid 11111111-aaaa-bbbb-cccc-111111111316))
-    (pin "11" (uuid 22222222-aaaa-bbbb-cccc-000000000011))
-    (pin "12" (uuid 22222222-aaaa-bbbb-cccc-000000000012))
-    (pin "13" (uuid 22222222-aaaa-bbbb-cccc-000000000013))
-    (pin "14" (uuid 22222222-aaaa-bbbb-cccc-000000000014))
-    (pin "15" (uuid 22222222-aaaa-bbbb-cccc-000000000015))
-    (pin "16" (uuid 44444444-aaaa-bbbb-cccc-000000000016))
-    (pin "17" (uuid 44444444-aaaa-bbbb-cccc-000000000017))
-    (pin "18" (uuid 44444444-aaaa-bbbb-cccc-000000000018))
-    (pin "19" (uuid 44444444-aaaa-bbbb-cccc-000000000019))
-    (pin "20" (uuid 44444444-aaaa-bbbb-cccc-000000000020))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "U1") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 142.24 83.82 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 11111111-aaaa-bbbb-cccc-111111111317)
-    (property "Reference" "R4" (at 140.97 80.01 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "RCL 300R" (at 132.08 87.63 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 142.24 83.82 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 142.24 83.82 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "IEXT clamp resistor placeholder" (at 142.24 83.82 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 11111111-aaaa-bbbb-cccc-111111111318))
-    (pin "2" (uuid 11111111-aaaa-bbbb-cccc-111111111319))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "R4") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 152.4 88.9 90) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 11111111-aaaa-bbbb-cccc-111111111320)
-    (property "Reference" "TVS1" (at 147.32 88.9 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "SMF13A TBD" (at 156.21 83.82 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 152.4 88.9 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 152.4 88.9 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "IEXT clamp TVS placeholder" (at 152.4 88.9 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 11111111-aaaa-bbbb-cccc-111111111321))
-    (pin "2" (uuid 11111111-aaaa-bbbb-cccc-111111111322))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "TVS1") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 139.7 45.72 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 11111111-aaaa-bbbb-cccc-111111111243)
-    (property "Reference" "C2" (at 139.7 41.91 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "10uF/25V" (at 139.7 49.53 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 139.7 45.72 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 139.7 45.72 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "Output bulk capacitor placeholder" (at 139.7 45.72 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 11111111-aaaa-bbbb-cccc-111111111244))
-    (pin "2" (uuid 11111111-aaaa-bbbb-cccc-111111111245))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "C2") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 152.4 45.72 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 11111111-aaaa-bbbb-cccc-111111111246)
-    (property "Reference" "C3" (at 152.4 41.91 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "1uF/25V" (at 152.4 52.07 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 152.4 45.72 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 152.4 45.72 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "High-frequency output capacitor placeholder" (at 152.4 45.72 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 11111111-aaaa-bbbb-cccc-111111111247))
-    (pin "2" (uuid 11111111-aaaa-bbbb-cccc-111111111248))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "C3") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 99.06 48.26 90) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 11111111-aaaa-bbbb-cccc-111111111330)
-    (property "Reference" "C4" (at 95.25 48.26 90)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "100nF" (at 104.14 48.26 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 99.06 48.26 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 99.06 48.26 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "VDD high-frequency bypass 100nF" (at 99.06 48.26 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 11111111-aaaa-bbbb-cccc-111111111331))
-    (pin "2" (uuid 11111111-aaaa-bbbb-cccc-111111111332))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "C4") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 78.74 68.58 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 22222222-aaaa-bbbb-cccc-300000000001)
-    (property "Reference" "C5" (at 82.55 68.58 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "47nF" (at 72.39 71.12 90)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 78.74 68.58 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 78.74 68.58 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "BOOT1 bootstrap capacitor" (at 78.74 68.58 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 22222222-aaaa-bbbb-cccc-300000000011))
-    (pin "2" (uuid 22222222-aaaa-bbbb-cccc-300000000012))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "C5") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 78.74 74.93 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 22222222-aaaa-bbbb-cccc-300000000002)
-    (property "Reference" "C6" (at 82.55 71.12 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "47nF" (at 77.47 78.74 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 78.74 74.93 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 78.74 74.93 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "BOOT2 bootstrap capacitor" (at 78.74 74.93 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 22222222-aaaa-bbbb-cccc-300000000021))
-    (pin "2" (uuid 22222222-aaaa-bbbb-cccc-300000000022))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "C6") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 144.78 66.04 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 22222222-aaaa-bbbb-cccc-300000000003)
-    (property "Reference" "C7" (at 144.78 62.23 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "4.7uF" (at 144.78 69.85 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 144.78 66.04 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 144.78 66.04 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "VAA analog supply decoupling" (at 144.78 66.04 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 22222222-aaaa-bbbb-cccc-300000000031))
-    (pin "2" (uuid 22222222-aaaa-bbbb-cccc-300000000032))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "C7") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 144.78 76.2 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 22222222-aaaa-bbbb-cccc-300000000004)
-    (property "Reference" "C8" (at 144.78 72.39 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "1uF" (at 144.78 80.01 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 144.78 76.2 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 144.78 76.2 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "VDD digital supply decoupling" (at 144.78 76.2 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 22222222-aaaa-bbbb-cccc-300000000041))
-    (pin "2" (uuid 22222222-aaaa-bbbb-cccc-300000000042))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "C8") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 144.78 55.88 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 22222222-aaaa-bbbb-cccc-300000000005)
-    (property "Reference" "C9" (at 144.78 52.07 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "10uF" (at 144.78 59.69 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 144.78 55.88 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 144.78 55.88 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "VRECT rectifier decoupling" (at 144.78 55.88 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 22222222-aaaa-bbbb-cccc-300000000051))
-    (pin "2" (uuid 22222222-aaaa-bbbb-cccc-300000000052))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "C9") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 182.88 58.42 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 22222222-aaaa-bbbb-cccc-300000000006)
-    (property "Reference" "R5" (at 182.88 54.61 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "10k" (at 186.69 62.23 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 182.88 58.42 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 182.88 58.42 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "I2C SCL pull-up to VDD" (at 182.88 58.42 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 22222222-aaaa-bbbb-cccc-300000000061))
-    (pin "2" (uuid 22222222-aaaa-bbbb-cccc-300000000062))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "R5") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 182.88 63.5 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 22222222-aaaa-bbbb-cccc-300000000007)
-    (property "Reference" "R6" (at 179.07 59.69 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "10k" (at 182.88 67.31 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 182.88 63.5 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 182.88 63.5 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "I2C SDA pull-up to VDD" (at 182.88 63.5 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 22222222-aaaa-bbbb-cccc-300000000071))
-    (pin "2" (uuid 22222222-aaaa-bbbb-cccc-300000000072))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "R6") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 68.58 60.96 90) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 33333333-aaaa-bbbb-cccc-300000000001)
-    (property "Reference" "R7" (at 64.77 60.96 90)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "10k" (at 72.39 57.15 90)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 68.58 60.96 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 68.58 60.96 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "NTC pull-up to VAA (10k, stand-alone default)" (at 68.58 60.96 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 33333333-aaaa-bbbb-cccc-300000000011))
-    (pin "2" (uuid 33333333-aaaa-bbbb-cccc-300000000012))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "R7") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 68.58 82.55 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 44444444-aaaa-bbbb-cccc-300000000010)
-    (property "Reference" "C10" (at 68.58 78.74 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "3.3nF/50V" (at 68.58 86.36 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 68.58 82.55 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 68.58 82.55 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "VS diagnostic bypass capacitor" (at 68.58 82.55 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 44444444-aaaa-bbbb-cccc-300000000101))
-    (pin "2" (uuid 44444444-aaaa-bbbb-cccc-300000000102))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "C10") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 83.82 83.82 90) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 44444444-aaaa-bbbb-cccc-300000000011)
-    (property "Reference" "C11" (at 80.01 85.09 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "10nF/50V" (at 90.17 83.82 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 83.82 83.82 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 83.82 83.82 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "ASK modulation capacitor COMA" (at 83.82 83.82 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 44444444-aaaa-bbbb-cccc-300000000111))
-    (pin "2" (uuid 44444444-aaaa-bbbb-cccc-300000000112))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "C11") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "cupwarmer:PASSIVE_2") (at 139.7 96.52 90) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid 44444444-aaaa-bbbb-cccc-300000000012)
-    (property "Reference" "C12" (at 134.62 96.52 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "22nF/50V" (at 144.78 96.52 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 139.7 96.52 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Datasheet" "~" (at 139.7 96.52 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (property "Description" "ASK modulation capacitor COMB" (at 139.7 96.52 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid 44444444-aaaa-bbbb-cccc-300000000121))
-    (pin "2" (uuid 44444444-aaaa-bbbb-cccc-300000000122))
-    (instances
-      (project "cupwarmer-hw"
-        (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-          (reference "C12") (unit 1)
-        )
-      )
-    )
-  )
-
-  (sheet_instances
-    (path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111" (page "2"))
-  )
-  (embedded_fonts no)
+	(text "Functional draft only: resonant network and exact ST values still TBD"
+		(exclude_from_sim no)
+		(at 27.94 25.4 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.2)
+			)
+			(justify left bottom)
+		)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111190")
+	)
+	(text "I2C is a service / bring-up connection in this draft, not an external MCU control path"
+		(exclude_from_sim no)
+		(at 27.94 30.48 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.2)
+			)
+			(justify left bottom)
+		)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111191")
+	)
+	(text "Stand-alone defaults: ENB -> GND if unused, NTC unused -> VAA via 10k, INTB optional for bring-up"
+		(exclude_from_sim no)
+		(at 27.94 35.56 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.2)
+			)
+			(justify left bottom)
+		)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111301")
+	)
+	(text "All decoupling, modulation, and clamp passives placed. Exact coil/resonant values TBD"
+		(exclude_from_sim no)
+		(at 27.94 40.64 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.2)
+			)
+			(justify left bottom)
+		)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111302")
+	)
+	(text "I2C pull-ups for service / bring-up header (VDD level)"
+		(exclude_from_sim no)
+		(at 27.94 45.72 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.2)
+			)
+			(justify left bottom)
+		)
+		(uuid "22222222-aaaa-bbbb-cccc-400000000001")
+	)
+	(text "Ferrite sheet remains a mechanical stack-up item; it is intentionally not represented as an electrical symbol"
+		(exclude_from_sim no)
+		(at 27.94 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.2)
+			)
+			(justify left bottom)
+		)
+		(uuid "78db12a4-6d3d-4665-bd76-0908a368e101")
+	)
+	(wire
+		(pts
+			(xy 134.62 45.72) (xy 147.32 45.72)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "004efa15-55ef-48a4-b93c-9016b732e001")
+	)
+	(wire
+		(pts
+			(xy 88.9 73.66) (xy 88.9 82.55)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "0f971990-2719-4ed7-b876-7dd7bcfa250a")
+	)
+	(wire
+		(pts
+			(xy 139.7 66.04) (xy 123.19 66.04)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "11f70df5-41d1-40cf-b7ea-1e8ec5992c4b")
+	)
+	(wire
+		(pts
+			(xy 177.8 63.5) (xy 172.72 63.5)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "136d647d-f9ac-4f6c-80d3-689f02443691")
+	)
+	(wire
+		(pts
+			(xy 119.38 76.2) (xy 139.7 76.2)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "198120d5-5c00-43f1-8ab6-a0a5dd707afd")
+	)
+	(wire
+		(pts
+			(xy 50.8 58.42) (xy 50.8 67.31)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "1b3ed900-696d-411c-be6f-fdcfac20baa2")
+	)
+	(wire
+		(pts
+			(xy 119.38 81.28) (xy 139.7 81.28)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "1e675b19-b820-4b53-abd0-5b2c7e647bc2")
+	)
+	(wire
+		(pts
+			(xy 99.06 43.18) (xy 93.98 43.18)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "339b6a59-df7f-4f91-b4ab-afcf513d42e2")
+	)
+	(wire
+		(pts
+			(xy 119.38 58.42) (xy 129.54 58.42)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "33d0c11f-6a31-47c7-9ece-63ab3623e02a")
+	)
+	(wire
+		(pts
+			(xy 93.98 73.66) (xy 88.9 73.66)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "357a3d36-ab95-4a37-a4c0-235a756a497c")
+	)
+	(wire
+		(pts
+			(xy 83.82 71.12) (xy 83.82 74.93)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "4006ea67-78b3-4b65-baac-d092403ff00d")
+	)
+	(wire
+		(pts
+			(xy 88.9 76.2) (xy 88.9 78.74)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "42d38d33-7124-4b41-b542-7e544fd31f8b")
+	)
+	(wire
+		(pts
+			(xy 139.7 76.2) (xy 139.7 76.2)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "48b131d5-78b9-4f2c-a7dd-8336f7dace6a")
+	)
+	(wire
+		(pts
+			(xy 119.38 73.66) (xy 124.46 73.66)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "58651528-0736-4650-a49b-b5eb6dbea590")
+	)
+	(wire
+		(pts
+			(xy 177.8 58.42) (xy 172.72 58.42)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "598a8037-075b-4639-9c3d-08183bf49745")
+	)
+	(wire
+		(pts
+			(xy 73.66 68.58) (xy 71.12 68.58)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "5da8a51f-c7b0-44cd-adbb-55bef6e95c9a")
+	)
+	(wire
+		(pts
+			(xy 119.38 83.82) (xy 139.7 83.82)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "5e94d4c2-426f-4d99-a602-d1c6b22a1fae")
+	)
+	(wire
+		(pts
+			(xy 93.98 60.96) (xy 81.28 60.96)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "68267e8d-1d68-49bc-8d83-5361b40275cb")
+	)
+	(wire
+		(pts
+			(xy 152.4 96.52) (xy 157.48 96.52)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "6a97e0dc-2d10-44e0-bf3b-e7ef9d80ec11")
+	)
+	(wire
+		(pts
+			(xy 68.58 55.88) (xy 68.58 50.8)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "6f5c737c-1279-4bd5-bae7-fe9015bb85b0")
+	)
+	(wire
+		(pts
+			(xy 139.7 83.82) (xy 139.7 101.6)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "75930b2f-a18a-4d04-b6a4-f05e8b7ccab4")
+	)
+	(wire
+		(pts
+			(xy 91.44 88.9) (xy 83.82 88.9)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "7a523e7f-5146-48df-a39b-c2806c8cdab9")
+	)
+	(wire
+		(pts
+			(xy 93.98 76.2) (xy 88.9 76.2)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "7f4708d7-9988-4bdc-a615-9e2ae0982798")
+	)
+	(wire
+		(pts
+			(xy 144.78 50.8) (xy 134.62 50.8)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "82307c3d-f529-4c0d-b401-074d101491e2")
+	)
+	(wire
+		(pts
+			(xy 93.98 68.58) (xy 83.82 68.58)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "823ffff6-ef6d-4cc4-b953-3db1f2900c20")
+	)
+	(wire
+		(pts
+			(xy 139.7 71.12) (xy 139.7 66.04)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "83fdcca2-5ebd-4eac-af6f-802b01759d4c")
+	)
+	(wire
+		(pts
+			(xy 157.48 45.72) (xy 167.64 45.72)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "88f5a84b-8f97-4cfe-8842-b2da56963b85")
+	)
+	(wire
+		(pts
+			(xy 129.54 58.42) (xy 129.54 45.72)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "8b665275-8acf-4c26-a6f6-e18e1c360b42")
+	)
+	(wire
+		(pts
+			(xy 91.44 78.74) (xy 91.44 88.9)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "8df3da87-0b7b-4a9c-a38e-78e701360f5e")
+	)
+	(wire
+		(pts
+			(xy 93.98 66.04) (xy 68.58 66.04)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "947e7dba-d863-42e8-8717-8a2718abebc6")
+	)
+	(wire
+		(pts
+			(xy 99.06 53.34) (xy 93.98 53.34)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "97f90762-2a0b-4647-b94a-1bc0ab1abf44")
+	)
+	(wire
+		(pts
+			(xy 187.96 63.5) (xy 195.58 63.5)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "981e4471-d628-4fed-8a7f-0381026b5a1f")
+	)
+	(wire
+		(pts
+			(xy 119.38 71.12) (xy 139.7 71.12)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "9e2bbb44-0041-45b0-9c67-d84881c93266")
+	)
+	(wire
+		(pts
+			(xy 119.38 78.74) (xy 134.62 78.74)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "9e6f8fd0-d7c6-4483-92ca-d730e4750c32")
+	)
+	(wire
+		(pts
+			(xy 106.68 93.98) (xy 111.76 93.98)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "9fe113cc-842d-4b5f-80bb-6dbf0f81b90c")
+	)
+	(wire
+		(pts
+			(xy 119.38 63.5) (xy 124.46 63.5)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "a0e9fb04-e35e-459f-9227-f3c191bf5ea5")
+	)
+	(wire
+		(pts
+			(xy 88.9 78.74) (xy 83.82 78.74)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "a10035eb-4d1f-4a15-a35b-4bfcd0c80bd2")
+	)
+	(wire
+		(pts
+			(xy 187.96 58.42) (xy 195.58 58.42)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "a1fa4aee-889d-48f0-8a82-158162d1392e")
+	)
+	(wire
+		(pts
+			(xy 134.62 78.74) (xy 137.16 83.82)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "a27a22b8-58b4-484a-b82a-bdc6a92b3060")
+	)
+	(wire
+		(pts
+			(xy 139.7 60.96) (xy 139.7 55.88)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "a4f7bca9-6101-4f42-883c-985753aeeb12")
+	)
+	(wire
+		(pts
+			(xy 60.96 67.31) (xy 60.96 63.5)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "ad72366c-e633-409f-a82c-b53e8bc4c965")
+	)
+	(wire
+		(pts
+			(xy 139.7 76.2) (xy 139.7 78.74)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "bad3236d-d22f-476f-9bbb-5369e5c846f9")
+	)
+	(wire
+		(pts
+			(xy 88.9 82.55) (xy 73.66 82.55)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "bf01f874-b999-4c2a-954f-5efa283baca5")
+	)
+	(wire
+		(pts
+			(xy 147.32 83.82) (xy 152.4 83.82)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "c0f79ea5-1177-4445-b9c6-d7ac280686a6")
+	)
+	(wire
+		(pts
+			(xy 93.98 71.12) (xy 83.82 71.12)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "c4ffa5e9-88a4-477c-8253-4ea4ca09dd97")
+	)
+	(wire
+		(pts
+			(xy 60.96 63.5) (xy 93.98 63.5)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "c79df49f-99b3-4e75-96e2-40e2a3ad23fc")
+	)
+	(wire
+		(pts
+			(xy 129.54 45.72) (xy 134.62 45.72)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "cab82702-ec75-4867-8e95-eca637f96b12")
+	)
+	(wire
+		(pts
+			(xy 73.66 74.93) (xy 68.58 74.93)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "cc0eeb86-a1ea-4c0b-9564-4b8e8b9bc864")
+	)
+	(wire
+		(pts
+			(xy 152.4 93.98) (xy 152.4 96.52)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "cccc2336-7edd-41cd-8d67-1cbc6a97cba4")
+	)
+	(wire
+		(pts
+			(xy 139.7 81.28) (xy 139.7 91.44)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "cfe47515-782a-4d37-b593-7a3825c0b4fa")
+	)
+	(wire
+		(pts
+			(xy 68.58 50.8) (xy 58.42 50.8)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "d6e79f88-a853-4f95-9ec7-cd2236b8dbca")
+	)
+	(wire
+		(pts
+			(xy 119.38 68.58) (xy 124.46 68.58)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "dc2c8cac-82fe-47b8-a5f5-ddd39b76ee5e")
+	)
+	(wire
+		(pts
+			(xy 152.4 83.82) (xy 152.4 83.82)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "dcd4d16b-f63b-443c-b8cd-869f18aa85ff")
+	)
+	(wire
+		(pts
+			(xy 139.7 78.74) (xy 132.08 78.74)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "dd334fb0-38dc-4350-904e-29b214d44c7c")
+	)
+	(wire
+		(pts
+			(xy 60.96 58.42) (xy 93.98 58.42)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "e0362c1f-ceac-4697-85b3-d46eea404f85")
+	)
+	(wire
+		(pts
+			(xy 144.78 45.72) (xy 144.78 50.8)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "ea60df43-4c8a-4cba-ad4f-0d82cb64c0d1")
+	)
+	(wire
+		(pts
+			(xy 106.68 90.17) (xy 106.68 93.98)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "ea84688d-e7cf-4f42-b5da-e076e96a3714")
+	)
+	(wire
+		(pts
+			(xy 63.5 82.55) (xy 58.42 82.55)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "f1e2b78a-dc0c-4077-9447-6165c7a523de")
+	)
+	(wire
+		(pts
+			(xy 119.38 60.96) (xy 139.7 60.96)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "f6e87b56-759b-4374-9589-a6962c82b0cc")
+	)
+	(wire
+		(pts
+			(xy 93.98 78.74) (xy 91.44 78.74)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "ffc17e89-7461-4ec4-92a7-3fdd3230cb5c")
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 149.86 66.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "0478ec95-6e24-4696-ad71-61b1ba824d89")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 149.86 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_VAA"
+		(shape passive)
+		(at 123.19 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "0b2129d9-13e1-4daf-bf02-a030d7136f3b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 123.19 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_VDD"
+		(shape passive)
+		(at 195.58 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1ccf33ff-7dc0-4498-8ce3-88b234a6a782")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 195.58 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_VDD"
+		(shape passive)
+		(at 195.58 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2a040c6f-3223-4be1-a420-1103c84e4517")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 195.58 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 71.12 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "38d88023-39b4-4c81-82d6-898672fd8160")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 71.12 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "VOUT_12V"
+		(shape passive)
+		(at 129.54 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "4719d4d7-aa5b-4f7a-b32f-02cd0f6537f3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 129.54 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_VAA"
+		(shape passive)
+		(at 58.42 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4d2ad4f9-c9e2-4aa9-a06c-3757f31145e6")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 58.42 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 68.58 74.93 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "50a2223b-2b4b-43e1-ada5-592889a5d16e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 68.58 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 81.28 60.96 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "53fd4db8-bc15-475d-9d30-ef80719aba96")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 81.28 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_NTC"
+		(shape passive)
+		(at 93.98 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "6a5c7577-da27-4eaf-90bd-f592649ffce6")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 93.98 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "I2C_SDA"
+		(shape bidirectional)
+		(at 124.46 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "887826fe-1743-427c-8b51-8670cbdc00a8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 124.46 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 167.64 45.72 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "99f7ac09-745d-4141-b6d0-21a44cff2aaf")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 167.64 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 149.86 55.88 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "af82751f-a945-413c-bedf-128e46a9c7f0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 149.86 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_VDD"
+		(shape passive)
+		(at 93.98 43.18 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b1b55a57-67b4-4ae8-af94-1e82babefdb8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 93.98 43.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 93.98 53.34 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b2c25dc5-3b58-4123-86fe-1ed4c38c1fe3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 93.98 53.34 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_VDD"
+		(shape passive)
+		(at 132.08 78.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b566e70f-ef56-4b86-9611-d647c83027b7")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 132.08 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "I2C_SDA"
+		(shape bidirectional)
+		(at 172.72 63.5 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "bd15a418-59c1-4a9b-8c59-d0cb985d8f7d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 172.72 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 157.48 96.52 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bdecc9d3-6d27-4ae0-955c-6fc5110eb130")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 157.48 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "I2C_SCL"
+		(shape bidirectional)
+		(at 172.72 58.42 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c7126de5-e417-4ec8-a516-68084c4de238")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 172.72 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_INTB"
+		(shape passive)
+		(at 124.46 73.66 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d1f3cfde-6404-4f7f-a756-e516dfe77ecf")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 124.46 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "I2C_SCL"
+		(shape bidirectional)
+		(at 124.46 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d2bb1a94-5a81-4a25-8cf0-188c70423b55")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 124.46 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 134.62 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "dc0d1bf0-425b-4196-aaf1-1a0d2591f1cc")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 134.62 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 111.76 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ddbed389-52be-47f0-8183-51973cea13de")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 111.76 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 58.42 82.55 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e0f7e42b-bf12-4c20-acbb-ec615396fb95")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 58.42 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 149.86 76.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e693b493-540c-47aa-9fe1-8252ccaceff3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 149.86 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 55.88 58.42 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111230")
+		(property "Reference" "L1"
+			(at 55.88 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "8uH RX Coil TBD"
+			(at 38.1 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 55.88 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 55.88 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Receiver coil placeholder"
+			(at 55.88 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111231")
+		)
+		(pin "2"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111232")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "L1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 139.7 45.72 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111243")
+		(property "Reference" "C2"
+			(at 139.7 41.91 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF/25V"
+			(at 139.7 49.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 139.7 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 139.7 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Output bulk capacitor placeholder"
+			(at 139.7 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111244")
+		)
+		(pin "2"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111245")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 152.4 45.72 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111246")
+		(property "Reference" "C3"
+			(at 152.4 41.91 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1uF/25V"
+			(at 152.4 52.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 152.4 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 152.4 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "High-frequency output capacitor placeholder"
+			(at 152.4 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111247")
+		)
+		(pin "2"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111248")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 142.24 83.82 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111317")
+		(property "Reference" "R4"
+			(at 140.97 80.01 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "RCL 300R"
+			(at 132.08 87.63 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 142.24 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "IEXT clamp resistor placeholder"
+			(at 142.24 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111318")
+		)
+		(pin "2"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111319")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "R4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 152.4 88.9 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111320")
+		(property "Reference" "TVS1"
+			(at 147.32 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SMF13A TBD"
+			(at 156.21 83.82 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 152.4 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 152.4 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "IEXT clamp TVS placeholder"
+			(at 152.4 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111321")
+		)
+		(pin "2"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111322")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "TVS1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 55.88 67.31 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111323")
+		(property "Reference" "C1"
+			(at 55.88 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nFx5 C0G 50V"
+			(at 40.64 67.31 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 55.88 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 55.88 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resonant capacitor placeholder"
+			(at 55.88 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111324")
+		)
+		(pin "2"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111325")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:STWLC38JRM_MIN")
+		(at 106.68 63.5 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111328")
+		(property "Reference" "U1"
+			(at 106.68 74.93 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "STWLC38JRM"
+			(at 106.68 44.45 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 106.68 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.st.com/en/power-management/stwlc38jrm.html"
+			(at 106.68 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "15 W Qi wireless power receiver controller"
+			(at 106.68 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111329")
+		)
+		(pin "2"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111238")
+		)
+		(pin "3"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111239")
+		)
+		(pin "4"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111240")
+		)
+		(pin "5"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111241")
+		)
+		(pin "6"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111242")
+		)
+		(pin "7"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111313")
+		)
+		(pin "8"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111314")
+		)
+		(pin "9"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111315")
+		)
+		(pin "10"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111316")
+		)
+		(pin "11"
+			(uuid "22222222-aaaa-bbbb-cccc-000000000011")
+		)
+		(pin "12"
+			(uuid "22222222-aaaa-bbbb-cccc-000000000012")
+		)
+		(pin "13"
+			(uuid "22222222-aaaa-bbbb-cccc-000000000013")
+		)
+		(pin "14"
+			(uuid "22222222-aaaa-bbbb-cccc-000000000014")
+		)
+		(pin "15"
+			(uuid "22222222-aaaa-bbbb-cccc-000000000015")
+		)
+		(pin "16"
+			(uuid "44444444-aaaa-bbbb-cccc-000000000016")
+		)
+		(pin "17"
+			(uuid "44444444-aaaa-bbbb-cccc-000000000017")
+		)
+		(pin "18"
+			(uuid "44444444-aaaa-bbbb-cccc-000000000018")
+		)
+		(pin "19"
+			(uuid "44444444-aaaa-bbbb-cccc-000000000019")
+		)
+		(pin "20"
+			(uuid "44444444-aaaa-bbbb-cccc-000000000020")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 99.06 48.26 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111330")
+		(property "Reference" "C4"
+			(at 95.25 48.26 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 104.14 48.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 99.06 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 99.06 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VDD high-frequency bypass 100nF"
+			(at 99.06 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111331")
+		)
+		(pin "2"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111332")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 78.74 68.58 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "22222222-aaaa-bbbb-cccc-300000000001")
+		(property "Reference" "C5"
+			(at 82.55 68.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47nF"
+			(at 72.39 71.12 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 78.74 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 78.74 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "BOOT1 bootstrap capacitor"
+			(at 78.74 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000011")
+		)
+		(pin "2"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000012")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 78.74 74.93 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "22222222-aaaa-bbbb-cccc-300000000002")
+		(property "Reference" "C6"
+			(at 82.55 71.12 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47nF"
+			(at 77.47 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 78.74 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 78.74 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "BOOT2 bootstrap capacitor"
+			(at 78.74 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000021")
+		)
+		(pin "2"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000022")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 144.78 66.04 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "22222222-aaaa-bbbb-cccc-300000000003")
+		(property "Reference" "C7"
+			(at 144.78 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4.7uF"
+			(at 144.78 69.85 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 144.78 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 144.78 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VAA analog supply decoupling"
+			(at 144.78 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000031")
+		)
+		(pin "2"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000032")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 144.78 76.2 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "22222222-aaaa-bbbb-cccc-300000000004")
+		(property "Reference" "C8"
+			(at 144.78 72.39 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1uF"
+			(at 144.78 80.01 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 144.78 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 144.78 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VDD digital supply decoupling"
+			(at 144.78 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000041")
+		)
+		(pin "2"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000042")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 144.78 55.88 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "22222222-aaaa-bbbb-cccc-300000000005")
+		(property "Reference" "C9"
+			(at 144.78 52.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF"
+			(at 144.78 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 144.78 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 144.78 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VRECT rectifier decoupling"
+			(at 144.78 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000051")
+		)
+		(pin "2"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000052")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 182.88 58.42 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "22222222-aaaa-bbbb-cccc-300000000006")
+		(property "Reference" "R5"
+			(at 182.88 54.61 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 186.69 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 182.88 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 182.88 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "I2C SCL pull-up to VDD"
+			(at 182.88 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000061")
+		)
+		(pin "2"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000062")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "R5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 182.88 63.5 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "22222222-aaaa-bbbb-cccc-300000000007")
+		(property "Reference" "R6"
+			(at 179.07 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 182.88 67.31 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 182.88 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 182.88 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "I2C SDA pull-up to VDD"
+			(at 182.88 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000071")
+		)
+		(pin "2"
+			(uuid "22222222-aaaa-bbbb-cccc-300000000072")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 68.58 60.96 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "33333333-aaaa-bbbb-cccc-300000000001")
+		(property "Reference" "R7"
+			(at 64.77 60.96 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 72.39 57.15 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 68.58 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 68.58 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "NTC pull-up to VAA (10k, stand-alone default)"
+			(at 68.58 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "33333333-aaaa-bbbb-cccc-300000000011")
+		)
+		(pin "2"
+			(uuid "33333333-aaaa-bbbb-cccc-300000000012")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 68.58 82.55 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "44444444-aaaa-bbbb-cccc-300000000010")
+		(property "Reference" "C10"
+			(at 68.58 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "3.3nF/50V"
+			(at 68.58 86.36 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 68.58 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 68.58 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VS diagnostic bypass capacitor"
+			(at 68.58 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "44444444-aaaa-bbbb-cccc-300000000101")
+		)
+		(pin "2"
+			(uuid "44444444-aaaa-bbbb-cccc-300000000102")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 83.82 83.82 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "44444444-aaaa-bbbb-cccc-300000000011")
+		(property "Reference" "C11"
+			(at 80.01 85.09 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10nF/50V"
+			(at 90.17 83.82 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 83.82 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 83.82 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "ASK modulation capacitor COMA"
+			(at 83.82 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "44444444-aaaa-bbbb-cccc-300000000111")
+		)
+		(pin "2"
+			(uuid "44444444-aaaa-bbbb-cccc-300000000112")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 139.7 96.52 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "44444444-aaaa-bbbb-cccc-300000000012")
+		(property "Reference" "C12"
+			(at 134.62 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "22nF/50V"
+			(at 144.78 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 139.7 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 139.7 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "ASK modulation capacitor COMB"
+			(at 139.7 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "44444444-aaaa-bbbb-cccc-300000000121")
+		)
+		(pin "2"
+			(uuid "44444444-aaaa-bbbb-cccc-300000000122")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C12")
+					(unit 1)
+				)
+			)
+		)
+	)
 )
