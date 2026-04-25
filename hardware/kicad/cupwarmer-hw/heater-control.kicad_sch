@@ -11,7 +11,7 @@
 		(comment 2 "Initial functional draft")
 	)
 	(lib_symbols
-				(symbol "cupwarmer:NMOS_LS"
+		(symbol "cupwarmer:NMOS_LS"
 			(pin_names
 				(offset 0.762)
 			)
@@ -144,7 +144,7 @@
 			)
 			(embedded_fonts no)
 		)
-				(symbol "cupwarmer:PASSIVE_2"
+		(symbol "cupwarmer:PASSIVE_2"
 			(pin_names
 				(offset 0.762)
 			)
@@ -407,46 +407,6 @@
 			(type solid)
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222213")
-	)
-	(wire
-		(pts
-			(xy 40.64 73.66) (xy 43.18 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "356a5f42-c54e-485b-a2d8-9cb1a82a46f6")
-	)
-	(wire
-		(pts
-			(xy 40.64 73.66) (xy 43.18 73.66)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "8fc95734-3280-40c2-818f-1e9267cf671b")
-	)
-	(wire
-		(pts
-			(xy 40.64 73.66) (xy 43.18 73.66)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "e6533a2d-a61c-4842-8feb-c20d25b1d15b")
-	)
-	(wire
-		(pts
-			(xy 40.64 73.66) (xy 43.18 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f7044065-d330-4d4e-a133-12e8cdcfd126")
 	)
 	(global_label "VOUT_12V"
 		(shape input)

@@ -11,7 +11,7 @@
 		(comment 2 "Initial functional draft")
 	)
 	(lib_symbols
-				(symbol "cupwarmer:PASSIVE_2"
+		(symbol "cupwarmer:PASSIVE_2"
 			(pin_names
 				(offset 0.762)
 			)
@@ -223,7 +223,7 @@
 			)
 			(embedded_fonts no)
 		)
-				(symbol "cupwarmer:STWLC38JRM_MIN"
+		(symbol "cupwarmer:STWLC38JRM_MIN"
 			(pin_names
 				(offset 0.762)
 			)
@@ -1197,7 +1197,7 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 73.66) (xy 88.9 82.55)
+			(xy 73.66 80.01) (xy 73.66 82.55)
 		)
 		(stroke
 			(width 0)
@@ -1247,7 +1247,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 81.28) (xy 139.7 81.28)
+			(xy 119.38 81.28) (xy 121.92 81.28)
 		)
 		(stroke
 			(width 0)
@@ -1277,7 +1277,7 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 73.66) (xy 88.9 73.66)
+			(xy 93.98 73.66) (xy 86.36 73.66)
 		)
 		(stroke
 			(width 0)
@@ -1304,16 +1304,6 @@
 			(type solid)
 		)
 		(uuid "42d38d33-7124-4b41-b542-7e544fd31f8b")
-	)
-	(wire
-		(pts
-			(xy 139.7 76.2) (xy 139.7 76.2)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "48b131d5-78b9-4f2c-a7dd-8336f7dace6a")
 	)
 	(wire
 		(pts
@@ -1347,7 +1337,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 83.82) (xy 139.7 83.82)
+			(xy 119.38 83.82) (xy 119.38 87.63)
 		)
 		(stroke
 			(width 0)
@@ -1387,17 +1377,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 83.82) (xy 139.7 101.6)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "75930b2f-a18a-4d04-b6a4-f05e8b7ccab4")
-	)
-	(wire
-		(pts
-			(xy 91.44 88.9) (xy 83.82 88.9)
+			(xy 93.98 88.9) (xy 88.9 88.9)
 		)
 		(stroke
 			(width 0)
@@ -1467,7 +1447,7 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 78.74) (xy 91.44 88.9)
+			(xy 93.98 78.74) (xy 93.98 88.9)
 		)
 		(stroke
 			(width 0)
@@ -1547,16 +1527,6 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 78.74) (xy 83.82 78.74)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "a10035eb-4d1f-4a15-a35b-4bfcd0c80bd2")
-	)
-	(wire
-		(pts
 			(xy 187.96 58.42) (xy 195.58 58.42)
 		)
 		(stroke
@@ -1587,6 +1557,16 @@
 	)
 	(wire
 		(pts
+			(xy 119.38 87.63) (xy 132.08 87.63)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "a658f88a-0bbb-4e60-8d01-b4cfc95ef68a")
+	)
+	(wire
+		(pts
 			(xy 60.96 67.31) (xy 60.96 63.5)
 		)
 		(stroke
@@ -1597,17 +1577,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 76.2) (xy 139.7 78.74)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "bad3236d-d22f-476f-9bbb-5369e5c846f9")
-	)
-	(wire
-		(pts
-			(xy 88.9 82.55) (xy 73.66 82.55)
+			(xy 86.36 80.01) (xy 73.66 80.01)
 		)
 		(stroke
 			(width 0)
@@ -1634,6 +1604,16 @@
 			(type solid)
 		)
 		(uuid "c4ffa5e9-88a4-477c-8253-4ea4ca09dd97")
+	)
+	(wire
+		(pts
+			(xy 134.62 78.74) (xy 137.16 78.74)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "c6bfa86f-6147-429a-8ca2-838d912c504e")
 	)
 	(wire
 		(pts
@@ -1677,7 +1657,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 81.28) (xy 139.7 91.44)
+			(xy 121.92 81.28) (xy 121.92 82.55)
 		)
 		(stroke
 			(width 0)
@@ -1707,26 +1687,6 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 83.82) (xy 152.4 83.82)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "dcd4d16b-f63b-443c-b8cd-869f18aa85ff")
-	)
-	(wire
-		(pts
-			(xy 139.7 78.74) (xy 132.08 78.74)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "dd334fb0-38dc-4350-904e-29b214d44c7c")
-	)
-	(wire
-		(pts
 			(xy 60.96 58.42) (xy 93.98 58.42)
 		)
 		(stroke
@@ -1734,6 +1694,16 @@
 			(type solid)
 		)
 		(uuid "e0362c1f-ceac-4697-85b3-d46eea404f85")
+	)
+	(wire
+		(pts
+			(xy 132.08 87.63) (xy 132.08 82.55)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "e472d411-b2f7-4e69-ab95-0b79a8ef99b3")
 	)
 	(wire
 		(pts
@@ -1767,6 +1737,16 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 73.66) (xy 86.36 80.01)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "f48ae2f5-b213-49d1-9b1a-ca2feb78ce36")
+	)
+	(wire
+		(pts
 			(xy 119.38 60.96) (xy 139.7 60.96)
 		)
 		(stroke
@@ -1774,16 +1754,6 @@
 			(type solid)
 		)
 		(uuid "f6e87b56-759b-4374-9589-a6962c82b0cc")
-	)
-	(wire
-		(pts
-			(xy 93.98 78.74) (xy 91.44 78.74)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "ffc17e89-7461-4ec4-92a7-3fdd3230cb5c")
 	)
 	(global_label "SYS_GND"
 		(shape passive)
@@ -1897,7 +1867,7 @@
 	)
 	(global_label "VOUT_12V"
 		(shape passive)
-		(at 129.54 58.42 0)
+		(at 124.46 58.42 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2117,16 +2087,16 @@
 	)
 	(global_label "RX_VDD"
 		(shape passive)
-		(at 132.08 78.74 180)
+		(at 137.16 78.74 90)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "b566e70f-ef56-4b86-9611-d647c83027b7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 132.08 78.74 0)
+			(at 137.16 78.74 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2406,6 +2376,12 @@
 			(uuid "11111111-aaaa-bbbb-cccc-111111111232")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "L1")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "L1")
@@ -2485,6 +2461,12 @@
 			(uuid "11111111-aaaa-bbbb-cccc-111111111245")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C2")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C2")
@@ -2564,6 +2546,12 @@
 			(uuid "11111111-aaaa-bbbb-cccc-111111111248")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C3")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C3")
@@ -2594,7 +2582,7 @@
 			)
 		)
 		(property "Value" "RCL 300R"
-			(at 132.08 87.63 0)
+			(at 144.78 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2643,6 +2631,12 @@
 			(uuid "11111111-aaaa-bbbb-cccc-111111111319")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "R4")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "R4")
@@ -2722,6 +2716,12 @@
 			(uuid "11111111-aaaa-bbbb-cccc-111111111322")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "TVS1")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "TVS1")
@@ -2801,6 +2801,12 @@
 			(uuid "11111111-aaaa-bbbb-cccc-111111111325")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C1")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C1")
@@ -2821,7 +2827,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111328")
 		(property "Reference" "U1"
-			(at 106.68 74.93 0)
+			(at 116.84 74.93 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2933,7 +2939,88 @@
 		(pin "20"
 			(uuid "44444444-aaaa-bbbb-cccc-000000000020")
 		)
+		(pin "16"
+			(uuid "064b8419-8d5c-44e8-a186-198fc964a9ee")
+		)
+		(pin "16"
+			(uuid "ebf29c12-221a-4539-b789-a812b8c46157")
+		)
+		(pin "16"
+			(uuid "76579b92-d9eb-40ee-9626-45fd97dbd41b")
+		)
+		(pin "16"
+			(uuid "26ead555-b5f7-4e09-be56-d16b259d62e7")
+		)
+		(pin "16"
+			(uuid "9eb90a38-39b4-4e44-91f6-683e50a2cd6a")
+		)
+		(pin "17"
+			(uuid "1f0cece0-5c53-4c0b-8088-f6d2bc2a44e6")
+		)
+		(pin "17"
+			(uuid "cb0b3d7e-1ccc-4266-ad6b-23785f853a96")
+		)
+		(pin "17"
+			(uuid "8d2afb3a-139f-461d-bd17-555f9ce6e4e9")
+		)
+		(pin "17"
+			(uuid "b48591af-3f9b-49e4-b596-e2718fbad883")
+		)
+		(pin "17"
+			(uuid "276a3468-632a-4102-947e-57371d5367d2")
+		)
+		(pin "18"
+			(uuid "7b915b9f-82cc-474e-9e74-009f6e41110a")
+		)
+		(pin "18"
+			(uuid "5aef7cfe-1e32-459c-89e2-15215a20ef19")
+		)
+		(pin "18"
+			(uuid "736cf70d-13d5-4a08-9f80-a69f4a253d2a")
+		)
+		(pin "18"
+			(uuid "3c7f612b-34e5-4411-b21b-15c2d3c49a81")
+		)
+		(pin "18"
+			(uuid "1ff15e17-6322-48c7-b613-97798acae934")
+		)
+		(pin "19"
+			(uuid "39f821fe-5591-4eaf-bbad-e6a457867115")
+		)
+		(pin "19"
+			(uuid "e9c0cbc7-a5d9-4ffa-a852-ea8a3c572cf3")
+		)
+		(pin "19"
+			(uuid "b48a245c-56d4-438b-8666-95e7c7fba991")
+		)
+		(pin "19"
+			(uuid "7ee3e590-e6e8-406d-9723-eefee9bd2516")
+		)
+		(pin "19"
+			(uuid "d69120d0-05ae-477c-9a28-f40ce2fd55c9")
+		)
+		(pin "20"
+			(uuid "d0108db4-9d3c-476c-b20c-39407f314cc3")
+		)
+		(pin "20"
+			(uuid "3a74426c-6c2f-4a57-abbf-7a3ae281678c")
+		)
+		(pin "20"
+			(uuid "c4069648-1754-4e0d-805f-b5d0f23a62d3")
+		)
+		(pin "20"
+			(uuid "d301326f-8f30-431b-b741-67f7b8c72c15")
+		)
+		(pin "20"
+			(uuid "0210c2c6-6463-4594-95ed-d08687562eab")
+		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "U1")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "U1")
@@ -3013,6 +3100,12 @@
 			(uuid "11111111-aaaa-bbbb-cccc-111111111332")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C4")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C4")
@@ -3092,6 +3185,12 @@
 			(uuid "22222222-aaaa-bbbb-cccc-300000000012")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C5")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C5")
@@ -3171,6 +3270,12 @@
 			(uuid "22222222-aaaa-bbbb-cccc-300000000022")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C6")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C6")
@@ -3250,6 +3355,12 @@
 			(uuid "22222222-aaaa-bbbb-cccc-300000000032")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C7")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C7")
@@ -3329,6 +3440,12 @@
 			(uuid "22222222-aaaa-bbbb-cccc-300000000042")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C8")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C8")
@@ -3408,6 +3525,12 @@
 			(uuid "22222222-aaaa-bbbb-cccc-300000000052")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C9")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C9")
@@ -3487,6 +3610,12 @@
 			(uuid "22222222-aaaa-bbbb-cccc-300000000062")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "R5")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "R5")
@@ -3566,6 +3695,12 @@
 			(uuid "22222222-aaaa-bbbb-cccc-300000000072")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "R6")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "R6")
@@ -3645,6 +3780,12 @@
 			(uuid "33333333-aaaa-bbbb-cccc-300000000012")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "R7")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "R7")
@@ -3724,6 +3865,12 @@
 			(uuid "44444444-aaaa-bbbb-cccc-300000000102")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C10")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C10")
@@ -3734,7 +3881,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 83.82 83.82 90)
+		(at 88.9 83.82 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3744,7 +3891,7 @@
 		(dnp no)
 		(uuid "44444444-aaaa-bbbb-cccc-300000000011")
 		(property "Reference" "C11"
-			(at 80.01 85.09 0)
+			(at 85.09 85.09 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3754,7 +3901,7 @@
 			)
 		)
 		(property "Value" "10nF/50V"
-			(at 90.17 83.82 0)
+			(at 95.25 83.82 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3764,7 +3911,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 83.82 83.82 0)
+			(at 88.9 83.82 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3775,7 +3922,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 83.82 83.82 0)
+			(at 88.9 83.82 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3786,7 +3933,7 @@
 			)
 		)
 		(property "Description" "ASK modulation capacitor COMA"
-			(at 83.82 83.82 0)
+			(at 88.9 83.82 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3803,6 +3950,12 @@
 			(uuid "44444444-aaaa-bbbb-cccc-300000000112")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C11")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C11")
@@ -3813,7 +3966,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 139.7 96.52 90)
+		(at 127 82.55 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3823,7 +3976,7 @@
 		(dnp no)
 		(uuid "44444444-aaaa-bbbb-cccc-300000000012")
 		(property "Reference" "C12"
-			(at 134.62 96.52 0)
+			(at 123.19 80.01 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3833,7 +3986,7 @@
 			)
 		)
 		(property "Value" "22nF/50V"
-			(at 144.78 96.52 0)
+			(at 116.84 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3843,7 +3996,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 139.7 96.52 0)
+			(at 127 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3854,7 +4007,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 139.7 96.52 0)
+			(at 127 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3865,7 +4018,7 @@
 			)
 		)
 		(property "Description" "ASK modulation capacitor COMB"
-			(at 139.7 96.52 0)
+			(at 127 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3882,6 +4035,12 @@
 			(uuid "44444444-aaaa-bbbb-cccc-300000000122")
 		)
 		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C12")
+					(unit 1)
+				)
+			)
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C12")
@@ -3890,4 +4049,10 @@
 			)
 		)
 	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
 )

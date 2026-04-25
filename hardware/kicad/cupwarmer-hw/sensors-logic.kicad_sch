@@ -11,7 +11,7 @@
 		(comment 2 "Service, monitor, and thermal sensing")
 	)
 	(lib_symbols
-				(symbol "cupwarmer:DEBUG_HDR_4"
+		(symbol "cupwarmer:DEBUG_HDR_4"
 			(pin_names
 				(offset 0.762)
 			)
@@ -162,7 +162,7 @@
 			)
 			(embedded_fonts no)
 		)
-				(symbol "cupwarmer:PASSIVE_2"
+		(symbol "cupwarmer:PASSIVE_2"
 			(pin_names
 				(offset 0.762)
 			)
