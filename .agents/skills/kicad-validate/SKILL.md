@@ -1,6 +1,6 @@
 ---
 name: kicad-validate
-description: Validate KiCad hardware files after edits. Dispatched as a subagent by kicad-hardware-editing. Runs roundtrip coverage, kicad-cli ERC, netlist diff, and text-level checks.
+description: Validate KiCad hardware files after edits. Runs kicad-cli ERC, netlist export/diff, SVG export, optional schematic layout scoring, and text-level checks.
 ---
 
 # KiCad Validate
@@ -9,13 +9,12 @@ description: Validate KiCad hardware files after edits. Dispatched as a subagent
 
 Execute these checks in order. Stop and report on first failure.
 
-### 1. Roundtrip coverage
+### 1. KiCad CLI availability
 
 ```bash
-python3 tmp/roundtrip_sch.py hardware/kicad/cupwarmer-hw/<edited-file>.kicad_sch
+KICAD_CLI='/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'
+"$KICAD_CLI" version
 ```
-
-OVERALL COVERAGE must be 100%. Any drop means the edit introduced tokens kiutils cannot roundtrip.
 
 ### 2. ERC (electrical rules check)
 
@@ -28,6 +27,8 @@ KICAD_CLI='/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'
   hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch
 ```
 
+Compare against the pre-edit ERC result when available. Existing violations are not automatically failures; new violations are.
+
 ### 3. Netlist export and diff
 
 ```bash
@@ -36,9 +37,11 @@ KICAD_CLI='/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'
   hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch
 ```
 
-If a pre-edit netlist exists at `tmp/cupwarmer-pre.net`, diff them. Only the file path line should differ.
+If a pre-edit netlist exists at `tmp/cupwarmer-pre.net`, diff them. For visual-only edits, only path/header metadata should differ. For electrical edits, summarize the intended netlist changes.
 
 ### 4. SVG export (visual check)
+
+Run this for each edited schematic sheet:
 
 ```bash
 "$KICAD_CLI" sch export svg \
@@ -46,7 +49,25 @@ If a pre-edit netlist exists at `tmp/cupwarmer-pre.net`, diff them. Only the fil
   hardware/kicad/cupwarmer-hw/<edited-file>.kicad_sch
 ```
 
-### 5. Board checks (if board was edited)
+Current schematic sheets:
+
+- `cupwarmer-hw.kicad_sch`
+- `rx-power.kicad_sch`
+- `heater-control.kicad_sch`
+- `sensors-logic.kicad_sch`
+
+### 5. Schematic layout score (if schematic readability changed)
+
+Use `kicad-schematic-score` for any edit that moves labels, text, symbols, or wires:
+
+```bash
+python3 .agents/skills/kicad-schematic-score/scripts/score_schematic.py \
+  hardware/kicad/cupwarmer-hw/<edited-file>.kicad_sch
+```
+
+Lower is better. Compare before/after scores when a baseline exists.
+
+### 6. Board checks (if board was edited)
 
 ```bash
 "$KICAD_CLI" pcb drc \
@@ -55,43 +76,45 @@ If a pre-edit netlist exists at `tmp/cupwarmer-pre.net`, diff them. Only the fil
   hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_pcb
 ```
 
-### 6. Text-level checks
+### 7. Text-level checks
 
 - `git diff` — review the actual changes
 - Confirm `Sheetfile` references point to existing files
 - Confirm net names and symbol references are consistent
+- Confirm custom symbol changes are reflected in both embedded `lib_symbols` and `cupwarmer.kicad_sym`
 
-### 7. Full validation script
+### 8. Optional local helper scripts
 
-For comprehensive before/after comparison:
+If local helper scripts exist in `tmp/`, they may be used as additional checks:
 
 ```bash
+python3 tmp/roundtrip_sch.py hardware/kicad/cupwarmer-hw/<edited-file>.kicad_sch
 python3 tmp/kicad_cli_validate.py
 ```
 
-Expected: ERC exit codes match, netlists identical except file path.
+These scripts are not part of the current checked-in skill files, so do not treat their absence as a validation failure.
 
 ## Interpreting Results
 
 - syntax errors → fail fast
 - hierarchy mistakes → may still export successfully
 - successful CLI output → necessary but not sufficient
-- **roundtrip 100% + identical netlist = high confidence**
+- **ERC parity + expected netlist diff + SVG export + score check when relevant = high confidence**
 
 ## Report Format
 
 Report results as:
 
 ```
-Roundtrip: 100% (no LOST, no CHANGED)
 ERC: exit=5 (same as before edit)
 Netlist: identical (path-only diff)
 SVG: exported OK
+Score: total 3170.808 (wire_corner_count 41)
 ```
 
 Or on failure:
 
 ```
-FAIL: Roundtrip dropped to 95.3%
-  LOST: kicad_sch > symbol > new_token (3 occurrences)
+FAIL: New ERC violation
+  See tmp/cupwarmer-erc.rpt
 ```
