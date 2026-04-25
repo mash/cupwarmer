@@ -350,16 +350,6 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 81.28) (xy 87.63 91.44)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222208")
-	)
-	(wire
-		(pts
 			(xy 96.52 106.68) (xy 96.52 111.76)
 		)
 		(stroke
@@ -410,12 +400,12 @@
 	)
 	(global_label "VOUT_12V"
 		(shape input)
-		(at 40.64 58.42 0)
+		(at 40.64 58.42 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222220")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
@@ -432,12 +422,12 @@
 	)
 	(global_label "VOUT_12V"
 		(shape input)
-		(at 40.64 73.66 0)
+		(at 40.64 73.66 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222222")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
@@ -827,7 +817,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222243")
 		(property "Reference" "R2"
-			(at 83.82 90.17 90)
+			(at 85.09 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -916,7 +906,7 @@
 			)
 		)
 		(property "Value" "0.05R Sense"
-			(at 92.71 101.6 90)
+			(at 91.44 101.6 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

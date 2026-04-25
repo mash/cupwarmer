@@ -59,6 +59,10 @@ class SymbolBox:
     lib_id: str
     bbox: Rect
     pin_points: list[tuple[float, float]]
+    pin_segments: list[tuple[tuple[float, float], tuple[float, float]]]
+
+
+GLOBAL_LABEL_PIN_CLEARANCE_MM = 0.25
 
 
 def svg_tag(elem) -> str:
@@ -306,7 +310,11 @@ def symbol_body_local_points(lib_symbol) -> list[tuple[float, float]]:
 
 
 def symbol_pin_local_points(lib_symbol) -> list[tuple[float, float]]:
-    pts: list[tuple[float, float]] = []
+    return [point for segment in symbol_pin_local_segments(lib_symbol) for point in segment]
+
+
+def symbol_pin_local_segments(lib_symbol) -> list[tuple[tuple[float, float], tuple[float, float]]]:
+    segments: list[tuple[tuple[float, float], tuple[float, float]]] = []
     for unit in getattr(lib_symbol, "units", []):
         for pin in getattr(unit, "pins", []):
             sx, sy = pin.position.X, pin.position.Y
@@ -322,8 +330,8 @@ def symbol_pin_local_points(lib_symbol) -> list[tuple[float, float]]:
                 ex, ey = sx, sy - length
             else:
                 ex, ey = sx, sy
-            pts.extend([(sx, sy), (ex, ey)])
-    return pts
+            segments.append(((sx, sy), (ex, ey)))
+    return segments
 
 
 def collect_symbol_boxes(sch: Schematic) -> list[SymbolBox]:
@@ -346,6 +354,13 @@ def collect_symbol_boxes(sch: Schematic) -> list[SymbolBox]:
             local_to_schematic(sym.position.X, sym.position.Y, int(sym.position.angle or 0), px, py)
             for px, py in symbol_pin_local_points(libsym)
         ]
+        pin_segments = [
+            (
+                local_to_schematic(sym.position.X, sym.position.Y, int(sym.position.angle or 0), p1[0], p1[1]),
+                local_to_schematic(sym.position.X, sym.position.Y, int(sym.position.angle or 0), p2[0], p2[1]),
+            )
+            for p1, p2 in symbol_pin_local_segments(libsym)
+        ]
         xs = [p[0] for p in sch_pts]
         ys = [p[1] for p in sch_pts]
         boxes.append(
@@ -354,6 +369,7 @@ def collect_symbol_boxes(sch: Schematic) -> list[SymbolBox]:
                 lib_id=sym.libId,
                 bbox=Rect(min(xs), min(ys), max(xs), max(ys)),
                 pin_points=pin_pts,
+                pin_segments=pin_segments,
             )
         )
     return boxes
@@ -396,6 +412,20 @@ def detect_collisions(rendered_texts: list[RenderedText], wires: list[WireSeg], 
             # A property overlapping its own symbol body is still a layout conflict.
             if hitbox.intersects_rect(b.bbox, margin=margin):
                 entry["component_hits"].append({"ref": b.ref, "lib_id": b.lib_id, "bbox": asdict(b.bbox.normalized())})
+            if rt.matched_kind == "global_label":
+                pin_margin = max(margin, GLOBAL_LABEL_PIN_CLEARANCE_MM)
+                for p1, p2 in b.pin_segments:
+                    if hitbox.intersects_segment(p1, p2, margin=pin_margin):
+                        entry["component_hits"].append(
+                            {
+                                "ref": b.ref,
+                                "lib_id": b.lib_id,
+                                "kind": "pin_segment",
+                                "p1": p1,
+                                "p2": p2,
+                            }
+                        )
+                        break
         for other in rendered_texts:
             if other is rt:
                 continue

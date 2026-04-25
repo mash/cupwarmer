@@ -40,6 +40,7 @@ This skill is for **local schematic layout optimization**. Use:
 - Treat `symbol body vs wire` overlap as a separate penalty and generate symbol moves to clear it.
 - Treat `wire too close to symbol body` as a readability penalty even when the wire does not technically intersect the body.
 - Exempt direct pin endpoints from the near-symbol wire penalty so wires leaving a pin are not penalized just for touching the pin itself.
+- Treat `global_label` frames touching or crowding symbol pin stubs as component collisions; labels should not cover pin numbers or extend into the symbol pin area.
 - Prefer a short wire jog for one offending orthogonal segment before escalating to a symbol move when the issue is only near-symbol clearance.
 - The score includes a wire-corner penalty for simple bends (`degree == 2` bend points). Junctions are not penalized in the current MVP.
 
