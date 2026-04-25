@@ -58,6 +58,7 @@ class SymbolBox:
     ref: str
     lib_id: str
     bbox: Rect
+    pin_points: list[tuple[float, float]]
 
 
 def svg_tag(elem) -> str:
@@ -341,9 +342,20 @@ def collect_symbol_boxes(sch: Schematic) -> list[SymbolBox]:
         if not local_pts:
             continue
         sch_pts = [local_to_schematic(sym.position.X, sym.position.Y, int(sym.position.angle or 0), px, py) for px, py in local_pts]
+        pin_pts = [
+            local_to_schematic(sym.position.X, sym.position.Y, int(sym.position.angle or 0), px, py)
+            for px, py in symbol_pin_local_points(libsym)
+        ]
         xs = [p[0] for p in sch_pts]
         ys = [p[1] for p in sch_pts]
-        boxes.append(SymbolBox(ref=ref, lib_id=sym.libId, bbox=Rect(min(xs), min(ys), max(xs), max(ys))))
+        boxes.append(
+            SymbolBox(
+                ref=ref,
+                lib_id=sym.libId,
+                bbox=Rect(min(xs), min(ys), max(xs), max(ys)),
+                pin_points=pin_pts,
+            )
+        )
     return boxes
 
 

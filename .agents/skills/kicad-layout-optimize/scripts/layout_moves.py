@@ -27,6 +27,7 @@ class LayoutMove:
     kind: str
     text: str | None = None
     ref: str | None = None
+    wire_uuid: str | None = None
     key: str | None = None
     match_x: float | None = None
     match_y: float | None = None
@@ -113,6 +114,23 @@ def generate_candidate_moves(
 
     if allow_symbol_moves:
         for conflict in symbol_wire_conflicts:
+            if conflict.get("kind") == "clearance":
+                step_dx = round(conflict.get("preferred_dx", 0.0) * grid_step, 2)
+                step_dy = round(conflict.get("preferred_dy", 0.0) * grid_step, 2)
+                if abs(step_dx) > 0.0 or abs(step_dy) > 0.0:
+                    for ring in range(1, rings + 1):
+                        move = LayoutMove(
+                            kind="wire_segment",
+                            ref=conflict["ref"],
+                            wire_uuid=conflict["wire"]["uuid"],
+                            dx=round(step_dx * ring, 2),
+                            dy=round(step_dy * ring, 2),
+                            reason="jog-wire-away-from-symbol",
+                        )
+                        key = tuple(asdict(move).items())
+                        if key not in seen:
+                            seen.add(key)
+                            moves.append(move)
             for ring in range(1, rings + 1):
                 for sx, sy in directions[:4]:
                     dx = round(sx * grid_step * ring, 2)
@@ -177,6 +195,10 @@ def apply_move(source: Path, move: LayoutMove, target: Path) -> None:
             angle=int(info["angle"] or 0),
             move_properties=True,
         )
+    elif move.kind == "wire_segment":
+        if not move.wire_uuid or move.dx is None or move.dy is None:
+            raise ValueError(f"incomplete wire_segment move: {move}")
+        ed.jog_wire_segment(move.wire_uuid, dx=move.dx, dy=move.dy)
     else:
         raise ValueError(f"unknown move kind: {move.kind}")
 

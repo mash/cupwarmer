@@ -237,6 +237,55 @@ class LayoutEditor:
         w.stroke = Stroke(width=0, type="solid")
         self.sch.graphicalItems.append(w)
 
+    def jog_wire_segment(self, wire_uuid, dx=0.0, dy=0.0, tolerance=0.01):
+        """Move one orthogonal wire segment sideways and preserve endpoints with short stubs."""
+        target = None
+        kept = []
+        for gi in self.sch.graphicalItems:
+            if getattr(gi, "type", None) == "wire" and getattr(gi, "uuid", None) == wire_uuid:
+                target = gi
+                continue
+            kept.append(gi)
+
+        if target is None or len(getattr(target, "points", [])) != 2:
+            raise ValueError(f"Wire {wire_uuid} not found")
+
+        x1 = round(target.points[0].X, 2)
+        y1 = round(target.points[0].Y, 2)
+        x2 = round(target.points[1].X, 2)
+        y2 = round(target.points[1].Y, 2)
+        vertical = abs(x1 - x2) <= tolerance
+        horizontal = abs(y1 - y2) <= tolerance
+
+        if vertical:
+            if abs(dy) > tolerance:
+                raise ValueError("vertical wire jog only supports dx")
+            nx1 = round(x1 + dx, 2)
+            nx2 = round(x2 + dx, 2)
+            jog_segments = [
+                (x1, y1, nx1, y1),
+                (nx1, y1, nx2, y2),
+                (nx2, y2, x2, y2),
+            ]
+        elif horizontal:
+            if abs(dx) > tolerance:
+                raise ValueError("horizontal wire jog only supports dy")
+            ny1 = round(y1 + dy, 2)
+            ny2 = round(y2 + dy, 2)
+            jog_segments = [
+                (x1, y1, x1, ny1),
+                (x1, ny1, x2, ny2),
+                (x2, ny2, x2, y2),
+            ]
+        else:
+            raise ValueError(f"Wire {wire_uuid} is not orthogonal")
+
+        self.sch.graphicalItems = kept
+        for sx1, sy1, sx2, sy2 in jog_segments:
+            if abs(sx1 - sx2) <= tolerance and abs(sy1 - sy2) <= tolerance:
+                continue
+            self.wire(sx1, sy1, sx2, sy2)
+
     def wire_between(self, pin_a, pin_b):
         """Add a wire between two pin specs (e.g., 'BOOT1@U1', 'C5.2')."""
         ax, ay = self._resolve_pin(pin_a)

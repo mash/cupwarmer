@@ -29,6 +29,8 @@ from kicad_sch_bbox_collisions import (
 KICAD_CLI = "/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
 WIRE_CORNER_WEIGHT = 25.0
 SYMBOL_WIRE_CONFLICT_WEIGHT = 1200.0
+SYMBOL_WIRE_CLEARANCE_MM = 1.27
+SYMBOL_WIRE_CLEARANCE_WEIGHT = 450.0
 
 
 @dataclass
@@ -43,6 +45,8 @@ class ScoreBreakdown:
     wire_corner_penalty: float
     symbol_wire_conflict_count: int
     symbol_wire_penalty: float
+    symbol_wire_clearance_count: int
+    symbol_wire_clearance_penalty: float
 
 
 def rect_area(rect: dict | None) -> float:
@@ -94,23 +98,146 @@ def count_wire_corners(wires: list) -> int:
     return corners
 
 
-def detect_symbol_wire_conflicts(wires: list, symbol_boxes: list, margin: float = 0.0) -> list[dict]:
+def _wire_endpoint_on_symbol_pin(
+    wire,
+    pin_points: list[tuple[float, float]],
+    tolerance: float = 0.11,
+) -> bool:
+    for x, y in pin_points:
+        if abs(wire.p1[0] - x) < tolerance and abs(wire.p1[1] - y) < tolerance:
+            return True
+        if abs(wire.p2[0] - x) < tolerance and abs(wire.p2[1] - y) < tolerance:
+            return True
+    return False
+
+
+def _wire_orientation(wire) -> str | None:
+    if abs(wire.p1[0] - wire.p2[0]) < 0.01:
+        return "vertical"
+    if abs(wire.p1[1] - wire.p2[1]) < 0.01:
+        return "horizontal"
+    return None
+
+
+def _symbol_long_axis(box) -> str:
+    rect = box.bbox.normalized()
+    return "horizontal" if (rect.x2 - rect.x1) >= (rect.y2 - rect.y1) else "vertical"
+
+
+def _interval_overlap(a1: float, a2: float, b1: float, b2: float) -> float:
+    return max(0.0, min(a2, b2) - max(a1, b1))
+
+
+def _clearance_conflict_details(box, wire, clearance: float) -> dict | None:
+    rect = box.bbox.normalized()
+    orientation = _wire_orientation(wire)
+    if orientation is None or orientation != _symbol_long_axis(box):
+        return None
+    if _wire_endpoint_on_symbol_pin(wire, box.pin_points):
+        return None
+
+    if orientation == "vertical":
+        x = wire.p1[0]
+        y1, y2 = sorted((wire.p1[1], wire.p2[1]))
+        overlap_span = _interval_overlap(y1, y2, rect.y1, rect.y2)
+        if overlap_span <= 0.5:
+            return None
+        if x < rect.x1:
+            orth_distance = rect.x1 - x
+            if orth_distance > clearance + 0.01:
+                return None
+            return {
+                "side": "left",
+                "orth_distance": round(orth_distance, 3),
+                "overlap_span": round(overlap_span, 3),
+                "preferred_dx": -1.0,
+                "preferred_dy": 0.0,
+            }
+        if x > rect.x2:
+            orth_distance = x - rect.x2
+            if orth_distance > clearance + 0.01:
+                return None
+            return {
+                "side": "right",
+                "orth_distance": round(orth_distance, 3),
+                "overlap_span": round(overlap_span, 3),
+                "preferred_dx": 1.0,
+                "preferred_dy": 0.0,
+            }
+        return None
+
+    y = wire.p1[1]
+    x1, x2 = sorted((wire.p1[0], wire.p2[0]))
+    overlap_span = _interval_overlap(x1, x2, rect.x1, rect.x2)
+    if overlap_span <= 0.5:
+        return None
+    if y < rect.y1:
+        orth_distance = rect.y1 - y
+        if orth_distance > clearance + 0.01:
+            return None
+        return {
+            "side": "top",
+            "orth_distance": round(orth_distance, 3),
+            "overlap_span": round(overlap_span, 3),
+            "preferred_dx": 0.0,
+            "preferred_dy": -1.0,
+        }
+    if y > rect.y2:
+        orth_distance = y - rect.y2
+        if orth_distance > clearance + 0.01:
+            return None
+        return {
+            "side": "bottom",
+            "orth_distance": round(orth_distance, 3),
+            "overlap_span": round(overlap_span, 3),
+            "preferred_dx": 0.0,
+            "preferred_dy": 1.0,
+        }
+    return None
+
+
+def detect_symbol_wire_conflicts(
+    wires: list,
+    symbol_boxes: list,
+    margin: float = 0.0,
+    clearance: float = SYMBOL_WIRE_CLEARANCE_MM,
+) -> list[dict]:
     conflicts: list[dict] = []
-    seen: set[tuple[str, str]] = set()
+    seen: set[tuple[str, str, str]] = set()
     for box in symbol_boxes:
         rect = box.bbox.normalized()
+        expanded = rect.expanded(clearance, clearance)
         for wire in wires:
-            if not rect.intersects_segment(wire.p1, wire.p2, margin=margin):
+            conflict_kind: str | None = None
+            clearance_details: dict | None = None
+            if rect.intersects_segment(wire.p1, wire.p2, margin=margin):
+                conflict_kind = "overlap"
+            elif (
+                clearance > 0
+                and box.lib_id.endswith("PASSIVE_2")
+                and expanded.intersects_segment(wire.p1, wire.p2, margin=margin)
+            ):
+                clearance_details = _clearance_conflict_details(box, wire, clearance)
+                if clearance_details is not None:
+                    conflict_kind = "clearance"
+            if conflict_kind is None:
                 continue
-            key = (box.ref, wire.uuid)
+            key = (box.ref, wire.uuid, conflict_kind)
             if key in seen:
                 continue
             seen.add(key)
             conflicts.append(
                 {
+                    "kind": conflict_kind,
                     "ref": box.ref,
                     "lib_id": box.lib_id,
                     "bbox": asdict(rect),
+                    "expanded_bbox": asdict(expanded.normalized()) if conflict_kind == "clearance" else None,
+                    "clearance_side": None if clearance_details is None else clearance_details["side"],
+                    "orth_distance": None if clearance_details is None else clearance_details["orth_distance"],
+                    "overlap_span": None if clearance_details is None else clearance_details["overlap_span"],
+                    "preferred_dx": 0.0 if clearance_details is None else clearance_details["preferred_dx"],
+                    "preferred_dy": 0.0 if clearance_details is None else clearance_details["preferred_dy"],
                     "wire": {
                         "uuid": wire.uuid,
                         "p1": wire.p1,
@@ -161,8 +288,10 @@ def score_payload(payload: dict) -> ScoreBreakdown:
     collision_area = sum(rect_area(c.get("collision_bbox")) for c in collisions)
     wire_corner_count = count_wire_corners(wires)
     wire_corner_penalty = wire_corner_count * WIRE_CORNER_WEIGHT
-    symbol_wire_conflict_count = len(symbol_wire_conflicts)
+    symbol_wire_conflict_count = sum(1 for conflict in symbol_wire_conflicts if conflict.get("kind") == "overlap")
     symbol_wire_penalty = symbol_wire_conflict_count * SYMBOL_WIRE_CONFLICT_WEIGHT
+    symbol_wire_clearance_count = sum(1 for conflict in symbol_wire_conflicts if conflict.get("kind") == "clearance")
+    symbol_wire_clearance_penalty = symbol_wire_clearance_count * SYMBOL_WIRE_CLEARANCE_WEIGHT
     total = (
         1000.0 * wire_hits
         + 1000.0 * component_hits
@@ -171,6 +300,7 @@ def score_payload(payload: dict) -> ScoreBreakdown:
         + collision_area
         + wire_corner_penalty
         + symbol_wire_penalty
+        + symbol_wire_clearance_penalty
     )
     return ScoreBreakdown(
         total=round(total, 3),
@@ -183,6 +313,8 @@ def score_payload(payload: dict) -> ScoreBreakdown:
         wire_corner_penalty=wire_corner_penalty,
         symbol_wire_conflict_count=symbol_wire_conflict_count,
         symbol_wire_penalty=symbol_wire_penalty,
+        symbol_wire_clearance_count=symbol_wire_clearance_count,
+        symbol_wire_clearance_penalty=symbol_wire_clearance_penalty,
     )
 
 
