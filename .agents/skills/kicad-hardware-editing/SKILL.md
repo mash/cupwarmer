@@ -1,6 +1,6 @@
 ---
 name: kicad-hardware-editing
-description: Workflow for editing KiCad hardware design files in this repository under `hardware/kicad/cupwarmer-hw`. Use `kicad-tool` for all KiCad CLI operations, validation, and schematic layout inspection.
+description: Stage 1 (functional) workflow for editing KiCad hardware design files in this repository under `hardware/kicad/cupwarmer-hw`. Covers connectivity, nets, symbols, pins, ERC, and netlist correctness. Use `kicad-tool` for all KiCad CLI operations and validation. Score / layout tightening (stage 2) is delegated to `kicad-sch-cleanup-loop`.
 ---
 
 # KiCad Hardware Editing
@@ -30,6 +30,8 @@ Sheets: `cupwarmer-hw.kicad_sch` (top), `rx-power.kicad_sch`, `heater-control.ki
 
 ## Workflow
 
+This skill is **stage 1: functional editing**. Visual/score cleanup is stage 2 and lives in `kicad-sch-cleanup-loop` — finish the functional edit and validate it here, then hand off if score improvement is wanted.
+
 ### 1. Pre-edit baseline
 
 ```bash
@@ -40,29 +42,13 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
 
 (Or run `sch erc` and `sch netlist` individually if you need separate `tmp/cupwarmer-pre-erc.rpt` / `tmp/cupwarmer-pre.net` artifacts — see `kicad-validate`.)
 
-### 2. Edit
+### 2. Edit (functional)
 
 Smallest change satisfying the request. Pin additions: keep embedded `lib_symbols` and `cupwarmer.kicad_sym` in sync.
 
-#### Visual cleanup priority (when improving `sch inspect` score)
+Scope of stage 1: connectivity, nets, symbols, pins, values, hierarchy, ERC correctness. Do **not** chase `sch inspect` score, collisions, `wire_corner_count`, `diagonal_wire_penalty`, or label/value tightening here — that is stage 2.
 
-Preserve connectivity and functional grouping. Smallest local change first.
-Prefer shorter local wires when this does not introduce label/component/wire conflicts, ERC changes, worse readability, or a higher-priority `sch inspect` issue; wire length is a low-priority metric.
-
-Before choosing a fix, zoom out one local block beyond the reported collision. Identify the component, its two connected nets, nearby labels, and adjacent passives/wires that constrain the layout. A good fix often moves or rotates a small connected component plus its labels, instead of only moving the label or wire named in the collision. If a local-only move creates another collision, reassess the block shape before iterating on the same object.
-
-Layout preferences (not all in score; treat as readability hints):
-
-- Wires: keep orthogonal (axis-aligned). Diagonal segments get a small `diagonal_wire_penalty` in `sch inspect`.
-- `Value` properties (R, C, L, and other passives/components — e.g. `1uF/25V`, `10k`, `4.7uH`) should sit close to the symbol body, adjacent to it, not several grid steps away. Not scored.
-
-1. Rewire locally.
-2. Rotate/flip labels and properties.
-3. Rotate/flip small components.
-4. Move labels and properties.
-5. Move small components.
-6. Move larger components or reshape the local block.
-7. Never change hierarchy, net names, symbol identity, or circuit semantics solely for score.
+If the new edit happens to introduce obvious local mess (overlapping label, crossing wire) that would block reading the diff, fix only that local mess. Anything broader belongs to the cleanup loop.
 
 #### Minimal worked example: add a global label
 
@@ -83,7 +69,11 @@ Use `kicad-validate` (one-shot `sch validate --sheet <edited>`).
 
 - New ERC violations → check coordinates, stroke type, `lib_symbols` integrity (intentional-violation handling lives in `kicad-validate`).
 - Netlist mismatch → investigate unintended connectivity.
-- Worse `sch inspect` score → inspect collision records and `wire_corner_count` before accepting the layout.
+- A worse `sch inspect` score is acceptable in stage 1 if connectivity is correct; do not chase it here.
+
+### 5. Hand off to stage 2 (visual cleanup)
+
+Stage 1 ends once ERC and netlist are correct. If the user wants score/layout tightening on the edited sheet, hand off to `kicad-sch-cleanup-loop` with the sheet path. Do not perform score-driven layout work in this skill.
 
 ## Board editing
 
