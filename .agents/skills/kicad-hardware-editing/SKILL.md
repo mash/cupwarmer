@@ -15,7 +15,7 @@ For any KiCad CLI invocation (render, inspect, ERC, netlist, validate, DRC), **r
 
 | File | Approach |
 |---|---|
-| `.kicad_sch` | Minimal S-expression text edit; preserve KiCad 10 formatting and UUIDs |
+| `.kicad_sch` | Prefer `sch edit ...` subcommands; fall back to minimal S-expression text edit for cases not yet automated. Preserve KiCad 10 formatting and UUIDs |
 | `.kicad_pcb` | Manual S-expression edit (minimal, local only) |
 | `.kicad_pro` | JSON edit (minimal) |
 | `.kicad_prl` | Do not edit unless explicitly asked |
@@ -25,10 +25,33 @@ Sheets: `cupwarmer-hw.kicad_sch` (top), `rx-power.kicad_sch`, `heater-control.ki
 
 ## Key rules
 
-- Smallest S-expression text edit that preserves KiCad 10 structure. Validate via `kicad-tool` after every edit.
-- Adding pins to symbols: update both the affected schematic's embedded `lib_symbols` **and** `cupwarmer.kicad_sym`.
-- Pin coordinate transform: `y_schematic = symbol_center_y - pin_symbol_y` (Y negated). `round(value, 2)` before writing.
-- Wires need `(stroke (width 0) (type solid))` and a fresh UUID. Labels: clone an existing block — never synthesize `(justify ...)` from scratch, never add `(stroke ...)` to a label.
+- For automated cases (move/add/delete symbol, wire, label, junction), use `sch edit ...` — see `kicad-tool`. Always pass `--dry-run` first, then re-run without it. Validate via `kicad-tool` after every edit.
+- For cases not yet automated (e.g. adding pins to symbols), make the smallest S-expression text edit that preserves KiCad 10 structure.
+- Adding pins to symbols (manual): update both the affected schematic's embedded `lib_symbols` **and** `cupwarmer.kicad_sym`. Pin coordinate transform: `y_schematic = symbol_center_y - pin_symbol_y` (Y negated). `round(value, 2)` before writing.
+
+### Automated `sch edit` subcommands
+
+```
+sch edit symbol move --ref REF --to X,Y [--rotation R]
+sch edit wire add --from X,Y --to X,Y
+sch edit wire delete --uuid U | --from X,Y --to X,Y
+sch edit label add --kind global|hier|local --name N --at X,Y [--rotation R] [--justify J]
+sch edit label move --uuid U --to X,Y [--rotation R]
+sch edit label delete --uuid U
+sch edit junction add --at X,Y
+sch edit junction delete --uuid U | --at X,Y
+```
+
+All accept `--dry-run` and `--json`.
+
+### Use `sch query` to gather coordinates
+
+Read-only inspection — prefer it over grepping `.kicad_sch`:
+
+- `sch query symbol --ref REF` for symbol position/rotation.
+- `sch query pin --ref REF [--number N]` for absolute pin coordinates.
+- `sch query region --bbox X1,Y1,X2,Y2` to list everything in an area.
+- Other read-only forms: `sch query net|wire|label|lib-symbol|list`.
 
 ## Workflow
 
@@ -54,14 +77,11 @@ If the new edit happens to introduce obvious local mess (overlapping label, cros
 
 #### Minimal worked example: add a global label
 
-Most schematic edits follow this shape — clone an existing block, change name/coords/UUID, leave indentation and trailing parens alone.
+```
+sch edit label add --kind global --name <NAME> --at X,Y [--rotation R] [--justify J] --dry-run
+```
 
-1. `grep -n '(global_label "<sibling>"' hardware/kicad/cupwarmer-hw/<sheet>.kicad_sch` to locate a sibling.
-2. Read ±25 lines to capture the full block (label + `effects` + `Intersheetrefs` property + `uuid`).
-3. New UUID: `python3 -c 'import uuid; print(uuid.uuid4())'`.
-4. `Edit` immediately after the sibling, preserving exact tab indentation.
-5. Adjust **only** label text, `(at x y rotation)` (sheet space — no Y negation), and `uuid`.
-6. Copy `(justify ...)` from the sibling. Do not add `(stroke ...)`.
+Re-run without `--dry-run` to apply. Use `sch query` (above) to find coordinates first.
 
 ### 3. Validate
 

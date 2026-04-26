@@ -20,6 +20,22 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
 
 This runs ERC + netlist + SVG export + `sch inspect` in order, stopping on the first failure.
 
+## Baseline-diff workflow
+
+For any non-trivial structural edit, snapshot a baseline first (cheap) so you can confirm connectivity is preserved — not just "ERC still passes":
+
+```bash
+# Before edit:
+python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
+  hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch --save-baseline tmp/baseline
+
+# After edit:
+python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
+  hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch --baseline tmp/baseline
+```
+
+`--save-baseline DIR` writes `erc.rpt`, `netlist.net`, `inspect.json` to `DIR`. `--baseline DIR` reruns the stages and emits a JSON diff (`added_nets` / `removed_nets` / `changed_nets` / `new_erc_errors`); exits non-zero on regression (new ERC errors, removed nets, or removed nodes from existing nets).
+
 ## Target rules (when running stages individually)
 
 - **ERC**: always against the **top-level** `cupwarmer-hw.kicad_sch` (hierarchical ERC propagates into children). Never on a child sheet directly.
