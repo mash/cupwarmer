@@ -49,6 +49,8 @@ Smallest change satisfying the request. Pin additions: keep embedded `lib_symbol
 Preserve connectivity and functional grouping. Smallest local change first.
 Prefer shorter local wires when this does not introduce label/component/wire conflicts, ERC changes, worse readability, or a higher-priority `sch inspect` issue; wire length is a low-priority metric.
 
+Before choosing a fix, zoom out one local block beyond the reported collision. Identify the component, its two connected nets, nearby labels, and adjacent passives/wires that constrain the layout. A good fix often moves or rotates a small connected component plus its labels, instead of only moving the label or wire named in the collision. If a local-only move creates another collision, reassess the block shape before iterating on the same object.
+
 Layout preferences (not all in score; treat as readability hints):
 
 - Wires: keep orthogonal (axis-aligned). Diagonal segments get a small `diagonal_wire_penalty` in `sch inspect`.
