@@ -1367,16 +1367,6 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 55.88) (xy 68.58 50.8)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "6f5c737c-1279-4bd5-bae7-fe9015bb85b0")
-	)
-	(wire
-		(pts
 			(xy 93.98 88.9) (xy 88.9 88.9)
 		)
 		(stroke
@@ -1457,7 +1447,7 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 66.04) (xy 68.58 66.04)
+			(xy 93.98 66.04) (xy 91.44 66.04)
 		)
 		(stroke
 			(width 0)
@@ -1955,7 +1945,7 @@
 	)
 	(global_label "RX_NTC"
 		(shape passive)
-		(at 93.98 66.04 180)
+		(at 91.44 66.04 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1964,7 +1954,29 @@
 		)
 		(uuid "6a5c7577-da27-4eaf-90bd-f592649ffce6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 93.98 66.04 0)
+			(at 91.44 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_NTC"
+		(shape passive)
+		(at 68.58 40.64 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8e6528f2-32e9-4c7a-9139-147b32af3a09")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 68.58 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3711,7 +3723,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 68.58 60.96 90)
+		(at 68.58 45.72 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3721,7 +3733,7 @@
 		(dnp no)
 		(uuid "33333333-aaaa-bbbb-cccc-300000000001")
 		(property "Reference" "R7"
-			(at 64.77 60.96 90)
+			(at 64.77 45.72 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3731,7 +3743,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 72.39 57.15 90)
+			(at 74.93 45.72 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3741,7 +3753,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 68.58 60.96 0)
+			(at 68.58 45.72 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3752,7 +3764,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 68.58 60.96 0)
+			(at 68.58 45.72 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3763,7 +3775,7 @@
 			)
 		)
 		(property "Description" "NTC pull-up to VAA (10k, stand-alone default)"
-			(at 68.58 60.96 0)
+			(at 68.58 45.72 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
