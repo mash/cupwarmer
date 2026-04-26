@@ -1297,7 +1297,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 58.42) (xy 129.54 58.42)
+			(xy 119.38 58.42) (xy 124.46 58.42)
 		)
 		(stroke
 			(width 0)
@@ -1487,7 +1487,7 @@
 	)
 	(wire
 		(pts
-			(xy 129.54 58.42) (xy 129.54 45.72)
+			(xy 124.46 58.42) (xy 124.46 45.72)
 		)
 		(stroke
 			(width 0)
@@ -1657,13 +1657,23 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 78.74) (xy 137.16 78.74)
+			(xy 134.62 78.74) (xy 134.62 88.9)
 		)
 		(stroke
 			(width 0)
 			(type solid)
 		)
 		(uuid "c6bfa86f-6147-429a-8ca2-838d912c504e")
+	)
+	(wire
+		(pts
+			(xy 134.62 88.9) (xy 139.7 88.9)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "a1b2c3d4-5e6f-7890-abcd-ef0123456789")
 	)
 	(wire
 		(pts
@@ -1677,7 +1687,7 @@
 	)
 	(wire
 		(pts
-			(xy 129.54 45.72) (xy 134.62 45.72)
+			(xy 124.46 45.72) (xy 134.62 45.72)
 		)
 		(stroke
 			(width 0)
@@ -1917,16 +1927,16 @@
 	)
 	(global_label "VOUT_12V"
 		(shape passive)
-		(at 124.46 58.42 0)
+		(at 134.62 41.91 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "4719d4d7-aa5b-4f7a-b32f-02cd0f6537f3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 129.54 58.42 0)
+			(at 134.62 41.91 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2159,7 +2169,7 @@
 	)
 	(global_label "RX_VDD"
 		(shape passive)
-		(at 137.16 78.74 90)
+		(at 139.7 88.9 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2168,7 +2178,7 @@
 		)
 		(uuid "b566e70f-ef56-4b86-9611-d647c83027b7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 137.16 78.74 0)
+			(at 139.7 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2729,7 +2739,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111320")
 		(property "Reference" "TVS1"
-			(at 147.32 88.9 0)
+			(at 152.4 86.36 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
