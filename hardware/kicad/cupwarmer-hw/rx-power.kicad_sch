@@ -1025,7 +1025,7 @@
 	)
 	(text "Functional draft only: resonant network and exact ST values still TBD"
 		(exclude_from_sim no)
-		(at 27.94 120.4 0)
+		(at 20.32 148.0 0)
 		(effects
 			(font
 				(size 1.5 1.5)
@@ -1037,7 +1037,7 @@
 	)
 	(text "I2C is a service / bring-up connection in this draft, not an external MCU control path"
 		(exclude_from_sim no)
-		(at 27.94 125.48 0)
+		(at 20.32 151.81 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1049,7 +1049,7 @@
 	)
 	(text "Stand-alone defaults: ENB -> GND if unused, NTC unused -> VAA via 10k, INTB optional for bring-up"
 		(exclude_from_sim no)
-		(at 27.94 130.56 0)
+		(at 20.32 155.62 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1061,7 +1061,7 @@
 	)
 	(text "All decoupling, modulation, and clamp passives placed. Exact coil/resonant values TBD"
 		(exclude_from_sim no)
-		(at 27.94 135.64 0)
+		(at 20.32 159.43 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1073,7 +1073,7 @@
 	)
 	(text "I2C pull-ups for service / bring-up header (VAA level)"
 		(exclude_from_sim no)
-		(at 27.94 140.72 0)
+		(at 20.32 163.24 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1085,7 +1085,7 @@
 	)
 	(text "Ferrite sheet remains a mechanical stack-up item; it is intentionally not represented as an electrical symbol"
 		(exclude_from_sim no)
-		(at 27.94 145.8 0)
+		(at 20.32 166.0 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1096,38 +1096,38 @@
 		(uuid "78db12a4-6d3d-4665-bd76-0908a368e101")
 	)
 	(junction
-		(at 69.85 63.5)
+		(at 90.17 104.14)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "63178710-28bc-4266-8ce3-723244422ad7")
 	)
 	(junction
-		(at 73.66 63.5)
+		(at 93.98 104.14)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "716ec431-6496-452b-8f5f-2a811b96b27a")
 	)
 	(junction
-		(at 83.82 53.34)
+		(at 127 93.98)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b4bc5fcc-8935-40ad-bb50-0650716657d4")
 	)
 	(junction
-		(at 134.62 76.2)
+		(at 200.66 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ba0e97e7-e4a6-4774-8b0e-854bc6d3d7fb")
 	)
 	(junction
-		(at 73.66 53.34)
+		(at 93.98 93.98)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e2b79e32-fc6f-4236-b195-7ab66ad603e5")
 	)
 	(wire
 		(pts
-			(xy 134.62 45.72) (xy 134.62 41.91)
+			(xy 200.66 86.36) (xy 200.66 82.55)
 		)
 		(stroke
 			(width 0)
@@ -1137,7 +1137,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 63.5) (xy 93.98 63.5)
+			(xy 93.98 104.14) (xy 137.16 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1147,7 +1147,7 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 78.74) (xy 91.44 78.74)
+			(xy 137.16 119.38) (xy 134.62 119.38)
 		)
 		(stroke
 			(width 0)
@@ -1157,7 +1157,17 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 40.64) (xy 66.04 40.64)
+			(xy 138.43 81.28) (xy 138.43 80.01)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "cfbcf05d-a41c-4320-834a-0a7374eed0c1")
+	)
+	(wire
+		(pts
+			(xy 88.9 81.28) (xy 86.36 81.28)
 		)
 		(stroke
 			(width 0)
@@ -1167,7 +1177,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 66.04) (xy 123.19 66.04)
+			(xy 205.74 106.68) (xy 166.37 106.68)
 		)
 		(stroke
 			(width 0)
@@ -1177,7 +1187,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 63.5) (xy 172.72 63.5)
+			(xy 243.84 104.14) (xy 238.76 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1187,7 +1197,7 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 76.2) (xy 134.62 88.9)
+			(xy 200.66 116.84) (xy 200.66 129.54)
 		)
 		(stroke
 			(width 0)
@@ -1197,7 +1207,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 76.2) (xy 139.7 76.2)
+			(xy 162.56 116.84) (xy 205.74 116.84)
 		)
 		(stroke
 			(width 0)
@@ -1207,7 +1217,7 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 41.91) (xy 147.32 45.72)
+			(xy 213.36 82.55) (xy 213.36 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1217,7 +1227,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 81.28) (xy 121.92 81.28)
+			(xy 162.56 121.92) (xy 165.1 121.92)
 		)
 		(stroke
 			(width 0)
@@ -1227,7 +1237,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 35.56) (xy 97.79 35.56)
+			(xy 146.05 76.2) (xy 140.97 76.2)
 		)
 		(stroke
 			(width 0)
@@ -1237,7 +1247,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 58.42) (xy 124.46 58.42)
+			(xy 162.56 99.06) (xy 167.64 99.06)
 		)
 		(stroke
 			(width 0)
@@ -1247,7 +1257,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 82.55) (xy 73.66 73.66)
+			(xy 93.98 123.19) (xy 93.98 114.3)
 		)
 		(stroke
 			(width 0)
@@ -1257,7 +1267,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 76.2) (xy 151.13 76.2)
+			(xy 215.9 116.84) (xy 217.17 116.84)
 		)
 		(stroke
 			(width 0)
@@ -1267,7 +1277,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 71.12) (xy 83.82 80.01)
+			(xy 127 111.76) (xy 127 120.65)
 		)
 		(stroke
 			(width 0)
@@ -1277,7 +1287,7 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 76.2) (xy 88.9 78.74)
+			(xy 132.08 116.84) (xy 132.08 119.38)
 		)
 		(stroke
 			(width 0)
@@ -1287,7 +1297,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 55.88) (xy 151.13 55.88)
+			(xy 215.9 96.52) (xy 217.17 96.52)
 		)
 		(stroke
 			(width 0)
@@ -1297,7 +1307,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 53.34) (xy 93.98 53.34)
+			(xy 127 93.98) (xy 137.16 93.98)
 		)
 		(stroke
 			(width 0)
@@ -1307,7 +1317,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 63.5) (xy 55.88 63.5)
+			(xy 78.74 104.14) (xy 76.2 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1317,7 +1327,7 @@
 	)
 	(wire
 		(pts
-			(xy 92.71 66.04) (xy 92.71 67.31)
+			(xy 135.89 106.68) (xy 135.89 107.95)
 		)
 		(stroke
 			(width 0)
@@ -1327,7 +1337,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 53.34) (xy 83.82 53.34)
+			(xy 93.98 93.98) (xy 127 93.98)
 		)
 		(stroke
 			(width 0)
@@ -1337,7 +1347,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 73.66) (xy 124.46 73.66)
+			(xy 162.56 114.3) (xy 167.64 114.3)
 		)
 		(stroke
 			(width 0)
@@ -1347,7 +1357,7 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 41.91) (xy 147.32 41.91)
+			(xy 200.66 82.55) (xy 213.36 82.55)
 		)
 		(stroke
 			(width 0)
@@ -1357,7 +1367,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 58.42) (xy 172.72 58.42)
+			(xy 243.84 99.06) (xy 238.76 99.06)
 		)
 		(stroke
 			(width 0)
@@ -1367,7 +1377,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 68.58) (xy 71.12 68.58)
+			(xy 95.25 109.22) (xy 91.44 109.22)
 		)
 		(stroke
 			(width 0)
@@ -1377,7 +1387,7 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 60.96) (xy 92.71 60.96)
+			(xy 137.16 101.6) (xy 135.89 101.6)
 		)
 		(stroke
 			(width 0)
@@ -1387,7 +1397,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 63.5) (xy 73.66 63.5)
+			(xy 90.17 104.14) (xy 93.98 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1397,7 +1407,7 @@
 	)
 	(wire
 		(pts
-			(xy 92.71 66.04) (xy 93.98 66.04)
+			(xy 135.89 106.68) (xy 137.16 106.68)
 		)
 		(stroke
 			(width 0)
@@ -1407,7 +1417,7 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 76.2) (xy 88.9 76.2)
+			(xy 137.16 116.84) (xy 132.08 116.84)
 		)
 		(stroke
 			(width 0)
@@ -1417,7 +1427,7 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 50.8) (xy 134.62 50.8)
+			(xy 210.82 91.44) (xy 200.66 91.44)
 		)
 		(stroke
 			(width 0)
@@ -1427,7 +1437,7 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 68.58) (xy 93.98 68.58)
+			(xy 128.27 109.22) (xy 137.16 109.22)
 		)
 		(stroke
 			(width 0)
@@ -1437,7 +1447,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 71.12) (xy 139.7 66.04)
+			(xy 205.74 111.76) (xy 205.74 106.68)
 		)
 		(stroke
 			(width 0)
@@ -1447,7 +1457,7 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 45.72) (xy 167.64 45.72)
+			(xy 223.52 86.36) (xy 233.68 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1457,7 +1467,7 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 58.42) (xy 124.46 45.72)
+			(xy 167.64 99.06) (xy 167.64 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1467,7 +1477,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 39.37) (xy 83.82 40.64)
+			(xy 127 80.01) (xy 127 81.28)
 		)
 		(stroke
 			(width 0)
@@ -1477,7 +1487,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 45.72) (xy 97.79 45.72)
+			(xy 146.05 86.36) (xy 140.97 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1487,7 +1497,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 63.5) (xy 195.58 63.5)
+			(xy 254 104.14) (xy 261.62 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1497,7 +1507,7 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 53.34) (xy 93.98 58.42)
+			(xy 137.16 93.98) (xy 137.16 99.06)
 		)
 		(stroke
 			(width 0)
@@ -1507,7 +1517,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 71.12) (xy 139.7 71.12)
+			(xy 162.56 111.76) (xy 205.74 111.76)
 		)
 		(stroke
 			(width 0)
@@ -1517,7 +1527,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 78.74) (xy 137.16 78.74)
+			(xy 162.56 119.38) (xy 203.2 119.38)
 		)
 		(stroke
 			(width 0)
@@ -1527,7 +1537,7 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 93.98) (xy 111.76 93.98)
+			(xy 149.86 134.62) (xy 154.94 134.62)
 		)
 		(stroke
 			(width 0)
@@ -1537,7 +1547,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 63.5) (xy 124.46 63.5)
+			(xy 162.56 104.14) (xy 167.64 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1547,7 +1557,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 50.8) (xy 83.82 53.34)
+			(xy 127 91.44) (xy 127 93.98)
 		)
 		(stroke
 			(width 0)
@@ -1557,7 +1567,7 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 88.9) (xy 139.7 88.9)
+			(xy 200.66 129.54) (xy 205.74 129.54)
 		)
 		(stroke
 			(width 0)
@@ -1567,7 +1577,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 58.42) (xy 195.58 58.42)
+			(xy 254 99.06) (xy 261.62 99.06)
 		)
 		(stroke
 			(width 0)
@@ -1577,7 +1587,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 60.96) (xy 139.7 55.88)
+			(xy 205.74 101.6) (xy 205.74 96.52)
 		)
 		(stroke
 			(width 0)
@@ -1587,7 +1597,7 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 78.74) (xy 137.16 83.82)
+			(xy 203.2 119.38) (xy 203.2 124.46)
 		)
 		(stroke
 			(width 0)
@@ -1597,7 +1607,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 66.04) (xy 151.13 66.04)
+			(xy 215.9 106.68) (xy 217.17 106.68)
 		)
 		(stroke
 			(width 0)
@@ -1607,7 +1617,7 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 83.82) (xy 152.4 83.82)
+			(xy 213.36 124.46) (xy 218.44 124.46)
 		)
 		(stroke
 			(width 0)
@@ -1617,7 +1627,7 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 71.12) (xy 83.82 71.12)
+			(xy 137.16 111.76) (xy 127 111.76)
 		)
 		(stroke
 			(width 0)
@@ -1627,7 +1637,7 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 63.5) (xy 69.85 63.5)
+			(xy 88.9 104.14) (xy 90.17 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1637,7 +1647,7 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 45.72) (xy 134.62 45.72)
+			(xy 167.64 86.36) (xy 200.66 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1647,7 +1657,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 80.01) (xy 68.58 80.01)
+			(xy 93.98 120.65) (xy 88.9 120.65)
 		)
 		(stroke
 			(width 0)
@@ -1657,7 +1667,7 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 81.28) (xy 121.92 82.55)
+			(xy 165.1 121.92) (xy 165.1 123.19)
 		)
 		(stroke
 			(width 0)
@@ -1667,7 +1677,7 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 50.8) (xy 58.42 50.8)
+			(xy 88.9 91.44) (xy 78.74 91.44)
 		)
 		(stroke
 			(width 0)
@@ -1677,7 +1687,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 53.34) (xy 73.66 53.34)
+			(xy 76.2 93.98) (xy 93.98 93.98)
 		)
 		(stroke
 			(width 0)
@@ -1687,7 +1697,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 68.58) (xy 124.46 68.58)
+			(xy 162.56 109.22) (xy 167.64 109.22)
 		)
 		(stroke
 			(width 0)
@@ -1697,7 +1707,7 @@
 	)
 	(wire
 		(pts
-			(xy 132.08 87.63) (xy 132.08 82.55)
+			(xy 198.12 128.27) (xy 198.12 123.19)
 		)
 		(stroke
 			(width 0)
@@ -1707,7 +1717,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 73.66) (xy 93.98 73.66)
+			(xy 90.17 114.3) (xy 137.16 114.3)
 		)
 		(stroke
 			(width 0)
@@ -1717,7 +1727,7 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 45.72) (xy 144.78 50.8)
+			(xy 210.82 86.36) (xy 210.82 91.44)
 		)
 		(stroke
 			(width 0)
@@ -1727,7 +1737,7 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 90.17) (xy 106.68 93.98)
+			(xy 149.86 130.81) (xy 149.86 134.62)
 		)
 		(stroke
 			(width 0)
@@ -1737,7 +1747,7 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 82.55) (xy 58.42 82.55)
+			(xy 83.82 123.19) (xy 78.74 123.19)
 		)
 		(stroke
 			(width 0)
@@ -1747,7 +1757,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 60.96) (xy 139.7 60.96)
+			(xy 162.56 101.6) (xy 205.74 101.6)
 		)
 		(stroke
 			(width 0)
@@ -1756,7 +1766,7 @@
 		(uuid "f6e87b56-759b-4374-9589-a6962c82b0cc")
 	)
 	(label "AC2"
-		(at 91.44 88.9 90)
+		(at 134.62 129.54 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1766,7 +1776,7 @@
 		(uuid "096a9475-a4f1-427d-ac1b-a235f98ad7fa")
 	)
 	(label "AC1"
-		(at 86.36 53.34 90)
+		(at 129.54 93.98 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1775,8 +1785,28 @@
 		)
 		(uuid "1432370f-42cf-44f1-944a-ceac1dc3b6df")
 	)
+	(label "GPIO0"
+		(at 138.43 80.01 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d06d0cae-9c81-41f3-84e4-c8ddf3f4bcf5")
+	)
+	(label "GPIO0"
+		(at 238.76 139.7 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "be829ccb-ee5a-4732-ae5a-31544f973a86")
+	)
 	(label "AC1"
-		(at 73.66 68.58 180)
+		(at 93.98 109.22 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1786,7 +1816,7 @@
 		(uuid "38d88023-39b4-4c81-82d6-898672fd8160")
 	)
 	(label "AC2"
-		(at 68.58 80.01 180)
+		(at 88.9 120.65 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1796,7 +1826,7 @@
 		(uuid "50a2223b-2b4b-43e1-ada5-592889a5d16e")
 	)
 	(label "AC1"
-		(at 88.9 88.9 90)
+		(at 132.08 129.54 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1806,7 +1836,7 @@
 		(uuid "9ff7c7ea-3e64-47a2-93fa-ee041889c63e")
 	)
 	(label "AC1"
-		(at 74.93 53.34 0)
+		(at 95.25 93.98 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1816,7 +1846,7 @@
 		(uuid "a1c1aaaa-bbbb-cccc-dddd-000000000a01")
 	)
 	(label "AC2"
-		(at 76.2 63.5 0)
+		(at 96.52 104.14 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1826,7 +1856,7 @@
 		(uuid "a1c2aaaa-bbbb-cccc-dddd-000000000a02")
 	)
 	(label "AC1"
-		(at 114.3 78.74 90)
+		(at 157.48 119.38 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1836,7 +1866,7 @@
 		(uuid "ba0e97e7-e4a6-4774-8b0e-854bc6d3d7fc")
 	)
 	(label "AC2"
-		(at 114.3 88.9 90)
+		(at 157.48 129.54 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1846,7 +1876,7 @@
 		(uuid "d0a2b46e-f5e3-4b8c-a7f2-139a19139d9c")
 	)
 	(label "AC1"
-		(at 132.08 87.63 0)
+		(at 198.12 128.27 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1857,7 +1887,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 151.13 66.04 0)
+		(at 217.17 106.68 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1866,7 +1896,7 @@
 		)
 		(uuid "0478ec95-6e24-4696-ad71-61b1ba824d89")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 151.13 66.04 0)
+			(at 217.17 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1879,7 +1909,7 @@
 	)
 	(global_label "RX_VAA"
 		(shape passive)
-		(at 123.19 66.04 180)
+		(at 166.37 106.68 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1888,7 +1918,7 @@
 		)
 		(uuid "0b2129d9-13e1-4daf-bf02-a030d7136f3b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 123.19 66.04 0)
+			(at 166.37 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1901,7 +1931,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 172.72 83.82 0)
+		(at 238.76 124.46 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1910,7 +1940,7 @@
 		)
 		(uuid "12345678-1234-1234-1234-1234567890ab")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 172.72 83.82 0)
+			(at 238.76 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1923,7 +1953,29 @@
 	)
 	(global_label "RX_VAA"
 		(shape passive)
-		(at 195.58 63.5 0)
+		(at 218.44 139.7 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a4495ed9-5199-4563-a1a4-7288a857c5ef")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 218.44 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_VAA"
+		(shape passive)
+		(at 261.62 104.14 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1932,7 +1984,7 @@
 		)
 		(uuid "1ccf33ff-7dc0-4498-8ce3-88b234a6a782")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 195.58 63.5 0)
+			(at 261.62 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1945,7 +1997,7 @@
 	)
 	(global_label "RX_VAA"
 		(shape passive)
-		(at 195.58 58.42 0)
+		(at 261.62 99.06 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1954,7 +2006,7 @@
 		)
 		(uuid "2a040c6f-3223-4be1-a420-1103c84e4517")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 195.58 58.42 0)
+			(at 261.62 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1967,7 +2019,7 @@
 	)
 	(global_label "VOUT_12V"
 		(shape passive)
-		(at 134.62 41.91 180)
+		(at 200.66 82.55 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1976,7 +2028,7 @@
 		)
 		(uuid "4719d4d7-aa5b-4f7a-b32f-02cd0f6537f3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 134.62 41.91 0)
+			(at 200.66 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1989,7 +2041,7 @@
 	)
 	(global_label "RX_VAA"
 		(shape passive)
-		(at 58.42 50.8 180)
+		(at 78.74 91.44 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1998,7 +2050,7 @@
 		)
 		(uuid "4d2ad4f9-c9e2-4aa9-a06c-3757f31145e6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 58.42 50.8 0)
+			(at 78.74 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2011,7 +2063,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 92.71 60.96 180)
+		(at 135.89 101.6 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2020,7 +2072,7 @@
 		)
 		(uuid "53fd4db8-bc15-475d-9d30-ef80719aba96")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 92.71 60.96 0)
+			(at 135.89 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2033,7 +2085,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 86.36 73.66 270)
+		(at 129.54 114.3 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2042,7 +2094,7 @@
 		)
 		(uuid "614ca57b-3f23-4f6e-9d8b-acfc35f1e3bb")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 86.36 73.66 0)
+			(at 129.54 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2055,7 +2107,7 @@
 	)
 	(global_label "VOUT_12V"
 		(shape passive)
-		(at 152.4 83.82 0)
+		(at 218.44 124.46 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2064,7 +2116,7 @@
 		)
 		(uuid "66b286ec-6b1a-4fce-80ea-609964fb8a33")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 152.4 83.82 0)
+			(at 218.44 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2077,7 +2129,7 @@
 	)
 	(global_label "RX_NTC"
 		(shape passive)
-		(at 92.71 66.04 180)
+		(at 135.89 106.68 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2086,7 +2138,7 @@
 		)
 		(uuid "6a5c7577-da27-4eaf-90bd-f592649ffce6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 92.71 66.04 0)
+			(at 135.89 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2099,7 +2151,7 @@
 	)
 	(global_label "I2C_SDA"
 		(shape bidirectional)
-		(at 124.46 68.58 0)
+		(at 167.64 109.22 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2108,7 +2160,7 @@
 		)
 		(uuid "887826fe-1743-427c-8b51-8670cbdc00a8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 124.46 68.58 0)
+			(at 167.64 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2121,7 +2173,7 @@
 	)
 	(global_label "RX_NTC"
 		(shape passive)
-		(at 66.04 40.64 180)
+		(at 86.36 81.28 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2130,7 +2182,7 @@
 		)
 		(uuid "8e6528f2-32e9-4c7a-9139-147b32af3a09")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.04 40.64 0)
+			(at 86.36 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2143,7 +2195,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 167.64 45.72 0)
+		(at 233.68 86.36 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2152,7 +2204,7 @@
 		)
 		(uuid "99f7ac09-745d-4141-b6d0-21a44cff2aaf")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 167.64 45.72 0)
+			(at 233.68 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2165,7 +2217,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 151.13 55.88 0)
+		(at 217.17 96.52 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2174,7 +2226,7 @@
 		)
 		(uuid "af82751f-a945-413c-bedf-128e46a9c7f0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 151.13 55.88 0)
+			(at 217.17 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2187,7 +2239,7 @@
 	)
 	(global_label "RX_VDD"
 		(shape passive)
-		(at 97.79 35.56 180)
+		(at 140.97 76.2 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2196,7 +2248,7 @@
 		)
 		(uuid "b1b55a57-67b4-4ae8-af94-1e82babefdb8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 97.79 35.56 0)
+			(at 140.97 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2209,7 +2261,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 97.79 45.72 180)
+		(at 140.97 86.36 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2218,7 +2270,7 @@
 		)
 		(uuid "b2c25dc5-3b58-4123-86fe-1ed4c38c1fe3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 97.79 45.72 0)
+			(at 140.97 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2231,7 +2283,7 @@
 	)
 	(global_label "RX_VDD"
 		(shape passive)
-		(at 139.7 88.9 0)
+		(at 205.74 129.54 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2240,7 +2292,7 @@
 		)
 		(uuid "b566e70f-ef56-4b86-9611-d647c83027b7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 139.7 88.9 0)
+			(at 205.74 129.54 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2253,7 +2305,7 @@
 	)
 	(global_label "I2C_SDA"
 		(shape bidirectional)
-		(at 172.72 63.5 180)
+		(at 238.76 104.14 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2262,7 +2314,7 @@
 		)
 		(uuid "bd15a418-59c1-4a9b-8c59-d0cb985d8f7d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 172.72 63.5 0)
+			(at 238.76 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2275,7 +2327,7 @@
 	)
 	(global_label "I2C_SCL"
 		(shape bidirectional)
-		(at 172.72 58.42 180)
+		(at 238.76 99.06 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2284,7 +2336,7 @@
 		)
 		(uuid "c7126de5-e417-4ec8-a516-68084c4de238")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 172.72 58.42 0)
+			(at 238.76 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2297,7 +2349,7 @@
 	)
 	(global_label "RX_INTB"
 		(shape passive)
-		(at 124.46 73.66 0)
+		(at 167.64 114.3 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2306,7 +2358,7 @@
 		)
 		(uuid "d1f3cfde-6404-4f7f-a756-e516dfe77ecf")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 124.46 73.66 0)
+			(at 167.64 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2319,7 +2371,7 @@
 	)
 	(global_label "I2C_SCL"
 		(shape bidirectional)
-		(at 124.46 63.5 0)
+		(at 167.64 104.14 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2328,7 +2380,7 @@
 		)
 		(uuid "d2bb1a94-5a81-4a25-8cf0-188c70423b55")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 124.46 63.5 0)
+			(at 167.64 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2341,7 +2393,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 134.62 50.8 180)
+		(at 200.66 91.44 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2350,7 +2402,7 @@
 		)
 		(uuid "dc0d1bf0-425b-4196-aaf1-1a0d2591f1cc")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 134.62 50.8 0)
+			(at 200.66 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2363,7 +2415,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 111.76 93.98 0)
+		(at 154.94 134.62 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2372,7 +2424,7 @@
 		)
 		(uuid "ddbed389-52be-47f0-8183-51973cea13de")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 111.76 93.98 0)
+			(at 154.94 134.62 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2385,7 +2437,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 58.42 82.55 180)
+		(at 78.74 123.19 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2394,7 +2446,7 @@
 		)
 		(uuid "e0f7e42b-bf12-4c20-acbb-ec615396fb95")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 58.42 82.55 0)
+			(at 78.74 123.19 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2407,7 +2459,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 151.13 76.2 0)
+		(at 217.17 116.84 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2416,7 +2468,7 @@
 		)
 		(uuid "e693b493-540c-47aa-9fe1-8252ccaceff3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 151.13 76.2 0)
+			(at 217.17 116.84 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2429,7 +2481,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 83.82 39.37 90)
+		(at 127 80.01 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2438,7 +2490,7 @@
 		)
 		(uuid "ec10e7ec-8edf-42f5-9db2-23ec73e13c5c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 83.82 39.37 0)
+			(at 127 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2451,7 +2503,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 114.3 83.82 90)
+		(at 175.26 142.24 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2461,7 +2513,7 @@
 		(dnp no)
 		(uuid "0078a574-6db8-407b-8cb0-f62c5cea362a")
 		(property "Reference" "C14"
-			(at 110.49 85.09 0)
+			(at 171.45 143.51 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2471,7 +2523,7 @@
 			)
 		)
 		(property "Value" "22nF/50V"
-			(at 120.65 83.82 0)
+			(at 181.61 142.24 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2481,7 +2533,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 114.3 83.82 0)
+			(at 175.26 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2492,7 +2544,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 114.3 83.82 0)
+			(at 175.26 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2503,7 +2555,7 @@
 			)
 		)
 		(property "Description" "ASK modulation capacitor COMB2"
-			(at 114.3 83.82 0)
+			(at 175.26 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2536,7 +2588,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 73.66 58.42 90)
+		(at 93.98 99.06 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2546,7 +2598,7 @@
 		(dnp no)
 		(uuid "018441e1-46f3-4977-9937-d77f8322899e")
 		(property "Reference" "C15"
-			(at 69.85 59.69 0)
+			(at 90.17 100.33 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2556,7 +2608,7 @@
 			)
 		)
 		(property "Value" "3.3nF/50V"
-			(at 80.01 58.42 0)
+			(at 100.33 99.06 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2566,7 +2618,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 73.66 58.42 0)
+			(at 93.98 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2577,7 +2629,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 73.66 58.42 0)
+			(at 93.98 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2588,7 +2640,7 @@
 			)
 		)
 		(property "Description" "Resonant capacitor Cd (parallel)"
-			(at 73.66 58.42 0)
+			(at 93.98 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2621,7 +2673,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 55.88 58.42 90)
+		(at 76.2 99.06 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2631,7 +2683,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111230")
 		(property "Reference" "L1"
-			(at 50.8 58.42 0)
+			(at 71.12 99.06 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2641,7 +2693,7 @@
 			)
 		)
 		(property "Value" "8uH RX Coil TBD"
-			(at 55.88 76.2 0)
+			(at 76.2 116.84 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2651,7 +2703,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 55.88 58.42 0)
+			(at 76.2 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2662,7 +2714,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 55.88 58.42 0)
+			(at 76.2 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2673,7 +2725,7 @@
 			)
 		)
 		(property "Description" "Receiver coil placeholder"
-			(at 55.88 58.42 0)
+			(at 76.2 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2706,7 +2758,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 139.7 45.72 0)
+		(at 205.74 86.36 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2716,7 +2768,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111243")
 		(property "Reference" "C2"
-			(at 139.7 39.37 0)
+			(at 205.74 80.01 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2726,7 +2778,7 @@
 			)
 		)
 		(property "Value" "10uF/25V"
-			(at 139.7 49.53 0)
+			(at 205.74 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2736,7 +2788,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 139.7 45.72 0)
+			(at 205.74 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2747,7 +2799,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 139.7 45.72 0)
+			(at 205.74 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2758,7 +2810,7 @@
 			)
 		)
 		(property "Description" "Output bulk capacitor placeholder"
-			(at 139.7 45.72 0)
+			(at 205.74 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2791,7 +2843,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 152.4 45.72 0)
+		(at 218.44 86.36 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2801,7 +2853,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111246")
 		(property "Reference" "C3"
-			(at 152.4 41.91 0)
+			(at 218.44 82.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2811,7 +2863,7 @@
 			)
 		)
 		(property "Value" "1uF/25V"
-			(at 152.4 52.07 0)
+			(at 218.44 92.71 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2821,7 +2873,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 152.4 45.72 0)
+			(at 218.44 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2832,7 +2884,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 152.4 45.72 0)
+			(at 218.44 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2843,7 +2895,7 @@
 			)
 		)
 		(property "Description" "High-frequency output capacitor placeholder"
-			(at 152.4 45.72 0)
+			(at 218.44 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2876,7 +2928,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 142.24 83.82 0)
+		(at 208.28 124.46 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2886,7 +2938,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111317")
 		(property "Reference" "R4"
-			(at 140.97 80.01 0)
+			(at 207.01 120.65 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2896,7 +2948,7 @@
 			)
 		)
 		(property "Value" "RCL 300R"
-			(at 140.97 92.71 0)
+			(at 207.01 133.35 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2906,7 +2958,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 142.24 83.82 0)
+			(at 208.28 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2917,7 +2969,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 142.24 83.82 0)
+			(at 208.28 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2928,7 +2980,7 @@
 			)
 		)
 		(property "Description" "IEXT clamp resistor placeholder"
-			(at 142.24 83.82 0)
+			(at 208.28 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2961,7 +3013,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 83.82 45.72 90)
+		(at 106.68 71.12 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2971,7 +3023,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111320")
 		(property "Reference" "Z1"
-			(at 80.01 43.18 90)
+			(at 80.01 68.58 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2981,7 +3033,7 @@
 			)
 		)
 		(property "Value" "SMF13A Z1"
-			(at 91.44 35.56 90)
+			(at 114.3 60.96 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2991,7 +3043,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 83.82 45.72 0)
+			(at 106.68 71.12 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3002,7 +3054,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 83.82 45.72 0)
+			(at 106.68 71.12 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3013,7 +3065,7 @@
 			)
 		)
 		(property "Description" "AC1 ESD clamp TVS (uni-directional)"
-			(at 83.82 45.72 0)
+			(at 106.68 71.12 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3046,7 +3098,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 63.5 63.5 0)
+		(at 83.82 104.14 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3056,7 +3108,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111323")
 		(property "Reference" "C1"
-			(at 63.5 58.42 0)
+			(at 83.82 99.06 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3066,7 +3118,7 @@
 			)
 		)
 		(property "Value" "100nFx5 C0G 50V"
-			(at 56.388 67.056 0)
+			(at 76.708 107.696 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3076,7 +3128,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 63.5 63.5 0)
+			(at 83.82 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3087,7 +3139,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 63.5 63.5 0)
+			(at 83.82 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3098,7 +3150,7 @@
 			)
 		)
 		(property "Description" "Resonant capacitor placeholder"
-			(at 63.5 63.5 0)
+			(at 83.82 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3131,7 +3183,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:STWLC38JRM_MIN")
-		(at 106.68 63.5 0)
+		(at 149.86 104.14 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3141,7 +3193,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111328")
 		(property "Reference" "U1"
-			(at 116.84 53.34 0)
+			(at 160.02 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3151,7 +3203,7 @@
 			)
 		)
 		(property "Value" "STWLC38JRM"
-			(at 106.934 63.246 0)
+			(at 150.114 103.886 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3161,7 +3213,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 106.68 63.5 0)
+			(at 149.86 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3172,7 +3224,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.st.com/en/power-management/stwlc38jrm.html"
-			(at 108.458 27.178 0)
+			(at 151.638 67.818 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3183,7 +3235,7 @@
 			)
 		)
 		(property "Description" "15 W Qi wireless power receiver controller"
-			(at 107.188 29.21 0)
+			(at 150.368 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3330,7 +3382,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 102.87 40.64 90)
+		(at 146.05 60.96 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3340,7 +3392,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111330")
 		(property "Reference" "C4"
-			(at 99.06 40.64 90)
+			(at 142.24 60.96 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3350,7 +3402,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 107.95 40.64 0)
+			(at 151.13 60.96 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3360,7 +3412,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 102.87 40.64 0)
+			(at 146.05 60.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3371,7 +3423,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 102.87 40.64 0)
+			(at 146.05 60.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3382,7 +3434,7 @@
 			)
 		)
 		(property "Description" "VDD high-frequency bypass 100nF"
-			(at 102.87 40.64 0)
+			(at 146.05 60.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3415,7 +3467,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 69.85 68.58 270)
+		(at 80.01 109.22 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3425,7 +3477,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111400")
 		(property "Reference" "Z2"
-			(at 66.04 71.12 270)
+			(at 76.2 111.76 270)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3435,7 +3487,7 @@
 			)
 		)
 		(property "Value" "SMF13A Z2"
-			(at 73.66 71.12 270)
+			(at 83.82 111.76 270)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3445,7 +3497,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 69.85 68.58 0)
+			(at 80.01 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3456,7 +3508,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 69.85 68.58 0)
+			(at 80.01 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3467,7 +3519,7 @@
 			)
 		)
 		(property "Description" "AC2 ESD clamp TVS (uni-directional)"
-			(at 69.85 68.58 0)
+			(at 80.01 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3500,7 +3552,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 80.01 68.58 0)
+		(at 90.17 109.22 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3510,7 +3562,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000001")
 		(property "Reference" "C5"
-			(at 80.01 64.77 0)
+			(at 90.17 105.41 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3520,7 +3572,7 @@
 			)
 		)
 		(property "Value" "47nF"
-			(at 73.66 71.12 90)
+			(at 83.82 111.76 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3530,7 +3582,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 80.01 68.58 0)
+			(at 90.17 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3541,7 +3593,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 80.01 68.58 0)
+			(at 90.17 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3552,7 +3604,7 @@
 			)
 		)
 		(property "Description" "BOOT1 bootstrap capacitor"
-			(at 80.01 68.58 0)
+			(at 90.17 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3585,7 +3637,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 78.74 80.01 0)
+		(at 88.9 130.81 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3595,7 +3647,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000002")
 		(property "Reference" "C6"
-			(at 82.55 76.2 0)
+			(at 92.71 127 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3605,7 +3657,7 @@
 			)
 		)
 		(property "Value" "47nF"
-			(at 77.47 83.82 0)
+			(at 87.63 134.62 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3615,7 +3667,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 78.74 80.01 0)
+			(at 88.9 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3626,7 +3678,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 78.74 80.01 0)
+			(at 88.9 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3637,7 +3689,7 @@
 			)
 		)
 		(property "Description" "BOOT2 bootstrap capacitor"
-			(at 78.74 80.01 0)
+			(at 88.9 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3670,7 +3722,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 144.78 66.04 0)
+		(at 210.82 106.68 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3680,7 +3732,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000003")
 		(property "Reference" "C7"
-			(at 144.78 62.23 0)
+			(at 210.82 102.87 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3690,7 +3742,7 @@
 			)
 		)
 		(property "Value" "4.7uF"
-			(at 144.78 69.85 0)
+			(at 210.82 110.49 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3700,7 +3752,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 144.78 66.04 0)
+			(at 210.82 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3711,7 +3763,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 144.78 66.04 0)
+			(at 210.82 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3722,7 +3774,7 @@
 			)
 		)
 		(property "Description" "VAA analog supply decoupling"
-			(at 144.78 66.04 0)
+			(at 210.82 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3755,7 +3807,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 144.78 76.2 0)
+		(at 210.82 116.84 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3765,7 +3817,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000004")
 		(property "Reference" "C8"
-			(at 144.78 72.39 0)
+			(at 210.82 113.03 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3775,7 +3827,7 @@
 			)
 		)
 		(property "Value" "1uF"
-			(at 144.78 80.01 0)
+			(at 210.82 120.65 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3785,7 +3837,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 144.78 76.2 0)
+			(at 210.82 116.84 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3796,7 +3848,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 144.78 76.2 0)
+			(at 210.82 116.84 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3807,7 +3859,7 @@
 			)
 		)
 		(property "Description" "VDD digital supply decoupling"
-			(at 144.78 76.2 0)
+			(at 210.82 116.84 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3840,7 +3892,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 144.78 55.88 0)
+		(at 210.82 96.52 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3850,7 +3902,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000005")
 		(property "Reference" "C9"
-			(at 144.78 52.07 0)
+			(at 210.82 92.71 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3860,7 +3912,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 144.78 59.69 0)
+			(at 210.82 100.33 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3870,7 +3922,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 144.78 55.88 0)
+			(at 210.82 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3881,7 +3933,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 144.78 55.88 0)
+			(at 210.82 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3892,7 +3944,7 @@
 			)
 		)
 		(property "Description" "VRECT rectifier decoupling"
-			(at 144.78 55.88 0)
+			(at 210.82 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3925,7 +3977,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 182.88 58.42 0)
+		(at 248.92 99.06 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3935,7 +3987,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000006")
 		(property "Reference" "R5"
-			(at 182.88 54.61 0)
+			(at 248.92 95.25 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3945,7 +3997,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 186.69 64.77 0)
+			(at 252.73 105.41 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3955,7 +4007,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 182.88 58.42 0)
+			(at 248.92 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3966,7 +4018,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 182.88 58.42 0)
+			(at 248.92 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3977,7 +4029,7 @@
 			)
 		)
 		(property "Description" "I2C SCL pull-up to VAA"
-			(at 182.88 58.42 0)
+			(at 248.92 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4010,7 +4062,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 182.88 63.5 0)
+		(at 248.92 104.14 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4020,7 +4072,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000007")
 		(property "Reference" "R6"
-			(at 179.07 59.69 0)
+			(at 245.11 100.33 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4030,7 +4082,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 182.88 67.31 0)
+			(at 248.92 107.95 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4040,7 +4092,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 182.88 63.5 0)
+			(at 248.92 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4051,7 +4103,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 182.88 63.5 0)
+			(at 248.92 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4062,7 +4114,7 @@
 			)
 		)
 		(property "Description" "I2C SDA pull-up to VAA"
-			(at 182.88 63.5 0)
+			(at 248.92 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4095,7 +4147,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 167.64 83.82 0)
+		(at 233.68 124.46 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4105,7 +4157,7 @@
 		(dnp no)
 		(uuid "255bc62d-e743-4634-b032-87f1ab72195e")
 		(property "Reference" "D1"
-			(at 167.64 80.01 0)
+			(at 233.68 120.65 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4115,7 +4167,7 @@
 			)
 		)
 		(property "Value" "LED Green"
-			(at 167.64 87.63 0)
+			(at 233.68 128.27 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4125,7 +4177,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 167.64 83.82 0)
+			(at 233.68 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4136,7 +4188,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 167.64 83.82 0)
+			(at 233.68 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4147,7 +4199,7 @@
 			)
 		)
 		(property "Description" "Power-on indicator LED"
-			(at 167.64 83.82 0)
+			(at 233.68 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4180,7 +4232,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 68.58 45.72 90)
+		(at 88.9 86.36 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4190,7 +4242,7 @@
 		(dnp no)
 		(uuid "33333333-aaaa-bbbb-cccc-300000000001")
 		(property "Reference" "R7"
-			(at 64.77 45.72 90)
+			(at 85.09 86.36 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4200,7 +4252,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 74.93 45.72 90)
+			(at 95.25 86.36 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4210,7 +4262,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 68.58 45.72 0)
+			(at 88.9 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4221,7 +4273,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 68.58 45.72 0)
+			(at 88.9 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4232,7 +4284,7 @@
 			)
 		)
 		(property "Description" "NTC pull-up to VAA (10k, stand-alone default)"
-			(at 68.58 45.72 0)
+			(at 88.9 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4265,7 +4317,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 68.58 82.55 0)
+		(at 78.74 133.35 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4275,7 +4327,7 @@
 		(dnp no)
 		(uuid "44444444-aaaa-bbbb-cccc-300000000010")
 		(property "Reference" "C10"
-			(at 68.58 78.74 0)
+			(at 78.74 129.54 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4285,7 +4337,7 @@
 			)
 		)
 		(property "Value" "3.3nF/50V"
-			(at 68.58 86.36 0)
+			(at 78.74 137.16 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4295,7 +4347,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 68.58 82.55 0)
+			(at 78.74 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4306,7 +4358,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 68.58 82.55 0)
+			(at 78.74 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4317,7 +4369,7 @@
 			)
 		)
 		(property "Description" "VS diagnostic bypass capacitor"
-			(at 68.58 82.55 0)
+			(at 78.74 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4350,7 +4402,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 88.9 83.82 90)
+		(at 114.3 142.24 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4360,7 +4412,7 @@
 		(dnp no)
 		(uuid "44444444-aaaa-bbbb-cccc-300000000011")
 		(property "Reference" "C11"
-			(at 85.09 85.09 0)
+			(at 110.49 143.51 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4370,7 +4422,7 @@
 			)
 		)
 		(property "Value" "10nF/50V"
-			(at 95.25 83.82 0)
+			(at 120.65 142.24 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4380,7 +4432,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 88.9 83.82 0)
+			(at 114.3 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4391,7 +4443,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 88.9 83.82 0)
+			(at 114.3 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4402,7 +4454,7 @@
 			)
 		)
 		(property "Description" "ASK modulation capacitor COMA"
-			(at 88.9 83.82 0)
+			(at 114.3 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4435,7 +4487,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 127 82.55 0)
+		(at 187.96 140.97 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4445,7 +4497,7 @@
 		(dnp no)
 		(uuid "44444444-aaaa-bbbb-cccc-300000000012")
 		(property "Reference" "C12"
-			(at 123.19 80.01 0)
+			(at 184.15 138.43 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4455,7 +4507,7 @@
 			)
 		)
 		(property "Value" "22nF/50V"
-			(at 116.84 90.17 0)
+			(at 177.8 148.59 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4465,7 +4517,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 127 82.55 0)
+			(at 187.96 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4476,7 +4528,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 127 82.55 0)
+			(at 187.96 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4487,7 +4539,7 @@
 			)
 		)
 		(property "Description" "ASK modulation capacitor COMB"
-			(at 127 82.55 0)
+			(at 187.96 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4520,7 +4572,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 91.44 83.82 90)
+		(at 116.84 142.24 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4530,7 +4582,7 @@
 		(dnp no)
 		(uuid "dffd7355-351f-4f7c-9df9-4c2a7f991ce7")
 		(property "Reference" "C13"
-			(at 87.63 85.09 0)
+			(at 113.03 143.51 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4540,7 +4592,7 @@
 			)
 		)
 		(property "Value" "10nF/50V"
-			(at 97.79 83.82 0)
+			(at 123.19 142.24 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4550,7 +4602,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 91.44 83.82 0)
+			(at 116.84 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4561,7 +4613,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 91.44 83.82 0)
+			(at 116.84 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4572,7 +4624,7 @@
 			)
 		)
 		(property "Description" "ASK modulation capacitor COMA2"
-			(at 91.44 83.82 0)
+			(at 116.84 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4605,7 +4657,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 157.48 83.82 0)
+		(at 223.52 124.46 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4615,7 +4667,7 @@
 		(dnp no)
 		(uuid "e669be7a-5d52-4869-b5d3-457856042ec8")
 		(property "Reference" "R10"
-			(at 157.48 80.01 0)
+			(at 223.52 120.65 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4625,7 +4677,7 @@
 			)
 		)
 		(property "Value" "3k"
-			(at 157.48 87.63 0)
+			(at 223.52 128.27 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4635,7 +4687,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 157.48 83.82 0)
+			(at 223.52 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4646,7 +4698,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 157.48 83.82 0)
+			(at 223.52 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4657,7 +4709,7 @@
 			)
 		)
 		(property "Description" "LED-1 current limiting resistor"
-			(at 157.48 83.82 0)
+			(at 223.52 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4683,6 +4735,176 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 223.52 139.7 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "a5bae2f3-3c92-47c0-b071-547eb2b23739")
+		(property "Reference" "R11"
+			(at 223.52 135.89 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 223.52 143.51 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 223.52 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 223.52 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "GPIO0 LED current limiting resistor"
+			(at 223.52 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2cd8f6a4-64ab-45ab-983e-a9509ca13c37")
+		)
+		(pin "2"
+			(uuid "bcf8e1f2-a2d5-4f26-aaf3-3ce8da0e6f6d")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "R11")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "R11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 233.68 139.7 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "0228ab6f-30f8-4d65-b2d4-6d59fab2000b")
+		(property "Reference" "D2"
+			(at 233.68 135.89 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LED Green"
+			(at 233.68 143.51 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 233.68 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 233.68 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "GPIO0 active-low indicator LED"
+			(at 233.68 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6b948cb0-2bde-4201-9882-f6a49c8602e3")
+		)
+		(pin "2"
+			(uuid "a094d2b7-4c80-44be-9734-8f1bffeccd98")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "D2")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "D2")
 					(unit 1)
 				)
 			)

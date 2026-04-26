@@ -38,6 +38,7 @@ Control:
 
 - `U1`: `STWLC38JRM`
 - `L1`: `15W` 対応 Qi receiver coil, exact part `TBD`
+- `AC1`, `AC2`: receiver coil / resonant network local nets
 - `C_RES_*`: 共振ネットワーク用コンデンサ, value `TBD`
 - `SHIELD1`: フレキシブルフェライト, exact part `TBD`
 
@@ -72,20 +73,54 @@ Control:
 - 最低条件:
   - `I2C` service access
   - `STWLC38JRM` stand-alone 受電
-  - heater gate drive source は `TBD`
+  - heater gate は初版では `VOUT_12V` から常時 ON 駆動
+  - `RX_INTB` は bring-up / status monitor として露出
 
-## 推奨ネット名
+## 現在のネット名
 
-- `RECT_IN`
+KiCad 回路図ではシート間接続に以下の global label を使う。
+
 - `VOUT_12V`
-- `HEATER_CTRL`
-- `HEATER_SW`
-- `HEATER_RT`
-- `NTC_TOP`
-- `NTC_PCB`
+- `SYS_GND`
+- `RX_VAA`
+- `RX_VDD`
+- `RX_NTC`
+- `RX_INTB`
 - `I2C_SCL`
 - `I2C_SDA`
+- `NTC_TOP`
+- `NTC_PCB`
 - `I_HEATER_MON`
+
+`rx-power` シート内の STWLC38 周辺では以下を local label として使う。
+
+- `AC1`
+- `AC2`
+- `GPIO0`
+
+以下は過去の仮名または実装詳細で、現在の global label としては使わない。
+
+- `RECT_IN` -> STWLC38 の `VRECT` pin group / local rectified rail
+- `HEATER_CTRL` -> 初版では `VOUT_12V` から gate network を常時 ON 駆動
+- `HEATER_SW` -> heater-control シート内の MOSFET switched node
+- `HEATER_RT` -> 現在は未使用
+
+## 主要ネットの役割
+
+| Net | 用途 |
+| --- | --- |
+| `VOUT_12V` | STWLC38 programmable output, heater stage input, indicator LED supply |
+| `SYS_GND` | system ground shared by RX, heater, and monitor circuits |
+| `RX_VAA` | STWLC38 analog/service reference rail, I2C/NTC pull-up rail |
+| `RX_VDD` | STWLC38 local digital rail |
+| `RX_NTC` | STWLC38 NTC input / default pull-up node |
+| `GPIO0` | local STWLC38 GPIO net for LED2 active-low sink indicator |
+| `RX_INTB` | STWLC38 interrupt/status monitor |
+| `NTC_TOP` | top plate thermal monitor node |
+| `NTC_PCB` | receiver board thermal monitor node |
+| `I2C_SCL` | STWLC38 service I2C clock |
+| `I2C_SDA` | STWLC38 service I2C data |
+| `I_HEATER_MON` | heater current monitor placeholder/export node |
 
 ## 初回で入れるべき部品
 
@@ -104,7 +139,7 @@ Control:
 - 受電コイルと共振値
 - ヒーターの最終抵抗値
 - ハード遮断を `PPTC` にするか thermostat にするか
-- heater gate drive source
+- heater gate drive の v2 以降の制御方式
 
 ## 直近の次作業
 
