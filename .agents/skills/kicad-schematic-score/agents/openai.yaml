@@ -1,3 +1,0 @@
-display_name: KiCad Schematic Score
-short_description: Scores current KiCad schematic layout conflicts without editing files.
-default_prompt: Score the current KiCad schematic layout and summarize the penalty breakdown.

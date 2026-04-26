@@ -1,9 +1,6 @@
-#!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
 import functools
-import json
 import math
 import re
 import sys
@@ -440,50 +437,3 @@ def detect_collisions(rendered_texts: list[RenderedText], wires: list[WireSeg], 
             collisions.append(entry)
     return collisions
 
-
-def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("schematic", type=Path)
-    ap.add_argument("svg", type=Path)
-    ap.add_argument("--margin", type=float, default=0.0)
-    ap.add_argument("--only-text", help="regex filter on text")
-    ap.add_argument("--json", action="store_true")
-    args = ap.parse_args()
-
-    sch = Schematic.from_file(str(args.schematic))
-    rendered = parse_svg_rendered_texts(args.svg)
-    targets = collect_text_targets(sch)
-    matched = match_rendered_to_targets(rendered, targets)
-    if args.only_text:
-        pattern = re.compile(args.only_text)
-        matched = [m for m in matched if pattern.search(m.text)]
-    wires = collect_wires(sch)
-    boxes = collect_symbol_boxes(sch)
-    collisions = detect_collisions(matched, wires, boxes, margin=args.margin)
-
-    if args.json:
-        print(json.dumps({"collisions": collisions}, ensure_ascii=False, indent=2))
-        return 0
-
-    print(f"Targets matched: {len(matched)}")
-    print(f"Wire segments: {len(wires)}")
-    print(f"Component boxes: {len(boxes)}")
-    print(f"Collisions: {len(collisions)}")
-    for c in collisions:
-        owner = f"{c['owner_ref']}.{c['owner_key']}" if c["owner_ref"] and c["owner_key"] else c["kind"]
-        print(f"- {c['text']} [{owner}]")
-        print(f"  anchor=({c['anchor_x']:.2f},{c['anchor_y']:.2f})")
-        print(f"  bbox=({c['bbox']['x1']:.2f},{c['bbox']['y1']:.2f})-({c['bbox']['x2']:.2f},{c['bbox']['y2']:.2f})")
-        if c["wire_hits"]:
-            print(f"  wire_hits={len(c['wire_hits'])}")
-        if c["component_hits"]:
-            refs = ", ".join(sorted({h['ref'] for h in c['component_hits']}))
-            print(f"  component_hits={refs}")
-        if c["text_hits"]:
-            texts = ", ".join(sorted({h['text'] for h in c['text_hits']}))
-            print(f"  text_hits={texts}")
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

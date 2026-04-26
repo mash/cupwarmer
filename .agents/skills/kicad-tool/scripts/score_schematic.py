@@ -1,16 +1,10 @@
-#!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
-import json
-import subprocess
 import sys
-import tempfile
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-SKILLS_DIR = SCRIPT_DIR.parents[1]
 
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
@@ -26,7 +20,6 @@ from kicad_sch_bbox_collisions import (
     parse_svg_rendered_texts,
 )
 
-KICAD_CLI = "/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
 WIRE_CORNER_WEIGHT = 25.0
 SYMBOL_WIRE_CONFLICT_WEIGHT = 1200.0
 SYMBOL_WIRE_CLEARANCE_MM = 1.27
@@ -300,20 +293,6 @@ def detect_symbol_wire_conflicts(
     return conflicts
 
 
-def export_svg(schematic: Path, outdir: Path) -> Path:
-    subprocess.run(
-        [KICAD_CLI, "sch", "export", "svg", "--output", str(outdir), str(schematic)],
-        cwd=SKILLS_DIR.parents[1],
-        check=True,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
-    svgs = sorted(outdir.glob("*.svg"))
-    if not svgs:
-        raise FileNotFoundError(f"no SVG exported into {outdir}")
-    return svgs[0]
-
-
 def collision_payload(schematic: Path, svg: Path, margin: float = 0.0) -> dict:
     sch = Schematic.from_file(str(schematic))
     rendered = parse_svg_rendered_texts(svg)
@@ -370,28 +349,11 @@ def score_payload(payload: dict) -> ScoreBreakdown:
     )
 
 
-def score_schematic(schematic: Path, margin: float = 0.0) -> dict:
-    with tempfile.TemporaryDirectory(prefix="kicad-layout-score-") as tmpdir:
-        svg = export_svg(schematic, Path(tmpdir))
-        payload = collision_payload(schematic, svg, margin=margin)
+def score_schematic_from_svg(schematic: Path, svg: Path, margin: float = 0.0) -> dict:
+    payload = collision_payload(schematic, svg, margin=margin)
     score = score_payload(payload)
     return {
         "score": asdict(score),
         "collisions": payload["collisions"],
         "symbol_wire_conflicts": payload["symbol_wire_conflicts"],
     }
-
-
-def main() -> int:
-    ap = argparse.ArgumentParser(
-        description="Evaluate the current KiCad schematic layout and assign penalty points without modifying it."
-    )
-    ap.add_argument("schematic", type=Path)
-    ap.add_argument("--margin", type=float, default=0.0)
-    args = ap.parse_args()
-    print(json.dumps(score_schematic(args.schematic, margin=args.margin), ensure_ascii=False, indent=2))
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

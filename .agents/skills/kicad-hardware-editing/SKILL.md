@@ -1,6 +1,6 @@
 ---
 name: kicad-hardware-editing
-description: Edit and inspect KiCad hardware design files for this repository under `hardware/kicad/cupwarmer-hw`. Use the current KiCad project structure, validate with kicad-validate, and score schematic layout with kicad-schematic-score when visual readability matters.
+description: Workflow for editing KiCad hardware design files in this repository under `hardware/kicad/cupwarmer-hw`. Use `kicad-tool` for all KiCad CLI operations, validation, and schematic layout inspection.
 ---
 
 # KiCad Hardware Editing
@@ -34,20 +34,20 @@ Read `hardware/kicad/cupwarmer-hw/README.md` before editing.
 - Adding pins: update both the `.kicad_sch` embedded `lib_symbols` and `cupwarmer.kicad_sym`.
 - Pin coordinate transform: `y_schematic = symbol_center_y - pin_symbol_y` (Y negated). `round(value, 2)` before writing.
 - Wires need `(stroke (width 0) (type solid))`; generate a fresh UUID. Labels: clone an existing block — never synthesize `(justify ...)` from scratch.
-- Run `kicad-schematic-score` before/after visual cleanup edits.
+- Run `kicad-tool` before/after visual cleanup edits:
+  `python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch inspect <sheet> --json`.
 
 ## Workflow
 
 ### 1. Pre-edit: capture baseline
 
 ```bash
-KICAD_CLI='/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'
-"$KICAD_CLI" sch erc --exit-code-violations \
-  --output tmp/cupwarmer-pre-erc.rpt \
-  hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch
-"$KICAD_CLI" sch export netlist \
-  --output tmp/cupwarmer-pre.net \
-  hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch
+python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch erc \
+  hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch \
+  --report tmp/cupwarmer-pre-erc.rpt
+python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch netlist \
+  hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch \
+  --out tmp/cupwarmer-pre.net
 ```
 
 ### 2. Edit
@@ -73,7 +73,14 @@ Use `kicad-validate`:
 - ERC: no new violations
 - Netlist: expected changes only
 - SVG export for edited schematic sheets
-- `kicad-schematic-score` if the change affects schematic readability
+- `sch inspect` if the change affects schematic readability
+
+```bash
+python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
+  hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch \
+  --sheet hardware/kicad/cupwarmer-hw/<edited-file>.kicad_sch \
+  --json
+```
 
 ### 4. Review
 
