@@ -9,6 +9,8 @@ Primary editing workflow for the Cup Warmer KiCad project at `hardware/kicad/cup
 
 Read `hardware/kicad/cupwarmer-hw/README.md` before editing.
 
+For any KiCad CLI invocation (render, inspect, ERC, netlist, validate, DRC), **read the `kicad-tool` skill via the Skill tool first** to get exact subcommands and flags.
+
 ## File types
 
 | File | Approach |
