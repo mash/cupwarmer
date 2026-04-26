@@ -13,7 +13,7 @@ KiCad project: `hardware/kicad/cupwarmer-hw`
 
 | File type | Approach |
 |---|---|
-| `.kicad_sch` | Minimal S-expression or kiutils edit; preserve KiCad 10 formatting and UUIDs |
+| `.kicad_sch` | Minimal S-expression text edit; preserve KiCad 10 formatting and UUIDs |
 | `.kicad_pcb` | Manual S-expression edit (minimal, local changes only) |
 | `.kicad_pro` | JSON edit (minimal) |
 | `.kicad_prl` | Do not edit unless explicitly asked |
@@ -26,34 +26,15 @@ Current schematic hierarchy:
 - `heater-control.kicad_sch`
 - `sensors-logic.kicad_sch`
 
-Read before editing:
-- `hardware/kicad/cupwarmer-hw/README.md`
-- `hardware/schematic/README.md`
-- `hardware/pcb/README.md`
+Read `hardware/kicad/cupwarmer-hw/README.md` before editing.
 
 ## Key Rules
 
-### Schematic edits
-
-Prefer the least invasive edit that preserves KiCad 10 S-expression structure. Use kiutils only when it can round-trip the touched construct safely; otherwise make a tightly scoped text edit and validate with KiCad CLI.
-
-When adding pins, update both the `.kicad_sch` embedded `lib_symbols` and the standalone `cupwarmer.kicad_sym` file.
-
-### Coordinate system
-
-KiCad 10: `y_schematic = symbol_center_y - pin_symbol_y` (Y negated).
-
-Always `round(value, 2)` before writing coordinates.
-
-### Connection requirements
-
-Wires need: `stroke = Stroke(width=0, type="solid")`. UUID is auto-generated.
-
-Labels: clone from existing (never construct Justify from string).
-
-### Layout readability
-
-Use `kicad-schematic-score` before and after visual schematic cleanup. It scores text/label collisions, wire overlaps, symbol-wire conflicts, near-symbol clearance, and wire-corner count including perpendicular T-junction stubs.
+- Prefer the least invasive S-expression text edit that preserves KiCad 10 structure. Validate with KiCad CLI after every edit.
+- Adding pins: update both the `.kicad_sch` embedded `lib_symbols` and `cupwarmer.kicad_sym`.
+- Pin coordinate transform: `y_schematic = symbol_center_y - pin_symbol_y` (Y negated). `round(value, 2)` before writing.
+- Wires need `(stroke (width 0) (type solid))`; generate a fresh UUID. Labels: clone an existing block — never synthesize `(justify ...)` from scratch.
+- Run `kicad-schematic-score` before/after visual cleanup edits.
 
 ## Workflow
 
@@ -75,6 +56,17 @@ Make the smallest schematic, board, project, or symbol-library change that satis
 
 If adding pins to symbols: update the embedded `lib_symbols` entry in the affected schematic and the matching symbol in `cupwarmer.kicad_sym`.
 
+#### Minimal worked example: add a global label
+
+Most schematic edits are this shape — clone an existing block, change name/coords/UUID, do not touch surrounding indentation or trailing parens.
+
+1. `grep -n '(global_label "<sibling>"' hardware/kicad/cupwarmer-hw/<sheet>.kicad_sch` to find an existing label to clone.
+2. Read ±25 lines around the match to capture the full block (label + `effects` + `Intersheetrefs` property + `uuid`).
+3. Generate a fresh UUID: `python3 -c 'import uuid; print(uuid.uuid4())'`.
+4. Insert with `Edit` immediately after the sibling. Keep the exact tab indentation.
+5. Adjust only: label text, `(at x y rotation)` (sheet space — no Y negation), and `uuid`.
+6. **Do not** synthesize `(justify ...)` from scratch — copy from the sibling. **Do not** add `(stroke ...)` to a label.
+
 ### 3. Validate
 
 Use `kicad-validate`:
@@ -85,7 +77,7 @@ Use `kicad-validate`:
 
 ### 4. Review
 
-- New ERC violations: check coordinates, stroke type, and lib_symbols integrity
+- New ERC violations: check coordinates, stroke type, and lib_symbols integrity (intentional-violation exception is handled in `kicad-validate`)
 - Netlist mismatch: investigate unintended connectivity changes
 - Worse schematic score: inspect collision records and wire-corner count before accepting the layout
 

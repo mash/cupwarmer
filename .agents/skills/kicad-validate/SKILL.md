@@ -18,6 +18,8 @@ KICAD_CLI='/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'
 
 ### 2. ERC (electrical rules check)
 
+Always run ERC against the **top-level sheet** (`cupwarmer-hw.kicad_sch`), even when only a child sheet was edited — hierarchical ERC propagates into child sheets. Do not run ERC on a child sheet directly.
+
 ```bash
 KICAD_CLI='/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'
 
@@ -27,9 +29,11 @@ KICAD_CLI='/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'
   hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch
 ```
 
-Compare against the pre-edit ERC result when available. Existing violations are not automatically failures; new violations are.
+Compare against the pre-edit ERC result when available. Existing violations are not automatically failures; new violations are. New violations that are the intended consequence of the request (e.g. a deliberately-added test-point label that is dangling on purpose) are acceptable; call them out in the report.
 
 ### 3. Netlist export and diff
+
+Always export from the **top-level sheet**. Output filename convention: pre-edit baseline is `tmp/cupwarmer-pre.net`, post-edit is `tmp/cupwarmer-post.net`. If no baseline was captured, write `tmp/cupwarmer-post.net` and note "no pre-edit baseline" in the report.
 
 ```bash
 "$KICAD_CLI" sch export netlist \
@@ -65,7 +69,7 @@ python3 .agents/skills/kicad-schematic-score/scripts/score_schematic.py \
   hardware/kicad/cupwarmer-hw/<edited-file>.kicad_sch
 ```
 
-Lower is better. Compare before/after scores when a baseline exists.
+Lower is better. Compare before/after scores when a baseline exists. Report the score inline (stdout summary is enough; no need to redirect to a file).
 
 ### 6. Board checks (if board was edited)
 
@@ -82,17 +86,6 @@ Lower is better. Compare before/after scores when a baseline exists.
 - Confirm `Sheetfile` references point to existing files
 - Confirm net names and symbol references are consistent
 - Confirm custom symbol changes are reflected in both embedded `lib_symbols` and `cupwarmer.kicad_sym`
-
-### 8. Optional local helper scripts
-
-If local helper scripts exist in `tmp/`, they may be used as additional checks:
-
-```bash
-python3 tmp/roundtrip_sch.py hardware/kicad/cupwarmer-hw/<edited-file>.kicad_sch
-python3 tmp/kicad_cli_validate.py
-```
-
-These scripts are not part of the current checked-in skill files, so do not treat their absence as a validation failure.
 
 ## Interpreting Results
 

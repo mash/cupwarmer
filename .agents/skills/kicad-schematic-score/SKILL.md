@@ -22,9 +22,9 @@ The output includes both a numeric breakdown and the concrete collision records 
 
 ## Scripts
 
-- `scripts/score_schematic.py`: Main command-line entry point. Exports the schematic to SVG with `kicad-cli`, combines SVG text geometry with KiCad schematic structure, computes collision records, counts wire corners/T-junctions, applies penalty weights, and prints the final JSON score.
-- `scripts/kicad_sch_bbox_collisions.py`: Geometry extraction and collision helper. Parses rendered SVG text bounding boxes, matches rendered labels/properties back to KiCad schematic targets, collects wire segments and symbol/pin boxes from `.kicad_sch`, and can be run directly for focused collision debugging against an already exported SVG.
-- `scripts/text_collision_core.py`: Shared rectangle math. Defines `Rect`, collision padding rules for global labels and symbol properties, and text/text frame intersection helpers used by the other scripts.
+- `scripts/score_schematic.py`: main entry point — exports SVG via `kicad-cli`, computes collisions and corners, prints JSON score.
+- `scripts/kicad_sch_bbox_collisions.py`: standalone collision helper — run against an already-exported SVG for focused debugging.
+- `scripts/text_collision_core.py`: shared `Rect`/padding/intersection helpers.
 
 ## Command
 
@@ -53,13 +53,10 @@ python3 .agents/skills/kicad-schematic-score/scripts/kicad_sch_bbox_collisions.p
 
 ## Interpretation
 
-- `score.total`: total penalty points for the current schematic state.
-- `collision_count`: number of visible text/label collision records.
-- `wire_hits`: text or label collisions with wires.
-- `component_hits`: text or labels colliding with symbol bodies or pin stubs.
-- `text_hits`: text-to-text collisions.
+- `score.total`: total penalty (lower is better).
+- `collision_count` / `wire_hits` / `component_hits` / `text_hits`: text/label collision records, broken down by what they hit (wires / symbol bodies & pin stubs / other text).
 - `symbol_wire_conflict_count`: symbol body directly overlapped by a wire.
-- `symbol_wire_clearance_count`: wire is visually too close to a symbol body.
-- `wire_corner_count`: two-segment bend points plus wire endpoints that T-junction into a perpendicular wire segment.
+- `symbol_wire_clearance_count`: wire visually too close to a symbol body.
+- `wire_corner_count`: two-segment bend points + wire endpoints T-junctioning into a perpendicular segment.
 
-Report the score and the highest-impact collision records. If the user asks for fixes, switch to `kicad-hardware-editing`.
+Report the score and the highest-impact collision records. If `collision_count` is low, also list the dominant numeric penalty contributors (e.g. `wire_corner_penalty`, `symbol_wire_clearance_count`). If the user asks for fixes, switch to `kicad-hardware-editing`.
