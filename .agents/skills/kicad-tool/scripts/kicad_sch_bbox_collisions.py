@@ -282,7 +282,7 @@ def match_rendered_to_targets(rendered: list[RenderedText], targets: list[TextTa
             rt.matched_x = target.expected_x
             rt.matched_y = target.expected_y
 
-    return [rt for rt in rendered if rt.matched_kind is not None]
+    return rendered
 
 
 def collect_wires(sch: Schematic) -> list[WireSeg]:
@@ -406,12 +406,21 @@ def is_global_label_endpoint_touch(rt: RenderedText, hitbox: Rect, wire: WireSeg
     if not endpoint_matches:
         return False
     overlap = segment_overlap_inside_rect(hitbox, wire.p1, wire.p2, margin=margin)
-    return overlap <= GLOBAL_LABEL_WIRE_ENTRY_TOLERANCE_MM
+    rect = hitbox.normalized()
+    if abs(wire.p1[0] - wire.p2[0]) < 1e-9:
+        allowed = (rect.y2 - rect.y1) / 2.0 + GLOBAL_LABEL_WIRE_ENTRY_TOLERANCE_MM
+    elif abs(wire.p1[1] - wire.p2[1]) < 1e-9:
+        allowed = (rect.x2 - rect.x1) / 2.0 + GLOBAL_LABEL_WIRE_ENTRY_TOLERANCE_MM
+    else:
+        allowed = GLOBAL_LABEL_WIRE_ENTRY_TOLERANCE_MM
+    return overlap <= allowed
 
 
 def detect_collisions(rendered_texts: list[RenderedText], wires: list[WireSeg], boxes: list[SymbolBox], margin: float) -> list[dict]:
     collisions: list[dict] = []
     for rt in rendered_texts:
+        if rt.matched_kind is None:
+            continue
         hitbox = collision_rect(rt.bbox, rt.matched_kind, rt.matched_key, frame_rect=rt.frame_bbox)
         entry = {
             "text": rt.text,

@@ -22,6 +22,7 @@ from kicad_sch_bbox_collisions import (
 )
 
 WIRE_CORNER_WEIGHT = 25.0
+DIAGONAL_WIRE_WEIGHT = 50.0
 SYMBOL_WIRE_CONFLICT_WEIGHT = 1200.0
 SYMBOL_WIRE_CLEARANCE_MM = 1.27
 SYMBOL_WIRE_CLEARANCE_WEIGHT = 450.0
@@ -37,6 +38,8 @@ class ScoreBreakdown:
     collision_area: float
     wire_corner_count: int
     wire_corner_penalty: float
+    diagonal_wire_count: int
+    diagonal_wire_penalty: float
     symbol_wire_conflict_count: int
     symbol_wire_penalty: float
     symbol_wire_clearance_count: int
@@ -121,6 +124,16 @@ def count_wire_t_junction_corners(wires: list) -> int:
                 wire_ids = tuple(sorted((endpoint_wire.uuid, segment_wire.uuid)))
                 t_junctions.add((point[0], point[1], wire_ids[0], wire_ids[1]))
     return len(t_junctions)
+
+
+def count_diagonal_wires(wires: list) -> int:
+    count = 0
+    for wire in wires:
+        dx = abs(wire.p2[0] - wire.p1[0])
+        dy = abs(wire.p2[1] - wire.p1[1])
+        if dx > 0.01 and dy > 0.01:
+            count += 1
+    return count
 
 
 def count_wire_corners(wires: list) -> int:
@@ -333,6 +346,8 @@ def score_payload(payload: dict) -> ScoreBreakdown:
     collision_area = sum(rect_area(c.get("collision_bbox")) for c in collisions)
     wire_corner_count = count_wire_corners(wires)
     wire_corner_penalty = wire_corner_count * WIRE_CORNER_WEIGHT
+    diagonal_wire_count = count_diagonal_wires(wires)
+    diagonal_wire_penalty = diagonal_wire_count * DIAGONAL_WIRE_WEIGHT
     symbol_wire_conflict_count = sum(1 for conflict in symbol_wire_conflicts if conflict.get("kind") == "overlap")
     symbol_wire_penalty = symbol_wire_conflict_count * SYMBOL_WIRE_CONFLICT_WEIGHT
     symbol_wire_clearance_count = sum(1 for conflict in symbol_wire_conflicts if conflict.get("kind") == "clearance")
@@ -344,6 +359,7 @@ def score_payload(payload: dict) -> ScoreBreakdown:
         + 50.0 * len(collisions)
         + collision_area
         + wire_corner_penalty
+        + diagonal_wire_penalty
         + symbol_wire_penalty
         + symbol_wire_clearance_penalty
     )
@@ -356,6 +372,8 @@ def score_payload(payload: dict) -> ScoreBreakdown:
         collision_area=round(collision_area, 3),
         wire_corner_count=wire_corner_count,
         wire_corner_penalty=wire_corner_penalty,
+        diagonal_wire_count=diagonal_wire_count,
+        diagonal_wire_penalty=diagonal_wire_penalty,
         symbol_wire_conflict_count=symbol_wire_conflict_count,
         symbol_wire_penalty=symbol_wire_penalty,
         symbol_wire_clearance_count=symbol_wire_clearance_count,

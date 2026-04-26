@@ -49,6 +49,11 @@ Smallest change satisfying the request. Pin additions: keep embedded `lib_symbol
 Preserve connectivity and functional grouping. Smallest local change first.
 Prefer shorter local wires when this does not introduce label/component/wire conflicts, ERC changes, worse readability, or a higher-priority `sch inspect` issue; wire length is a low-priority metric.
 
+Layout preferences (not all in score; treat as readability hints):
+
+- Wires: keep orthogonal (axis-aligned). Diagonal segments get a small `diagonal_wire_penalty` in `sch inspect`.
+- `Value` properties (R, C, L, and other passives/components — e.g. `1uF/25V`, `10k`, `4.7uH`) should sit close to the symbol body, adjacent to it, not several grid steps away. Not scored.
+
 1. Rewire locally.
 2. Rotate/flip labels and properties.
 3. Rotate/flip small components.
