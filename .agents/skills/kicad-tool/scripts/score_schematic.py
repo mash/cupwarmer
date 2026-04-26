@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import sys
 from dataclasses import asdict, dataclass
+from math import hypot
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -293,6 +294,18 @@ def detect_symbol_wire_conflicts(
     return conflicts
 
 
+def wire_length_metrics(wires: list) -> dict:
+    lengths = [
+        round(hypot(wire.p2[0] - wire.p1[0], wire.p2[1] - wire.p1[1]), 3)
+        for wire in wires
+    ]
+    return {
+        "total_mm": round(sum(lengths), 3),
+        "segment_count": len(lengths),
+        "longest_segment_mm": max(lengths, default=0.0),
+    }
+
+
 def collision_payload(schematic: Path, svg: Path, margin: float = 0.0) -> dict:
     sch = Schematic.from_file(str(schematic))
     rendered = parse_svg_rendered_texts(svg)
@@ -305,6 +318,7 @@ def collision_payload(schematic: Path, svg: Path, margin: float = 0.0) -> dict:
     return {
         "collisions": collisions,
         "wires": wires,
+        "wire_length": wire_length_metrics(wires),
         "symbol_wire_conflicts": symbol_wire_conflicts,
     }
 
@@ -354,6 +368,7 @@ def score_schematic_from_svg(schematic: Path, svg: Path, margin: float = 0.0) ->
     score = score_payload(payload)
     return {
         "score": asdict(score),
+        "wire_length": payload["wire_length"],
         "collisions": payload["collisions"],
         "symbol_wire_conflicts": payload["symbol_wire_conflicts"],
     }

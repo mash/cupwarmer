@@ -42,6 +42,7 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
 `sch inspect --json` returns:
 
 - `score` — `total` (lower better), `collision_count`, `wire_corner_count` (two-segment bends + wire-endpoint T-junctions), `symbol_wire_conflict_count` (wires crossing symbol bodies), `symbol_wire_clearance_count` (wires too close to symbols).
+- `wire_length` — independent non-score metric with total wire length, segment count, and longest segment.
 - `collisions` — text/label/property/wire/symbol records.
 - `symbol_wire_conflicts` — body overlaps + clearance violations.
 - `filters` — applied `only_text`, `margin`.

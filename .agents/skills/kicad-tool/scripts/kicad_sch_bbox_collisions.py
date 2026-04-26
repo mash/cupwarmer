@@ -60,6 +60,7 @@ class SymbolBox:
 
 
 GLOBAL_LABEL_PIN_CLEARANCE_MM = 0.25
+GLOBAL_LABEL_WIRE_ENTRY_TOLERANCE_MM = 0.05
 
 
 def svg_tag(elem) -> str:
@@ -372,6 +373,42 @@ def collect_symbol_boxes(sch: Schematic) -> list[SymbolBox]:
     return boxes
 
 
+def segment_overlap_inside_rect(rect: Rect, p1: tuple[float, float], p2: tuple[float, float], margin: float = 0.0) -> float:
+    r = rect.normalized()
+    x1, y1 = p1
+    x2, y2 = p2
+    if abs(x1 - x2) < 1e-9:
+        x = x1
+        if not (r.x1 - margin <= x <= r.x2 + margin):
+            return 0.0
+        ymin, ymax = sorted((y1, y2))
+        overlap = min(ymax, r.y2 + margin) - max(ymin, r.y1 - margin)
+        return max(0.0, overlap)
+    if abs(y1 - y2) < 1e-9:
+        y = y1
+        if not (r.y1 - margin <= y <= r.y2 + margin):
+            return 0.0
+        xmin, xmax = sorted((x1, x2))
+        overlap = min(xmax, r.x2 + margin) - max(xmin, r.x1 - margin)
+        return max(0.0, overlap)
+    if not rect.intersects_segment(p1, p2, margin=margin):
+        return 0.0
+    return math.hypot(x2 - x1, y2 - y1)
+
+
+def is_global_label_endpoint_touch(rt: RenderedText, hitbox: Rect, wire: WireSeg, margin: float) -> bool:
+    if rt.matched_kind != "global_label" or rt.matched_x is None or rt.matched_y is None:
+        return False
+    endpoint_matches = (
+        (abs(wire.p1[0] - rt.matched_x) < 0.01 and abs(wire.p1[1] - rt.matched_y) < 0.01)
+        or (abs(wire.p2[0] - rt.matched_x) < 0.01 and abs(wire.p2[1] - rt.matched_y) < 0.01)
+    )
+    if not endpoint_matches:
+        return False
+    overlap = segment_overlap_inside_rect(hitbox, wire.p1, wire.p2, margin=margin)
+    return overlap <= GLOBAL_LABEL_WIRE_ENTRY_TOLERANCE_MM
+
+
 def detect_collisions(rendered_texts: list[RenderedText], wires: list[WireSeg], boxes: list[SymbolBox], margin: float) -> list[dict]:
     collisions: list[dict] = []
     for rt in rendered_texts:
@@ -393,15 +430,7 @@ def detect_collisions(rendered_texts: list[RenderedText], wires: list[WireSeg], 
             "text_hits": [],
         }
         for w in wires:
-            if (
-                rt.matched_kind == "global_label"
-                and rt.matched_x is not None
-                and rt.matched_y is not None
-                and (
-                    (abs(w.p1[0] - rt.matched_x) < 0.01 and abs(w.p1[1] - rt.matched_y) < 0.01)
-                    or (abs(w.p2[0] - rt.matched_x) < 0.01 and abs(w.p2[1] - rt.matched_y) < 0.01)
-                )
-            ):
+            if is_global_label_endpoint_touch(rt, hitbox, w, margin=margin):
                 continue
             if hitbox.intersects_segment(w.p1, w.p2, margin=margin):
                 entry["wire_hits"].append({"uuid": w.uuid, "p1": w.p1, "p2": w.p2})
@@ -436,4 +465,3 @@ def detect_collisions(rendered_texts: list[RenderedText], wires: list[WireSeg], 
         if entry["wire_hits"] or entry["component_hits"] or entry["text_hits"]:
             collisions.append(entry)
     return collisions
-

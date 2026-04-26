@@ -81,6 +81,7 @@ def inspect_schematic(schematic: Path, only_text: str | None, margin: float) -> 
 
     return {
         "score": payload["score"],
+        "wire_length": payload["wire_length"],
         "collisions": collisions,
         "symbol_wire_conflicts": payload["symbol_wire_conflicts"],
         "filters": {
@@ -111,6 +112,7 @@ def cmd_sch_inspect(args: argparse.Namespace) -> int:
 
     score = payload["score"]
     print(f"Score: total {score['total']} (collisions {score['collision_count']}, wire corners {score['wire_corner_count']})")
+    print(f"Wire length: {payload['wire_length']['total_mm']} mm across {payload['wire_length']['segment_count']} segments")
     print(f"Collisions: {len(payload['collisions'])}")
     for collision in payload["collisions"]:
         owner = collision["kind"]

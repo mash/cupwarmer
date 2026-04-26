@@ -47,6 +47,7 @@ Smallest change satisfying the request. Pin additions: keep embedded `lib_symbol
 #### Visual cleanup priority (when improving `sch inspect` score)
 
 Preserve connectivity and functional grouping. Smallest local change first.
+Prefer shorter local wires when this does not introduce label/component/wire conflicts, ERC changes, worse readability, or a higher-priority `sch inspect` issue; wire length is a low-priority metric.
 
 1. Rewire locally.
 2. Rotate/flip labels and properties.
