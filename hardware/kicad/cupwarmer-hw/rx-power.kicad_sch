@@ -1187,13 +1187,33 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 45.72) (xy 147.32 45.72)
+			(xy 134.62 45.72) (xy 134.62 41.91)
 		)
 		(stroke
 			(width 0)
 			(type solid)
 		)
 		(uuid "004efa15-55ef-48a4-b93c-9016b732e001")
+	)
+	(wire
+		(pts
+			(xy 134.62 41.91) (xy 147.32 41.91)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "588edbdb-a110-48cf-8536-7426155c44c6")
+	)
+	(wire
+		(pts
+			(xy 147.32 41.91) (xy 147.32 45.72)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "1c611168-112f-4360-99e0-fc16bc4f82a6")
 	)
 	(wire
 		(pts
@@ -2454,7 +2474,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111243")
 		(property "Reference" "C2"
-			(at 139.7 41.91 0)
+			(at 139.7 39.37 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
