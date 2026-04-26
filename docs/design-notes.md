@@ -23,8 +23,8 @@
 初回ヒーター目標:
 
 - `12V`
-- `10Ω` 前後
-- `14.4W` 前後
+- `15Ω` 前後（2026-04-26 改定。10Ω では 14.4W となり EPP 15W × 80-85% 効率の利用可能 12-12.75W を超え、VOUT ドループ → OCP トリップの懸念）
+- `9.6W` 前後
 
 最終値は熱試験で再調整する。
 
@@ -34,7 +34,7 @@
 `STWLC38JRM` の autonomous 動作、`I2C` service header、独立ハード保護で成立させる。
 
 - 初版は固定 `VOUT_12V` 前提
-- ヒーター段の gate 制御源は `TBD`
+- **v1 ヒーター gate ドライブ: 常時 ON（VOUT_12V → R1 (33Ω) → Q1.G、R2 (100k) で gate プルダウン）**。Qi 給電中は連続通電。温度保護は F1 サーモスタットのみ。PWM/可変制御は v2 以降。MCU を入れる場合はゲートドライバ IC または低閾値 FET でレベル整合する。
 - 製品固有の温調ロジックは初版のスコープ外
 - `ENB` は未使用時 `GND` 固定を基本にする
 - `NTC` は専用 `RX_NTC` として露出し、未使用時は `VAA` へ `10k` pull-up とする
@@ -110,24 +110,37 @@ flowchart TB
 - 温度・異常時の停止は `FOD` と `F1` の二系統で受け持つ
 - `I2C` / `INTB` は製品制御ではなく、bring-up / service 用の観測・設定経路として扱う
 
-## 回路図ステータス（2026-04-18 時点）
+## 回路図ステータス（2026-04-26 時点）
 
-`rx-power.kicad_sch` に以下の最小外付け回路を反映済み:
+DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 
-- `BOOT1/BOOT2` 各 `47nF` (C5/C6)
+- `BOOT1/BOOT2` 各 `47nF` (C5/C6) → **AC1/AC2 に接続**（ブートストラップ）
 - `VAA` `4.7uF` (C7) + `NTC → VAA 10k` pull-up (R7)
 - `VDD` `1uF` (C8) + HF bypass `100nF` (C4)
 - `VRECT` `10uF` (C9)
-- `IEXT` clamp: `RCL 300R` (R4) + `TVS SMF13A` (TVS1)
+- `IEXT` clamp: `RCL 300R` (R4) → **VOUT_12V** 接続（OVP クランプ用、内部スイッチで VRECT へ）
+- `AC1/AC2` ESD: `SMF13A` (Z1/Z2) 各 `GND` 直結
+- `Cs` 系列共振 `100nF×5` (C1) + **`Cd` 並列共振 `3.3nF` (C15)**
+- COMA/COMB ASK 変調キャパ 4 本: C11=CCOMA1(10n→AC1), C12=CCOMB1(22n→AC1), C13=CCOMA2(10n→AC2), C14=CCOMB2(22n→AC2)
+- `VS` `3.3nF` (C10) → GND（基本 RX モードでは使わないが小容量バイパスで安定化）
 - `ENB` → `GND` 固定
-- `SCL/SDA` pull-up `10k` (R5/R6) → `VDD`
+- **`SCL/SDA` pull-up `10k` (R5/R6) → `VAA` (2.5V)**（VDD は 1.1V LDO で I2C には低すぎる。J1 経由のホスト接続はレベルシフタ必須）
 - `VOUT` → heater-control シートへ
+- LED: D1（給電中インジ、VOUT_12V → R10(3k) → D1 → GND）
+
+`sensors-logic.kicad_sch`:
+
+- `J1`: I2C service header（VREF = VAA 2.5V）
+- `TH1` / `TH2`: `10k NTC` placeholder
+- `R8` / `R9`: `VAA` への `10k` pull-up
+- `J2`: `NTC_TOP` / `NTC_PCB` thermal monitor header
+- `J3`: `RX_INTB` / `I_HEATER_MON` status monitor header
 
 `sensors-logic.kicad_sch` には以下を反映済み:
 
-- `J1`: `RX_VDD` 参照付き `I2C` service header
+- `J1`: `RX_VAA` 2.5V 参照付き `I2C` service header
 - `TH1` / `TH2`: `10k NTC` placeholder
-- `R8` / `R9`: `RX_VDD` への `10k` pull-up
+- `R8` / `R9`: `RX_VAA` への `10k` pull-up
 - `J2`: `NTC_TOP` / `NTC_PCB` の thermal monitor header
 - `J3`: `RX_INTB` / `I_HEATER_MON` の status monitor header
 
@@ -135,11 +148,14 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 
 ## Open Items
 
-- ~~ST 推奨の完全な最小回路~~ → rx-power に反映済み（COMA/COMB/VS は次フェーズ）
-- exact coil / ferrite part（LS=8µH, CS=100nF×5 がリファレンス）
-- heater final resistance and footprint
-- **heater gate drive source** — GPIO (VDD ≈ 1.8V) では不足の可能性。gate driver IC or 低閾値 FET を検討
+- ~~ST 推奨の完全な最小回路~~ → rx-power に反映済み
+- ~~COMA/COMB 変調キャパシタ~~ → 4 本構成で実装済み (CCOMA1/2, CCOMB1/2)
+- exact coil / ferrite part（LS=8µH, CS=100nF×5, CD=3.3nF がリファレンス。実機共振値は実測で確定）
+- ~~heater final resistance~~ → 15Ω 採用（暫定）。熱試験で再調整
+- heater footprint
 - top plate material
-- hard cutoff implementation choice (F1: thermal cutoff vs thermostat)
-- **COMA/COMB 変調キャパシタ** — Qi ASK 通信に必須 (10nF + 22nF)。次の symbol 拡張で対応
-- **VS (復調入力)** — Qi RX 通信に必要。次の symbol 拡張で対応
+- hard cutoff implementation choice — F1 サーモスタットは現状 90°C TBD。**75°C 以下品への変更検討（IEC 60335 観点）**
+- **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制
+- VOUT 過電圧保護 TVS（SMBJ15A 等）の追加検討
+- LED-2（INTB ステータス）— INTB は max 3.6V のため、12V LED 駆動には NPN/MOSFET バッファが必要。v1 では J3 経由の外部観測のみ。v2 で実装検討
+- R3 (0.05Ω 電流センス) — ADC なしでは未使用。v1 では DNP + 0Ω ジャンパ運用
