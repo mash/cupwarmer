@@ -1207,6 +1207,16 @@
 	)
 	(wire
 		(pts
+			(xy 68.58 40.64) (xy 66.04 40.64)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "0952c376-cab6-4863-8461-af5c6126c9fc")
+	)
+	(wire
+		(pts
 			(xy 139.7 66.04) (xy 123.19 66.04)
 		)
 		(stroke
@@ -1394,6 +1404,36 @@
 			(type solid)
 		)
 		(uuid "82307c3d-f529-4c0d-b401-074d101491e2")
+	)
+	(wire
+		(pts
+			(xy 149.86 55.88) (xy 151.13 55.88)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "431604ad-1e01-4d4a-8758-2560af032606")
+	)
+	(wire
+		(pts
+			(xy 149.86 66.04) (xy 151.13 66.04)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "b9d9983a-7c5f-4ed4-b7a6-40c7bbe9878a")
+	)
+	(wire
+		(pts
+			(xy 149.86 76.2) (xy 151.13 76.2)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "3d12208e-65b7-4e83-9cbf-0d857c1459e0")
 	)
 	(wire
 		(pts
@@ -1747,7 +1787,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 149.86 66.04 0)
+		(at 151.13 66.04 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1756,7 +1796,7 @@
 		)
 		(uuid "0478ec95-6e24-4696-ad71-61b1ba824d89")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 149.86 66.04 0)
+			(at 151.13 66.04 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1967,7 +2007,7 @@
 	)
 	(global_label "RX_NTC"
 		(shape passive)
-		(at 68.58 40.64 180)
+		(at 66.04 40.64 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1976,7 +2016,7 @@
 		)
 		(uuid "8e6528f2-32e9-4c7a-9139-147b32af3a09")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 68.58 40.64 0)
+			(at 66.04 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2033,7 +2073,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 149.86 55.88 0)
+		(at 151.13 55.88 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2042,7 +2082,7 @@
 		)
 		(uuid "af82751f-a945-413c-bedf-128e46a9c7f0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 149.86 55.88 0)
+			(at 151.13 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2297,7 +2337,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 149.86 76.2 0)
+		(at 151.13 76.2 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2306,7 +2346,7 @@
 		)
 		(uuid "e693b493-540c-47aa-9fe1-8252ccaceff3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 149.86 76.2 0)
+			(at 151.13 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2594,7 +2634,7 @@
 			)
 		)
 		(property "Value" "RCL 300R"
-			(at 144.78 90.17 0)
+			(at 140.97 92.71 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
