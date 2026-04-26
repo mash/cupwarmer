@@ -1115,7 +1115,7 @@
 	)
 	(text "Functional draft only: resonant network and exact ST values still TBD"
 		(exclude_from_sim no)
-		(at 27.94 25.4 0)
+		(at 27.94 120.4 0)
 		(effects
 			(font
 				(size 1.5 1.5)
@@ -1127,7 +1127,7 @@
 	)
 	(text "I2C is a service / bring-up connection in this draft, not an external MCU control path"
 		(exclude_from_sim no)
-		(at 27.94 30.48 0)
+		(at 27.94 125.48 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1139,7 +1139,7 @@
 	)
 	(text "Stand-alone defaults: ENB -> GND if unused, NTC unused -> VAA via 10k, INTB optional for bring-up"
 		(exclude_from_sim no)
-		(at 27.94 35.56 0)
+		(at 27.94 130.56 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1151,7 +1151,7 @@
 	)
 	(text "All decoupling, modulation, and clamp passives placed. Exact coil/resonant values TBD"
 		(exclude_from_sim no)
-		(at 27.94 40.64 0)
+		(at 27.94 135.64 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1163,7 +1163,7 @@
 	)
 	(text "I2C pull-ups for service / bring-up header (VDD level)"
 		(exclude_from_sim no)
-		(at 27.94 45.72 0)
+		(at 27.94 140.72 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1175,7 +1175,7 @@
 	)
 	(text "Ferrite sheet remains a mechanical stack-up item; it is intentionally not represented as an electrical symbol"
 		(exclude_from_sim no)
-		(at 27.94 50.8 0)
+		(at 27.94 145.8 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1587,13 +1587,23 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 78.74) (xy 137.16 83.82)
+			(xy 134.62 78.74) (xy 137.16 78.74)
 		)
 		(stroke
 			(width 0)
 			(type solid)
 		)
 		(uuid "a27a22b8-58b4-484a-b82a-bdc6a92b3060")
+	)
+	(wire
+		(pts
+			(xy 137.16 78.74) (xy 137.16 83.82)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "b27a22b8-58b4-484a-b82a-bdc6a92b3061")
 	)
 	(wire
 		(pts
@@ -2739,7 +2749,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111320")
 		(property "Reference" "TVS1"
-			(at 152.4 86.36 90)
+			(at 148.59 86.36 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2909,7 +2919,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111328")
 		(property "Reference" "U1"
-			(at 116.84 74.93 0)
+			(at 116.84 53.34 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3208,7 +3218,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000001")
 		(property "Reference" "C5"
-			(at 82.55 68.58 0)
+			(at 78.74 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3643,7 +3653,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 186.69 62.23 0)
+			(at 186.69 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
