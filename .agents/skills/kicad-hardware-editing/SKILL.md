@@ -49,7 +49,7 @@ All accept `--dry-run` and `--json`.
 Read-only inspection — prefer it over grepping `.kicad_sch`:
 
 - `sch query symbol --ref REF` for symbol position/rotation.
-- `sch query pin --ref REF [--number N]` for absolute pin coordinates.
+- `sch query pin REF.PIN` for absolute pin coordinates (and net membership with `--netlist`).
 - `sch query region --bbox X1,Y1,X2,Y2` to list everything in an area.
 - Other read-only forms: `sch query net|wire|label|lib-symbol|list`.
 
