@@ -31,14 +31,14 @@ Sheets: `cupwarmer-hw.kicad_sch` (top), `rx-power.kicad_sch`, `heater-control.ki
 ### Automated `sch edit` subcommands
 
 ```
-sch edit symbol move --ref REF --to X,Y [--rotation R]
-sch edit wire add --from X,Y --to X,Y
-sch edit wire delete --uuid U | --from X,Y --to X,Y
-sch edit label add --kind global|hier|local --name N --at X,Y [--rotation R] [--justify J]
-sch edit label move --uuid U --to X,Y [--rotation R]
-sch edit label delete --uuid U
-sch edit junction add --at X,Y
-sch edit junction delete --uuid U | --at X,Y
+sch edit symbol move <sch> <REF> <X,Y> [--rotation R]
+sch edit wire add <sch> <X1,Y1> <X2,Y2>
+sch edit wire delete <sch> --uuid U | --from X,Y --to X,Y
+sch edit label add <sch> <KIND> <NAME> <X,Y> [--rotation R] [--justify J]   # KIND: global|hier|local
+sch edit label move <sch> <UUID> <X,Y> [--rotation R]
+sch edit label delete <sch> <UUID>
+sch edit junction add <sch> <X,Y>
+sch edit junction delete <sch> --uuid U | --at X,Y
 ```
 
 All accept `--dry-run` and `--json`.
@@ -47,9 +47,9 @@ All accept `--dry-run` and `--json`.
 
 Read-only inspection. Do not `Read`/`cat`/`grep` `.kicad_sch` — raw S-expression files are huge and burn the context window; `sch query` returns scoped JSON.
 
-- `sch query symbol --ref REF` — symbol position/rotation.
-- `sch query pin REF.PIN` — absolute pin coordinates (+ net with `--netlist`).
-- `sch query region --bbox X1,Y1,X2,Y2` — everything in an area.
+- `sch query symbol <sch> <REF>` — symbol position/rotation.
+- `sch query pin <sch> <REF.PIN>` — absolute pin coordinates (+ net with `--netlist`).
+- `sch query region <sch> <X1,Y1,X2,Y2>` — everything in an area.
 - `sch query net|wire|label|lib-symbol|list` — other read-only forms.
 
 If a needed query is missing, extend `kicad-tool` rather than fall back to raw reads.
@@ -102,7 +102,7 @@ If the new edit happens to introduce obvious local mess (overlapping label, cros
 #### Minimal worked example: add a global label
 
 ```
-sch edit label add --kind global --name <NAME> --at X,Y [--rotation R] [--justify J] --dry-run
+sch edit label add <sch> global <NAME> X,Y [--rotation R] [--justify J] --dry-run
 ```
 
 Re-run without `--dry-run` to apply. Use `sch query` (above) to find coordinates first.

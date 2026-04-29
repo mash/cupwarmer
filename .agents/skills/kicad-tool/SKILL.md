@@ -32,14 +32,14 @@ Read-only inspection of a sheet. All take a positional `<schematic.kicad_sch>` a
 
 | Command | Purpose |
 |---|---|
-| `sch query symbol --ref REF` | Symbol details (position, properties, pin map) by reference |
-| `sch query pin REF.PIN [--netlist PATH]` | One pin's coordinates, orientation, and (with netlist) net |
-| `sch query net (--name NET \| --pin REF.PIN) --netlist PATH` | Members and labels of a net |
-| `sch query region --bbox X1,Y1,X2,Y2` | All elements inside a bounding box |
-| `sch query wire (--uuid U \| --at X,Y \| --through X,Y)` | Locate a wire by uuid, endpoint, or any point on the segment |
-| `sch query label (--name N \| --uuid U)` | Locate labels by name or uuid |
-| `sch query lib-symbol --lib-id LIB_ID` | Library symbol definition (pins, units) |
-| `sch query list (symbols\|labels\|wires\|junctions\|nets) [--netlist PATH]` | Enumerate elements of one kind (`nets` requires `--netlist`) |
+| `sch query symbol <sch> <REF>` | Symbol details (position, properties, pin map) by reference |
+| `sch query pin <sch> <REF.PIN> [--netlist PATH]` | One pin's coordinates, orientation, and (with netlist) net |
+| `sch query net <sch> <NAME_OR_REF.PIN> --netlist PATH` | Members and labels of a net (REF.PIN dispatched by `.`) |
+| `sch query region <sch> <X1,Y1,X2,Y2>` | All elements inside a bounding box |
+| `sch query wire <sch> (--uuid U \| --at X,Y \| --through X,Y)` | Locate a wire by uuid, endpoint, or any point on the segment |
+| `sch query label <sch> (--name N \| --uuid U)` | Locate labels by name or uuid |
+| `sch query lib-symbol <sch> <LIB_ID>` | Library symbol definition (pins, units) |
+| `sch query list <sch> <KIND> [--netlist PATH]` | Enumerate elements of one kind (KIND ∈ symbols/labels/wires/junctions/nets; `nets` requires `--netlist`) |
 
 ### Edit
 
@@ -47,15 +47,15 @@ Structural mutations. All take a positional `<schematic.kicad_sch>`, accept `--j
 
 | Command | Purpose |
 |---|---|
-| `sch edit symbol move --ref REF --to X,Y [--rotation R]` | Move/rotate a symbol |
-| `sch edit symbol add-pin --lib-id LIB --number N --name NAME --at X,Y[,ROT] --length L --type T [--shape S] [--lib-file PATH]` | Add a pin to a symbol (updates embedded lib_symbols + standalone .kicad_sym) |
-| `sch edit wire add --from X,Y --to X,Y [--type solid\|default]` | Add a wire segment |
-| `sch edit wire delete (--uuid U \| --from X,Y --to X,Y)` | Delete a wire |
-| `sch edit label add --kind global\|hier\|local --name N --at X,Y [--rotation R] [--justify J]` | Add a label |
-| `sch edit label move --uuid U --to X,Y [--rotation R]` | Move a label |
-| `sch edit label delete --uuid U` | Delete a label |
-| `sch edit junction add --at X,Y` | Add a junction |
-| `sch edit junction delete (--uuid U \| --at X,Y)` | Delete a junction |
+| `sch edit symbol move <sch> <REF> <X,Y> [--rotation R]` | Move/rotate a symbol |
+| `sch edit symbol add-pin <sch> <LIB_ID> <NUMBER> <NAME> <X,Y> --length L --type T [--rotation R] [--shape S] [--lib-file PATH]` | Add a pin to a symbol (updates embedded lib_symbols + standalone .kicad_sym) |
+| `sch edit wire add <sch> <X1,Y1> <X2,Y2> [--type solid\|default]` | Add a wire segment |
+| `sch edit wire delete <sch> (--uuid U \| --from X,Y --to X,Y)` | Delete a wire |
+| `sch edit label add <sch> <KIND> <NAME> <X,Y> [--rotation R] [--justify J]` | Add a label (KIND ∈ global/hier/local) |
+| `sch edit label move <sch> <UUID> <X,Y> [--rotation R]` | Move a label |
+| `sch edit label delete <sch> <UUID>` | Delete a label |
+| `sch edit junction add <sch> <X,Y>` | Add a junction |
+| `sch edit junction delete <sch> (--uuid U \| --at X,Y)` | Delete a junction |
 
 ### Validate (with baseline)
 

@@ -469,9 +469,16 @@ def cmd_sch_query_pin(args: argparse.Namespace) -> int:
 
 
 def cmd_sch_query_net(args: argparse.Namespace) -> int:
+    target = args.target
+    if "." in target:
+        name = None
+        pin = target
+    else:
+        name = target
+        pin = None
     return _emit_query(
         args,
-        sch_query.query_net(args.schematic, args.netlist, name=args.name, pin=args.pin),
+        sch_query.query_net(args.schematic, args.netlist, name=name, pin=pin),
     )
 
 
@@ -527,7 +534,7 @@ def cmd_sch_edit_symbol_move(args: argparse.Namespace) -> int:
     res = sch_edit.move_symbol(
         args.schematic,
         args.ref,
-        args.to,
+        args.xy,
         rotation=args.rotation,
         dry_run=args.dry_run,
     )
@@ -535,12 +542,13 @@ def cmd_sch_edit_symbol_move(args: argparse.Namespace) -> int:
 
 
 def cmd_sch_edit_symbol_add_pin(args: argparse.Namespace) -> int:
+    x, y = args.at
     res = sch_edit.add_pin(
         args.schematic,
         lib_id=args.lib_id,
         number=args.number,
         name=args.name,
-        at=args.at,
+        at=(x, y, args.rotation),
         length=args.length,
         electrical_type=args.type,
         shape=args.shape,
@@ -555,7 +563,7 @@ def cmd_sch_edit_wire_add(args: argparse.Namespace) -> int:
     res = sch_edit.add_wire(
         args.schematic,
         args.from_pt,
-        args.to,
+        args.to_pt,
         wire_type=args.type,
         dry_run=args.dry_run,
     )
@@ -567,7 +575,7 @@ def cmd_sch_edit_wire_delete(args: argparse.Namespace) -> int:
         args.schematic,
         uuid=args.uuid,
         pt_from=args.from_pt,
-        pt_to=args.to,
+        pt_to=args.to_pt,
         dry_run=args.dry_run,
     )
     return _emit_edit(args, res)
@@ -578,7 +586,7 @@ def cmd_sch_edit_label_add(args: argparse.Namespace) -> int:
         args.schematic,
         args.kind,
         args.name,
-        args.at,
+        args.xy,
         rotation=args.rotation,
         justify=args.justify,
         dry_run=args.dry_run,
@@ -590,7 +598,7 @@ def cmd_sch_edit_label_move(args: argparse.Namespace) -> int:
     res = sch_edit.move_label(
         args.schematic,
         args.uuid,
-        args.to,
+        args.xy,
         rotation=args.rotation,
         dry_run=args.dry_run,
     )
@@ -603,7 +611,7 @@ def cmd_sch_edit_label_delete(args: argparse.Namespace) -> int:
 
 
 def cmd_sch_edit_junction_add(args: argparse.Namespace) -> int:
-    res = sch_edit.add_junction(args.schematic, args.at, dry_run=args.dry_run)
+    res = sch_edit.add_junction(args.schematic, args.xy, dry_run=args.dry_run)
     return _emit_edit(args, res)
 
 
@@ -628,7 +636,7 @@ def _add_query_subparsers(sch_commands) -> None:
 
     p = qsub.add_parser("symbol", help="query a symbol by reference")
     p.add_argument("schematic", type=Path)
-    p.add_argument("--ref", required=True)
+    p.add_argument("ref", help="symbol reference, e.g. U1")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_sch_query_symbol)
 
@@ -639,17 +647,16 @@ def _add_query_subparsers(sch_commands) -> None:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_sch_query_pin)
 
-    p = qsub.add_parser("net", help="query a net by name or pin")
+    p = qsub.add_parser("net", help="query a net by name or REF.PIN")
     p.add_argument("schematic", type=Path)
+    p.add_argument("target", help="net name or REF.PIN (dispatched by '.')")
     p.add_argument("--netlist", type=Path, required=True)
-    p.add_argument("--name")
-    p.add_argument("--pin", help="REF.PIN")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_sch_query_net)
 
     p = qsub.add_parser("region", help="query elements in a bbox")
     p.add_argument("schematic", type=Path)
-    p.add_argument("--bbox", type=parse_bbox, required=True, help="X1,Y1,X2,Y2")
+    p.add_argument("bbox", type=parse_bbox, help="X1,Y1,X2,Y2")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_sch_query_region)
 
@@ -670,7 +677,7 @@ def _add_query_subparsers(sch_commands) -> None:
 
     p = qsub.add_parser("lib-symbol", help="query a library symbol's pins")
     p.add_argument("schematic", type=Path)
-    p.add_argument("--lib-id", required=True, dest="lib_id")
+    p.add_argument("lib_id", help='e.g. "cupwarmer:PLACEHOLDER_1"')
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_sch_query_lib_symbol)
 
@@ -691,8 +698,8 @@ def _add_edit_subparsers(sch_commands) -> None:
     sym_act = sym.add_subparsers(dest="edit_action", required=True)
     p = sym_act.add_parser("move", help="move a symbol")
     p.add_argument("schematic", type=Path)
-    p.add_argument("--ref", required=True)
-    p.add_argument("--to", type=parse_xy, required=True, help="X,Y")
+    p.add_argument("ref", help="symbol reference, e.g. R5")
+    p.add_argument("xy", type=parse_xy, help="destination X,Y")
     p.add_argument("--rotation", type=float, default=None)
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--json", action="store_true")
@@ -703,17 +710,16 @@ def _add_edit_subparsers(sch_commands) -> None:
         help="add a pin to a symbol (updates embedded lib_symbols + standalone .kicad_sym)",
     )
     p.add_argument("schematic", type=Path)
-    p.add_argument("--lib-id", required=True, dest="lib_id",
-                   help='e.g. "cupwarmer:PLACEHOLDER_1"')
-    p.add_argument("--number", required=True, help="pin number (string)")
-    p.add_argument("--name", required=True, help="pin name")
-    p.add_argument("--at", type=parse_xy_rot, required=True,
-                   help="X,Y[,ROT] in lib-local coords (ROT default 0)")
+    p.add_argument("lib_id", help='e.g. "cupwarmer:PLACEHOLDER_1"')
+    p.add_argument("number", help="pin number (string)")
+    p.add_argument("name", help="pin name")
+    p.add_argument("at", type=parse_xy, help="X,Y in lib-local coords")
     p.add_argument("--length", type=float, required=True)
     p.add_argument(
         "--type", required=True,
         choices=sorted(sch_edit._PIN_ELECTRICAL_TYPES),
     )
+    p.add_argument("--rotation", type=float, default=0.0)
     p.add_argument(
         "--shape", default="line",
         choices=sorted(sch_edit._PIN_SHAPES),
@@ -732,8 +738,8 @@ def _add_edit_subparsers(sch_commands) -> None:
     wire_act = wire.add_subparsers(dest="edit_action", required=True)
     p = wire_act.add_parser("add", help="add a wire")
     p.add_argument("schematic", type=Path)
-    p.add_argument("--from", dest="from_pt", type=parse_xy, required=True, help="X,Y")
-    p.add_argument("--to", type=parse_xy, required=True, help="X,Y")
+    p.add_argument("from_pt", type=parse_xy, metavar="FROM", help="X1,Y1")
+    p.add_argument("to_pt", type=parse_xy, metavar="TO", help="X2,Y2")
     p.add_argument("--type", choices=["solid", "default"], default="default")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--json", action="store_true")
@@ -743,7 +749,7 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("schematic", type=Path)
     p.add_argument("--uuid")
     p.add_argument("--from", dest="from_pt", type=parse_xy, default=None, help="X,Y")
-    p.add_argument("--to", type=parse_xy, default=None, help="X,Y")
+    p.add_argument("--to", dest="to_pt", type=parse_xy, default=None, help="X,Y")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_sch_edit_wire_delete)
@@ -753,9 +759,9 @@ def _add_edit_subparsers(sch_commands) -> None:
     label_act = label.add_subparsers(dest="edit_action", required=True)
     p = label_act.add_parser("add", help="add a label")
     p.add_argument("schematic", type=Path)
-    p.add_argument("--kind", choices=["global", "hier", "local"], required=True)
-    p.add_argument("--name", required=True)
-    p.add_argument("--at", type=parse_xy, required=True, help="X,Y")
+    p.add_argument("kind", choices=["global", "hier", "local"])
+    p.add_argument("name", help="label text")
+    p.add_argument("xy", type=parse_xy, help="X,Y")
     p.add_argument("--rotation", type=float, default=0.0)
     p.add_argument("--justify", default=None)
     p.add_argument("--dry-run", action="store_true")
@@ -764,8 +770,8 @@ def _add_edit_subparsers(sch_commands) -> None:
 
     p = label_act.add_parser("move", help="move a label")
     p.add_argument("schematic", type=Path)
-    p.add_argument("--uuid", required=True)
-    p.add_argument("--to", type=parse_xy, required=True, help="X,Y")
+    p.add_argument("uuid", help="label uuid")
+    p.add_argument("xy", type=parse_xy, help="X,Y")
     p.add_argument("--rotation", type=float, default=None)
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--json", action="store_true")
@@ -773,7 +779,7 @@ def _add_edit_subparsers(sch_commands) -> None:
 
     p = label_act.add_parser("delete", help="delete a label")
     p.add_argument("schematic", type=Path)
-    p.add_argument("--uuid", required=True)
+    p.add_argument("uuid", help="label uuid")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_sch_edit_label_delete)
@@ -783,7 +789,7 @@ def _add_edit_subparsers(sch_commands) -> None:
     junc_act = junc.add_subparsers(dest="edit_action", required=True)
     p = junc_act.add_parser("add", help="add a junction")
     p.add_argument("schematic", type=Path)
-    p.add_argument("--at", type=parse_xy, required=True, help="X,Y")
+    p.add_argument("xy", type=parse_xy, help="X,Y")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_sch_edit_junction_add)
