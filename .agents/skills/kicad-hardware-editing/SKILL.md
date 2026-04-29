@@ -1,15 +1,17 @@
 ---
 name: kicad-hardware-editing
-description: Stage 1 (functional) workflow for editing KiCad hardware design files in this repository under `hardware/kicad/cupwarmer-hw`. Covers connectivity, nets, symbols, pins, ERC, and netlist correctness. Use `kicad-tool` for all KiCad CLI operations and validation. Score / layout tightening (stage 2) is delegated to `kicad-sch-cleanup-loop`.
+description: Stage 1 (functional) workflow for editing KiCad hardware design files. Covers the editing mechanics — `sch edit` subcommands, dry-run/validate loop, plan-and-approval gate. Design judgement (invariants, partitioning, layout consistency, forbidden patterns) lives in `electronics-design-principles`. KiCad CLI lives in `kicad-tool`. Validation lives in `kicad-validate`. Score/layout tightening (stage 2) lives in `kicad-sch-cleanup-loop`.
 ---
 
 # KiCad Hardware Editing
 
-Primary editing workflow for the Cup Warmer KiCad project at `hardware/kicad/cupwarmer-hw`.
+Editing **workflow** for KiCad hardware files. This skill owns the *how*; design *what/why* lives in `electronics-design-principles`.
 
-Read `hardware/kicad/cupwarmer-hw/README.md` before editing.
+Project-specific information (board path, sheet inventory, net naming, stackup, partitioning) lives in the repo's hardware docs — `hardware/schematic/README.md`, `hardware/pcb/README.md`, and the project README under `hardware/kicad/<project>/README.md`. Read them before editing.
 
 For any KiCad CLI invocation (render, inspect, ERC, netlist, validate, DRC), **read the `kicad-tool` skill via the Skill tool first** to get exact subcommands and flags.
+
+For any decision about *what* to change electrically (placement, grouping, decoupling, partitioning, rotation that affects pin meaning), consult **`electronics-design-principles`** before forming the plan.
 
 ## File types
 
@@ -21,12 +23,11 @@ For any KiCad CLI invocation (render, inspect, ERC, netlist, validate, DRC), **r
 | `.kicad_prl` | Do not edit unless explicitly asked |
 | `.kicad_sym` | Keep in sync with embedded `lib_symbols` when changing custom symbols |
 
-Sheets: `cupwarmer-hw.kicad_sch` (top), `rx-power.kicad_sch`, `heater-control.kicad_sch`, `sensors-logic.kicad_sch`.
-
-## Key rules
+## Editing rules
 
 - For automated cases (move/add/delete symbol, wire, label, junction; add-pin), use `sch edit ...` — see `kicad-tool`. Always pass `--dry-run` first, then re-run without it. Validate via `kicad-tool` after every edit.
-- Adding pins to symbols: use `sch edit symbol add-pin ...` — it updates both the schematic's embedded `lib_symbols` and `cupwarmer.kicad_sym` together. Coordinates are symbol-local (no Y negation here).
+- Adding pins to symbols: use `sch edit symbol add-pin ...` — it updates both the schematic's embedded `lib_symbols` and the project's `.kicad_sym` library together. Coordinates are symbol-local (no Y negation here).
+- Do not `Read`/`cat`/`grep` `.kicad_sch` — raw S-expression files are huge and burn the context window. Use `sch query` for scoped JSON.
 
 ### Automated `sch edit` subcommands
 
@@ -45,7 +46,7 @@ All accept `--dry-run` and `--json`.
 
 ### Use `sch query` to gather coordinates
 
-Read-only inspection. Do not `Read`/`cat`/`grep` `.kicad_sch` — raw S-expression files are huge and burn the context window; `sch query` returns scoped JSON.
+Read-only inspection (returns scoped JSON):
 
 - `sch query symbol <sch> <REF>` — symbol position/rotation.
 - `sch query pin <sch> <REF.PIN>` — absolute pin coordinates (+ net with `--netlist`).
@@ -65,7 +66,7 @@ Before any `sch edit`, state and wait for approval:
 1. **Goal** — what the design should do (design terms, not "add wires").
 2. **Problem** — what's missing/wrong, citing specific symbols/nets/pins (via `sch query`).
 3. **Approach** — proposed change + alternatives considered + why this one. Smallest unit that meets the goal.
-4. **Placement** — for each new/moved symbol, which existing symbol or net it should sit *near* and why (decoupling next to its IC's VDD pin, pull-ups next to their label, function-grouped — no parking in empty corners).
+4. **Placement** — for each new/moved symbol, which existing symbol or net it should sit *near* and why. Apply `electronics-design-principles` (grouping, partitioning, decoupling near supply pins, function-grouped — no parking in empty corners).
 5. **Layout sketch (ASCII art) — required** — show **both** the *current* local layout and the *proposed* layout side-by-side (or before/after) as small ASCII diagrams. Include anchor symbols/pins, the new/moved parts, and the connecting wires/labels. Coordinates (X,Y numbers) are *supplementary* to the sketch, not a substitute — the sketch is the primary artifact for the user to spot orientation/topology issues before any edit runs. Approximate proportions are fine; what matters is relative position and connectivity. Example:
 
    ```
@@ -85,15 +86,15 @@ Skip only if: (a) the user gave an exact single action ("move R5 to 100,50"), or
 
 ```bash
 python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
-  hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch --json \
+  <path/to/top.kicad_sch> --json \
   > tmp/validate-pre.json
 ```
 
-(Or run `sch erc` and `sch netlist` individually if you need separate `tmp/cupwarmer-pre-erc.rpt` / `tmp/cupwarmer-pre.net` artifacts — see `kicad-validate`.)
+(Or run `sch erc` and `sch netlist` individually if you need separate report/netlist artifacts — see `kicad-validate`.)
 
 ### 2. Edit (functional)
 
-Smallest change satisfying the request. Pin additions: keep embedded `lib_symbols` and `cupwarmer.kicad_sym` in sync.
+Smallest change satisfying the request. Pin additions: keep embedded `lib_symbols` and the project's `.kicad_sym` library in sync.
 
 Scope of stage 1: connectivity, nets, symbols, pins, values, hierarchy, ERC correctness. Do **not** chase `sch inspect` score, collisions, `wire_corner_count`, `diagonal_wire_penalty`, or label/value tightening here — that is stage 2.
 
@@ -123,7 +124,7 @@ Stage 1 ends once ERC and netlist are correct. If the user wants score/layout ti
 
 ## Board editing
 
-Keep stable: `layers`, `setup`, `setup.stackup`, `Edge.Cuts`, title block. High-risk: `net`, `footprint`, `segment`, `via`, `zone`. 4-layer stackup unless explicitly changed; RX, heater power, control stay separated.
+Keep stable: `layers`, `setup`, `setup.stackup`, `Edge.Cuts`, title block. High-risk fields: `net`, `footprint`, `segment`, `via`, `zone`. Project-specific stackup and domain-separation rules live in `hardware/pcb/README.md`.
 
 ## Project settings
 

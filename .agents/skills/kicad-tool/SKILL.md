@@ -19,22 +19,22 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py <domain> <command> ...
 
 - `<schematic>` is always the first positional.
 - Required args are positional, in table order. Coordinates are a single `X,Y` (bbox: `X1,Y1,X2,Y2`); rotation is `--rotation R`.
-- `--flag` only for optional knobs, mutex selectors (e.g. `--uuid` vs `--at` for `wire delete`), and the universal `--dry-run` (edits) / `--json` (all).
+- `--flag` only for optional knobs, mutex selectors (e.g. `--uuid` vs `--at` for `wire delete`), and the universal `--dry-run` (edits) / `--format {json,text}` (all; default `json`).
 
 ## Commands
 
 | Command | Purpose | Key flags |
 |---|---|---|
-| `sch render-svg <sheet>` | Export one sheet to SVG | `--out <dir>` |
-| `sch inspect <sheet>` | Score + collisions (re-renders SVG internally) | `--json`, `--only-text <regex>` (Python regex; score stays global), `--margin` |
+| `sch render-region <sheet> <X1,Y1,X2,Y2>` | Render a cropped PNG of a bbox region of a sheet (mm). Use this whenever the model needs to *see* part of a schematic — image cost is bounded, SVG text isn't. (Humans wanting to view a full sheet should open KiCad directly.) | `--out <path>` (default `tmp/region.png`) |
+| `sch inspect <sheet>` | Score + collisions (re-renders SVG internally) | `--only-text <regex>` (Python regex; score stays global), `--margin` |
 | `sch erc <top>` | ERC, hierarchical | `--report <path>` |
 | `sch netlist <top>` | Netlist export | `--out <path>` |
-| `sch validate <top>` | erc + netlist + render-svg(`--sheet`) + inspect(`--sheet`) in one call | `--sheet <edited>`, `--json` |
+| `sch validate <top>` | erc + netlist + inspect(--sheet) in one call | `--sheet <edited>` |
 | `pcb drc <board>` | PCB DRC | `--report <path>`, `--schematic-parity` |
 
 ### Query
 
-Read-only inspection of a sheet. All take a positional `<schematic.kicad_sch>` and accept `--json`.
+Read-only inspection of a sheet. All take a positional `<schematic.kicad_sch>` and emit JSON by default (always JSON for query commands).
 
 | Command | Purpose |
 |---|---|
@@ -49,7 +49,7 @@ Read-only inspection of a sheet. All take a positional `<schematic.kicad_sch>` a
 
 ### Edit
 
-Structural mutations. All take a positional `<schematic.kicad_sch>`, accept `--json`, and support `--dry-run`.
+Structural mutations. All take a positional `<schematic.kicad_sch>`, emit JSON by default (use `--format text` for a human summary), and support `--dry-run`.
 
 | Command | Purpose |
 |---|---|
@@ -76,22 +76,22 @@ Structural mutations. All take a positional `<schematic.kicad_sch>`, accept `--j
 - "I want to know X" → `sch query`. Pick the element by what you have a name/coord for: a `REF` → `symbol`; `REF.PIN` → `pin`; a net name → `net`; coords → `region` or `wire`/`junction`/`label` by `--at`.
 - "I want to change something structural" → `sch edit <element> <action>`. The action is `add` / `move` / `delete`.
 - "I want to know if my edit broke connectivity" → `sch validate --baseline DIR`.
-- "I want to render or score" → existing `render-svg` / `inspect`.
+- "I want to render or score" → `sch inspect` (score) / `sch render-region` (cropped image).
+- "I want to visually confirm a small edit" → `sch render-region` with a tight bbox (or run `sch query symbol REF` first to grab coordinates). Do **not** `Read` the full sheet SVG — the XML is huge and burns context for no gain.
 
-Pass top-level (`cupwarmer-hw.kicad_sch`) to `erc` / `netlist` / `validate`. Pass the edited child sheet to `render-svg` / `inspect` (or via `--sheet` for `validate`).
+Pass top-level (`cupwarmer-hw.kicad_sch`) to `erc` / `netlist` / `validate`. Pass the edited child sheet to `inspect` / `render-region` (or via `--sheet` for `validate`).
 
 Example — full validation after editing `rx-power.kicad_sch`:
 
 ```bash
 python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
   hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch \
-  --sheet hardware/kicad/cupwarmer-hw/rx-power.kicad_sch \
-  --json
+  --sheet hardware/kicad/cupwarmer-hw/rx-power.kicad_sch
 ```
 
 ## Inspect JSON
 
-`sch inspect --json` returns:
+`sch inspect` returns (JSON by default):
 
 - `score` — `total` (lower better), `collision_count`, `wire_corner_count` (two-segment bends + wire-endpoint T-junctions), `symbol_wire_conflict_count` (wires crossing symbol bodies), `symbol_wire_clearance_count` (wires too close to symbols).
 - `wire_length` — independent non-score metric with total wire length, segment count, and longest segment.

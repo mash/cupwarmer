@@ -1,6 +1,6 @@
 ---
 name: kicad-validate
-description: Workflow for validating KiCad hardware files after edits. Use `kicad-tool` to run ERC, netlist export/diff, SVG export, schematic layout inspection, and PCB DRC.
+description: Workflow for validating KiCad hardware files after edits. Use `kicad-tool` to run ERC, netlist export/diff, schematic layout inspection, and PCB DRC.
 ---
 
 # KiCad Validate
@@ -14,11 +14,10 @@ For most schematic edits this is the only command needed:
 ```bash
 python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
   hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch \
-  --sheet hardware/kicad/cupwarmer-hw/<edited>.kicad_sch \
-  --json
+  --sheet hardware/kicad/cupwarmer-hw/<edited>.kicad_sch
 ```
 
-This runs ERC + netlist + SVG export + `sch inspect` in order, stopping on the first failure.
+This runs ERC + netlist + `sch inspect` in order, stopping on the first failure.
 
 ## Baseline-diff workflow
 
@@ -40,8 +39,7 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
 
 - **ERC**: always against the **top-level** `cupwarmer-hw.kicad_sch` (hierarchical ERC propagates into children). Never on a child sheet directly.
 - **Netlist**: always from the top-level.
-- **SVG export**: each edited sheet.
-- **Inspect**: each edited sheet (run for any edit that moves labels/text/symbols/wires).
+- **Inspect**: each edited sheet (run for any edit that moves labels/text/symbols/wires; re-renders SVG internally for scoring).
 - **PCB DRC**: only when the board was edited; pass `--schematic-parity`.
 
 ## Baseline filename convention
@@ -62,7 +60,7 @@ If no pre-edit baseline exists, write the post file and note "no baseline" in th
 
 - Existing ERC violations are not failures; **new** ones are. Intentional new violations (e.g. deliberately-dangling test label) are acceptable — call them out.
 - Netlist diff: visual-only edits should differ only in path/header metadata. Electrical edits: summarize intended changes.
-- Successful CLI exit ≠ correctness. **ERC parity + expected netlist diff + SVG export + score check (when relevant)** = high confidence.
+- Successful CLI exit ≠ correctness. **ERC parity + expected netlist diff + score check (when relevant)** = high confidence.
 - Also `git diff` review; confirm `Sheetfile` references, net names, and that custom symbol changes appear in both embedded `lib_symbols` and `cupwarmer.kicad_sym`.
 
 ## Report format
@@ -70,7 +68,6 @@ If no pre-edit baseline exists, write the post file and note "no baseline" in th
 ```
 ERC: exit=5 (same as before edit)
 Netlist: identical (path-only diff)
-SVG: exported OK
 Inspect: total 3170.808 (wire_corner_count 41)
 ```
 
