@@ -3,20 +3,25 @@ U1,Qi receiver IC,15W wireless power receiver,STMicroelectronics,STWLC38JRM,sele
 L1,receiver coil,8uH Qi RX coil,Luxshare-ICT,LD81FP008-1H,selected,per STEVAL-WLC38RX eval board DCR=190mOhm
 SHIELD1,ferrite sheet,flexible ferrite shield,TBD,TBD,TBD,coil backing shield
 C1,resonant capacitor,100nFx5 C0G/NP0 50V,TBD,TBD,TBD,resonant network per DS14078 ref BOM
+C15,resonant capacitor,3.3nF/50V ceramic,TBD,TBD,TBD,Cd parallel resonant capacitor per DS14078 reference
 C2,output bulk,10uF/25V X5R,TBD,TBD,TBD,VOUT bulk decoupling
 C3,output HF bypass,1uF/25V X7R,TBD,TBD,TBD,VOUT high-frequency bypass
+Z1,AC ESD TVS,unidirectional TVS diode 13V,TBD,SMF13A,TBD,AC1 ESD clamp to SYS_GND per DS14078 reference
+Z2,AC ESD TVS,unidirectional TVS diode 13V,TBD,SMF13A,TBD,AC2 ESD clamp to SYS_GND per DS14078 reference
 Z3,VOUT TVS,unidirectional TVS diode SMB 15V,Littelfuse,SMBJ15A,selected,"VOUT_12V transient clamp to SYS_GND; VR=15V VBR=16.7-18.5V VC=24.4V@24.6A; 600W 10/1000us"
 C4,VDD bypass,100nF ceramic,TBD,TBD,TBD,VDD high-frequency bypass close to U1
 Q1,heater switch,N-MOSFET 30V 5.8A SOT-23,Shenzhen Hottech Electronics,AO3400,selected,"Rds(on)<=28mOhm@10V; SOT-23 pinout 1=G 2=S 3=D; gate driven from VOUT 12V"
 R1,gate divider top,10k resistor,TBD,TBD,TBD,VOUT_12V -> Q1.G; with R2 forms 10k/10k divider for VGS~=6V
 R2,gate divider bottom,10k resistor,TBD,TBD,TBD,Q1.G -> SYS_GND; with R1 forms 10k/10k divider for VGS~=6V
 R3,current sense / jumper,0R jumper or 0.05R current sense resistor,TBD,TBD,selected,"v1 normal build: fit 0R so Q1 source returns to SYS_GND; substitute 0.05R only for measured bring-up"
-NTC_A,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,top plate temperature
-NTC_B,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,board hotspot temperature near Qi coil; ties to RX_NTC for STWLC38 internal OTP
+R4,IEXT clamp resistor,300R resistor,TBD,TBD,TBD,IEXT clamp path resistor to VRECT per DS14078 reference
+TH1,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,top plate temperature monitor node NTC_TOP
+TH2,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,board hotspot temperature near Qi coil; ties to RX_NTC for STWLC38 internal OTP
 F1,thermostat,NC auto-reset thermostat 70C,Xucheng Elec,KSD9700-70/5JSB/080C,selected,"independent thermal protection; open 70+/-5C reset 50+/-10C; AC250V 5A resistive; leaded 80mm wires; mount to underside of top plate"
-H1,heater,flexible heater,TBD,TBD,TBD,target around 15 ohm at 12V nominal
+H1,heater solder pads,external flexible heater / F1 harness pads,TBD,TBD,TBD,"v1 uses large solder pads / wire pads for external 15 ohm heater and F1 series assembly; no board connector"
 J1,service header,I2C service header,TBD,TBD,TBD,"bring-up and configuration access; VREF=RX_VAA 2.5V required; do not connect fixed 3.3V pull-ups directly"
-J2,heater / sensor interconnect,board-to-wire pads or connector,TBD,TBD,TBD,mechanical integration dependent
+J2,thermal monitor header,board-to-wire pads or connector,TBD,TBD,TBD,bring-up header for NTC_TOP and RX_NTC monitor taps
+J3,status monitor header,board-to-wire pads or connector,TBD,TBD,TBD,bring-up header for RX_INTB and I_HEATER_MON
 C5,bootstrap capacitor,47nF C0G/NP0,TBD,TBD,TBD,BOOT1 decoupling close to U1
 C6,bootstrap capacitor,47nF C0G/NP0,TBD,TBD,TBD,BOOT2 decoupling close to U1
 C7,supply decoupling,4.7uF ceramic,TBD,TBD,TBD,VAA analog supply decoupling
@@ -25,6 +30,12 @@ C9,rectifier decoupling,10uF ceramic,TBD,TBD,TBD,VRECT rectifier decoupling clos
 R5,I2C pull-up,10k resistor,TBD,TBD,TBD,SCL pull-up to RX_VAA 2.5V for service header
 R6,I2C pull-up,10k resistor,TBD,TBD,TBD,SDA pull-up to RX_VAA 2.5V for service header
 R7,NTC pull-up,10k resistor,TBD,TBD,TBD,RX_NTC -> RX_VAA pull-up; forms divider with TH2 (NTC_B) at ~RX_VAA/2 (25C)
-C10,VS bypass,3.3nF/50V ceramic,TBD,TBD,TBD,VS diagnostic bypass capacitor
+R8,NTC pull-up,10k resistor,TBD,TBD,TBD,NTC_TOP -> RX_VAA pull-up for external top-plate logging
+R10,LED current limit,3k resistor,TBD,TBD,TBD,D1 power-on indicator current limiting resistor from VOUT_12V
+R11,LED current limit,1k resistor,TBD,TBD,TBD,D2 GPIO0 indicator current limiting resistor from RX_VAA
+D1,power indicator LED,green LED,TBD,TBD,TBD,VOUT_12V power-on indicator
+D2,GPIO0 indicator LED,green LED,TBD,TBD,TBD,optional GPIO0 active-low indicator
 C11,ASK modulation,10nF/50V ceramic,TBD,TBD,TBD,COMA modulation capacitor
 C12,ASK modulation,22nF/50V ceramic,TBD,TBD,TBD,COMB modulation capacitor
+C13,ASK modulation,10nF/50V ceramic,TBD,TBD,TBD,COMA2 modulation capacitor
+C14,ASK modulation,22nF/50V ceramic,TBD,TBD,TBD,COMB2 modulation capacitor

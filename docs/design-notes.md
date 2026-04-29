@@ -104,6 +104,13 @@ v2 以降または製品版で必要な制御:
 - `F1`: independent hardware cutoff。v1 は `Xucheng KSD9700-70/5JSB/080C` を第一候補にする
 - `FOD`: Qi 側の停止系として扱う
 
+Heater / F1 接続方針:
+
+- v1 の `H1` footprint はヒーター本体ではなく、外部 heater/F1 series assembly を受ける大型 solder pads / wire pads として扱う
+- 接続順は `VOUT_12V -> F1 -> heater -> Q1 drain`。F1 は PCB 上に寝かせず、トッププレート裏面へ密着固定する
+- flexible heater と F1 は手実装ワイヤで接続する。v1 では board-to-wire connector や FPC/FFC connector は採用しない
+- pad は `12V`, `0.8A` 連続電流、手はんだ、引張緩和を前提に余裕を持たせる。connector 化は v2/量産検討
+
 F1 採用候補（PDF: `Xucheng Elec KSD9700-70:5JSB:080C.pdf`）:
 
 - 型番/仕様: `KSD9700-70/5JSB/080C/QG`
@@ -375,6 +382,7 @@ R3 / STWLC38JRM ADC 方針:
 - TH2 → `RX_NTC` (R7 と分圧、STWLC38 内蔵 OTP 入力)
 - `J2`: `NTC_TOP` / `RX_NTC` の thermal monitor header
 - `J3`: `RX_INTB` / `I_HEATER_MON` の status monitor header
+- BOM 初回照合: `initial-bom.csv` は回路図 ref に合わせて `TH1/TH2`, `J3`, `R4/R8/R10/R11`, `D1/D2`, `Z1/Z2/Z3`, `C11-C15` を反映済み。`C10` は現行回路図に存在しないため削除
 
 ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mismatch` 警告のみ。
 
@@ -384,7 +392,7 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - ~~COMA/COMB 変調キャパシタ~~ → 4 本構成で実装済み (CCOMA1/2, CCOMB1/2)
 - ~~exact coil baseline~~ → v1 は `Luxshare-ICT LD81FP008-1H` + `Cs=100nF×5` + `Cd=3.3nF` を基準にする。ferrite と実機共振値は積層後に実測で確定
 - ~~heater final resistance~~ → 15Ω 採用（暫定）。熱試験で再調整
-- heater footprint
+- ~~heater footprint~~ → v1 は大型 solder pads / wire pads。外部 heater/F1 series assembly を手実装し、F1 はトッププレート裏面へ密着固定する
 - top plate material
 - ~~hard cutoff implementation choice~~ → F1 は `Xucheng KSD9700-70/5JSB/080C` を第一候補に選定（open `70±5°C`, reset `50±10°C`）
 - **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制。手実装または機構固定を前提にする
@@ -393,6 +401,7 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - ~~R3 電流センス~~ → v1 通常実装は `0Ω`。評価時のみ `0.05Ω` に差し替えてベンチ測定する。STWLC38JRM には R3 を読ませない
 - ~~PCB GND トポロジー~~ → 回路図は `SYS_GND` 一本、PCB は solid GND plane を維持し、`VSSP` power return と `VSSA` quiet reference を配置/配線で分離する
 - ~~I2C service header 3.3V 制約~~ → v1 はオンボード level shifter なし。J1 は `RX_VAA` 2.5V VREF 追従アダプタ専用で、3.3V 固定 pull-up の直結は禁止
+- ~~BOM 再生成・照合~~ → `initial-bom.csv` を現行 schematic ref と照合済み。採用品未確定の受動部品/ヘッダ/LED は `TBD` のまま管理
 
 ## 設計リスクと対策
 

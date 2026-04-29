@@ -48,8 +48,8 @@ Control:
 - 理由: `15W` を `5V` で扱うより電流が低く、配線・FET・ヒーター設計が楽
 - 目標ヒーター条件:
   - `12V`
-  - `10Ω` 前後
-  - `14.4W` 前後
+  - `15Ω` 前後
+  - `9.6W` 前後
 
 ### ヒーター電力段
 
@@ -57,7 +57,8 @@ Control:
 - 初回方針:
   - `Q1`: logic-level N-MOSFET による low-side switched stage
   - `R_GATE`, `R_GS`: ゲート安定化
-  - `F1`: 独立ハード遮断 `TBD`
+  - `F1`: `KSD9700-70/5JSB/080C` 独立ハード遮断
+  - `H1`: 外部 heater/F1 series assembly を受ける大型 solder pads / wire pads
   - `R_SENSE`: optional current-monitor placeholder
 
 ### 温度保護
@@ -66,6 +67,7 @@ Control:
 - `NTC_B`: 受電基板の hottest area 近傍
 - `F1`: ヒーター系に独立遮断を入れる
 - 初版は on-board reader を持たず、評価用 thermal placeholder として残す
+- v1 では flexible heater と F1 は手実装ワイヤで接続する。board-to-wire connector や FPC/FFC connector は採用しない
 
 ### 制御部
 
