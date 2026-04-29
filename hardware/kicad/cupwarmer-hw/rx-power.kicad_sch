@@ -1299,6 +1299,12 @@
 		(color 0 0 0 0)
 		(uuid "f64c1f1f-1d2b-4599-8faa-a18005b282d0")
 	)
+	(junction
+		(at 231.14 106.68)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c57053de-5cba-40a0-88ac-eae89e86cb0f")
+	)
 	(no_connect
 		(at 146.05 81.28)
 		(uuid "5d647c08-cfdb-4766-9dbc-789a36568d78")
@@ -1914,6 +1920,16 @@
 			(type solid)
 		)
 		(uuid "7aa04059-88a0-47aa-a7a1-f85d48141000")
+	)
+	(wire
+		(pts
+			(xy 213.36 116.84) (xy 231.14 116.84)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "47ec3195-d55f-4f0d-b3f6-44f7e4989522")
 	)
 	(wire
 		(pts
@@ -3342,7 +3358,7 @@
 			)
 		)
 		(property "Value" "1uF/25V"
-			(at 231.14 116.84 0)
+			(at 211.455 121.92 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5214,6 +5230,91 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 231.14 111.76 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "47ec3195-d55f-4f0d-b3f6-44f7e4989500")
+		(property "Reference" "Z3"
+			(at 234.95 110.49 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SMBJ15A"
+			(at 234.95 116.84 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 231.14 111.76 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "/Users/mash/Downloads/SMBJ15A.pdf"
+			(at 231.14 111.76 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VOUT transient clamp TVS (pin2 cathode to VOUT, pin1 anode to GND)"
+			(at 231.14 111.76 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "47ec3195-d55f-4f0d-b3f6-44f7e4989501")
+		)
+		(pin "2"
+			(uuid "47ec3195-d55f-4f0d-b3f6-44f7e4989502")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "Z3")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "Z3")
 					(unit 1)
 				)
 			)

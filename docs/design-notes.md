@@ -315,8 +315,25 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - **`SCL/SDA` pull-up `10k` (R5/R6) → `VAA` (2.5V)**（VDD は 1.1V LDO で I2C には低すぎる。J1 経由のホスト接続はレベルシフタ必須）
 - `VOUT` → heater-control シートへ
 - ヒーター gate 分圧: R1 = 10k (VOUT_12V → Q1.G), R2 = 10k (Q1.G → GND) で VGS ≈ 6V
+- VOUT OVP: `Z3 = Littelfuse SMBJ15A` を第一候補にする。`VOUT_12V → Z3 cathode`, `Z3 anode → SYS_GND` の一方向 TVS とし、VOUT 出口近傍に配置する
 - LED: D1（給電中インジ、VOUT_12V → R10(3k) → D1 → GND）
 - GPIO0 LED: D2/R11（RX_VAA → R11(1k) → D2 → GPIO0、GPIO0 は NVM 設定前提の optional indicator）
+
+VOUT OVP 候補（PDF: `SMBJ15A.pdf`）:
+
+- 型番: `SMBJ15A`
+- 種別: unidirectional TVS diode, DO-214AA / SMB
+- 用途: `VOUT_12V` の過渡過電圧を `SYS_GND` へ逃がし、Qi RX 側の OCP/FOD/停止へ持ち込む
+- Peak pulse power: `600W` at `10/1000us`
+- Reverse stand-off voltage `VR`: `15.0V`
+- Breakdown voltage `VBR`: `16.7-18.5V` at `IT=1mA`
+- Maximum clamping voltage `VC`: `24.4V` at `IPP=24.6A`
+- Reverse leakage `IR`: `1uA` at `VR`
+- Operating junction temperature: `-65 to 150°C`
+- MSL: Level 1
+- Polarity: cathode band denotes cathode
+
+`VOUT_12V` は通常 12V なので `VR=15V` の TVS は通常動作では導通しない。異常時は 16.7V 以上で breakdown し、25V rated capacitors と 30V class MOSFET の破壊を避けるための短時間 clamp として扱う。TVS は連続過電圧を消費し続ける部品ではないため、故障時は Qi 送電側/受電側保護が停止する前提で評価する。
 
 `sensors-logic.kicad_sch`:
 
@@ -348,7 +365,7 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - top plate material
 - ~~hard cutoff implementation choice~~ → F1 は `Xucheng KSD9700-70/5JSB/080C` を第一候補に選定（open `70±5°C`, reset `50±10°C`）
 - **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制。手実装または機構固定を前提にする
-- VOUT 過電圧保護 TVS（SMBJ15A 等）の追加検討
+- ~~VOUT 過電圧保護 TVS~~ → `SMBJ15A` を第一候補に選定（`VR=15V`, `VBR=16.7-18.5V`, `VC=24.4V`, `600W`）
 - LED-2（INTB ステータス）— INTB は max 3.6V かつ open-drain のため、12V LED 駆動には NPN/MOSFET バッファが必要。v1 では J3 経由の外部観測のみ。v2 で実装検討
 - R3 (0.05Ω 電流センス) — ADC なしでは未使用。v1 では DNP + 0Ω ジャンパ運用
 

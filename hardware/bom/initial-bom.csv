@@ -5,6 +5,7 @@ SHIELD1,ferrite sheet,flexible ferrite shield,TBD,TBD,TBD,coil backing shield
 C1,resonant capacitor,100nFx5 C0G/NP0 50V,TBD,TBD,TBD,resonant network per DS14078 ref BOM
 C2,output bulk,10uF/25V X5R,TBD,TBD,TBD,VOUT bulk decoupling
 C3,output HF bypass,1uF/25V X7R,TBD,TBD,TBD,VOUT high-frequency bypass
+Z3,VOUT TVS,unidirectional TVS diode SMB 15V,Littelfuse,SMBJ15A,selected,"VOUT_12V transient clamp to SYS_GND; VR=15V VBR=16.7-18.5V VC=24.4V@24.6A; 600W 10/1000us"
 C4,VDD bypass,100nF ceramic,TBD,TBD,TBD,VDD high-frequency bypass close to U1
 Q1,heater switch,N-MOSFET 30V 5.8A SOT-23,Shenzhen Hottech Electronics,AO3400,selected,"Rds(on)<=28mOhm@10V; SOT-23 pinout 1=G 2=S 3=D; gate driven from VOUT 12V"
 R1,gate divider top,10k resistor,TBD,TBD,TBD,VOUT_12V -> Q1.G; with R2 forms 10k/10k divider for VGS~=6V
