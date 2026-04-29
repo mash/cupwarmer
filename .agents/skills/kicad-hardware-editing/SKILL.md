@@ -5,23 +5,23 @@ description: Stage 1 (functional) workflow for editing KiCad hardware design fil
 
 # KiCad Hardware Editing
 
-Editing **workflow** for KiCad hardware files. This skill owns the *how*; design *what/why* lives in `electronics-design-principles`.
+Editing **workflow** for KiCad hardware files. This skill owns the _how_; design _what/why_ lives in `electronics-design-principles`.
 
 Project-specific information (board path, sheet inventory, net naming, stackup, partitioning) lives in the repo's hardware docs — `hardware/schematic/README.md`, `hardware/pcb/README.md`, and the project README under `hardware/kicad/<project>/README.md`. Read them before editing.
 
 For any KiCad CLI invocation (render, inspect, ERC, netlist, validate, DRC), **read the `kicad-tool` skill via the Skill tool first** to get exact subcommands and flags.
 
-For any decision about *what* to change electrically (placement, grouping, decoupling, partitioning, rotation that affects pin meaning), consult **`electronics-design-principles`** before forming the plan.
+For any decision about _what_ to change electrically (placement, grouping, decoupling, partitioning, rotation that affects pin meaning), consult **`electronics-design-principles`** before forming the plan.
 
 ## File types
 
-| File | Approach |
-|---|---|
+| File         | Approach                                                               |
+| ------------ | ---------------------------------------------------------------------- |
 | `.kicad_sch` | Use `sch edit ...` subcommands. Preserve KiCad 10 formatting and UUIDs |
-| `.kicad_pcb` | Manual S-expression edit (minimal, local only) |
-| `.kicad_pro` | JSON edit (minimal) |
-| `.kicad_prl` | Do not edit unless explicitly asked |
-| `.kicad_sym` | Keep in sync with embedded `lib_symbols` when changing custom symbols |
+| `.kicad_pcb` | Manual S-expression edit (minimal, local only)                         |
+| `.kicad_pro` | JSON edit (minimal)                                                    |
+| `.kicad_prl` | Do not edit unless explicitly asked                                    |
+| `.kicad_sym` | Keep in sync with embedded `lib_symbols` when changing custom symbols  |
 
 ## Editing rules
 
@@ -42,7 +42,7 @@ sch edit junction add <sch> <X,Y>
 sch edit junction delete <sch> --uuid U | --at X,Y
 ```
 
-All accept `--dry-run` and `--json`.
+All accept `--dry-run` and `--format {json,text}` (default `json`).
 
 ### Use `sch query` to gather coordinates
 
@@ -66,8 +66,8 @@ Before any `sch edit`, state and wait for approval:
 1. **Goal** — what the design should do (design terms, not "add wires").
 2. **Problem** — what's missing/wrong, citing specific symbols/nets/pins (via `sch query`).
 3. **Approach** — proposed change + alternatives considered + why this one. Smallest unit that meets the goal.
-4. **Placement** — for each new/moved symbol, which existing symbol or net it should sit *near* and why. Apply `electronics-design-principles` (grouping, partitioning, decoupling near supply pins, function-grouped — no parking in empty corners).
-5. **Layout sketch (ASCII art) — required** — show **both** the *current* local layout and the *proposed* layout side-by-side (or before/after) as small ASCII diagrams. Include anchor symbols/pins, the new/moved parts, and the connecting wires/labels. Coordinates (X,Y numbers) are *supplementary* to the sketch, not a substitute — the sketch is the primary artifact for the user to spot orientation/topology issues before any edit runs. Approximate proportions are fine; what matters is relative position and connectivity. Example:
+4. **Placement** — for each new/moved symbol, which existing symbol or net it should sit _near_ and why. Apply `electronics-design-principles` (grouping, partitioning, decoupling near supply pins, function-grouped — no parking in empty corners).
+5. **Layout sketch (ASCII art) — required** — show **both** the _current_ local layout and the _proposed_ layout side-by-side (or before/after) as small ASCII diagrams. Include anchor symbols/pins, the new/moved parts, and the connecting wires/labels. Coordinates (X,Y numbers) are _supplementary_ to the sketch, not a substitute — the sketch is the primary artifact for the user to spot orientation/topology issues before any edit runs. Approximate proportions are fine; what matters is relative position and connectivity. Example:
 
    ```
    Current:                Proposed:
@@ -86,7 +86,7 @@ Skip only if: (a) the user gave an exact single action ("move R5 to 100,50"), or
 
 ```bash
 python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
-  <path/to/top.kicad_sch> --json \
+  <path/to/top.kicad_sch> --sheet <path/to/edited-child.kicad_sch> \
   > tmp/validate-pre.json
 ```
 
