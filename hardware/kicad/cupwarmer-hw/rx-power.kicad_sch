@@ -2245,9 +2245,19 @@
 		)
 		(uuid "48034807-9a8d-422e-b764-6e626af2406a")
 	)
+	(wire
+		(pts
+			(xy 139.7 142.24) (xy 144.78 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "81022f77-f806-4e3f-9528-addb24e5b097")
+	)
 	(global_label "RX_VAA"
 		(shape passive)
-		(at 157.48 142.24 180)
+		(at 139.7 142.24 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2256,7 +2266,7 @@
 		)
 		(uuid "1ef24b4e-b0c0-47e1-9714-a48eefd820a5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 157.48 142.24 180)
+			(at 139.7 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
