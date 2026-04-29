@@ -3941,7 +3941,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 193.04 127.5 0)
+			(at 198.12 138 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4366,7 +4366,7 @@
 			)
 		)
 		(property "Value" "1uF"
-			(at 204.47 134.62 0)
+			(at 204.47 138 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4441,7 +4441,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000005")
 		(property "Reference" "C9"
-			(at 205.994 93.98 0)
+			(at 198.12 95.25 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4451,7 +4451,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 198.12 93.98 90)
+			(at 206.502 93.218 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
