@@ -25,10 +25,10 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py <domain> <command> ...
 
 | Command | Purpose | Key flags |
 |---|---|---|
-| `sch render-region <sheet> <X1,Y1,X2,Y2>` | Render a cropped PNG of a bbox region of a sheet (mm). Use this whenever the model needs to *see* part of a schematic — image cost is bounded, SVG text isn't. (Humans wanting to view a full sheet should open KiCad directly.) | `--out <path>` (default `tmp/region.png`) |
+| `sch render-region <sheet> <X1,Y1,X2,Y2>` | Render a cropped PNG of a bbox region of a sheet (mm). Use this whenever the model needs to *see* part of a schematic — image cost is bounded, SVG text isn't. (Humans wanting to view a full sheet should open KiCad directly.) | `--output <path>` (default `tmp/region.png`) |
 | `sch inspect <sheet>` | Score + collisions (re-renders SVG internally) | `--only-text <regex>` (Python regex; score stays global), `--margin` |
 | `sch erc <top>` | ERC, hierarchical | `--report <path>` |
-| `sch netlist <top>` | Netlist export | `--out <path>` |
+| `sch netlist <top>` | Netlist export | `--output <path>` |
 | `sch validate <top>` | erc + netlist + inspect(--sheet) in one call | `--sheet <edited>` |
 | `pcb drc <board>` | PCB DRC | `--report <path>`, `--schematic-parity` |
 

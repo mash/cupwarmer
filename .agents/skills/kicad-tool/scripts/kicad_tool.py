@@ -176,7 +176,7 @@ def parse_bbox(s: str) -> tuple[float, float, float, float]:
 
 def cmd_sch_render_region(args: argparse.Namespace) -> int:
     try:
-        png = render_region(args.schematic, args.bbox, args.out)
+        png = render_region(args.schematic, args.bbox, args.output)
     except subprocess.CalledProcessError as exc:
         sys.stderr.write(exc.stderr or "")
         return exc.returncode
@@ -233,7 +233,7 @@ def cmd_sch_erc(args: argparse.Namespace) -> int:
 
 
 def cmd_sch_netlist(args: argparse.Namespace) -> int:
-    args.out.parent.mkdir(parents=True, exist_ok=True)
+    args.output.parent.mkdir(parents=True, exist_ok=True)
     result = command_result(
         "sch netlist",
         [
@@ -242,16 +242,16 @@ def cmd_sch_netlist(args: argparse.Namespace) -> int:
             "export",
             "netlist",
             "--output",
-            str(args.out),
+            str(args.output),
             str(args.schematic),
         ],
     )
     if args.format == "text":
-        print(f"Netlist: exit={result['returncode']} output={args.out}")
+        print(f"Netlist: exit={result['returncode']} output={args.output}")
         if result["stderr"]:
             sys.stderr.write(result["stderr"])
     else:
-        print_json({"netlist": result, "output": str(args.out)})
+        print_json({"netlist": result, "output": str(args.output)})
     return result["returncode"]
 
 
@@ -893,7 +893,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     render_region_parser.add_argument("schematic", type=Path)
     render_region_parser.add_argument("bbox", type=parse_bbox, help="X1,Y1,X2,Y2 in mm")
-    render_region_parser.add_argument("--out", type=Path, default=Path("tmp/region.png"))
+    render_region_parser.add_argument("--output", type=Path, default=Path("tmp/region.png"))
     render_region_parser.add_argument("--format", choices=["json", "text"], default="json")
     render_region_parser.set_defaults(func=cmd_sch_render_region)
 
@@ -912,7 +912,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     netlist_parser = sch_commands.add_parser("netlist", help="export schematic netlist")
     netlist_parser.add_argument("schematic", type=Path)
-    netlist_parser.add_argument("--out", type=Path, default=Path("tmp/cupwarmer-post.net"))
+    netlist_parser.add_argument("--output", type=Path, default=Path("tmp/cupwarmer-post.net"))
     netlist_parser.add_argument("--format", choices=["json", "text"], default="json")
     netlist_parser.set_defaults(func=cmd_sch_netlist)
 
