@@ -108,7 +108,7 @@
 				(pin passive line
 					(at 0 -10.16 90)
 					(length 5.08)
-					(name "D"
+					(name "S"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -126,7 +126,7 @@
 				(pin passive line
 					(at 0 10.16 270)
 					(length 5.08)
-					(name "S"
+					(name "D"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -260,7 +260,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Low-side heater stage: VOUT_12V drives Q1 gate via R1(33R) when Qi power present. R2 pulls gate to GND when off. F1 -> H1 -> Q1 series path."
+	(text "Low-side heater stage: VOUT_12V -> R1(10k) / R2(10k) divider sets VGS~=6V on Q1 (keeps within VGS_max of AO3400-class FETs even on VOUT spikes). F1 -> H1 -> Q1 series path."
 		(exclude_from_sim no)
 		(at 30.48 31.75 0)
 		(effects
@@ -747,7 +747,7 @@
 				)
 			)
 		)
-		(property "Value" "33R Gate"
+		(property "Value" "10k Div Top"
 			(at 48.26 69.85 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -779,7 +779,7 @@
 				)
 			)
 		)
-		(property "Description" "Gate resistor"
+		(property "Description" "Gate divider top (VOUT_12V -> Q1.G)"
 			(at 48.26 73.66 0)
 			(hide yes)
 			(show_name no)
@@ -826,7 +826,7 @@
 				)
 			)
 		)
-		(property "Value" "100k PullDown"
+		(property "Value" "10k Div Bot"
 			(at 76.2 90.17 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -858,7 +858,7 @@
 				)
 			)
 		)
-		(property "Description" "Gate pull-down"
+		(property "Description" "Gate divider bottom (Q1.G -> GND, VGS~=6V)"
 			(at 87.63 86.36 90)
 			(hide yes)
 			(show_name no)
@@ -905,7 +905,7 @@
 				)
 			)
 		)
-		(property "Value" "0.05R Sense"
+		(property "Value" "0R/0.05R"
 			(at 91.44 101.6 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -937,7 +937,7 @@
 				)
 			)
 		)
-		(property "Description" "Current sense placeholder"
+		(property "Description" "Fit 0R for v1 normal build; substitute 0.05R for measured bring-up"
 			(at 96.52 101.6 90)
 			(hide yes)
 			(show_name no)

@@ -6,14 +6,14 @@ C1,resonant capacitor,100nFx5 C0G/NP0 50V,TBD,TBD,TBD,resonant network per DS140
 C2,output bulk,10uF/25V X5R,TBD,TBD,TBD,VOUT bulk decoupling
 C3,output HF bypass,1uF/25V X7R,TBD,TBD,TBD,VOUT high-frequency bypass
 C4,VDD bypass,100nF ceramic,TBD,TBD,TBD,VDD high-frequency bypass close to U1
-Q1,heater switch,N-MOSFET 30V 5.7A SOT-23,Alpha & Omega Semi,AO3400,selected,Rds(on)=29mOhm@10V gate driven from VOUT 12V
-R_GATE_1,gate resistor,resistor,TBD,TBD,TBD,Q1 gate damping
-R_GS_1,gate pulldown,resistor,TBD,TBD,TBD,Q1 gate pulldown
-R_SENSE_1,current sense,current sense resistor,TBD,TBD,optional,placeholder for heater current monitoring
+Q1,heater switch,N-MOSFET 30V 5.8A SOT-23,Shenzhen Hottech Electronics,AO3400,selected,"Rds(on)<=28mOhm@10V; SOT-23 pinout 1=G 2=S 3=D; gate driven from VOUT 12V"
+R1,gate divider top,10k resistor,TBD,TBD,TBD,VOUT_12V -> Q1.G; with R2 forms 10k/10k divider for VGS~=6V
+R2,gate divider bottom,10k resistor,TBD,TBD,TBD,Q1.G -> SYS_GND; with R1 forms 10k/10k divider for VGS~=6V
+R3,current sense / jumper,0R jumper or 0.05R current sense resistor,TBD,TBD,selected,"v1 normal build: fit 0R so Q1 source returns to SYS_GND; substitute 0.05R only for measured bring-up"
 NTC_A,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,top plate temperature
 NTC_B,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,board hotspot temperature
 F1,thermostat,bimetal thermostat 90C,TBD,TBD,TBD,independent thermal protection auto-reset
-H1,heater,flexible heater,TBD,TBD,TBD,target around 10 ohm at 12V nominal
+H1,heater,flexible heater,TBD,TBD,TBD,target around 15 ohm at 12V nominal
 J1,service header,I2C service header,TBD,TBD,TBD,bring-up and configuration access
 J2,heater / sensor interconnect,board-to-wire pads or connector,TBD,TBD,TBD,mechanical integration dependent
 C5,bootstrap capacitor,47nF C0G/NP0,TBD,TBD,TBD,BOOT1 decoupling close to U1
@@ -21,9 +21,9 @@ C6,bootstrap capacitor,47nF C0G/NP0,TBD,TBD,TBD,BOOT2 decoupling close to U1
 C7,supply decoupling,4.7uF ceramic,TBD,TBD,TBD,VAA analog supply decoupling
 C8,supply decoupling,1uF ceramic,TBD,TBD,TBD,VDD digital supply decoupling
 C9,rectifier decoupling,10uF ceramic,TBD,TBD,TBD,VRECT rectifier decoupling close to U1
-R5,I2C pull-up,10k resistor,TBD,TBD,TBD,SCL pull-up to VDD for service header
-R6,I2C pull-up,10k resistor,TBD,TBD,TBD,SDA pull-up to VDD for service header
-R7,NTC pull-up,10k resistor,TBD,TBD,TBD,NTC -> VAA pull-up for stand-alone default
+R5,I2C pull-up,10k resistor,TBD,TBD,TBD,SCL pull-up to RX_VAA 2.5V for service header
+R6,I2C pull-up,10k resistor,TBD,TBD,TBD,SDA pull-up to RX_VAA 2.5V for service header
+R7,NTC pull-up,10k resistor,TBD,TBD,TBD,RX_NTC -> RX_VAA pull-up for stand-alone default
 C10,VS bypass,3.3nF/50V ceramic,TBD,TBD,TBD,VS diagnostic bypass capacitor
 C11,ASK modulation,10nF/50V ceramic,TBD,TBD,TBD,COMA modulation capacitor
 C12,ASK modulation,22nF/50V ceramic,TBD,TBD,TBD,COMB modulation capacitor
