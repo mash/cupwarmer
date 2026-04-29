@@ -9,6 +9,10 @@ Main loop owns scoring; subagents (general-purpose Agent) own edits inside one p
 
 Inputs: `<sheet>` (child) and `<top>` = `hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch`.
 
+## CLI-only inspection
+
+Never `Read`/`cat`/`grep` the `.kicad_sch`. The file is thousands of lines of S-expressions and sequential reads blow the context window. `sch query` returns scoped JSON for exactly the element you ask about — see the `kicad-tool` skill for the full list (`region`, `symbol`, `pin`, `wire`, `label`, `net`, `list`). Mutate only via `sch edit`. If a query/edit you need doesn't exist, extend `kicad-tool` instead of falling back to raw reads.
+
 ## Baseline
 
 ```bash

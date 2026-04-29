@@ -101,6 +101,15 @@ def parse_xy(s: str) -> tuple[float, float]:
     return float(parts[0]), float(parts[1])
 
 
+def parse_xy_rot(s: str) -> tuple[float, float, float]:
+    parts = s.split(",")
+    if len(parts) not in (2, 3):
+        raise argparse.ArgumentTypeError(f"expected X,Y[,ROT], got {s!r}")
+    x, y = float(parts[0]), float(parts[1])
+    rot = float(parts[2]) if len(parts) == 3 else 0.0
+    return x, y, rot
+
+
 def parse_bbox(s: str) -> tuple[float, float, float, float]:
     parts = s.split(",")
     if len(parts) != 4:
@@ -525,6 +534,23 @@ def cmd_sch_edit_symbol_move(args: argparse.Namespace) -> int:
     return _emit_edit(args, res)
 
 
+def cmd_sch_edit_symbol_add_pin(args: argparse.Namespace) -> int:
+    res = sch_edit.add_pin(
+        args.schematic,
+        lib_id=args.lib_id,
+        number=args.number,
+        name=args.name,
+        at=args.at,
+        length=args.length,
+        electrical_type=args.type,
+        shape=args.shape,
+        lib_file=args.lib_file,
+        font_size=args.font_size,
+        dry_run=args.dry_run,
+    )
+    return _emit_edit(args, res)
+
+
 def cmd_sch_edit_wire_add(args: argparse.Namespace) -> int:
     res = sch_edit.add_wire(
         args.schematic,
@@ -671,6 +697,35 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_sch_edit_symbol_move)
+
+    p = sym_act.add_parser(
+        "add-pin",
+        help="add a pin to a symbol (updates embedded lib_symbols + standalone .kicad_sym)",
+    )
+    p.add_argument("schematic", type=Path)
+    p.add_argument("--lib-id", required=True, dest="lib_id",
+                   help='e.g. "cupwarmer:PLACEHOLDER_1"')
+    p.add_argument("--number", required=True, help="pin number (string)")
+    p.add_argument("--name", required=True, help="pin name")
+    p.add_argument("--at", type=parse_xy_rot, required=True,
+                   help="X,Y[,ROT] in lib-local coords (ROT default 0)")
+    p.add_argument("--length", type=float, required=True)
+    p.add_argument(
+        "--type", required=True,
+        choices=sorted(sch_edit._PIN_ELECTRICAL_TYPES),
+    )
+    p.add_argument(
+        "--shape", default="line",
+        choices=sorted(sch_edit._PIN_SHAPES),
+    )
+    p.add_argument(
+        "--lib-file", dest="lib_file", type=Path,
+        default=Path("hardware/kicad/cupwarmer-hw/cupwarmer.kicad_sym"),
+    )
+    p.add_argument("--font-size", dest="font_size", type=float, default=1.27)
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=cmd_sch_edit_symbol_add_pin)
 
     # wire
     wire = esub.add_parser("wire", help="edit wires")

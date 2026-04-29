@@ -760,4 +760,414 @@ __all__ = [
     "delete_label",
     "add_junction",
     "delete_junction",
+    "add_pin",
 ]
+
+
+# ---------------------------------------------------------------------------
+# add_pin (symbol pin in lib_symbols + standalone .kicad_sym)
+# ---------------------------------------------------------------------------
+
+
+_PIN_ELECTRICAL_TYPES = {
+    "input",
+    "output",
+    "bidirectional",
+    "tri_state",
+    "passive",
+    "free",
+    "unspecified",
+    "power_in",
+    "power_out",
+    "open_collector",
+    "open_emitter",
+    "no_connect",
+}
+
+_PIN_SHAPES = {
+    "line",
+    "inverted",
+    "clock",
+    "inverted_clock",
+    "input_low",
+    "clock_low",
+    "output_low",
+    "edge_clock_high",
+    "non_logic",
+}
+
+
+def _fmt_coord_2(v: float) -> str:
+    """Round to 2 decimals then drop trailing zeros (KiCad style)."""
+    return _fmt_coord(round(float(v), 2))
+
+
+def _build_pin_block(
+    base_indent: str,
+    indent_unit: str,
+    electrical_type: str,
+    shape: str,
+    x: float,
+    y: float,
+    rot: float,
+    length: float,
+    name: str,
+    number: str,
+    font_size: float,
+) -> str:
+    """Render a (pin ...) block with the given base indent (the indent of the pin keyword line).
+
+    Returns text with a trailing newline.
+    """
+    i0 = base_indent
+    i1 = base_indent + indent_unit
+    i2 = base_indent + indent_unit * 2
+    i3 = base_indent + indent_unit * 3
+    i4 = base_indent + indent_unit * 4
+    fs = _fmt_coord(font_size)
+    lines = [
+        f"{i0}(pin {electrical_type} {shape}",
+        f"{i1}(at {_fmt_coord_2(x)} {_fmt_coord_2(y)} {_fmt_coord_2(rot)})",
+        f"{i1}(length {_fmt_coord_2(length)})",
+        f'{i1}(name "{name}"',
+        f"{i2}(effects",
+        f"{i3}(font",
+        f"{i4}(size {fs} {fs})",
+        f"{i3})",
+        f"{i2})",
+        f"{i1})",
+        f'{i1}(number "{number}"',
+        f"{i2}(effects",
+        f"{i3}(font",
+        f"{i4}(size {fs} {fs})",
+        f"{i3})",
+        f"{i2})",
+        f"{i1})",
+        f"{i0})",
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def _find_inner_block(text: str, outer_open: int, outer_end: int, child_token: str):
+    """Yield (open_idx, end_idx) for direct children `(child_token ...)` inside outer block.
+
+    Direct children are detected by paren-depth == 1 relative to outer_open.
+    """
+    i = outer_open + 1
+    n = outer_end
+    in_str = False
+    depth = 1  # we're inside outer's '('
+    while i < n:
+        c = text[i]
+        if in_str:
+            if c == "\\" and i + 1 < n:
+                i += 2
+                continue
+            if c == '"':
+                in_str = False
+            i += 1
+            continue
+        if c == '"':
+            in_str = True
+            i += 1
+            continue
+        if c == "(":
+            if depth == 1:
+                # check token name
+                j = i + 1
+                while j < n and text[j].isspace():
+                    j += 1
+                k = j
+                while k < n and (text[k].isalnum() or text[k] == "_"):
+                    k += 1
+                tok = text[j:k]
+                if tok == child_token:
+                    end = _find_block_end(text, i)
+                    yield i, end
+                    i = end
+                    continue
+            depth += 1
+            i += 1
+            continue
+        if c == ")":
+            depth -= 1
+            if depth == 0:
+                return
+            i += 1
+            continue
+        i += 1
+
+
+def _find_named_symbol_block(text: str, search_open: int, search_end: int, name: str):
+    """Find a direct-child (symbol "<name>" ...) block within [search_open, search_end].
+
+    Returns (open_idx, end_idx) or None.
+    """
+    for open_idx, end_idx in _find_inner_block(text, search_open, search_end, "symbol"):
+        # extract first quoted string after `(symbol`
+        head = text[open_idx : min(open_idx + 200, end_idx)]
+        m = re.match(r'\(symbol\s+"([^"]+)"', head)
+        if m and m.group(1) == name:
+            return open_idx, end_idx
+    return None
+
+
+def _find_unit_with_pins(text: str, outer_open: int, outer_end: int):
+    """Among direct-child (symbol ...) blocks under outer, return the first that contains
+    a (pin ...) child. If none, return the first child symbol block. Returns
+    (open_idx, end_idx) or None.
+    """
+    first = None
+    for sopen, send in _find_inner_block(text, outer_open, outer_end, "symbol"):
+        if first is None:
+            first = (sopen, send)
+        for _ in _find_inner_block(text, sopen, send, "pin"):
+            return sopen, send
+    return first
+
+
+def _pin_number(block: str) -> str | None:
+    m = re.search(r'\(number\s+"([^"]+)"', block)
+    return m.group(1) if m else None
+
+
+def _existing_pin_numbers(text: str, unit_open: int, unit_end: int) -> set[str]:
+    nums: set[str] = set()
+    for popen, pend in _find_inner_block(text, unit_open, unit_end, "pin"):
+        n = _pin_number(text[popen:pend])
+        if n is not None:
+            nums.add(n)
+    return nums
+
+
+def _line_indent(text: str, idx: int) -> str:
+    """Return the whitespace prefix of the line containing idx."""
+    line_start = text.rfind("\n", 0, idx) + 1
+    j = line_start
+    while j < len(text) and text[j] in (" ", "\t"):
+        j += 1
+    return text[line_start:j]
+
+
+def _insert_pin_into_unit(
+    text: str,
+    unit_open: int,
+    unit_end: int,
+    electrical_type: str,
+    shape: str,
+    x: float,
+    y: float,
+    rot: float,
+    length: float,
+    name: str,
+    number: str,
+    font_size: float,
+) -> str:
+    """Insert a new pin block as the last child pin of the unit symbol block."""
+    indent_unit = _detect_indent_unit(text)
+    # Determine pin indent: prefer indent of an existing pin in this unit; else unit indent + 1.
+    last_pin: tuple[int, int] | None = None
+    for popen, pend in _find_inner_block(text, unit_open, unit_end, "pin"):
+        last_pin = (popen, pend)
+    if last_pin is not None:
+        base_indent = _line_indent(text, last_pin[0])
+        insert_at = last_pin[1]
+        # consume trailing newline after the pin block
+        if insert_at < len(text) and text[insert_at] == "\n":
+            insert_at += 1
+        block = _build_pin_block(
+            base_indent, indent_unit, electrical_type, shape, x, y, rot, length, name, number, font_size
+        )
+        return text[:insert_at] + block + text[insert_at:]
+    # No existing pin: insert just before the closing paren of the unit symbol.
+    unit_indent = _line_indent(text, unit_open)
+    base_indent = unit_indent + indent_unit
+    # find the line containing the closing paren
+    close_idx = unit_end - 1  # index of ')'
+    line_start = text.rfind("\n", 0, close_idx) + 1
+    block = _build_pin_block(
+        base_indent, indent_unit, electrical_type, shape, x, y, rot, length, name, number, font_size
+    )
+    return text[:line_start] + block + text[line_start:]
+
+
+def _find_lib_symbols_block(text: str) -> tuple[int, int] | None:
+    """Find the (lib_symbols ...) block. In schematics it's at depth 1 (tab-indented).
+    In .kicad_sym files this is not used (top-level is kicad_symbol_lib)."""
+    pat = re.compile(r"^\t\(lib_symbols\b", re.MULTILINE)
+    m = pat.search(text)
+    if not m:
+        return None
+    open_idx = m.start() + 1
+    return open_idx, _find_block_end(text, open_idx)
+
+
+def add_pin(
+    sch_path: str | Path,
+    lib_id: str,
+    number: str,
+    name: str,
+    at: tuple[float, float, float],
+    length: float,
+    electrical_type: str,
+    shape: str = "line",
+    lib_file: str | Path | None = None,
+    font_size: float = 1.27,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Add a pin to a symbol in the schematic's embedded lib_symbols and (if it
+    matches the namespace) the standalone .kicad_sym library file.
+
+    Args:
+        lib_id: e.g. "cupwarmer:PLACEHOLDER_1" — outer library symbol id.
+        at: (x, y, rotation) in symbol-local coordinates.
+    """
+    if electrical_type not in _PIN_ELECTRICAL_TYPES:
+        raise ValueError(
+            f"--type must be one of {sorted(_PIN_ELECTRICAL_TYPES)}, got {electrical_type!r}"
+        )
+    if shape not in _PIN_SHAPES:
+        raise ValueError(f"--shape must be one of {sorted(_PIN_SHAPES)}, got {shape!r}")
+
+    sch_path = Path(sch_path)
+    text = _read(sch_path)
+
+    if ":" in lib_id:
+        ns, sym_name = lib_id.split(":", 1)
+    else:
+        ns, sym_name = "", lib_id
+
+    x, y, rot = float(at[0]), float(at[1]), float(at[2]) if len(at) > 2 else 0.0
+    length_f = float(length)
+
+    # ---- schematic update ----
+    libsyms = _find_lib_symbols_block(text)
+    if libsyms is None:
+        raise ValueError(f"(lib_symbols ...) block not found in {sch_path}")
+    ls_open, ls_end = libsyms
+
+    outer = _find_named_symbol_block(text, ls_open, ls_end, lib_id)
+    if outer is None:
+        raise ValueError(
+            f'symbol "{lib_id}" not found in (lib_symbols ...) of {sch_path}'
+        )
+    outer_open, outer_end = outer
+
+    unit = _find_unit_with_pins(text, outer_open, outer_end)
+    if unit is None:
+        raise ValueError(f'no inner unit symbol found inside "{lib_id}"')
+    unit_open, unit_end = unit
+
+    existing = _existing_pin_numbers(text, unit_open, unit_end)
+    if number in existing:
+        raise ValueError(
+            f'pin number "{number}" already exists in "{lib_id}" (schematic embedded lib)'
+        )
+
+    new_text = _insert_pin_into_unit(
+        text,
+        unit_open,
+        unit_end,
+        electrical_type,
+        shape,
+        x,
+        y,
+        rot,
+        length_f,
+        name,
+        number,
+        font_size,
+    )
+    sch_changed = _maybe_write(sch_path, text, new_text, dry_run)
+    sch_diff = _diff(text, new_text, sch_path)
+
+    # ---- lib file update ----
+    lib_info: dict[str, Any] = {"changed": False, "path": None, "diff_summary": None}
+    if lib_file is None:
+        lib_file = Path("hardware/kicad/cupwarmer-hw/cupwarmer.kicad_sym")
+    lib_path = Path(lib_file)
+    lib_info["path"] = str(lib_path)
+
+    # Auto-skip if namespace doesn't match the lib file's stem.
+    expected_ns = lib_path.stem  # e.g. "cupwarmer"
+    if ns and ns != expected_ns:
+        lib_info["skipped"] = (
+            f"lib-id namespace {ns!r} does not match lib file stem {expected_ns!r}"
+        )
+    elif not lib_path.exists():
+        lib_info["skipped"] = f"lib file does not exist: {lib_path}"
+    else:
+        lib_text = _read(lib_path)
+        # Top-level (kicad_symbol_lib ...) — find (symbol "<sym_name>" ...) at depth 1.
+        # Use _iter_top_blocks for "symbol" but depth-1 indent here is also tab.
+        target = None
+        for open_idx, end_idx in _iter_top_blocks(lib_text, "symbol"):
+            head = lib_text[open_idx : min(open_idx + 200, end_idx)]
+            m = re.match(r'\(symbol\s+"([^"]+)"', head)
+            if m and m.group(1) == sym_name:
+                target = (open_idx, end_idx)
+                break
+        if target is None:
+            lib_info["skipped"] = (
+                f'no (symbol "{sym_name}" ...) found in {lib_path}'
+            )
+        else:
+            l_outer_open, l_outer_end = target
+            l_unit = _find_unit_with_pins(lib_text, l_outer_open, l_outer_end)
+            if l_unit is None:
+                lib_info["skipped"] = (
+                    f'no inner unit symbol inside "{sym_name}" in {lib_path}'
+                )
+            else:
+                l_unit_open, l_unit_end = l_unit
+                l_existing = _existing_pin_numbers(lib_text, l_unit_open, l_unit_end)
+                if number in l_existing:
+                    raise ValueError(
+                        f'pin number "{number}" already exists in "{sym_name}" '
+                        f"({lib_path})"
+                    )
+                new_lib_text = _insert_pin_into_unit(
+                    lib_text,
+                    l_unit_open,
+                    l_unit_end,
+                    electrical_type,
+                    shape,
+                    x,
+                    y,
+                    rot,
+                    length_f,
+                    name,
+                    number,
+                    font_size,
+                )
+                lib_changed = _maybe_write(lib_path, lib_text, new_lib_text, dry_run)
+                lib_info["changed"] = lib_changed
+                lib_info["diff_summary"] = _diff(lib_text, new_lib_text, lib_path)
+
+    # Combined diff is reported for stdout (sch first, then lib if any).
+    combined_diff = sch_diff
+    if lib_info.get("diff_summary"):
+        combined_diff = sch_diff + lib_info["diff_summary"]
+
+    return {
+        "action": "add_pin",
+        "changed": sch_changed or bool(lib_info.get("changed")),
+        "diff": combined_diff,
+        "details": {
+            "schematic": {
+                "path": str(sch_path),
+                "changed": sch_changed,
+                "diff_summary": sch_diff,
+            },
+            "lib_file": lib_info,
+            "pin": {
+                "number": number,
+                "name": name,
+                "at": [round(x, 2), round(y, 2), round(rot, 2)],
+                "length": round(length_f, 2),
+                "type": electrical_type,
+                "shape": shape,
+            },
+        },
+    }

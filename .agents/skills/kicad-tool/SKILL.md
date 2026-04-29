@@ -48,6 +48,7 @@ Structural mutations. All take a positional `<schematic.kicad_sch>`, accept `--j
 | Command | Purpose |
 |---|---|
 | `sch edit symbol move --ref REF --to X,Y [--rotation R]` | Move/rotate a symbol |
+| `sch edit symbol add-pin --lib-id LIB --number N --name NAME --at X,Y[,ROT] --length L --type T [--shape S] [--lib-file PATH]` | Add a pin to a symbol (updates embedded lib_symbols + standalone .kicad_sym) |
 | `sch edit wire add --from X,Y --to X,Y [--type solid\|default]` | Add a wire segment |
 | `sch edit wire delete (--uuid U \| --from X,Y --to X,Y)` | Delete a wire |
 | `sch edit label add --kind global\|hier\|local --name N --at X,Y [--rotation R] [--justify J]` | Add a label |
