@@ -29,6 +29,12 @@ For any decision about _what_ to change electrically (placement, grouping, decou
 - Adding pins to symbols: use `sch edit symbol add-pin ...` — it updates both the schematic's embedded `lib_symbols` and the project's `.kicad_sym` library together. Coordinates are symbol-local (no Y negation here).
 - Do not `Read`/`cat`/`grep` `.kicad_sch` — raw S-expression files are huge and burn the context window. Use `sch query` for scoped JSON.
 
+### Wire delete / replace — audit mid-span taps first
+
+A wire can carry connections **anywhere along its length** (junctions, perpendicular wire endpoints, pin endpoints, label anchors), not just at its two endpoints. Endpoint-only stub replacement orphans the mid-span taps, and ERC misses it (a remaining junction at the orphaned coordinate keeps the count parity-clean).
+
+Before any `sch edit wire delete` / replace: run `sch query region` over the wire's bbox (expand ~0.01 mm) and enumerate every tap; each must be re-attached by the new routing. Validate with `kicad-validate`'s baseline-diff workflow (`--save-baseline` / `--baseline`) — its `removed_nodes` check is what actually catches this.
+
 ### Automated `sch edit` subcommands
 
 ```
@@ -115,7 +121,7 @@ Use `kicad-validate` (one-shot `sch validate --sheet <edited>`).
 ### 4. Review
 
 - New ERC violations → check coordinates, stroke type, `lib_symbols` integrity (intentional-violation handling lives in `kicad-validate`).
-- Netlist mismatch → investigate unintended connectivity.
+- Netlist mismatch → investigate unintended connectivity. For wire delete/move/replace, use `kicad-validate`'s baseline-diff (`--save-baseline` / `--baseline`); ERC parity alone can hide an orphaned mid-span tap.
 - A worse `sch inspect` score is acceptable in stage 1 if connectivity is correct; do not chase it here.
 
 ### 5. Hand off to stage 2 (visual cleanup)
