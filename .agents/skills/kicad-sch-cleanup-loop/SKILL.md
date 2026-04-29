@@ -5,66 +5,72 @@ description: Iteratively improve a KiCad schematic sheet's `sch inspect` score, 
 
 # KiCad Schematic Visual Cleanup Loop
 
-Main loop owns scoring **and planning**; subagents (general-purpose Agent) own edits inside one problem area at a time. Defer to `kicad-hardware-editing` for edit conventions and `kicad-tool` for CLI.
+Main loop plans + scores; subagents edit one cluster at a time. Edit conventions: `kicad-hardware-editing`. CLI: `kicad-tool`. Connectivity-parity: `kicad-validate`.
 
 Inputs: `<sheet>` (child) and `<top>` = `hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_sch`.
 
-## CLI-only inspection
+## CLI-only
 
-Never `Read`/`cat`/`grep` the `.kicad_sch`. The file is thousands of lines of S-expressions and sequential reads blow the context window. `sch query` returns scoped JSON for exactly the element you ask about — see the `kicad-tool` skill for the full list (`region`, `symbol`, `pin`, `wire`, `label`, `net`, `list`). Mutate only via `sch edit`. If a query/edit you need doesn't exist, extend `kicad-tool` instead of falling back to raw reads.
+Never `Read`/`cat`/`grep` the `.kicad_sch` (thousands of S-expr lines blow context). Use `sch query` (`region`/`symbol`/`pin`/`wire`/`label`/`net`/`list`) and mutate via `sch edit`. Missing query/edit → extend `kicad-tool`.
 
 ## Baseline
-
-Use `kicad-validate`'s baseline-diff workflow — it owns the connectivity-parity machinery (`--save-baseline DIR` / `--baseline DIR`, with `removed_nodes` detection). Run it once at the start:
 
 ```bash
 python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
   <top> --sheet <sheet> --save-baseline tmp/cleanup-baseline > tmp/cleanup-baseline.json
 ```
 
-`<top>` `<sheet>` ともに repo root 相対パス。`2>&1` は付けない（stderr 混入で壊れる）。Record `score.total` and the `collisions` / `symbol_wire_conflicts` arrays from the JSON.
+Repo-root-relative paths. No `2>&1` (stderr breaks JSON). Record `score.total`, `collisions`, `symbol_wire_conflicts`.
 
-## Phase 0 — area-level plan (mandatory, before any edit)
+## Phase 0 — area plan (mandatory before any edit)
 
-Greedy "fix highest-priority issue first" produces myopic rewires that other planned moves immediately invalidate. Plan the **target area with surrounding context** before any subagent runs. Do not render the whole sheet.
+Greedy "fix highest-priority first" produces myopic rewires that later moves invalidate. Plan the target area with surrounding context first.
 
-1. **Identify the target area.** Start from the user's instruction (which region/symbols to clean up) and the latest validate JSON. Compute a bbox around it; expand by ~one local block (a few grid steps) so neighboring symbols, wires, and labels that could be affected are visible — but no more.
-2. **Render the area with context** to `tmp/cleanup-overview.png` via `sch render-region`. Read this image alongside the JSON.
-3. **Identify problem clusters inside the area.** Group issues into a small number (≤6) of named clusters by spatial locality and topological coupling (issues that share a symbol, share a net, or are inside the same pin field belong together).
-4. **Order the clusters.** Decide an explicit order with reasons. Default heuristics, in priority:
-   - **Anchors first.** A component whose rotation/flip dictates the surrounding routing (MCU, connector with many pins, MOSFET orientation) is fixed before its neighbors. Moving an anchor late wastes earlier rewires.
-   - **Topology before cosmetics.** `symbol_wire_conflicts` / `symbol_wire_clearance` / `collisions` (coupled to routing) come before pure `wire_corner_count` / `diagonal` / `wire_length`.
-   - **Independence.** Two clusters that don't share symbols or nets can be ordered freely; pick whichever unblocks more downstream area.
-   - **Don't touch label/value placement in Phase 1.** That's Phase 2 — doing it now is rework once components move.
-5. **Per-cluster plan.** For each cluster record: name, bbox, the issue records inside, the candidate fix in the preference order (rewire → rotate/flip label → rotate/flip small component → move label → move component → reshape), and any **dependencies** on earlier clusters ("after cluster A is rotated, this wire likely resolves on its own — re-check before dispatch").
-   - **Wire relocate / delete tap audit (mandatory).** If the planned fix deletes or replaces a wire, enumerate **every connection point along the original wire**, not just its two endpoints: (a) other wire endpoints landing on the segment, (b) junctions on the segment, (c) pin endpoints on the segment, (d) labels anchored on the segment. Use `sch query region` over the wire's bbox (expanded by ~0.01 mm) to list them. Each must be re-attached by the new routing — endpoint stubs are not enough when the original wire had mid-span taps. Record the tap list in the plan; the subagent receives it explicitly.
-6. **Write the plan to `tmp/cleanup-plan.md`** — clusters in order, one block each, with bbox and rationale. This is the working plan; update it as clusters complete.
+1. **Target bbox** = user instruction + latest validate JSON, expanded ~one local block.
+2. **Render** to `tmp/cleanup-overview.png` via `sch render-region`. Read alongside JSON.
+3. **Cluster issues** (≤6) by spatial locality + topological coupling (shared symbol/net/pin field).
+4. **Order clusters** by:
+   - **Anchors first** (MCU / multi-pin connector / MOSFET orientation) — late anchor moves waste earlier rewires.
+   - **Topology before cosmetics** — `symbol_wire_conflicts`/`collisions` before `wire_corner_count`/`diagonal`/`wire_length`.
+   - **Independence** — non-coupled clusters: pick whichever unblocks more.
+   - **Defer label/value placement to Phase 2** (Phase 1 component moves invalidate it).
+5. **Per-cluster**: name, bbox, issues, fix preference (rewire → rotate/flip label → rotate/flip small comp → move label → move comp → reshape), dependencies on earlier clusters.
+   - **Wire relocate/delete tap audit (mandatory).** Enumerate every connection on the original wire — wire endpoints, junctions, pin endpoints, labels — via `sch query region` over the wire's bbox (+~0.01 mm). Endpoint stubs orphan mid-span taps. Pass tap list to subagent.
+6. **Write `tmp/cleanup-plan.md`** — clusters in order, one block each. Update as work progresses.
 
-Show the plan to the user only if asked; otherwise proceed.
+## Phase 1 — execute, validate per cluster
 
-## Phase 1 — execute the plan, re-validate per cluster
+Score is a **long-horizon** target: an anchor rotation may temporarily lengthen neighbor wires, paying off only after 1–2 more clusters. Use checkpoints, not per-edit gating, for score.
 
-For each cluster **in planned order**:
+### Two gates per dispatch
 
-1. **Re-render the cluster region** to `tmp/cleanup-area.png` (overwrite each iteration) and re-query the latest issues inside its bbox. If the cluster's issues are already gone (resolved by an earlier cluster's edit), skip and note it in the plan.
-2. **Dispatch one subagent** with: cluster name, bbox, `tmp/cleanup-area.png` path, all issue records inside, list of symbols/labels/wires inside, pre-edit `score.total`, the planned fix approach + rationale from the plan, and the fix preference order. Subagent may make multiple coordinated edits **inside the bbox**, must not change hierarchy/nets/symbol identity, and must not validate.
-3. **Main loop validates** against the baseline:
-   ```bash
-   sch validate <top> --sheet <sheet> --baseline tmp/cleanup-baseline > tmp/cleanup-latest.json
-   ```
-   Accept only if **all** of: baseline-diff exit 0 (no new ERC, no removed nets, no removed nodes — this is the connectivity-parity gate), and `score.total` decreased vs the last accepted value. Otherwise `git checkout -- <sheet>` and record `(cluster, approach)` as tried. On accept, refresh the baseline (re-run `--save-baseline tmp/cleanup-baseline`) so the next iteration compares against the new accepted state.
-4. **Re-plan if needed.** If the accepted edit visibly changed the topology around a downstream cluster (new collisions appeared, planned dependency triggered), re-render `tmp/cleanup-overview.png` for the target area and update `tmp/cleanup-plan.md` before moving on.
+- **Hard gate (immediate revert).** Baseline-diff exit must be 0 (no new ERC, no removed nets, no removed nodes). Connectivity damage → `git checkout -- <sheet>`, record `(cluster, approach)`. Never tolerate.
+- **Soft gate (deferred).** Score regression alone does **not** revert. Enter exploratory state with a checkpoint cap.
 
-Stop Phase 1 when **any** of:
-- all planned clusters are processed (success exit),
-- a cluster exhausts every approach in the preference order without improvement and the plan has no fallback,
-- three consecutive dispatches are rejected (stop and re-plan with the user).
+### Checkpoint loop
 
-Bounding box rule: start ~one local block (a few grid steps) around the seed issues and expand to include any neighboring issues that touch them.
+**Last-good checkpoint** = most recent state with `score.total ≤` baseline checkpoint. Materialized by `tmp/cleanup-baseline/` (only refreshed on accept) + working tree. Rollback = `git checkout -- <sheet>` (no stash/branch). Accepting mid-streak resets the streak counter to 0 — there is no "streak with accepted edits in the middle".
+
+For each cluster in planned order:
+
+1. **Re-render cluster** to `tmp/cleanup-area.png`, re-query bbox issues. Skip if already resolved upstream.
+2. **Dispatch one subagent** with: cluster name, bbox, `tmp/cleanup-area.png`, issue records, symbols/labels/wires inside, pre-edit `score.total`, planned approach + rationale, fix preference, and a note that short-term score regression is allowed if it sets up the next cluster (prefer non-regressing fixes when equivalent).
+3. **Validate**: `sch validate <top> --sheet <sheet> --baseline tmp/cleanup-baseline > tmp/cleanup-latest.json`
+   - **Hard-gate fail** → revert, record, next cluster.
+   - **Hard-gate pass, score ≤ last-good** → accept as new last-good. Refresh baseline (`--save-baseline tmp/cleanup-baseline`). Clear streak.
+   - **Hard-gate pass, score worse** → keep edits, mark exploratory, **do not refresh baseline**, increment streak.
+4. **After every exploratory dispatch**: re-render `tmp/cleanup-overview.png`, read it, compare against the plan's predicted *intermediate* topology. Diverges → planning miss: roll streak back, record divergence, update `tmp/cleanup-plan.md`.
+5. **Checkpoint cap.** Roll back the entire exploratory streak when any of: streak == 3 without recovering ≤ last-good, single-step jump >~20% above last-good (runaway), or overview diverges from plan.
+6. **Re-plan** when topology shifts around downstream clusters.
+
+Stop Phase 1 when:
+- all clusters processed (end on last-good — if exploratory, roll back first),
+- a cluster exhausts every approach without progress and plan has no fallback,
+- two consecutive cap rollbacks (plan itself is wrong — stop and re-plan with user). Track the cap-rollback count in `tmp/cleanup-plan.md` alongside the cluster log.
 
 ## Phase 2 — label/value tightening
 
-Only after Phase 1 has stabilized component positions. Group sheet components into local clusters. For each cluster, dispatch a subagent to place each `Value`/`Reference` adjacent to its symbol body and tighten labels onto wire endpoints — cluster only, no symbol moves unless trivial. Main loop validates: accept if ERC parity, `score.total` not worse, no new collisions in the cluster; otherwise revert. Stop after one full pass with zero accepted edits.
+After Phase 1 stabilizes positions. Cosmetic only — long-horizon argument does **not** apply. Per-cluster strict gate: accept only if ERC parity, `score.total` not worse, no new collisions; else revert immediately. Group components into local clusters; subagent places `Value`/`Reference` adjacent to symbol body and tightens labels onto wire endpoints — no symbol moves unless trivial. Stop after one full pass with zero accepts.
 
 ## Report
 
@@ -72,7 +78,7 @@ Only after Phase 1 has stabilized component positions. Group sheet components in
 Sheet: <sheet>
 Baseline: total=<n0> ERC=<e0>
 Plan: <k> clusters
-Phase 1: total=<n1> Δ=<n1-n0> accepted=<a1> rejected=<r1> skipped=<s1>
+Phase 1: total=<n1> Δ=<n1-n0> checkpoints=<a1> hard-reverts=<r1> exploratory-rollbacks=<x1> skipped=<s1>
 Phase 2: accepted=<a2> passes=<p2>
 Final ERC: <parity | listed intentional>
 ```
@@ -81,11 +87,9 @@ Show `git diff --stat <sheet>`. Do not commit unless asked.
 
 ## Hard rules
 
-- **No edit before the Phase 0 plan exists.** If `tmp/cleanup-plan.md` is missing, you have not planned yet.
-- One subagent dispatch = one cluster = one validate cycle.
-- Subagents never validate; main loop always does.
-- Subagents always receive the rendered region PNG path, not just the bbox JSON.
-- Revert via `git checkout -- <sheet>` on any regression before next dispatch.
-- Reuse stable filenames in `tmp/`: `cleanup-baseline.json`, `cleanup-latest.json`, `cleanup-overview.png`, `cleanup-area.png`, `cleanup-plan.md`. Do not mint new suffixed names per iteration.
-- All KiCad CLI through `kicad-tool`; all S-expression conventions through `kicad-hardware-editing`. Connectivity-parity gate is `kicad-validate`'s baseline-diff (don't reinvent it here).
-- **Wire relocate ⇒ enumerate every tap on the original wire**, not just endpoints. Endpoint-only stubs orphan mid-span taps; ERC count parity does not catch this — the baseline-diff's `removed_nodes` does.
+- No edit before `tmp/cleanup-plan.md` exists.
+- One dispatch = one cluster = one validate. Subagents never validate; main loop always does. Subagents always get the rendered PNG path, not just bbox JSON.
+- **Connectivity regression ⇒ immediate revert.** Never tolerated.
+- **Score regression ≠ immediate revert.** Exploratory; render overview; judge vs plan. Roll streak back only on (a) streak == 3 no recovery, (b) >~20% jump, or (c) overview divergence. Final state must be last-good.
+- **Wire relocate ⇒ enumerate every tap**, not just endpoints. ERC count parity misses orphaned taps; baseline-diff `removed_nodes` catches it.
+- Reuse stable `tmp/` filenames: `cleanup-baseline.json`, `cleanup-latest.json`, `cleanup-overview.png`, `cleanup-area.png`, `cleanup-plan.md`.
