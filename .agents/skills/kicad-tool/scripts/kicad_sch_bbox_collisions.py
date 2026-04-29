@@ -444,12 +444,25 @@ def detect_collisions(rendered_texts: list[RenderedText], wires: list[WireSeg], 
             if hitbox.intersects_segment(w.p1, w.p2, margin=margin):
                 entry["wire_hits"].append({"uuid": w.uuid, "p1": w.p1, "p2": w.p2})
         for b in boxes:
-            # A property overlapping its own symbol body is still a layout conflict.
-            if hitbox.intersects_rect(b.bbox, margin=margin):
+            # A property text sitting inside its own symbol body is readable
+            # (the bbox interior is mostly empty for ICs), so don't count it.
+            # Pin-segment / other-symbol / wire / text overlaps still count.
+            if rt.matched_kind == "property" and b.ref == rt.matched_ref:
+                pass
+            elif hitbox.intersects_rect(b.bbox, margin=margin):
                 entry["component_hits"].append({"ref": b.ref, "lib_id": b.lib_id, "bbox": asdict(b.bbox.normalized())})
             if rt.matched_kind == "global_label":
                 pin_margin = max(margin, GLOBAL_LABEL_PIN_CLEARANCE_MM)
+                anchor_xy = (rt.matched_x, rt.matched_y)
                 for p1, p2 in b.pin_segments:
+                    # If the global_label anchors directly on a pin endpoint,
+                    # the label hitbox unavoidably overlaps that pin segment;
+                    # this is correct topology, not a collision.
+                    if anchor_xy[0] is not None and anchor_xy[1] is not None and (
+                        (abs(p1[0] - anchor_xy[0]) < 0.01 and abs(p1[1] - anchor_xy[1]) < 0.01)
+                        or (abs(p2[0] - anchor_xy[0]) < 0.01 and abs(p2[1] - anchor_xy[1]) < 0.01)
+                    ):
+                        continue
                     if hitbox.intersects_segment(p1, p2, margin=pin_margin):
                         entry["component_hits"].append(
                             {
