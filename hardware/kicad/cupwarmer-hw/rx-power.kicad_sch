@@ -2235,9 +2235,19 @@
 		)
 		(uuid "ff280d07-b6f7-4401-b654-4e7e2e999a7a")
 	)
+	(wire
+		(pts
+			(xy 139.7 132.08) (xy 144.78 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "48034807-9a8d-422e-b764-6e626af2406a")
+	)
 	(global_label "RX_VAA"
 		(shape passive)
-		(at 157.48 142.24 270)
+		(at 157.48 142.24 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2246,7 +2256,7 @@
 		)
 		(uuid "1ef24b4e-b0c0-47e1-9714-a48eefd820a5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 157.48 142.24 0)
+			(at 157.48 142.24 180)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2259,7 +2269,7 @@
 	)
 	(global_label "RX_NTC"
 		(shape passive)
-		(at 144.78 129.54 0)
+		(at 139.7 132.08 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2268,7 +2278,7 @@
 		)
 		(uuid "5ad52929-7531-4739-89b5-e1c8d1cbea8e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 144.78 129.54 0)
+			(at 139.7 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
