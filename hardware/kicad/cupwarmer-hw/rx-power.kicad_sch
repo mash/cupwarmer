@@ -2257,6 +2257,28 @@
 			)
 		)
 	)
+	(global_label "RX_NTC"
+		(shape passive)
+		(at 144.78 129.54 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5ad52929-7531-4739-89b5-e1c8d1cbea8e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 144.78 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
 	(global_label "SYS_GND"
 		(shape passive)
 		(at 204.47 100.33 0)
@@ -3430,7 +3452,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111328")
 		(property "Reference" "U1"
-			(at 149.86 104.902 0)
+			(at 124.46 124.46 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3440,7 +3462,7 @@
 			)
 		)
 		(property "Value" "STWLC38JRM"
-			(at 149.86 102.362 0)
+			(at 124.46 127 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3639,7 +3661,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 193.04 137.16 0)
+			(at 193.04 132.08 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3809,7 +3831,7 @@
 			)
 		)
 		(property "Value" "47nF"
-			(at 96.52 86.36 0)
+			(at 90.17 86.36 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3979,7 +4001,7 @@
 			)
 		)
 		(property "Value" "4.7uF"
-			(at 160.02 144.78 0)
+			(at 162.56 144.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
