@@ -92,13 +92,22 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py sch validate \
 
 ## Inspect JSON
 
-`sch inspect` returns (JSON by default):
+`sch inspect` returns (JSON by default) a top-level object with these keys:
 
-- `score` — `total` (lower better), `collision_count`, `wire_corner_count` (two-segment bends + wire-endpoint T-junctions), `symbol_wire_conflict_count` (wires crossing symbol bodies), `symbol_wire_clearance_count` (wires too close to symbols).
+- `score` — **a nested object**, not a number. Sub-fields (access as `score.total`, `score.collision_count`, etc.):
+  - `total` (lower better)
+  - `collision_count`
+  - `wire_corner_count` (two-segment bends + wire-endpoint T-junctions)
+  - `symbol_wire_conflict_count` (wires crossing symbol bodies)
+  - `symbol_wire_clearance_count` (wires too close to symbols)
 - `wire_length` — independent non-score metric with total wire length, segment count, and longest segment.
-- `collisions` — text/label/property/wire/symbol records.
-- `symbol_wire_conflicts` — body overlaps + clearance violations.
+- `collisions` — list of text/label/property/wire/symbol records.
+- `symbol_wire_conflicts` — list of body overlaps + clearance violations.
 - `filters` — applied `only_text`, `margin`.
+
+## Validate JSON
+
+`sch validate` wraps the three stages: `{ "erc": {...}, "netlist": {...}, "inspect": { <same shape as sch inspect> } }`. To read `score` / `collisions` / `symbol_wire_conflicts`, always go through the nested `inspect` key (e.g. `d["inspect"]["score"]`) — they are **not** at the top level.
 
 ## Scripts
 
