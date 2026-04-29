@@ -554,7 +554,7 @@
 			)
 		)
 		(property "Value" "STWLC38JRM_MIN"
-			(at 0 -24.13 0)
+			(at 0.254 -2.032 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1006,11 +1006,11 @@
 					)
 				)
 			)
-			(pin no_connect line
-				(at 22.86 -7.62 180)
-				(length 5.08)
-				(name "VMID"
-					(effects
+				(pin no_connect line
+					(at 22.86 -7.62 180)
+					(length 5.08)
+					(name "NC"
+						(effects
 						(font
 							(size 1.27 1.27)
 						)
@@ -1078,11 +1078,11 @@
 					)
 				)
 			)
-			(pin passive line
-				(at -7.62 -22.86 90)
-				(length 5.08)
-				(name "DFT"
-					(effects
+				(pin passive line
+					(at -7.62 -22.86 90)
+					(length 5.08)
+					(name "VS"
+						(effects
 						(font
 							(size 1.27 1.27)
 						)

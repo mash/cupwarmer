@@ -118,15 +118,16 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - `VAA` `4.7uF` (C7) + `NTC → VAA 10k` pull-up (R7)
 - `VDD` `1uF` (C8) + HF bypass `100nF` (C4)
 - `VRECT` `10uF` (C9)
-- `IEXT` clamp: `RCL 300R` (R4) → **VOUT_12V** 接続（OVP クランプ用、内部スイッチで VRECT へ）
+- `IEXT` clamp: `RCL 300R` (R4) → **VRECT** 接続（OVP クランプ用、IEXT 内部スイッチ経由）
 - `AC1/AC2` ESD: `SMF13A` (Z1/Z2) 各 `GND` 直結
 - `Cs` 系列共振 `100nF×5` (C1) + **`Cd` 並列共振 `3.3nF` (C15)**
 - COMA/COMB ASK 変調キャパ 4 本: C11=CCOMA1(10n→AC1), C12=CCOMB1(22n→AC1), C13=CCOMA2(10n→AC2), C14=CCOMB2(22n→AC2)
-- `VS` `3.3nF` (C10) → GND（基本 RX モードでは使わないが小容量バイパスで安定化）
+- `VS` は RX-only では未使用。評価ボードでは DNP ジャンパ経由の外部 `VS` 評価点として扱われており、v1 では未接続
 - `ENB` → `GND` 固定
 - **`SCL/SDA` pull-up `10k` (R5/R6) → `VAA` (2.5V)**（VDD は 1.1V LDO で I2C には低すぎる。J1 経由のホスト接続はレベルシフタ必須）
 - `VOUT` → heater-control シートへ
 - LED: D1（給電中インジ、VOUT_12V → R10(3k) → D1 → GND）
+- GPIO0 LED: D2/R11（RX_VAA → R11(1k) → D2 → GPIO0、GPIO0 は NVM 設定前提の optional indicator）
 
 `sensors-logic.kicad_sch`:
 
@@ -157,5 +158,5 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - hard cutoff implementation choice — F1 サーモスタットは現状 90°C TBD。**75°C 以下品への変更検討（IEC 60335 観点）**
 - **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制
 - VOUT 過電圧保護 TVS（SMBJ15A 等）の追加検討
-- LED-2（INTB ステータス）— INTB は max 3.6V のため、12V LED 駆動には NPN/MOSFET バッファが必要。v1 では J3 経由の外部観測のみ。v2 で実装検討
+- LED-2（INTB ステータス）— INTB は max 3.6V かつ open-drain のため、12V LED 駆動には NPN/MOSFET バッファが必要。v1 では J3 経由の外部観測のみ。v2 で実装検討
 - R3 (0.05Ω 電流センス) — ADC なしでは未使用。v1 では DNP + 0Ω ジャンパ運用
