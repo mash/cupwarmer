@@ -541,6 +541,18 @@ def cmd_sch_edit_symbol_move(args: argparse.Namespace) -> int:
     return _emit_edit(args, res)
 
 
+def cmd_sch_edit_symbol_move_property(args: argparse.Namespace) -> int:
+    res = sch_edit.move_symbol_property(
+        args.schematic,
+        args.ref,
+        args.key,
+        args.xy,
+        rotation=args.rotation,
+        dry_run=args.dry_run,
+    )
+    return _emit_edit(args, res)
+
+
 def cmd_sch_edit_symbol_add_pin(args: argparse.Namespace) -> int:
     x, y = args.at
     res = sch_edit.add_pin(
@@ -704,6 +716,22 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_sch_edit_symbol_move)
+
+    p = sym_act.add_parser(
+        "move-property",
+        help="move a single symbol property placement (Reference/Value/etc)",
+    )
+    p.add_argument("schematic", type=Path)
+    p.add_argument("ref", help="symbol reference, e.g. C4")
+    p.add_argument(
+        "key",
+        help="property key (standard built-ins only): Reference|Value|Footprint|Datasheet|Description",
+    )
+    p.add_argument("xy", type=parse_xy, help="destination X,Y")
+    p.add_argument("--rotation", type=float, default=None)
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=cmd_sch_edit_symbol_move_property)
 
     p = sym_act.add_parser(
         "add-pin",

@@ -316,6 +316,91 @@ def move_symbol(
     }
 
 
+def move_symbol_property(
+    sch_path: str | Path,
+    ref: str,
+    key: str,
+    to: tuple[float, float],
+    rotation: float | None = None,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Move a single symbol property field's placement by reference.
+
+    Only standard KiCad property keys are supported (Reference/Value/etc).
+    The command errors if the property exists but has no `(at ...)` placement.
+    """
+    allowed_keys = {"Reference", "Value", "Footprint", "Datasheet", "Description"}
+    if key not in allowed_keys:
+        raise ValueError(f"key must be one of {sorted(allowed_keys)}, got {key!r}")
+
+    sch_path = Path(sch_path)
+    text = _read(sch_path)
+
+    found = _find_symbol_block_by_ref(text, ref)
+    if not found:
+        raise ValueError(f"symbol with reference {ref!r} not found in {sch_path}")
+    sym_open_idx, sym_end_idx, sym_block = found
+
+    prop_head_pat = re.compile(r'\(property\s+"' + re.escape(key) + r'"\s+"[^"]*"')
+    m_head = prop_head_pat.search(sym_block)
+    if not m_head:
+        raise ValueError(f"property {key!r} not found on symbol {ref!r}")
+
+    prop_open_rel = m_head.start()
+    prop_end_rel = _find_block_end(sym_block, prop_open_rel)
+    prop_block = sym_block[prop_open_rel:prop_end_rel]
+
+    # Find current (at ...) and whether rotation is explicitly present.
+    at_pat = re.compile(r"\(at\s+(-?[\d.]+)\s+(-?[\d.]+)(?:\s+(-?[\d.]+))?\s*\)")
+    m_at = at_pat.search(prop_block)
+    if not m_at:
+        raise ValueError(f"property {key!r} on symbol {ref!r} has no (at ...) placement")
+
+    old_x, old_y = float(m_at.group(1)), float(m_at.group(2))
+    old_rot_raw = m_at.group(3)
+    had_rot = old_rot_raw is not None
+    old_rot = float(old_rot_raw) if old_rot_raw is not None else 0.0
+
+    new_x, new_y = float(to[0]), float(to[1])
+    new_rot = float(rotation) if rotation is not None else old_rot
+
+    # Preserve the original "(at x y)" form when rotation arg is omitted.
+    if rotation is None and not had_rot:
+        new_at = f"(at {_fmt_coord(new_x)} {_fmt_coord(new_y)})"
+    else:
+        new_at = f"(at {_fmt_coord(new_x)} {_fmt_coord(new_y)} {_fmt_coord(new_rot)})"
+
+    prop_at_re = re.compile(
+        r"\(at\s+-?[\d.]+\s+-?[\d.]+(?:\s+-?[\d.]+)?\s*\)",
+    )
+    m_sub = prop_at_re.search(prop_block)
+    if not m_sub:
+        # Should not happen because we already verified (at ...), but keep error explicit.
+        raise ValueError(f"property {key!r} on symbol {ref!r} has no (at ...) placement")
+
+    new_prop_block = prop_at_re.sub(new_at, prop_block, count=1)
+    new_sym_block = sym_block[:prop_open_rel] + new_prop_block + sym_block[prop_end_rel:]
+    new_text = text[:sym_open_idx] + new_sym_block + text[sym_end_idx:]
+
+    changed = _maybe_write(sch_path, text, new_text, dry_run)
+    dx = new_x - old_x
+    dy = new_y - old_y
+    drot = new_rot - old_rot
+
+    return {
+        "action": "move_symbol_property",
+        "changed": changed,
+        "diff": _diff(text, new_text, sch_path),
+        "details": {
+            "ref": ref,
+            "key": key,
+            "old": {"x": old_x, "y": old_y, "rotation": old_rot, "had_rotation": had_rot},
+            "new": {"x": new_x, "y": new_y, "rotation": new_rot, "had_rotation": rotation is not None or had_rot},
+            "delta": {"dx": dx, "dy": dy, "drot": drot},
+        },
+    }
+
+
 # ---------------------------------------------------------------------------
 # add_wire / delete_wire
 # ---------------------------------------------------------------------------
@@ -753,6 +838,7 @@ def delete_junction(
 
 __all__ = [
     "move_symbol",
+    "move_symbol_property",
     "add_wire",
     "delete_wire",
     "add_label",
