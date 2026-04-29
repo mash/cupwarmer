@@ -38,14 +38,14 @@
   - Q1 候補: `AO3400` (SOT-23, RDS(ON)=28mΩ@VGS=10V, VGS_max ±12V)。I_heater = 0.8A での損失 ≈ 18mW で熱的に余裕。VGS マージンを上げたい場合は VGS ±20V 品（`DMN3404L` / `NTR4170N` 等）に置換。
 - 製品固有の温調ロジックは初版のスコープ外
 - `ENB` は未使用時 `GND` 固定を基本にする
-- `NTC` は専用 `RX_NTC` として露出し、未使用時は `VAA` へ `10k` pull-up とする
+- `RX_NTC` には TH2 (10k NTC, board hotspot near Qi coil) を接続し、R7 (10k → RX_VAA) と分圧する。STWLC38 内蔵 OTP がコイル/基板温度で自律的に給電を絞る/停止する。NTC を未配置にする場合は R7 のみで pull-up 終端
 - `INTB` は optional な bring-up / service 観測線として扱う
 - `IEXT` は `RCL + TVS` の clamp path を前提にする
 
 ### 5. 保護方針
 
-- `NTC_A`: top plate
-- `NTC_B`: power board hotspot
+- `NTC_A`: top plate (TH1 → J2 経由で外部観測)
+- `NTC_B`: power board hotspot (TH2 → RX_NTC, IC 内蔵 OTP)
 - `F1`: independent hardware cutoff
 - `FOD`: Qi 側の停止系として扱う
 
@@ -83,9 +83,11 @@ flowchart TB
         NTCB[NTC_B<br/>power hotspot]
         F1[F1<br/>独立ハード遮断]
         FOD[FOD / thermal protection]
+        OTP[STWLC38<br/>internal OTP]
 
         NTCA --> F1
         NTCB --> F1
+        NTCB --> OTP
     end
 
     subgraph SERVICE[Bring-up / Monitor]
@@ -104,6 +106,7 @@ flowchart TB
     IEXT -. protection path .-> RX
     RX -. status / shutdown .-> FOD
     FOD -. stop power transfer .-> TX
+    OTP -. throttle/stop .-> RX
 ```
 
 - 初版は外部 `MCU` なし
@@ -135,16 +138,18 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 
 - `J1`: I2C service header（VREF = VAA 2.5V）
 - `TH1` / `TH2`: `10k NTC` placeholder
-- `R8` / `R9`: `VAA` への `10k` pull-up
-- `J2`: `NTC_TOP` / `NTC_PCB` thermal monitor header
+- `R8`: `RX_VAA` への `10k` pull-up（NTC_TOP 用）。R9 (旧 NTC_PCB pull-up) は削除
+- `RX_NTC` に TH2 (NTC_B) を接続、R7 (10k → RX_VAA) と分圧。STWLC38 内蔵 OTP 入力
+- `J2`: `NTC_TOP` / `RX_NTC` thermal monitor header
 - `J3`: `RX_INTB` / `I_HEATER_MON` status monitor header
 
 `sensors-logic.kicad_sch` には以下を反映済み:
 
 - `J1`: `RX_VAA` 2.5V 参照付き `I2C` service header
 - `TH1` / `TH2`: `10k NTC` placeholder
-- `R8` / `R9`: `RX_VAA` への `10k` pull-up
-- `J2`: `NTC_TOP` / `NTC_PCB` の thermal monitor header
+- `R8`: `RX_VAA` への `10k` pull-up（NTC_TOP 用）。R9 (旧 NTC_PCB pull-up) は削除
+- TH2 → `RX_NTC` (R7 と分圧、STWLC38 内蔵 OTP 入力)
+- `J2`: `NTC_TOP` / `RX_NTC` の thermal monitor header
 - `J3`: `RX_INTB` / `I_HEATER_MON` の status monitor header
 
 ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mismatch` 警告のみ。

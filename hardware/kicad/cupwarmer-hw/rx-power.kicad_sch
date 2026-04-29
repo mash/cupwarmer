@@ -4542,7 +4542,7 @@
 				)
 			)
 		)
-		(property "Description" "NTC pull-up to VAA (10k, stand-alone default)"
+		(property "Description" "NTC pull-up to VAA (10k); forms divider with TH2 on sensors-logic sheet for IC OTP"
 			(at 144.78 137.16 180)
 			(hide yes)
 			(show_name no)

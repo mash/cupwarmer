@@ -11,7 +11,7 @@ R1,gate divider top,10k resistor,TBD,TBD,TBD,VOUT_12V -> Q1.G; with R2 forms 10k
 R2,gate divider bottom,10k resistor,TBD,TBD,TBD,Q1.G -> SYS_GND; with R1 forms 10k/10k divider for VGS~=6V
 R3,current sense / jumper,0R jumper or 0.05R current sense resistor,TBD,TBD,selected,"v1 normal build: fit 0R so Q1 source returns to SYS_GND; substitute 0.05R only for measured bring-up"
 NTC_A,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,top plate temperature
-NTC_B,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,board hotspot temperature
+NTC_B,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,board hotspot temperature near Qi coil; ties to RX_NTC for STWLC38 internal OTP
 F1,thermostat,bimetal thermostat 90C,TBD,TBD,TBD,independent thermal protection auto-reset
 H1,heater,flexible heater,TBD,TBD,TBD,target around 15 ohm at 12V nominal
 J1,service header,I2C service header,TBD,TBD,TBD,bring-up and configuration access
@@ -23,7 +23,7 @@ C8,supply decoupling,1uF ceramic,TBD,TBD,TBD,VDD digital supply decoupling
 C9,rectifier decoupling,10uF ceramic,TBD,TBD,TBD,VRECT rectifier decoupling close to U1
 R5,I2C pull-up,10k resistor,TBD,TBD,TBD,SCL pull-up to RX_VAA 2.5V for service header
 R6,I2C pull-up,10k resistor,TBD,TBD,TBD,SDA pull-up to RX_VAA 2.5V for service header
-R7,NTC pull-up,10k resistor,TBD,TBD,TBD,RX_NTC -> RX_VAA pull-up for stand-alone default
+R7,NTC pull-up,10k resistor,TBD,TBD,TBD,RX_NTC -> RX_VAA pull-up; forms divider with TH2 (NTC_B) at ~RX_VAA/2 (25C)
 C10,VS bypass,3.3nF/50V ceramic,TBD,TBD,TBD,VS diagnostic bypass capacitor
 C11,ASK modulation,10nF/50V ceramic,TBD,TBD,TBD,COMA modulation capacitor
 C12,ASK modulation,22nF/50V ceramic,TBD,TBD,TBD,COMB modulation capacitor
