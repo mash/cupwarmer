@@ -2,7 +2,7 @@ docs/plans
 tmp/
 *.rpt
 *.kicad_prl
-*.kicad_sch.lck
+*.lck
 .DS_Store
 .history
 __pycache__/
