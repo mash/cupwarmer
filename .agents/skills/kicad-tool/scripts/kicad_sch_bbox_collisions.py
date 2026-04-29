@@ -444,13 +444,17 @@ def detect_collisions(rendered_texts: list[RenderedText], wires: list[WireSeg], 
             if hitbox.intersects_segment(w.p1, w.p2, margin=margin):
                 entry["wire_hits"].append({"uuid": w.uuid, "p1": w.p1, "p2": w.p2})
         for b in boxes:
-            # A property text sitting inside its own symbol body is readable
-            # (the bbox interior is mostly empty for ICs), so don't count it.
-            # Pin-segment / other-symbol / wire / text overlaps still count.
-            if rt.matched_kind == "property" and b.ref == rt.matched_ref:
-                pass
-            elif hitbox.intersects_rect(b.bbox, margin=margin):
-                entry["component_hits"].append({"ref": b.ref, "lib_id": b.lib_id, "bbox": asdict(b.bbox.normalized())})
+            # Border-only: text crossing the symbol body's outline is a hit.
+            # Text fully contained inside the body (IC interior) is readable.
+            if hitbox.intersects_rect(b.bbox, margin=margin):
+                t = hitbox.normalized()
+                rb = b.bbox.normalized()
+                fully_inside = (
+                    t.x1 >= rb.x1 - margin and t.x2 <= rb.x2 + margin
+                    and t.y1 >= rb.y1 - margin and t.y2 <= rb.y2 + margin
+                )
+                if not fully_inside:
+                    entry["component_hits"].append({"ref": b.ref, "lib_id": b.lib_id, "bbox": asdict(b.bbox.normalized())})
             if rt.matched_kind == "global_label":
                 pin_margin = max(margin, GLOBAL_LABEL_PIN_CLEARANCE_MM)
                 anchor_xy = (rt.matched_x, rt.matched_y)
