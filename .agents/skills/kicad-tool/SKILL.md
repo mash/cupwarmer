@@ -17,13 +17,9 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py <domain> <command> ...
 
 ## Argument conventions
 
-Consistent across every `sch` subcommand — you should not need `--help`:
-
-- **`<schematic>` is always the first positional.** Every `sch query` / `sch edit` subcommand starts with the path to a `.kicad_sch`.
-- **Required args are positional, in the order they appear in the table below.** No `--ref`, `--name`, etc. for required selectors.
-- **Coordinates are a single positional `X,Y` (or `X1,Y1,X2,Y2` for bbox).** Rotation is always a separate optional `--rotation R` — never embedded in the coordinate.
-- **`--flags` are reserved for**: optional knobs (`--rotation`, `--justify`, `--type`, `--shape`, `--length`, `--font-size`, `--lib-file`, `--netlist`, `--margin`, `--only-text`, `--out`, `--report`, `--sheet`), mutually-exclusive selectors (e.g. `--uuid` vs `--at` for `wire delete`), and the universal `--dry-run` / `--json`.
-- **`--dry-run` and `--json` are accepted by every edit; `--json` by every query.**
+- `<schematic>` is always the first positional.
+- Required args are positional, in table order. Coordinates are a single `X,Y` (bbox: `X1,Y1,X2,Y2`); rotation is `--rotation R`.
+- `--flag` only for optional knobs, mutex selectors (e.g. `--uuid` vs `--at` for `wire delete`), and the universal `--dry-run` (edits) / `--json` (all).
 
 ## Commands
 
