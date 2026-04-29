@@ -3187,8 +3187,8 @@
 				)
 			)
 		)
-		(property "Value" "8uH RX Coil TBD"
-			(at 50.8 123.19 0)
+		(property "Value" "LD81FP008-1H 8uH"
+			(at 50.8 105.41 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3219,7 +3219,7 @@
 				)
 			)
 		)
-		(property "Description" "Receiver coil placeholder"
+		(property "Description" "Receiver coil per STEVAL-WLC38RX (8uH, DCR 190mR typ)"
 			(at 58.42 105.41 0)
 			(hide yes)
 			(show_name no)
@@ -3518,7 +3518,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111320")
 		(property "Reference" "Z1"
-			(at 45.72 116.84 90)
+			(at 78.74 119.38 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3528,7 +3528,7 @@
 			)
 		)
 		(property "Value" "SMF13A Z1"
-			(at 80.01 109.22 90)
+			(at 76 119.38 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3613,7 +3613,7 @@
 			)
 		)
 		(property "Value" "100nFx5 C0G 50V"
-			(at 41.91 92.71 0)
+			(at 64.77 88 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3972,7 +3972,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111400")
 		(property "Reference" "Z2"
-			(at 59.69 121.92 270)
+			(at 59.69 119.38 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3982,7 +3982,7 @@
 			)
 		)
 		(property "Value" "SMF13A Z2"
-			(at 74.93 121.92 270)
+			(at 62.23 119.38 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
