@@ -3,6 +3,17 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 
+TEXT_TOUCH_TOLERANCE_MM = 1e-3
+
+
+def rects_overlap_with_area(rect_a: "Rect", rect_b: "Rect", margin: float = 0.0) -> bool:
+    a = rect_a.normalized()
+    b = rect_b.normalized()
+    x_overlap = min(a.x2, b.x2 + margin) - max(a.x1, b.x1 - margin)
+    y_overlap = min(a.y2, b.y2 + margin) - max(a.y1, b.y1 - margin)
+    return x_overlap > TEXT_TOUCH_TOLERANCE_MM and y_overlap > TEXT_TOUCH_TOLERANCE_MM
+
+
 @dataclass
 class Rect:
     x1: float
@@ -81,7 +92,8 @@ def text_boxes_collide(
     frame_rect_b: Rect | None = None,
     margin: float = 0.0,
 ) -> bool:
-    return collision_rect(rect_a, kind_a, owner_key_a, frame_rect=frame_rect_a).intersects_rect(
+    return rects_overlap_with_area(
+        collision_rect(rect_a, kind_a, owner_key_a, frame_rect=frame_rect_a),
         collision_rect(rect_b, kind_b, owner_key_b, frame_rect=frame_rect_b),
         margin=margin,
     )
