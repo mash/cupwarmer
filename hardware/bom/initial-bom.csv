@@ -15,7 +15,7 @@ NTC_A,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,top plate temperature
 NTC_B,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,board hotspot temperature near Qi coil; ties to RX_NTC for STWLC38 internal OTP
 F1,thermostat,NC auto-reset thermostat 70C,Xucheng Elec,KSD9700-70/5JSB/080C,selected,"independent thermal protection; open 70+/-5C reset 50+/-10C; AC250V 5A resistive; leaded 80mm wires; mount to underside of top plate"
 H1,heater,flexible heater,TBD,TBD,TBD,target around 15 ohm at 12V nominal
-J1,service header,I2C service header,TBD,TBD,TBD,bring-up and configuration access
+J1,service header,I2C service header,TBD,TBD,TBD,"bring-up and configuration access; VREF=RX_VAA 2.5V required; do not connect fixed 3.3V pull-ups directly"
 J2,heater / sensor interconnect,board-to-wire pads or connector,TBD,TBD,TBD,mechanical integration dependent
 C5,bootstrap capacitor,47nF C0G/NP0,TBD,TBD,TBD,BOOT1 decoupling close to U1
 C6,bootstrap capacitor,47nF C0G/NP0,TBD,TBD,TBD,BOOT2 decoupling close to U1

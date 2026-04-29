@@ -240,6 +240,16 @@ F1 採用候補（PDF: `Xucheng Elec KSD9700-70:5JSB:080C.pdf`）:
 - `via-in-pad` などは設計前に外注 DFM で確定
 - top plate と coil の距離は最小化しつつ、金属干渉は後で実測する
 
+GND 方針:
+
+- 回路図ネット名 `SYS_GND` は、基板全体で共有する system 0V を意味する。`STWLC38JRM` の `VSSP/VSSA/VSSD`、heater return、TVS return、NTC/I2C/service reference は電気的には同じ 0V 系へ接続する
+- `SYS_GND` は `PGND` だけでも `AGND` だけでもないため、回路図では役割を限定しない名前にしている
+- v1 では `PGND/AGND/DGND` を別ネット化せず、`SYS_GND` 一本のままにする。net-tie や plane split は、return path を切るリスクが高いため初回では使わない
+- PCB では `In1.Cu` を solid GND plane とし、GND integrity と熱拡散を優先する
+- `VSSP`、`CRECT/COUT`、`Z3`、heater return は power return 領域として短く太く U1 近傍へ戻す
+- `VSSA`、`VAA/VDD` decoupling、`NTC`、I2C/service reference は quiet 領域として扱い、大電流 return を通さない
+- `VSSP/VSSA/VSSD` の実質合流点は U1 直近の GND via cluster とし、離れた場所で一点合流を作らない
+
 ## ブロック図
 
 ```mermaid
@@ -297,6 +307,7 @@ flowchart TB
 - 電力の主経路は `Qi TX → coil → STWLC38JRM → VOUT_12V → heater-control → heater`
 - 温度・異常時の停止は `FOD` と `F1` の二系統で受け持つ
 - `I2C` / `INTB` は製品制御ではなく、bring-up / service 用の観測・設定経路として扱う
+- `J1` I2C service header は `RX_VAA` 2.5V 参照の bring-up 専用口とする。v1 ではオンボード level shifter を載せず、外部 USB-I2C adapter は `VREF=RX_VAA` に追従できるものだけを使う。3.3V 固定 pull-up / 3.3V 出力の直結は禁止
 
 ## 回路図ステータス（2026-04-26 時点）
 
@@ -309,10 +320,12 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - `IEXT` clamp: `RCL 300R` (R4) → **VRECT** 接続（OVP クランプ用、IEXT 内部スイッチ経由）
 - `AC1/AC2` ESD: `SMF13A` (Z1/Z2) 各 `GND` 直結
 - `Cs` 系列共振 `100nF×5` (C1) + **`Cd` 並列共振 `3.3nF` (C15)**
+- 受電コイル: v1 は STEVAL-WLC38RX と同じ `Luxshare-ICT LD81FP008-1H` を基準にする（`8±0.2uH @100kHz`, `DCR=190mΩ±10%`, `ACR=225mΩ±10%`）
+- フェライト: コイル付属/同等の backing ferrite を優先。別体 ferrite sheet を使う場合は coil L/Q と FOD を再測定する
 - COMA/COMB ASK 変調キャパ 4 本: C11=CCOMA1(10n→AC1), C12=CCOMB1(22n→AC1), C13=CCOMA2(10n→AC2), C14=CCOMB2(22n→AC2)
 - `VS` は RX-only では未使用。評価ボードでは DNP ジャンパ経由の外部 `VS` 評価点として扱われており、v1 では未接続
 - `ENB` → `GND` 固定
-- **`SCL/SDA` pull-up `10k` (R5/R6) → `VAA` (2.5V)**（VDD は 1.1V LDO で I2C には低すぎる。J1 経由のホスト接続はレベルシフタ必須）
+- **`SCL/SDA` pull-up `10k` (R5/R6) → `VAA` (2.5V)**（VDD は 1.1V LDO で I2C には低すぎる。J1 経由のホスト接続は `VREF=RX_VAA` 追従または外部レベルシフタ必須。3.3V 固定 pull-up の直結は禁止）
 - `VOUT` → heater-control シートへ
 - ヒーター gate 分圧: R1 = 10k (VOUT_12V → Q1.G), R2 = 10k (Q1.G → GND) で VGS ≈ 6V
 - VOUT OVP: `Z3 = Littelfuse SMBJ15A` を第一候補にする。`VOUT_12V → Z3 cathode`, `Z3 anode → SYS_GND` の一方向 TVS とし、VOUT 出口近傍に配置する
@@ -337,16 +350,26 @@ VOUT OVP 候補（PDF: `SMBJ15A.pdf`）:
 
 `sensors-logic.kicad_sch`:
 
-- `J1`: I2C service header（VREF = VAA 2.5V）
+- `J1`: I2C service header（VREF = VAA 2.5V、3.3V 固定ホスト直結禁止）
 - `TH1` / `TH2`: `10k NTC` placeholder
 - `R8`: `RX_VAA` への `10k` pull-up（NTC_TOP 用）。R9 (旧 NTC_PCB pull-up) は削除
 - `RX_NTC` に TH2 (NTC_B) を接続、R7 (10k → RX_VAA) と分圧。STWLC38 内蔵 OTP 入力
 - `J2`: `NTC_TOP` / `RX_NTC` thermal monitor header
 - `J3`: `RX_INTB` / `I_HEATER_MON` status monitor header
+- `R3`: v1 通常実装は `0Ω`。評価時だけ `0.05Ω` に差し替え、R3 両端をテスター/オシロで測ってヒーター電流を推定する。`I_HEATER_MON` は bench bring-up 用の任意観測点で、製品制御には使わない
+
+R3 / STWLC38JRM ADC 方針:
+
+- STWLC38JRM の外部 analog input として使えるのは実質 `NTC/ADCIN2`
+- `NTC/ADCIN2` は TH2 (`RX_NTC`) に使うため、R3 の shunt 電圧入力には使わない
+- GPIO0-2 は汎用 ADC 入力としては扱わない
+- `0.05Ω` shunt は `0.8A` 時でも約 `40mV` と小さく、10-bit ADC に直接入れて製品制御するには弱い
+- STWLC38JRM 内部の VOUT/OCP/FOD current measurement は I2C で参考値として見られる可能性があるが、これは R3 の外付け shunt 測定とは別物
+- ヒーター電流を製品制御に使うなら、外部 current sense amplifier と MCU/ADC を追加する
 
 `sensors-logic.kicad_sch` には以下を反映済み:
 
-- `J1`: `RX_VAA` 2.5V 参照付き `I2C` service header
+- `J1`: `RX_VAA` 2.5V 参照付き `I2C` service header。外部 adapter は `VREF=RX_VAA` に追従させ、3.3V 固定 pull-up は接続しない
 - `TH1` / `TH2`: `10k NTC` placeholder
 - `R8`: `RX_VAA` への `10k` pull-up（NTC_TOP 用）。R9 (旧 NTC_PCB pull-up) は削除
 - TH2 → `RX_NTC` (R7 と分圧、STWLC38 内蔵 OTP 入力)
@@ -359,7 +382,7 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 
 - ~~ST 推奨の完全な最小回路~~ → rx-power に反映済み
 - ~~COMA/COMB 変調キャパシタ~~ → 4 本構成で実装済み (CCOMA1/2, CCOMB1/2)
-- exact coil / ferrite part（LS=8µH, CS=100nF×5, CD=3.3nF がリファレンス。実機共振値は実測で確定）
+- ~~exact coil baseline~~ → v1 は `Luxshare-ICT LD81FP008-1H` + `Cs=100nF×5` + `Cd=3.3nF` を基準にする。ferrite と実機共振値は積層後に実測で確定
 - ~~heater final resistance~~ → 15Ω 採用（暫定）。熱試験で再調整
 - heater footprint
 - top plate material
@@ -367,7 +390,9 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制。手実装または機構固定を前提にする
 - ~~VOUT 過電圧保護 TVS~~ → `SMBJ15A` を第一候補に選定（`VR=15V`, `VBR=16.7-18.5V`, `VC=24.4V`, `600W`）
 - LED-2（INTB ステータス）— INTB は max 3.6V かつ open-drain のため、12V LED 駆動には NPN/MOSFET バッファが必要。v1 では J3 経由の外部観測のみ。v2 で実装検討
-- R3 (0.05Ω 電流センス) — ADC なしでは未使用。v1 では DNP + 0Ω ジャンパ運用
+- ~~R3 電流センス~~ → v1 通常実装は `0Ω`。評価時のみ `0.05Ω` に差し替えてベンチ測定する。STWLC38JRM には R3 を読ませない
+- ~~PCB GND トポロジー~~ → 回路図は `SYS_GND` 一本、PCB は solid GND plane を維持し、`VSSP` power return と `VSSA` quiet reference を配置/配線で分離する
+- ~~I2C service header 3.3V 制約~~ → v1 はオンボード level shifter なし。J1 は `RX_VAA` 2.5V VREF 追従アダプタ専用で、3.3V 固定 pull-up の直結は禁止
 
 ## 設計リスクと対策
 

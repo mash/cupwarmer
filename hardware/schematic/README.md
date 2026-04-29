@@ -75,6 +75,7 @@ Control:
   - `STWLC38JRM` stand-alone 受電
   - heater gate は初版では `VOUT_12V` から常時 ON 駆動
   - `RX_INTB` は bring-up / status monitor として露出
+- `I2C` service header は `RX_VAA` 2.5V VREF 追従アダプタ専用。3.3V 固定 pull-up の直結は禁止
 
 ## 現在のネット名
 
