@@ -12,7 +12,7 @@ R2,gate divider bottom,10k resistor,TBD,TBD,TBD,Q1.G -> SYS_GND; with R1 forms 1
 R3,current sense / jumper,0R jumper or 0.05R current sense resistor,TBD,TBD,selected,"v1 normal build: fit 0R so Q1 source returns to SYS_GND; substitute 0.05R only for measured bring-up"
 NTC_A,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,top plate temperature
 NTC_B,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,board hotspot temperature near Qi coil; ties to RX_NTC for STWLC38 internal OTP
-F1,thermostat,bimetal thermostat 90C,TBD,TBD,TBD,independent thermal protection auto-reset
+F1,thermostat,NC auto-reset thermostat 70C,Xucheng Elec,KSD9700-70/5JSB/080C,selected,"independent thermal protection; open 70+/-5C reset 50+/-10C; AC250V 5A resistive; leaded 80mm wires; mount to underside of top plate"
 H1,heater,flexible heater,TBD,TBD,TBD,target around 15 ohm at 12V nominal
 J1,service header,I2C service header,TBD,TBD,TBD,bring-up and configuration access
 J2,heater / sensor interconnect,board-to-wire pads or connector,TBD,TBD,TBD,mechanical integration dependent
