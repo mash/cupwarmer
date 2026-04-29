@@ -2907,7 +2907,7 @@
 		(dnp no)
 		(uuid "0078a574-6db8-407b-8cb0-f62c5cea362a")
 		(property "Reference" "C14"
-			(at 96.52 119.38 0)
+			(at 102.87 123.825 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2917,7 +2917,7 @@
 			)
 		)
 		(property "Value" "22nF/50V"
-			(at 91.44 119.38 0)
+			(at 102.87 138.85 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4041,7 +4041,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000001")
 		(property "Reference" "C5"
-			(at 92.71 92.71 0)
+			(at 96.52 84.455 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4051,7 +4051,7 @@
 			)
 		)
 		(property "Value" "47nF"
-			(at 87.63 92.71 0)
+			(at 96.52 70.7 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4126,7 +4126,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000002")
 		(property "Reference" "C6"
-			(at 92.71 115.57 0)
+			(at 96.52 123.825 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4136,7 +4136,7 @@
 			)
 		)
 		(property "Value" "47nF"
-			(at 87.63 115.57 0)
+			(at 96.52 141.39 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4806,7 +4806,7 @@
 		(dnp no)
 		(uuid "44444444-aaaa-bbbb-cccc-300000000011")
 		(property "Reference" "C11"
-			(at 100.33 85.09 0)
+			(at 109.22 84.455 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4816,7 +4816,7 @@
 			)
 		)
 		(property "Value" "10nF/50V"
-			(at 95.25 85.09 0)
+			(at 109.22 75.78 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4891,7 +4891,7 @@
 		(dnp no)
 		(uuid "44444444-aaaa-bbbb-cccc-300000000012")
 		(property "Reference" "C12"
-			(at 96.52 88.9 0)
+			(at 102.87 84.455 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4901,7 +4901,7 @@
 			)
 		)
 		(property "Value" "22nF/50V"
-			(at 91.44 88.9 0)
+			(at 102.87 73.24 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5061,7 +5061,7 @@
 		(dnp no)
 		(uuid "dffd7355-351f-4f7c-9df9-4c2a7f991ce7")
 		(property "Reference" "C13"
-			(at 100.33 123.19 0)
+			(at 109.22 123.825 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5071,7 +5071,7 @@
 			)
 		)
 		(property "Value" "10nF/50V"
-			(at 95.25 123.19 0)
+			(at 109.22 136.31 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
