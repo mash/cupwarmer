@@ -56,3 +56,4 @@ updated: 2026-04-11
 - [Flux AI PCB 要約](source-flux-ai-pcb-design.md) - Flux の AI 支援範囲と layout 制限整理。 `source-summary`
 - [CELUS AI 設計要約](source-celus-ai-electronics-design.md) - CELUS の前工程自動化の位置づけ整理。 `source-summary`
 - [Altium Designer と AI 要約](source-altium-designer-and-ai.md) - Altium の強みと AI の位置づけ整理。 `source-summary`
+- [AO3400 MOSFET 要約](source-ao3400-mosfet-datasheet-hottech.md) - SOT-23 ロジックレベル N-MOSFET (`30V`/`5.8A`/`28mΩ`) の整理。 `source-summary`

@@ -47,3 +47,6 @@ updated: 2026-04-11
 
 ## [2026-04-11] Ingest | AI支援EDA比較
 `KiCad`、`Flux`、`CELUS`、`Altium` の公式情報をもとに、AI 支援と実設計能力を比較するページを追加した。結論として、AI 内蔵の強さは `Flux`、今回の Cup Warmer 案に対する実用バランスは `KiCad` が最も妥当という整理にした。
+
+## [2026-04-29] Ingest | AO3400 MOSFET データシート
+Shenzhen Hottech 版 `AO3400` データシート (PDF) を `wiki/raw/` に追加し、`source-ao3400-mosfet-datasheet-hottech` として要約ページを作成した。`SOT-23` ロジックレベル N-MOSFET (`30V`/`5.8A`/`RDS(ON)=28mΩ@VGS=10V`) で、Cup Warmer の補助系ロードスイッチや PWM 制御に使える汎用品としての位置づけを整理した。
