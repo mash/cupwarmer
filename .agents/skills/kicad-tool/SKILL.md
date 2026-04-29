@@ -20,12 +20,13 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py <domain> <command> ...
 - `<schematic>` is always the first positional.
 - Required args are positional, in table order. Coordinates are a single `X,Y` (bbox: `X1,Y1,X2,Y2`); rotation is `--rotation R`.
 - `--flag` only for optional knobs, mutex selectors (e.g. `--uuid` vs `--at` for `wire delete`), and the universal `--dry-run` (edits) / `--format {json,text}` (all; default `json`).
+- **Do not invent flags for required args.** `--bbox`, `--ref`, `--symbol` etc. do not exist; bbox/ref/coords are positional.
 
 ## Commands
 
 | Command | Purpose | Key flags |
 |---|---|---|
-| `sch render-region <sheet> <X1,Y1,X2,Y2>` | Render a cropped PNG of a bbox region of a sheet (mm). Use this whenever the model needs to *see* part of a schematic — image cost is bounded, SVG text isn't. (Humans wanting to view a full sheet should open KiCad directly.) | `--output <path>` (default `tmp/region.png`) |
+| `sch render-region <sheet> <X1,Y1,X2,Y2>`<br>e.g. `... rx-power.kicad_sch 88,80,115,130` | Render a cropped PNG of a bbox region of a sheet (mm). Use this whenever the model needs to *see* part of a schematic — image cost is bounded, SVG text isn't. (Humans wanting to view a full sheet should open KiCad directly.) | `--output <path>` (default `tmp/region.png`) |
 | `sch inspect <sheet>` | Score + collisions (re-renders SVG internally) | `--only-text <regex>` (Python regex; score stays global), `--margin` |
 | `sch erc <top>` | ERC, hierarchical | `--report <path>` |
 | `sch netlist <top>` | Netlist export | `--output <path>` |
@@ -38,8 +39,8 @@ Read-only inspection of a sheet. All take a positional `<schematic.kicad_sch>` a
 
 | Command | Purpose |
 |---|---|
-| `sch query symbol <sch> <REF>` | Symbol details (position, properties, pin map) by reference |
-| `sch query pin <sch> <REF.PIN> [--netlist PATH]` | One pin's coordinates, orientation, and (with netlist) net |
+| `sch query symbol <sch> <REF>`<br>e.g. `... rx-power.kicad_sch C7` | Symbol details (position, properties, pin map) by reference |
+| `sch query pin <sch> <REF.PIN> [--netlist PATH]`<br>e.g. `... rx-power.kicad_sch C7.1` | One pin's coordinates, orientation, and (with netlist) net |
 | `sch query net <sch> <NAME_OR_REF.PIN> --netlist PATH` | Members and labels of a net (REF.PIN dispatched by `.`) |
 | `sch query region <sch> <X1,Y1,X2,Y2>` | All elements inside a bounding box |
 | `sch query wire <sch> (--uuid U \| --at X,Y \| --through X,Y)` | Locate a wire by uuid, endpoint, or any point on the segment |
@@ -53,7 +54,7 @@ Structural mutations. All take a positional `<schematic.kicad_sch>`, emit JSON b
 
 | Command | Purpose |
 |---|---|
-| `sch edit symbol move <sch> <REF> <X,Y> [--rotation R]` | Move/rotate a symbol |
+| `sch edit symbol move <sch> <REF> <X,Y> [--rotation R]`<br>e.g. `... rx-power.kicad_sch C7 100,95 --rotation 90` | Move/rotate a symbol |
 | `sch edit symbol move-property <sch> <REF> <KEY> <X,Y> [--rotation R]` | Move a symbol property field's placement |
 | `sch edit symbol add-pin <sch> <LIB_ID> <NUMBER> <NAME> <X,Y> --length L --type T [--rotation R] [--shape S] [--lib-file PATH]` | Add a pin to a symbol (updates embedded lib_symbols + standalone .kicad_sym) |
 | `sch edit wire add <sch> <X1,Y1> <X2,Y2> [--type solid\|default]` | Add a wire segment |
