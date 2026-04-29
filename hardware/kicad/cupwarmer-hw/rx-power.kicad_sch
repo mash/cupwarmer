@@ -3941,7 +3941,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 193.04 129.54 0)
+			(at 193.04 127.5 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
