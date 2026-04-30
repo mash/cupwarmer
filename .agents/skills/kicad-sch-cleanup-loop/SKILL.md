@@ -72,6 +72,20 @@ Stop Phase 1 when:
 
 After Phase 1 stabilizes positions. Cosmetic only — long-horizon argument does **not** apply. Per-cluster strict gate: accept only if ERC parity, `score.total` not worse, no new collisions; else revert immediately. Group components into local clusters; subagent places `Value`/`Reference` adjacent to symbol body and tightens labels onto wire endpoints — no symbol moves unless trivial. Stop after one full pass with zero accepts.
 
+### Placement geometry — render first, then solve
+
+`wire_hits` is data, not a stop sign. Order of operations:
+
+1. **Render and read the PNG.** `sch render-region` over the area, look at it. Identify visually: which side of the body is open, where rails / stubs / siblings sit. The PNG answers "where could the label go" before any math.
+2. **Probe bbox dims — mandatory.** Place the property at any candidate, run `sch inspect`, read its actual `bbox.{x1,y1,x2,y2}`. Do **not** estimate from `n_chars × 1.1 mm`; the probe is cheap and the estimate misses justify/baseline offsets. The probe edit is also the first edit of the cluster — keep it.
+3. **Use the probe to derive the bbox→anchor transform.** From the probed `bbox` and the input `at = (ax, ay)`: `dx_left = ax - bbox.x1`, `dx_right = bbox.x2 - ax`, `dy_top = ay - bbox.y1`, `dy_bot = bbox.y2 - ay`. KiCad anchor is **not** bbox-center — it's text justify + font baseline, so these four offsets are asymmetric. Reuse them for the final position.
+4. **Decompose per axis.** Real hit ⇔ bbox x-range AND y-range both overlap obstacle. Same y, different x = harmless.
+5. **Rotated 2-pin passives:** stub runs at `body_center_x`. Anchor Value/Reference at `body_left_x` or `body_right_x` — never center — so the narrow vertical-text bbox is disjoint from the stub and y can pass through the rail-to-pin band even when shorter than text height. Note: the property's own `angle` field combines with the parent symbol's rotation; vertical-rendered text often appears with property `angle=0` when the symbol itself is rotated 90°/270°. Trust the probed `bbox`, not the angle field.
+6. **Tightness by arithmetic, using probed offsets.** Place above body top: `anchor_y = body_top_y - dy_bot - 0.25`. Below: `anchor_y = body_bottom_y + dy_top + 0.25`. Left: `anchor_x = obstacle_x - dx_right - 0.25`. Right: `anchor_x = obstacle_x + dx_left + 0.25`. ε = 0.25 mm clearance. **Source for `body_top_y` etc.**: use `sch query region <bbox covering the symbol>`, then read `symbols[<i>].bbox` — that is the graphic body only. Do **not** use `sch inspect`'s `component_hits[].bbox` (can include attached property text), and `sch query symbol` does **not** return a bbox.
+7. **Unified siblings with different widths:** keep the same `(x, y)` formula; anchor consistency beats visual symmetry.
+
+Forbidden: "try A, try B, try C". The probe edit is your one allowed exploratory placement; after that, re-read the PNG, apply the offset arithmetic, commit.
+
 ## Report
 
 ```
