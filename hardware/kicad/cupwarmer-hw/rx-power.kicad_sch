@@ -1138,12 +1138,6 @@
 		(uuid "1aae9911-1760-4991-bfad-4686ae0a5588")
 	)
 	(junction
-		(at 229.87 106.68)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "21ab0d89-9bd3-4425-97a0-864986c4547f")
-	)
-	(junction
 		(at 149.86 134.62)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1286,6 +1280,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ce76716f-c896-483f-b98a-c565de2fe7bd")
+	)
+	(junction
+		(at 229.87 106.68)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ceb29c4d-3e77-4474-87a2-61af78c054b1")
 	)
 	(junction
 		(at 85.09 113.03)
@@ -1793,7 +1793,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 116.84) (xy 229.87 119.38)
+			(xy 229.87 118.11) (xy 229.87 119.38)
 		)
 		(stroke
 			(width 0)
@@ -1940,6 +1940,16 @@
 			(type solid)
 		)
 		(uuid "6fe1a4a7-7206-482f-888a-579b45ba3aab")
+	)
+	(wire
+		(pts
+			(xy 229.87 107.95) (xy 229.87 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7220329f-44b2-4507-8ec1-5d46946a8e82")
 	)
 	(wire
 		(pts
@@ -4451,7 +4461,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 206.502 93.218 0)
+			(at 205.4106 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5281,7 +5291,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 229.87 111.76 270)
+		(at 229.87 113.03 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5291,7 +5301,7 @@
 		(dnp no)
 		(uuid "e669be7a-5d52-4869-b5d3-457856042ec8")
 		(property "Reference" "R10"
-			(at 233.68 111.76 0)
+			(at 233.68 113.03 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5301,7 +5311,7 @@
 			)
 		)
 		(property "Value" "3k"
-			(at 226.06 111.76 0)
+			(at 226.06 113.03 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5311,7 +5321,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 229.87 111.76 0)
+			(at 229.87 113.03 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5322,7 +5332,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 229.87 111.76 0)
+			(at 229.87 113.03 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5333,7 +5343,7 @@
 			)
 		)
 		(property "Description" "LED-1 current limiting resistor"
-			(at 229.87 111.76 0)
+			(at 229.87 113.03 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

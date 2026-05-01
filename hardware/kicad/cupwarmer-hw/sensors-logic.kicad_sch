@@ -278,7 +278,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "No external MCU in first spin; keep service I2C, thermal monitor dividers, and bring-up headers"
+	(text "No external MCU in v1; keep service I2C, thermal monitor dividers, and bring-up headers"
 		(exclude_from_sim no)
 		(at 27.94 27.94 0)
 		(effects

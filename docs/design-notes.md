@@ -245,7 +245,12 @@ F1 採用候補（PDF: `Xucheng Elec KSD9700-70:5JSB:080C.pdf`）:
 - `4-layer`
 - `X-ray` 前提
 - `via-in-pad` などは設計前に外注 DFM で確定
-- top plate と coil の距離は最小化しつつ、金属干渉は後で実測する
+- cup contact layer と coil の距離は最小化しつつ、金属干渉は後で実測する
+- カップ側は湾曲している可能性が高いため、硬い平板 top plate ではなく、曲面追従できる柔軟な thermal interface / cup contact layer を優先して評価する
+- v1 第一候補はアルミナ充填シリコーンパッドにする。電気絶縁性、曲面追従、熱伝導、Qi 近傍での扱いやすさのバランスを優先する
+- 比較サンプル候補:
+  - 熱伝導シリコーンシート
+  - グラファイトシート + 薄い絶縁フィルム
 
 GND 方針:
 
@@ -393,11 +398,11 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - ~~exact coil baseline~~ → v1 は `Luxshare-ICT LD81FP008-1H` + `Cs=100nF×5` + `Cd=3.3nF` を基準にする。ferrite と実機共振値は積層後に実測で確定
 - ~~heater final resistance~~ → 15Ω 採用（暫定）。熱試験で再調整
 - ~~heater footprint~~ → v1 は大型 solder pads / wire pads。外部 heater/F1 series assembly を手実装し、F1 はトッププレート裏面へ密着固定する
-- top plate material
+- ~~cup contact layer material~~ → v1 第一候補はアルミナ充填シリコーンパッド。熱伝導シリコーンシート、グラファイトシート + 薄い絶縁フィルムは比較サンプルとして残す
 - ~~hard cutoff implementation choice~~ → F1 は `Xucheng KSD9700-70/5JSB/080C` を第一候補に選定（open `70±5°C`, reset `50±10°C`）
 - **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制。手実装または機構固定を前提にする
 - ~~VOUT 過電圧保護 TVS~~ → `SMBJ15A` を第一候補に選定（`VR=15V`, `VBR=16.7-18.5V`, `VC=24.4V`, `600W`）
-- LED-2（INTB ステータス）— INTB は max 3.6V かつ open-drain のため、12V LED 駆動には NPN/MOSFET バッファが必要。v1 では J3 経由の外部観測のみ。v2 で実装検討
+- ~~LED-2 status indicator~~ → D2/R11 は `RX_VAA → R11(1k) → D2 → U1.F3(GPIO0)` に接続済み。`RX_INTB` は LED 駆動せず、J3 経由の bring-up / status monitor として露出する
 - ~~R3 電流センス~~ → v1 通常実装は `0Ω`。評価時のみ `0.05Ω` に差し替えてベンチ測定する。STWLC38JRM には R3 を読ませない
 - ~~PCB GND トポロジー~~ → 回路図は `SYS_GND` 一本、PCB は solid GND plane を維持し、`VSSP` power return と `VSSA` quiet reference を配置/配線で分離する
 - ~~I2C service header 3.3V 制約~~ → v1 はオンボード level shifter なし。J1 は `RX_VAA` 2.5V VREF 追従アダプタ専用で、3.3V 固定 pull-up の直結は禁止
