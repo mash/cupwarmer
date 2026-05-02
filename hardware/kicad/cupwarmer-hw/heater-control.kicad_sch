@@ -517,7 +517,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Wire:SolderWire-0.5sqmm_1x02_P4.8mm_D0.9mm_OD2.3mm_Relief2x"
 			(at 55.88 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -596,7 +596,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Wire:SolderWire-1sqmm_1x02_P5.4mm_D1.4mm_OD2.7mm_Relief"
 			(at 76.2 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -675,7 +675,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 96.52 73.66 0)
 			(hide yes)
 			(show_name no)
@@ -757,7 +757,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 48.26 73.66 0)
 			(hide yes)
 			(show_name no)
@@ -836,7 +836,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 87.63 86.36 90)
 			(hide yes)
 			(show_name no)
@@ -915,7 +915,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 96.52 101.6 90)
 			(hide yes)
 			(show_name no)

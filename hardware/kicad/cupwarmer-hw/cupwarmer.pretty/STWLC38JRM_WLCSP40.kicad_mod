@@ -1,0 +1,222 @@
+(footprint "STWLC38JRM_WLCSP40"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "STWLC38JRM WLCSP40, 5 x 8 ball, 0.4mm pitch, 2.126 x 3.327mm package. Verify against official package drawing before fabrication.")
+	(tags "STWLC38JRM WLCSP40 0.4mm")
+	(property "Reference" "REF**"
+		(at 0 -2.5 0)
+		(layer "F.SilkS")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "STWLC38JRM_WLCSP40"
+		(at 0 2.5 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -1.063 1.6635)
+		(end -1.063 -1.1635)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start -1.063 -1.1635)
+		(end -0.563 -1.6635)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start -0.563 -1.6635)
+		(end 1.063 -1.6635)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start 1.063 -1.6635)
+		(end 1.063 1.6635)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start 1.063 1.6635)
+		(end -1.063 1.6635)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start -1.15 -1.75)
+		(end 1.15 -1.75)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start 1.15 -1.75)
+		(end 1.15 1.75)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start 1.15 1.75)
+		(end -1.15 1.75)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+	)
+	(fp_poly
+		(pts
+			(xy -1.15 -1.75) (xy -1.55 -1.75) (xy -1.15 -2.15) (xy -1.15 -1.75)
+		)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start -1.55 -2.15)
+		(end -1.55 2.15)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start -1.55 2.15)
+		(end 1.55 2.15)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start 1.55 2.15)
+		(end 1.55 -2.15)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start 1.55 -2.15)
+		(end -1.55 -2.15)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.45 0.45)
+				(thickness 0.0675)
+			)
+		)
+	)
+	(pad "A1" smd circle (at -0.8 -1.4) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "A2" smd circle (at -0.4 -1.4) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "A3" smd circle (at 0 -1.4) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "A4" smd circle (at 0.4 -1.4) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "A5" smd circle (at 0.8 -1.4) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "B1" smd circle (at -0.8 -1) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "B2" smd circle (at -0.4 -1) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "B3" smd circle (at 0 -1) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "B4" smd circle (at 0.4 -1) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "B5" smd circle (at 0.8 -1) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "C1" smd circle (at -0.8 -0.6) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "C2" smd circle (at -0.4 -0.6) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "C3" smd circle (at 0 -0.6) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "C4" smd circle (at 0.4 -0.6) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "C5" smd circle (at 0.8 -0.6) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "D1" smd circle (at -0.8 -0.2) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "D2" smd circle (at -0.4 -0.2) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "D3" smd circle (at 0 -0.2) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "D4" smd circle (at 0.4 -0.2) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "D5" smd circle (at 0.8 -0.2) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "E1" smd circle (at -0.8 0.2) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "E2" smd circle (at -0.4 0.2) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "E3" smd circle (at 0 0.2) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "E4" smd circle (at 0.4 0.2) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "E5" smd circle (at 0.8 0.2) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "F1" smd circle (at -0.8 0.6) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "F2" smd circle (at -0.4 0.6) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "F3" smd circle (at 0 0.6) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "F4" smd circle (at 0.4 0.6) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "F5" smd circle (at 0.8 0.6) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "G1" smd circle (at -0.8 1) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "G2" smd circle (at -0.4 1) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "G3" smd circle (at 0 1) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "G4" smd circle (at 0.4 1) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "G5" smd circle (at 0.8 1) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "H1" smd circle (at -0.8 1.4) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "H2" smd circle (at -0.4 1.4) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "H3" smd circle (at 0 1.4) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "H4" smd circle (at 0.4 1.4) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+	(pad "H5" smd circle (at 0.8 1.4) (size 0.25 0.25) (property pad_prop_bga) (layers "F.Cu" "F.Mask" "F.Paste"))
+)

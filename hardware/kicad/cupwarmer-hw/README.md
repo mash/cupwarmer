@@ -19,7 +19,6 @@ KiCad 10 向けの初回プロジェクト雛形。
 
 ## 次にやること
 
-1. footprint assignment を進める
-2. `floorplan-v1.md` の zone に沿って主要部品を placement する
-3. actual coil / ferrite geometry で placeholder guide を置き換える
-4. PCB DRC と schematic parity を通す
+1. `floorplan-v1.md` の zone に沿って主要部品を placement する
+2. actual coil / ferrite geometry で placeholder guide を置き換える
+3. PCB DRC と schematic parity を通す

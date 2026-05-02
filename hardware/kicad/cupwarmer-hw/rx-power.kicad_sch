@@ -1305,6 +1305,72 @@
 		(color 0 0 0 0)
 		(uuid "f64c1f1f-1d2b-4599-8faa-a18005b282d0")
 	)
+	(junction
+		(at 58.42 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ce151fda-1506-4d6e-b5e8-eb77cf4fe964")
+	)
+	(junction
+		(at 58.42 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8d5bc5ce-a2c7-4be0-ab45-1f913258c3a1")
+	)
+	(junction
+		(at 58.42 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3d9a01e9-f3ef-4d47-aa92-fce46f56a61a")
+	)
+	(junction
+		(at 72.39 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1ac02e31-2856-4fbf-8989-d2841ffcd68c")
+	)
+	(junction
+		(at 72.39 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8458e89c-ce0f-4b06-b6d0-49cabd706dbd")
+	)
+	(junction
+		(at 72.39 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b06f943c-53ec-443d-a94d-7b66065a2344")
+	)
+	(junction
+		(at 58.42 100.33)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "42db4077-ce27-4212-8af8-877fed81b630")
+	)
+	(junction
+		(at 58.42 76.2)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b61e4708-237b-4387-b7a8-7886c09dfaec")
+	)
+	(junction
+		(at 58.42 81.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8c9273b7-b45e-45c4-9fbc-ba4845eed9e0")
+	)
+	(junction
+		(at 72.39 76.2)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "823e4932-0591-49a6-becb-f6a8c4e5f872")
+	)
+	(junction
+		(at 72.39 81.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a2a89b73-bf76-48f6-ac3b-192b68cc6c19")
+	)
 	(no_connect
 		(at 146.05 81.28)
 		(uuid "5d647c08-cfdb-4766-9dbc-789a36568d78")
@@ -1643,7 +1709,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 95.25) (xy 72.39 114.3)
+			(xy 72.39 76.2) (xy 72.39 114.3)
 		)
 		(stroke
 			(width 0)
@@ -1783,13 +1849,53 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 95.25) (xy 72.39 95.25)
+			(xy 69.85 96.52) (xy 72.39 96.52)
 		)
 		(stroke
 			(width 0)
 			(type solid)
 		)
 		(uuid "53391e3d-252b-4149-8f10-388738695e39")
+	)
+	(wire
+		(pts
+			(xy 69.85 86.36) (xy 72.39 86.36)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "53391e3d-252b-4149-8f10-388738695e3a")
+	)
+	(wire
+		(pts
+			(xy 69.85 91.44) (xy 72.39 91.44)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "53391e3d-252b-4149-8f10-388738695e3b")
+	)
+	(wire
+		(pts
+			(xy 69.85 76.2) (xy 72.39 76.2)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "53391e3d-252b-4149-8f10-388738695e3d")
+	)
+	(wire
+		(pts
+			(xy 69.85 81.28) (xy 72.39 81.28)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "53391e3d-252b-4149-8f10-388738695e3e")
 	)
 	(wire
 		(pts
@@ -1933,13 +2039,53 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 95.25) (xy 59.69 95.25)
+			(xy 58.42 96.52) (xy 59.69 96.52)
 		)
 		(stroke
 			(width 0)
 			(type solid)
 		)
 		(uuid "6fe1a4a7-7206-482f-888a-579b45ba3aab")
+	)
+	(wire
+		(pts
+			(xy 58.42 86.36) (xy 59.69 86.36)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "6fe1a4a7-7206-482f-888a-579b45ba3aac")
+	)
+	(wire
+		(pts
+			(xy 58.42 91.44) (xy 59.69 91.44)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "6fe1a4a7-7206-482f-888a-579b45ba3aad")
+	)
+	(wire
+		(pts
+			(xy 58.42 76.2) (xy 59.69 76.2)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "6fe1a4a7-7206-482f-888a-579b45ba3aaf")
+	)
+	(wire
+		(pts
+			(xy 58.42 81.28) (xy 59.69 81.28)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "6fe1a4a7-7206-482f-888a-579b45ba3ab0")
 	)
 	(wire
 		(pts
@@ -2243,7 +2389,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 95.25) (xy 58.42 100.33)
+			(xy 58.42 76.2) (xy 58.42 100.33)
 		)
 		(stroke
 			(width 0)
@@ -2996,7 +3142,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 102.87 120.65 0)
 			(hide yes)
 			(show_name no)
@@ -3081,7 +3227,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 85.09 104.14 0)
 			(hide yes)
 			(show_name no)
@@ -3166,7 +3312,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 140.97 73.66 0)
 			(hide yes)
 			(show_name no)
@@ -3251,7 +3397,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Wire:SolderWire-0.5sqmm_1x02_P4.8mm_D0.9mm_OD2.3mm_Relief2x"
 			(at 58.42 105.41 0)
 			(hide yes)
 			(show_name no)
@@ -3336,7 +3482,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 207.01 113.03 90)
 			(hide yes)
 			(show_name no)
@@ -3421,7 +3567,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 214.63 113.03 90)
 			(hide yes)
 			(show_name no)
@@ -3506,7 +3652,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 189.23 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -3591,7 +3737,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SOD-123F"
 			(at 72.39 119.38 0)
 			(hide yes)
 			(show_name no)
@@ -3647,7 +3793,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 64.77 95.25 0)
+		(at 64.77 76.2 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3657,7 +3803,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111323")
 		(property "Reference" "C1"
-			(at 64.77 90.17 0)
+			(at 75 76.2 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3666,8 +3812,8 @@
 				)
 			)
 		)
-		(property "Value" "100nFx5 C0G 50V"
-			(at 64.77 88 0)
+		(property "Value" "100nF"
+			(at 81 76.2 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3676,8 +3822,8 @@
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 64.77 95.25 0)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 64.77 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3688,7 +3834,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 64.77 95.25 0)
+			(at 64.77 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3698,8 +3844,8 @@
 				)
 			)
 		)
-		(property "Description" "Resonant capacitor placeholder"
-			(at 64.77 95.25 0)
+		(property "Description" "Resonant capacitor, one of five parallel 100nF C0G parts"
+			(at 64.77 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3725,6 +3871,346 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 64.77 81.28 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111326")
+		(property "Reference" "C16"
+			(at 75 81.28 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 81 81.28 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 64.77 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 64.77 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resonant capacitor, one of five parallel 100nF C0G parts"
+			(at 64.77 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111327")
+		)
+		(pin "2"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111329")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C16")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 64.77 86.36 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11111111-aaaa-bbbb-cccc-11111111132a")
+		(property "Reference" "C17"
+			(at 75 86.36 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 81 86.36 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 64.77 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 64.77 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resonant capacitor, one of five parallel 100nF C0G parts"
+			(at 64.77 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11111111-aaaa-bbbb-cccc-11111111132b")
+		)
+		(pin "2"
+			(uuid "11111111-aaaa-bbbb-cccc-11111111132c")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C17")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 64.77 91.44 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11111111-aaaa-bbbb-cccc-11111111132d")
+		(property "Reference" "C18"
+			(at 75 91.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 81 91.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 64.77 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 64.77 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resonant capacitor, one of five parallel 100nF C0G parts"
+			(at 64.77 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11111111-aaaa-bbbb-cccc-11111111132e")
+		)
+		(pin "2"
+			(uuid "11111111-aaaa-bbbb-cccc-11111111132f")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C18")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C18")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 64.77 96.52 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11111111-aaaa-bbbb-cccc-111111111331")
+		(property "Reference" "C19"
+			(at 75 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 81 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 64.77 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 64.77 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resonant capacitor, one of five parallel 100nF C0G parts"
+			(at 64.77 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111332")
+		)
+		(pin "2"
+			(uuid "11111111-aaaa-bbbb-cccc-111111111333")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C19")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C19")
 					(unit 1)
 				)
 			)
@@ -3761,7 +4247,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "cupwarmer:STWLC38JRM_WLCSP40"
 			(at 149.86 104.14 0)
 			(hide yes)
 			(show_name no)
@@ -3960,7 +4446,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 200.66 142.24 0)
 			(hide yes)
 			(show_name no)
@@ -4045,7 +4531,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SOD-123F"
 			(at 66.04 119.38 0)
 			(hide yes)
 			(show_name no)
@@ -4130,7 +4616,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 96.52 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -4215,7 +4701,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 96.52 120.65 0)
 			(hide yes)
 			(show_name no)
@@ -4300,7 +4786,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 157.48 147.32 90)
 			(hide yes)
 			(show_name no)
@@ -4385,7 +4871,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 207.01 142.24 90)
 			(hide yes)
 			(show_name no)
@@ -4470,7 +4956,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 201.93 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -4555,7 +5041,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 158.75 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -4640,7 +5126,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 158.75 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -4725,7 +5211,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 229.87 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -4810,7 +5296,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 144.78 137.16 180)
 			(hide yes)
 			(show_name no)
@@ -4895,7 +5381,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 109.22 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -4980,7 +5466,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 102.87 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -5065,7 +5551,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SMB"
 			(at 189.23 113.03 90)
 			(hide yes)
 			(show_name no)
@@ -5150,7 +5636,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 140.97 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -5235,7 +5721,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 109.22 120.65 0)
 			(hide yes)
 			(show_name no)
@@ -5320,7 +5806,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 229.87 113.03 0)
 			(hide yes)
 			(show_name no)

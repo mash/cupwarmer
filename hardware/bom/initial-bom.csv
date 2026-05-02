@@ -2,7 +2,7 @@ ref,category,part,manufacturer,mpn,status,notes
 U1,Qi receiver IC,15W wireless power receiver,STMicroelectronics,STWLC38JRM,selected,WLCSP40 0.4mm pitch outsourced assembly
 L1,receiver coil,8uH Qi RX coil,Luxshare-ICT,LD81FP008-1H,selected,per STEVAL-WLC38RX eval board DCR=190mOhm
 SHIELD1,ferrite sheet,flexible ferrite shield,TBD,TBD,TBD,coil backing shield
-C1,resonant capacitor,100nFx5 C0G/NP0 50V,TBD,TBD,TBD,resonant network per DS14078 ref BOM
+C1-C19,resonant capacitor,100nF C0G/NP0 50V,TBD,TBD,TBD,5 parallel resonant capacitors per DS14078 ref BOM
 C15,resonant capacitor,3.3nF/50V ceramic,TBD,TBD,TBD,Cd parallel resonant capacitor per DS14078 reference
 C2,output bulk,10uF/25V X5R,TBD,TBD,TBD,VOUT bulk decoupling
 C3,output HF bypass,1uF/25V X7R,TBD,TBD,TBD,VOUT high-frequency bypass

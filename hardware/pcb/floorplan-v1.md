@@ -34,8 +34,14 @@
 
 ## 次の board work
 
-1. `U1`、coil interface、resonant capacitors、`C2/C3/Z3`、heater switch、`H1/F1`、thermistors、`J1` の footprint を割り当てる。
-2. placeholder の coil/ferrite guide を実部品 geometry へ置き換える。
-3. `76mm` 円形外形を、実 coil/ferrite と enclosure clearance に合わせて lock する。
-4. `U1`、local decoupling/resonant、VOUT clamp/heater switch、low-current connectors の順で placement する。
-5. footprint placement 後に schematic parity 付き PCB DRC を実行する。
+1. placeholder の coil/ferrite guide を実部品 geometry へ置き換える。
+2. `76mm` 円形外形を、実 coil/ferrite と enclosure clearance に合わせて lock する。
+3. `U1`、local decoupling/resonant、VOUT clamp/heater switch、low-current connectors の順で placement する。
+4. footprint placement 後に schematic parity 付き PCB DRC を実行する。
+
+## Footprint assignment status
+
+- `U1`: project-local `cupwarmer:STWLC38JRM_WLCSP40` を割当済み。寸法は local notes の `WLCSP40 2.126 x 3.327mm, 0.4mm pitch, 0.25mm ball` を反映した初版。発注前に ST package drawing / assembly house DFM で pad diameter、mask、paste、via-in-pad 条件を再確認する。
+- `L1`: provisional wire-pad footprint を割当済み。実 coil tail / ferrite assembly が決まったら置換する。
+- `C1..C19`: `100nF` resonant capacitors として 5 個へ分割済み。各 footprint は `Capacitor_SMD:C_0603_1608Metric`。
+- `C2/C3/C4..C15`, `R1..R8/R10/R11`, `D1/D2`, `Z1/Z2/Z3`, `Q1`, `H1/F1`, `TH1/TH2`, `J1/J2/J3`: 初回 placement 用 footprint を割当済み。
