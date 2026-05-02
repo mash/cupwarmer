@@ -19,6 +19,7 @@ KiCad 10 向けの初回プロジェクト雛形。
 
 ## 次にやること
 
-1. `STWLC38JRM` シンボルを確認
-2. `rx-power` ブロックをトップシートへ追加
-3. coil / resonant network / VOUT / heater stage を回路図に落とす
+1. footprint assignment を進める
+2. `floorplan-v1.md` の zone に沿って主要部品を placement する
+3. actual coil / ferrite geometry で placeholder guide を置き換える
+4. PCB DRC と schematic parity を通す

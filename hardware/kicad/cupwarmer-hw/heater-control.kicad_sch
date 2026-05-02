@@ -507,7 +507,7 @@
 				)
 			)
 		)
-		(property "Value" "Thermostat 90C TBD"
+		(property "Value" "KSD9700-70/5JSB/080C"
 			(at 55.88 54.61 0)
 			(show_name no)
 			(do_not_autoplace no)

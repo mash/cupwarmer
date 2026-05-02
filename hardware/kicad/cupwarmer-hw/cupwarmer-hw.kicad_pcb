@@ -155,16 +155,325 @@
 			(outputdirectory "")
 		)
 	)
-	(gr_rect
-		(start 55 55)
-		(end 145 145)
+	(gr_line
+		(start 138 100)
+		(end 137.269841 107.413432)
 		(stroke
 			(width 0.1)
 			(type default)
 		)
-		(fill no)
 		(layer "Edge.Cuts")
-		(uuid "8fd3ef2a-7c31-4fa7-bb6f-f0ab23368001")
+		(uuid "2004231e-4891-4023-b05a-2ae61977cca2")
+	)
+	(gr_line
+		(start 137.269841 107.413432)
+		(end 135.107422 114.54197)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "bc77b4ab-23c4-475b-a418-9235603e7fc8")
+	)
+	(gr_line
+		(start 135.107422 114.54197)
+		(end 131.595845 121.111669)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "996a1aa1-2b2b-4b95-afb1-ea259dcf84e5")
+	)
+	(gr_line
+		(start 131.595845 121.111669)
+		(end 126.870058 126.870058)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "ca3595e5-a53a-4005-b6a7-34b01b6a8c12")
+	)
+	(gr_line
+		(start 126.870058 126.870058)
+		(end 121.111669 131.595845)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "7c852b71-99d5-459f-a58d-58e52ad72676")
+	)
+	(gr_line
+		(start 121.111669 131.595845)
+		(end 114.54197 135.107422)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "8af47e69-d52b-4a9a-b145-c7cb25169fff")
+	)
+	(gr_line
+		(start 114.54197 135.107422)
+		(end 107.413432 137.269841)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "20523acc-a5d6-4782-af5f-9b74f5343b2e")
+	)
+	(gr_line
+		(start 107.413432 137.269841)
+		(end 100 138)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "452ae30b-96de-4510-9111-11c835b033fc")
+	)
+	(gr_line
+		(start 100 138)
+		(end 92.586568 137.269841)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "a92fc74b-afcb-44d0-ae77-ab339839bff2")
+	)
+	(gr_line
+		(start 92.586568 137.269841)
+		(end 85.45803 135.107422)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "9a60646b-e2ef-4e02-a185-312737cd5a0c")
+	)
+	(gr_line
+		(start 85.45803 135.107422)
+		(end 78.888331 131.595845)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "2846a2d8-0192-494d-bb6f-a08c7401e8e4")
+	)
+	(gr_line
+		(start 78.888331 131.595845)
+		(end 73.129942 126.870058)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "1513b2ab-46fe-484f-82ca-ec1c49245b60")
+	)
+	(gr_line
+		(start 73.129942 126.870058)
+		(end 68.404155 121.111669)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "8f356060-4bb8-4848-a089-ca8ce6972f8f")
+	)
+	(gr_line
+		(start 68.404155 121.111669)
+		(end 64.892578 114.54197)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "741939bc-f005-4a44-ac01-4d9199b3f685")
+	)
+	(gr_line
+		(start 64.892578 114.54197)
+		(end 62.730159 107.413432)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "547d07aa-164b-488f-9db0-c7281840d215")
+	)
+	(gr_line
+		(start 62.730159 107.413432)
+		(end 62 100)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "8869c249-0a7d-4257-bb95-313fe171df81")
+	)
+	(gr_line
+		(start 62 100)
+		(end 62.730159 92.586568)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "fbad158f-cde7-4ada-92f1-ac4c2e1069ed")
+	)
+	(gr_line
+		(start 62.730159 92.586568)
+		(end 64.892578 85.45803)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "9d0348f6-701b-4558-bd4d-f830bd1ff4a1")
+	)
+	(gr_line
+		(start 64.892578 85.45803)
+		(end 68.404155 78.888331)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "6ca08574-89d0-41f9-94bd-759337d95959")
+	)
+	(gr_line
+		(start 68.404155 78.888331)
+		(end 73.129942 73.129942)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "2de2ae2a-2fc9-4e9a-8136-2f86068e46fe")
+	)
+	(gr_line
+		(start 73.129942 73.129942)
+		(end 78.888331 68.404155)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "1b91231f-19a2-4360-9e45-3369cb92cb6a")
+	)
+	(gr_line
+		(start 78.888331 68.404155)
+		(end 85.45803 64.892578)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "3beff9ea-9433-421c-a4eb-2c5c95fa468d")
+	)
+	(gr_line
+		(start 85.45803 64.892578)
+		(end 92.586568 62.730159)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "5b6bb7ea-9c99-4dd0-8efe-678f671758d9")
+	)
+	(gr_line
+		(start 92.586568 62.730159)
+		(end 100 62)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "9876f0ae-8e31-4eec-8f2f-aae2aea0baea")
+	)
+	(gr_line
+		(start 100 62)
+		(end 107.413432 62.730159)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "234020ef-2bcb-4567-ace2-69bb1f2356fd")
+	)
+	(gr_line
+		(start 107.413432 62.730159)
+		(end 114.54197 64.892578)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "25084c7b-9cbc-443c-a11e-dc9bf149f32b")
+	)
+	(gr_line
+		(start 114.54197 64.892578)
+		(end 121.111669 68.404155)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "58bddf58-9164-4c93-b088-40e17dcb3612")
+	)
+	(gr_line
+		(start 121.111669 68.404155)
+		(end 126.870058 73.129942)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "c62b4572-b217-4d93-b800-33de2893baa7")
+	)
+	(gr_line
+		(start 126.870058 73.129942)
+		(end 131.595845 78.888331)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "fa53ec6d-7fdf-4b50-8c3b-12d6068b4d39")
+	)
+	(gr_line
+		(start 131.595845 78.888331)
+		(end 135.107422 85.45803)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "a138463f-5a94-46d5-b727-729457c34b1e")
+	)
+	(gr_line
+		(start 135.107422 85.45803)
+		(end 137.269841 92.586568)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "216003ef-52ef-4742-b34a-8aafdd86c3bc")
+	)
+	(gr_line
+		(start 137.269841 92.586568)
+		(end 138 100)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "d67ebdad-f604-43a9-932d-55ef19a8364b")
 	)
 	(gr_text "Cup Warmer Hardware\nInitial PCB scaffold\nTarget RX: STWLC38JRM"
 		(at 78 77 0)
@@ -174,6 +483,244 @@
 			(font
 				(size 2 2)
 				(thickness 0.3)
+			)
+		)
+	)
+	(gr_line
+		(start 100 62)
+		(end 100 138)
+		(stroke
+			(width 0.1)
+			(type dash)
+		)
+		(layer "Dwgs.User")
+		(uuid "aa59c3cb-1fdf-4688-addb-6e8e2f12a000")
+	)
+	(gr_line
+		(start 62 100)
+		(end 138 100)
+		(stroke
+			(width 0.1)
+			(type dash)
+		)
+		(layer "Dwgs.User")
+		(uuid "14cb336d-35d2-4f2d-884c-b1047cd697b7")
+	)
+	(gr_circle
+		(center 100 100)
+		(end 128 100)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(fill no)
+		(layer "Dwgs.User")
+		(uuid "e34aae7c-ff62-4468-bc4b-aefd072b2962")
+	)
+	(gr_circle
+		(center 100 100)
+		(end 134 100)
+		(stroke
+			(width 0.12)
+			(type dash)
+		)
+		(fill no)
+		(layer "Dwgs.User")
+		(uuid "eee5cfd3-4500-4170-be52-37f4128128db")
+	)
+	(gr_circle
+		(center 100 100)
+		(end 136 100)
+		(stroke
+			(width 0.12)
+			(type dot)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "ee4aad3f-0d66-4e3b-888c-a6bf1643c6d7")
+	)
+	(gr_circle
+		(center 100 100)
+		(end 125 100)
+		(stroke
+			(width 0.12)
+			(type dash_dot)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "389b8980-4385-472c-8714-dada13b9a69d")
+	)
+	(gr_rect
+		(start 109 75)
+		(end 127 94)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(fill no)
+		(layer "Dwgs.User")
+		(uuid "6528e7cd-75af-43a3-b399-5fd83b68942b")
+	)
+	(gr_rect
+		(start 110 99)
+		(end 130 122)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(fill no)
+		(layer "Dwgs.User")
+		(uuid "f2632f4e-83e7-4d3b-8355-36958497be05")
+	)
+	(gr_rect
+		(start 124 105)
+		(end 132 119)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Dwgs.User")
+		(uuid "0d14b152-5cb6-4c8d-8180-64e681fa1aa9")
+	)
+	(gr_rect
+		(start 76 116)
+		(end 92 128)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(fill no)
+		(layer "Dwgs.User")
+		(uuid "9ff752b5-58f6-45fa-9b7a-8cc1eb28ab53")
+	)
+	(gr_rect
+		(start 67 84)
+		(end 89 112)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(fill no)
+		(layer "Dwgs.User")
+		(uuid "e1cf94ba-831e-4b87-aeff-6ce591ba5966")
+	)
+	(gr_line
+		(start 119 94)
+		(end 119 99)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "75d3103e-2f3e-487a-985e-11b758224339")
+	)
+	(gr_line
+		(start 110 112)
+		(end 89 104)
+		(stroke
+			(width 0.12)
+			(type dash)
+		)
+		(layer "Cmts.User")
+		(uuid "e7126014-bd97-4a6d-b61e-f3a0ce9c8a59")
+	)
+	(gr_text "V1 FLOORPLAN\n76mm circular placeholder\ncenter: coil/ferrite axis"
+		(at 100 65 0)
+		(layer "Cmts.User")
+		(uuid "43186887-db88-425e-af38-0f1611f84120")
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.18)
+			)
+		)
+	)
+	(gr_text "COIL ENVELOPE TBD\nref 56mm dia"
+		(at 100 100 0)
+		(layer "Cmts.User")
+		(uuid "e42c729b-4710-4136-afdd-614dedd658ed")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "FERRITE / MECH ENVELOPE TBD"
+		(at 100 132 0)
+		(layer "Cmts.User")
+		(uuid "c8868208-b2bc-42e2-afe6-87fff6382514")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "NO LARGE METAL\nOVER COIL CORE"
+		(at 100 77 0)
+		(layer "Cmts.User")
+		(uuid "0a2e3c1d-81eb-4f9b-b6d1-29d7cd845c9c")
+		(effects
+			(font
+				(size 1.1 1.1)
+				(thickness 0.14)
+			)
+		)
+	)
+	(gr_text "U1 + resonant\nCRECT/COUT close"
+		(at 118 84 0)
+		(layer "Cmts.User")
+		(uuid "55194c8c-6539-4db5-b642-679d0621e4c8")
+		(effects
+			(font
+				(size 1.1 1.1)
+				(thickness 0.14)
+			)
+		)
+	)
+	(gr_text "VOUT/Z3 + heater switch\nshort power return"
+		(at 120 107 0)
+		(layer "Cmts.User")
+		(uuid "5f905c8f-447e-4c02-9910-5557f6f22edc")
+		(effects
+			(font
+				(size 1.1 1.1)
+				(thickness 0.14)
+			)
+		)
+	)
+	(gr_text "H1/F1 wire pads\nstrain relief side"
+		(at 128 113 0)
+		(layer "Cmts.User")
+		(uuid "56c6b715-4db6-4772-b2d4-d5e98c4b1e18")
+		(effects
+			(font
+				(size 1.0 1.0)
+				(thickness 0.12)
+			)
+		)
+	)
+	(gr_text "J1 service/I2C\n2.5V VREF adapter"
+		(at 84 122 0)
+		(layer "Cmts.User")
+		(uuid "dce81a36-7db2-4d92-8350-506080c1f3ff")
+		(effects
+			(font
+				(size 1.0 1.0)
+				(thickness 0.12)
+			)
+		)
+	)
+	(gr_text "quiet sense\nNTC_TOP / RX_NTC"
+		(at 78 96 0)
+		(layer "Cmts.User")
+		(uuid "ac9ba40f-4a78-43f8-84a5-485d6e59db85")
+		(effects
+			(font
+				(size 1.0 1.0)
+				(thickness 0.12)
 			)
 		)
 	)

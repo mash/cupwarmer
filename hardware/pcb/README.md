@@ -32,11 +32,35 @@
 - ヒーター MOSFET と保護部品は `VOUT` 出口近傍
 - 大電流ループを小さく保つ
 - 温度センサ `NTC_B` はこの領域の hottest area 近傍
+- `Z3` は `C2/C3` と同じ VOUT 出口グループに置き、heater-control sheet へ渡る前に clamp する
+- `Z3` の GND return は短く太くし、U1 近傍の power return 領域へ戻す
+- F1/H1 の wire pad は `0.8A` 連続、手はんだ、引張緩和を前提に大きめにする
 
 ### 制御部
 
 - optional MCU は電力段から少し離し、`I2C` と NTC 読み出しを短く保つ
 - debug header は board edge に逃がす
+- `J1` は `RX_VAA` 2.5V VREF 追従 adapter 専用。3.3V 固定 pull-up / 3.3V push-pull 出力を想定した配置やラベルにしない
+
+## Return path / GND 制約
+
+- 回路図ネット名は `SYS_GND` 一本のまま扱う
+- `In1.Cu` は solid GND plane を維持する
+- v1 では split plane、net-tie、離れた一点合流は使わない
+- `VSSP`、`CRECT/COUT`、`Z3`、heater return は power return 領域として短く太く U1 近傍へ戻す
+- `VSSA`、`VAA/VDD` decoupling、`RX_NTC`、I2C/service reference は quiet 領域として扱う
+- heater return を `VSSA`、`RX_NTC`、I2C/service reference の下や並走近傍に通さない
+- `VSSP/VSSA/VSSD` の実質合流点は U1 直近の GND via cluster とする
+
+## Placement checklist before routing
+
+- `U1` 周辺に `VAA/VDD/VRECT/VOUT` decoupling を最短配置したか
+- `C2/C3/Z3` が VOUT 出口として一群になっているか
+- `Z3` から GND plane への return が短く太いか
+- heater current loop が quiet analog / service 領域を横切らないか
+- `RX_NTC` と `NTC_TOP` の配線が high-current node と並走していないか
+- coil / ferrite / top plate fastening metal の keepout が機構側と一致しているか
+- H1/F1 wire pads に手はんだ作業余裕と引張緩和余裕があるか
 
 ## STWLC38JRM 実装方針
 
@@ -67,9 +91,23 @@
 - optional MCU footprint and passives
 - `I2C` / debug header
 
+## V1 floorplan
+
+標準マグの比較的小さい底径を狙い、KiCad board file に `76mm` 円形外形と `Dwgs.User` / `Cmts.User` の配置ガイドとして v1 floorplan を入れた。詳細は `floorplan-v1.md` を参照。
+
+概要:
+
+- `76mm` diameter circular placeholder outline
+- 中心 `(100,100)` を coil / ferrite / enclosure axis とする
+- 右上を `U1` + resonant / rectifier cluster
+- 右側を `VOUT/Z3` + heater switch + `H1/F1` wire pads
+- 左下を `J1` service / I2C
+- 左側を `NTC_TOP` / `RX_NTC` quiet sense region
+
 ## Open Items
 
 - exact board diameter
 - exact coil footprint
-- whether separate daughterboard for heater power stage is useful
 - final stackup and board house design rules
+- H1/F1 wire pad geometry
+- U1 breakout DFM confirmation

@@ -321,7 +321,7 @@ flowchart TB
 - `I2C` / `INTB` は製品制御ではなく、bring-up / service 用の観測・設定経路として扱う
 - `J1` I2C service header は `RX_VAA` 2.5V 参照の bring-up 専用口とする。v1 ではオンボード level shifter を載せず、外部 USB-I2C adapter は `VREF=RX_VAA` に追従できるものだけを使う。3.3V 固定 pull-up / 3.3V 出力の直結は禁止
 
-## 回路図ステータス（2026-04-26 時点）
+## 回路図ステータス（2026-05-01 時点）
 
 DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 
@@ -340,6 +340,7 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - **`SCL/SDA` pull-up `10k` (R5/R6) → `VAA` (2.5V)**（VDD は 1.1V LDO で I2C には低すぎる。J1 経由のホスト接続は `VREF=RX_VAA` 追従または外部レベルシフタ必須。3.3V 固定 pull-up の直結は禁止）
 - `VOUT` → heater-control シートへ
 - ヒーター gate 分圧: R1 = 10k (VOUT_12V → Q1.G), R2 = 10k (Q1.G → GND) で VGS ≈ 6V
+- F1: `KSD9700-70/5JSB/080C` を `heater-control.kicad_sch` / BOM に反映済み。トッププレート裏面に密着固定し、TH1/TH2/F1 open/reset の差は熱試験で確認する
 - VOUT OVP: `Z3 = Littelfuse SMBJ15A` を第一候補にする。`VOUT_12V → Z3 cathode`, `Z3 anode → SYS_GND` の一方向 TVS とし、VOUT 出口近傍に配置する
 - LED: D1（給電中インジ、VOUT_12V → R10(3k) → D1 → GND）
 - GPIO0 LED: D2/R11（RX_VAA → R11(1k) → D2 → GPIO0、GPIO0 は NVM 設定前提の optional indicator）
@@ -400,7 +401,7 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - ~~heater footprint~~ → v1 は大型 solder pads / wire pads。外部 heater/F1 series assembly を手実装し、F1 はトッププレート裏面へ密着固定する
 - ~~cup contact layer material~~ → v1 第一候補はアルミナ充填シリコーンパッド。熱伝導シリコーンシート、グラファイトシート + 薄い絶縁フィルムは比較サンプルとして残す
 - ~~hard cutoff implementation choice~~ → F1 は `Xucheng KSD9700-70/5JSB/080C` を第一候補に選定（open `70±5°C`, reset `50±10°C`）
-- **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制。手実装または機構固定を前提にする
+- **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制。手実装または機構固定を前提にする。詳細な固定候補は `hardware/mechanical/README.md`、熱試験記録は `hardware/test/thermal-test-template.md` に分離
 - ~~VOUT 過電圧保護 TVS~~ → `SMBJ15A` を第一候補に選定（`VR=15V`, `VBR=16.7-18.5V`, `VC=24.4V`, `600W`）
 - ~~LED-2 status indicator~~ → D2/R11 は `RX_VAA → R11(1k) → D2 → U1.F3(GPIO0)` に接続済み。`RX_INTB` は LED 駆動せず、J3 経由の bring-up / status monitor として露出する
 - ~~R3 電流センス~~ → v1 通常実装は `0Ω`。評価時のみ `0.05Ω` に差し替えてベンチ測定する。STWLC38JRM には R3 を読ませない
