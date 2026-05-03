@@ -23,6 +23,7 @@ import sch_query
 import sch_edit
 import sch_netlist
 import pcb_query
+import pcb_edit
 
 
 def kicad_cli() -> str:
@@ -595,6 +596,46 @@ def cmd_pcb_drc(args: argparse.Namespace) -> int:
 
 
 # ---------------------------------------------------------------------------
+# pcb edit handlers
+# ---------------------------------------------------------------------------
+
+
+def cmd_pcb_edit_footprint_move(args: argparse.Namespace) -> int:
+    res = pcb_edit.move_footprint(
+        args.board,
+        args.ref,
+        args.xy,
+        rotation=args.rotation,
+        dry_run=args.dry_run,
+    )
+    return _emit_edit(args, res)
+
+
+def cmd_pcb_edit_footprint_move_property(args: argparse.Namespace) -> int:
+    res = pcb_edit.move_footprint_property(
+        args.board,
+        args.ref,
+        args.key,
+        args.xy,
+        rotation=args.rotation,
+        dry_run=args.dry_run,
+    )
+    return _emit_edit(args, res)
+
+
+def cmd_pcb_edit_footprint_move_layer(args: argparse.Namespace) -> int:
+    res = pcb_edit.move_footprint_layer(
+        args.board,
+        args.ref,
+        args.side,
+        at=args.at,
+        rotation=args.rotation,
+        dry_run=args.dry_run,
+    )
+    return _emit_edit(args, res)
+
+
+# ---------------------------------------------------------------------------
 # sch query handlers
 # ---------------------------------------------------------------------------
 
@@ -1096,6 +1137,49 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("bbox", type=parse_bbox, help="X1,Y1,X2,Y2 in mm")
     p.add_argument("--format", choices=["json", "text"], default="json")
     p.set_defaults(func=cmd_pcb_query_region)
+
+    # PCB edit subtree
+    pcb_edit_parser = pcb_commands.add_parser("edit", help="PCB structural edits")
+    pcb_esub = pcb_edit_parser.add_subparsers(dest="pcb_edit_element", required=True)
+
+    fp = pcb_esub.add_parser("footprint", help="edit a footprint")
+    fp_act = fp.add_subparsers(dest="pcb_edit_action", required=True)
+
+    p = fp_act.add_parser("move", help="move a footprint by reference")
+    p.add_argument("board", type=Path)
+    p.add_argument("ref", help="footprint reference, e.g. R1")
+    p.add_argument("xy", type=parse_xy, help="destination X,Y")
+    p.add_argument("--rotation", type=float, default=None)
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.set_defaults(func=cmd_pcb_edit_footprint_move)
+
+    p = fp_act.add_parser(
+        "move-property",
+        help="move a single footprint property placement",
+    )
+    p.add_argument("board", type=Path)
+    p.add_argument("ref", help="footprint reference, e.g. R1")
+    p.add_argument("key", help="property key (e.g. Reference, Value)")
+    p.add_argument("xy", type=parse_xy, help="destination X,Y")
+    p.add_argument("--rotation", type=float, default=None)
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.set_defaults(func=cmd_pcb_edit_footprint_move_property)
+
+    p = fp_act.add_parser(
+        "move-layer",
+        help="flip a footprint to F.Cu (front) or B.Cu (back)",
+    )
+    p.add_argument("board", type=Path)
+    p.add_argument("ref", help="footprint reference, e.g. R1")
+    p.add_argument("side", choices=["front", "back"])
+    p.add_argument("--at", type=parse_xy, default=None,
+                   help="optional new origin X,Y; defaults to current position")
+    p.add_argument("--rotation", type=float, default=None)
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.set_defaults(func=cmd_pcb_edit_footprint_move_layer)
 
     return parser
 
