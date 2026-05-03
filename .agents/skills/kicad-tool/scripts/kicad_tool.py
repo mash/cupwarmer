@@ -22,6 +22,7 @@ import score_schematic as schematic_score
 import sch_query
 import sch_edit
 import sch_netlist
+import pcb_query
 
 
 def kicad_cli() -> str:
@@ -475,6 +476,106 @@ def cmd_sch_validate(args: argparse.Namespace) -> int:
             print(f"Inspect: exit={inspect_returncode}")
 
     return 0 if erc["returncode"] == netlist["returncode"] == inspect_returncode == 0 else 1
+
+
+DEFAULT_PCB_RENDER_LAYERS = (
+    "F.Cu,B.Cu,F.SilkS,B.SilkS,F.CrtYd,B.CrtYd,F.Fab,B.Fab,Edge.Cuts"
+)
+
+
+def render_pcb_region(
+    board: Path,
+    bbox_mm: tuple[float, float, float, float],
+    layers: str,
+    out: Path,
+) -> Path:
+    x1, y1, x2, y2 = bbox_mm
+    if x1 > x2:
+        x1, x2 = x2, x1
+    if y1 > y2:
+        y1, y2 = y2, y1
+    x, y, w, h = x1, y1, x2 - x1, y2 - y1
+    if w <= 0 or h <= 0:
+        raise ValueError(f"empty bbox: {bbox_mm}")
+
+    rsvg = subprocess.run(["which", "rsvg-convert"], capture_output=True, text=True)
+    if rsvg.returncode != 0:
+        raise RuntimeError("rsvg-convert is required for render-region; install librsvg")
+
+    out.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="kicad-tool-pcb-region-") as tmpdir:
+        svg_dir = Path(tmpdir)
+        svg_path = svg_dir / f"{board.stem}.svg"
+        run_checked([
+            kicad_cli(),
+            "pcb", "export", "svg",
+            "--output", str(svg_path),
+            "--layers", layers,
+            "--mode-single",
+            "--page-size-mode", "2",
+            "--exclude-drawing-sheet",
+            str(board),
+        ])
+        if not svg_path.exists():
+            svgs = sorted(svg_dir.glob("*.svg"))
+            if not svgs:
+                raise FileNotFoundError(f"no SVG exported into {svg_dir}")
+            svg_path = svgs[0]
+        original = svg_path.read_text(encoding="utf-8")
+        cropped = _rewrite_svg_viewbox(original, x, y, w, h)
+        cropped_path = svg_dir / "region.svg"
+        cropped_path.write_text(cropped, encoding="utf-8")
+
+        px_w = max(1, int(round(w * PX_PER_MM)))
+        run_checked([
+            "rsvg-convert",
+            "-w", str(px_w),
+            "-o", str(out),
+            str(cropped_path),
+        ])
+    return out
+
+
+def cmd_pcb_render_region(args: argparse.Namespace) -> int:
+    layers = args.layers if args.layers else DEFAULT_PCB_RENDER_LAYERS
+    try:
+        png = render_pcb_region(args.board, args.bbox, layers, args.output)
+    except subprocess.CalledProcessError as exc:
+        sys.stderr.write(exc.stderr or "")
+        return exc.returncode
+    except (RuntimeError, ValueError, FileNotFoundError) as exc:
+        sys.stderr.write(f"{exc}\n")
+        return 2
+    if args.format == "text":
+        print(png)
+    else:
+        print_json({"png": str(png), "bbox": list(args.bbox), "layers": layers})
+    return 0
+
+
+# ---------------------------------------------------------------------------
+# pcb query handlers
+# ---------------------------------------------------------------------------
+
+
+def cmd_pcb_query_list(args: argparse.Namespace) -> int:
+    return _emit_query(args, pcb_query.query_list(args.board, args.element))
+
+
+def cmd_pcb_query_footprint(args: argparse.Namespace) -> int:
+    return _emit_query(args, pcb_query.query_footprint(args.board, args.ref))
+
+
+def cmd_pcb_query_pad(args: argparse.Namespace) -> int:
+    return _emit_query(args, pcb_query.query_pad(args.board, args.ref_pad))
+
+
+def cmd_pcb_query_net(args: argparse.Namespace) -> int:
+    return _emit_query(args, pcb_query.query_net(args.board, args.target))
+
+
+def cmd_pcb_query_region(args: argparse.Namespace) -> int:
+    return _emit_query(args, pcb_query.query_region(args.board, args.bbox))
 
 
 def cmd_pcb_drc(args: argparse.Namespace) -> int:
@@ -942,6 +1043,59 @@ def build_parser() -> argparse.ArgumentParser:
     drc_parser.add_argument("--schematic-parity", action="store_true")
     drc_parser.add_argument("--format", choices=["json", "text"], default="json")
     drc_parser.set_defaults(func=cmd_pcb_drc)
+
+    pcb_render_parser = pcb_commands.add_parser(
+        "render-region",
+        help="render a cropped PNG of a bbox region of a board",
+    )
+    pcb_render_parser.add_argument("board", type=Path)
+    pcb_render_parser.add_argument("bbox", type=parse_bbox, help="X1,Y1,X2,Y2 in mm")
+    pcb_render_parser.add_argument(
+        "--layers", default=None,
+        help=f"comma-separated layer names (default: {DEFAULT_PCB_RENDER_LAYERS})",
+    )
+    pcb_render_parser.add_argument("--output", type=Path, default=Path("tmp/pcb-region.png"))
+    pcb_render_parser.add_argument("--format", choices=["json", "text"], default="json")
+    pcb_render_parser.set_defaults(func=cmd_pcb_render_region)
+
+    pcb_query_parser = pcb_commands.add_parser("query", help="read-only PCB queries")
+    pcb_qsub = pcb_query_parser.add_subparsers(dest="pcb_query_element", required=True)
+
+    p = pcb_qsub.add_parser("list", help="list elements")
+    p.add_argument("board", type=Path)
+    p.add_argument(
+        "element",
+        choices=["footprints", "tracks", "vias", "zones", "drawings", "nets"],
+    )
+    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.set_defaults(func=cmd_pcb_query_list)
+
+    p = pcb_qsub.add_parser("footprint", help="query a footprint by reference")
+    p.add_argument("board", type=Path)
+    p.add_argument("ref", help="footprint reference, e.g. U1")
+    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.set_defaults(func=cmd_pcb_query_footprint)
+
+    p = pcb_qsub.add_parser("pad", help="query a pad (REF.PAD)")
+    p.add_argument("board", type=Path)
+    p.add_argument("ref_pad", help="REF.PAD, e.g. U1.A1")
+    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.set_defaults(func=cmd_pcb_query_pad)
+
+    p = pcb_qsub.add_parser("net", help="query a net by name or REF.PAD")
+    p.add_argument("board", type=Path)
+    p.add_argument(
+        "target",
+        help="net name or REF.PAD (REF.PAD only when both ref and pad exist)",
+    )
+    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.set_defaults(func=cmd_pcb_query_net)
+
+    p = pcb_qsub.add_parser("region", help="query elements intersecting a bbox")
+    p.add_argument("board", type=Path)
+    p.add_argument("bbox", type=parse_bbox, help="X1,Y1,X2,Y2 in mm")
+    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.set_defaults(func=cmd_pcb_query_region)
 
     return parser
 
