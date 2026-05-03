@@ -24,6 +24,7 @@ import sch_edit
 import sch_netlist
 import pcb_query
 import pcb_edit
+import pcb_netlist
 
 
 def kicad_cli() -> str:
@@ -636,6 +637,317 @@ def cmd_pcb_edit_footprint_move_layer(args: argparse.Namespace) -> int:
 
 
 # ---------------------------------------------------------------------------
+# pcb import-footprints / pcb validate
+# ---------------------------------------------------------------------------
+
+
+def _export_sch_netlist(schematic: Path, out: Path) -> dict[str, Any]:
+    out.parent.mkdir(parents=True, exist_ok=True)
+    return command_result(
+        "sch netlist",
+        [
+            kicad_cli(),
+            "sch", "export", "netlist",
+            "--output", str(out),
+            str(schematic),
+        ],
+    )
+
+
+def cmd_pcb_import_footprints(args: argparse.Namespace) -> int:
+    netlist_out = Path("tmp/pcb-import-netlist.net")
+    nl = _export_sch_netlist(args.schematic, netlist_out)
+    if nl["returncode"] != 0:
+        sys.stderr.write(nl.get("stderr") or "")
+        return nl["returncode"]
+
+    res = pcb_edit.import_footprints(
+        args.board,
+        netlist_out,
+        project_dir=args.board.parent,
+        output_path=args.output,
+        dry_run=args.dry_run,
+    )
+
+    if args.format != "text":
+        # Strip the diff body out of the JSON top-level; surface it on stderr
+        # only on dry-run to mirror sch edit semantics.
+        payload = {k: v for k, v in res.items() if k != "diff"}
+        print_json(payload)
+        if args.dry_run and res.get("diff"):
+            sys.stderr.write(res["diff"])
+    else:
+        print(f"action: {res['action']}")
+        print(f"changed: {res['changed']}  wrote: {res['wrote']}  target: {res['target']}")
+        d = res["details"]
+        print(f"schematic_refs={d['schematic_refs']} existing={d['existing_refs']} added={len(d['added'])}")
+        if d["unresolved"]:
+            print(f"unresolved: {d['unresolved']}")
+        if d["skipped_no_footprint"]:
+            print(f"skipped (no footprint assigned): {d['skipped_no_footprint']}")
+        print(f"parity.clean={d['parity']['clean']} missing_on_board={d['parity']['missing_on_board']}")
+        if args.dry_run and res.get("diff"):
+            sys.stdout.write(res["diff"])
+    parity_clean = res["details"]["parity"]["clean"]
+    return 0 if parity_clean else 1
+
+
+# --- pcb validate ---
+
+
+def _drc_violation_count(report_path: Path) -> int | None:
+    """Parse a kicad-cli pcb drc text report. Returns None if the report is
+    missing or unparseable."""
+    if not report_path.exists():
+        return None
+    try:
+        text = report_path.read_text()
+    except OSError:
+        return None
+    # kicad-cli emits "** Found N DRC violations **" / similar.
+    m = re.search(r"Found\s+(\d+)\s+DRC\s+violations", text)
+    if m:
+        n = int(m.group(1))
+        m2 = re.search(r"Found\s+(\d+)\s+unconnected", text)
+        if m2:
+            n += int(m2.group(1))
+        return n
+    # Fallback: treat the report as parseable if it has a trailing summary line.
+    if "Found" in text:
+        return 0
+    return None
+
+
+def _run_pcb_drc(board: Path, report: Path) -> dict[str, Any]:
+    """Run kicad-cli pcb drc; tolerate process crashes by reporting them
+    explicitly rather than masking as a clean run."""
+    report.parent.mkdir(parents=True, exist_ok=True)
+    proc = subprocess.run(
+        [
+            kicad_cli(), "pcb", "drc",
+            "--exit-code-violations",
+            "--output", str(report),
+            str(board),
+        ],
+        cwd=REPO_ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    violations = _drc_violation_count(report)
+    crashed = False
+    if proc.returncode < 0:
+        crashed = True  # killed by a signal
+    if violations is None and proc.returncode != 0:
+        # Non-zero exit AND no parseable report: treat as a crash / missing
+        # report rather than silently passing.
+        crashed = True
+    status = "crashed" if crashed else ("violations" if (violations or 0) > 0 else "clean")
+    return {
+        "returncode": proc.returncode,
+        "stdout": proc.stdout,
+        "stderr": proc.stderr,
+        "report": str(report),
+        "report_exists": report.exists(),
+        "violations": violations,
+        "status": status,
+    }
+
+
+def _board_footprint_refs(board: Path) -> dict[str, str]:
+    """Return ``{ref: lib_id}`` for the board, by parsing its top-level
+    ``(footprint ...)`` blocks."""
+    text = Path(board).read_text(encoding="utf-8")
+    out: dict[str, str] = {}
+    for m in re.finditer(
+        r'^\t\(footprint\s+"([^"]+)"', text, flags=re.MULTILINE
+    ):
+        # Find this block end and pull out the Reference property.
+        start = m.start()
+        # Manually locate matching paren — reuse the helper from pcb_edit.
+        end = pcb_edit._find_block_end(text, start + 1)
+        block = text[start:end]
+        ref_m = re.search(r'\(property\s+"Reference"\s+"([^"]+)"', block)
+        if ref_m:
+            out[ref_m.group(1)] = m.group(1)
+    return out
+
+
+def _parity_check(board: Path, sch_netlist: Path) -> dict[str, Any]:
+    components = pcb_netlist.parse_components(sch_netlist)
+    sch_refs = {ref: c["footprint"] for ref, c in components.items()}
+    board_refs = _board_footprint_refs(board)
+
+    refs_missing_on_board = sorted(set(sch_refs) - set(board_refs))
+    refs_extra_on_board = sorted(set(board_refs) - set(sch_refs))
+    fp_mismatches: list[dict[str, str]] = []
+    for ref in sorted(set(sch_refs) & set(board_refs)):
+        sf = sch_refs[ref]
+        bf = board_refs[ref]
+        if sf and sf != bf:
+            fp_mismatches.append({
+                "ref": ref,
+                "schematic_footprint": sf,
+                "board_footprint": bf,
+            })
+
+    clean = (
+        not refs_missing_on_board
+        and not refs_extra_on_board
+        and not fp_mismatches
+    )
+    return {
+        "clean": clean,
+        "schematic_refs": len(sch_refs),
+        "board_refs": len(board_refs),
+        "refs_missing_on_board": refs_missing_on_board,
+        "refs_extra_on_board": refs_extra_on_board,
+        "footprint_mismatches": fp_mismatches,
+    }
+
+
+def cmd_pcb_validate(args: argparse.Namespace) -> int:
+    board = args.board
+    schematic = args.schematic
+
+    # --- Save baseline mode ---
+    if args.save_baseline is not None:
+        base = Path(args.save_baseline)
+        base.mkdir(parents=True, exist_ok=True)
+        drc_report = base / "drc.rpt"
+        netlist_out = base / "sch-netlist.net"
+        parity_out = base / "parity.json"
+
+        nl = _export_sch_netlist(schematic, netlist_out)
+        drc = _run_pcb_drc(board, drc_report)
+        if nl["returncode"] == 0:
+            parity = _parity_check(board, netlist_out)
+        else:
+            parity = {"clean": False, "error": "schematic netlist export failed"}
+        parity_out.write_text(json.dumps(parity, ensure_ascii=False, indent=2))
+
+        payload = {
+            "mode": "save-baseline",
+            "baseline_dir": str(base),
+            "drc": drc,
+            "netlist": {**nl, "output": str(netlist_out)},
+            "parity": parity,
+        }
+        if args.format == "text":
+            print(f"Baseline saved to {base}")
+            print(f"  drc:    {drc_report} (status={drc['status']}, violations={drc['violations']})")
+            print(f"  parity: {parity_out} (clean={parity.get('clean')})")
+        else:
+            print_json(payload)
+        return 0
+
+    # --- Baseline diff mode ---
+    if args.baseline is not None:
+        base = Path(args.baseline)
+        if not base.is_dir():
+            sys.stderr.write(f"baseline dir not found: {base}\n")
+            return 2
+        with tempfile.TemporaryDirectory(prefix="kicad-pcb-validate-cur-") as tmp:
+            tmp_path = Path(tmp)
+            cur_drc = tmp_path / "drc.rpt"
+            cur_netlist = tmp_path / "sch-netlist.net"
+
+            nl = _export_sch_netlist(schematic, cur_netlist)
+            drc = _run_pcb_drc(board, cur_drc)
+            if nl["returncode"] == 0:
+                parity = _parity_check(board, cur_netlist)
+            else:
+                parity = {"clean": False, "error": "schematic netlist export failed"}
+
+            base_drc = _drc_violation_count(base / "drc.rpt")
+            base_parity_path = base / "parity.json"
+            base_parity: dict[str, Any] = {}
+            if base_parity_path.exists():
+                try:
+                    base_parity = json.loads(base_parity_path.read_text())
+                except Exception:  # noqa: BLE001
+                    base_parity = {}
+
+            cur_v = drc["violations"] if drc["violations"] is not None else 0
+            base_v = base_drc if base_drc is not None else 0
+            erc_delta = cur_v - base_v
+            regression = False
+            reasons: list[str] = []
+            if drc["status"] == "crashed":
+                regression = True
+                reasons.append(f"drc crashed (returncode={drc['returncode']})")
+            elif erc_delta > 0:
+                regression = True
+                reasons.append(f"drc: +{erc_delta} new violations ({base_v} -> {cur_v})")
+            if not parity.get("clean"):
+                regression = True
+                reasons.append(
+                    f"parity not clean: missing={parity.get('refs_missing_on_board')} "
+                    f"extra={parity.get('refs_extra_on_board')} "
+                    f"mismatch={parity.get('footprint_mismatches')}"
+                )
+
+            payload = {
+                "mode": "baseline-diff",
+                "baseline_dir": str(base),
+                "drc": {
+                    "baseline_violations": base_v,
+                    "current_violations": cur_v,
+                    "delta": erc_delta,
+                    "current_status": drc["status"],
+                    "current_returncode": drc["returncode"],
+                },
+                "parity": parity,
+                "baseline_parity": base_parity,
+                "regression": regression,
+                "reasons": reasons,
+            }
+            if args.format == "text":
+                print(f"Baseline: {base}")
+                print(f"  DRC: {base_v} -> {cur_v} (delta {erc_delta:+d}) status={drc['status']}")
+                print(f"  Parity clean: {parity.get('clean')}")
+                if regression:
+                    print("REGRESSION:")
+                    for r in reasons:
+                        print(f"  - {r}")
+                else:
+                    print("OK")
+            else:
+                print_json(payload)
+            return 1 if regression else 0
+
+    # --- Default mode ---
+    drc_report = args.drc_report
+    netlist_out = args.netlist_out
+    nl = _export_sch_netlist(schematic, netlist_out)
+    drc = _run_pcb_drc(board, drc_report)
+    if nl["returncode"] == 0:
+        parity = _parity_check(board, netlist_out)
+    else:
+        parity = {"clean": False, "error": "schematic netlist export failed"}
+
+    payload = {
+        "drc": drc,
+        "netlist": {**nl, "output": str(netlist_out)},
+        "parity": parity,
+    }
+    if args.format == "text":
+        print(f"DRC: status={drc['status']} violations={drc['violations']} report={drc_report}")
+        if drc["status"] == "crashed":
+            print(f"  DRC crashed; returncode={drc['returncode']}")
+        print(f"Parity: clean={parity.get('clean')}")
+        if not parity.get("clean"):
+            print(f"  missing_on_board={parity.get('refs_missing_on_board')}")
+            print(f"  extra_on_board={parity.get('refs_extra_on_board')}")
+            print(f"  footprint_mismatches={parity.get('footprint_mismatches')}")
+    else:
+        print_json(payload)
+
+    bad = (drc["status"] != "clean") or (not parity.get("clean"))
+    return 1 if bad else 0
+
+
+# ---------------------------------------------------------------------------
 # sch query handlers
 # ---------------------------------------------------------------------------
 
@@ -1180,6 +1492,40 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--format", choices=["json", "text"], default="json")
     p.set_defaults(func=cmd_pcb_edit_footprint_move_layer)
+
+    # pcb import-footprints
+    import_parser = pcb_commands.add_parser(
+        "import-footprints",
+        help="add missing schematic footprints to a board with deterministic staging",
+    )
+    import_parser.add_argument("board", type=Path)
+    import_parser.add_argument("schematic", type=Path)
+    import_parser.add_argument(
+        "--output", type=Path, default=None,
+        help="write merged board to this path; leaves the input board untouched",
+    )
+    import_parser.add_argument("--dry-run", action="store_true")
+    import_parser.add_argument("--format", choices=["json", "text"], default="json")
+    import_parser.set_defaults(func=cmd_pcb_import_footprints)
+
+    # pcb validate
+    pcb_validate_parser = pcb_commands.add_parser(
+        "validate",
+        help="run PCB DRC + schematic/board parity",
+    )
+    pcb_validate_parser.add_argument("board", type=Path)
+    pcb_validate_parser.add_argument("schematic", type=Path,
+                                     help="top-level schematic")
+    pcb_validate_parser.add_argument("--drc-report", type=Path,
+                                     default=Path("tmp/pcb-validate-drc.rpt"))
+    pcb_validate_parser.add_argument("--netlist-out", type=Path,
+                                     default=Path("tmp/pcb-validate-sch-netlist.net"))
+    pcb_validate_parser.add_argument("--save-baseline", type=Path, default=None,
+                                     help="write current drc/netlist/parity to DIR")
+    pcb_validate_parser.add_argument("--baseline", type=Path, default=None,
+                                     help="diff current state against a saved baseline DIR")
+    pcb_validate_parser.add_argument("--format", choices=["json", "text"], default="json")
+    pcb_validate_parser.set_defaults(func=cmd_pcb_validate)
 
     return parser
 

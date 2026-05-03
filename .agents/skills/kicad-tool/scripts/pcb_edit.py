@@ -515,8 +515,337 @@ def move_footprint_layer(
     }
 
 
+# ---------------------------------------------------------------------------
+# import_footprints
+# ---------------------------------------------------------------------------
+#
+# Staging area policy
+# -------------------
+# Newly added footprints are placed on a deterministic grid OUTSIDE the
+# project's V1 floorplan envelope (the floorplan rectangle in
+# cupwarmer-hw.kicad_pcb sits roughly between X=80..170, Y=60..160 mm).
+# Staging origin: (200, 200) mm. Pitch: 5 mm. Columns per row: 20.
+# Refs are sorted alphanumerically (R1, R2, ... U1) for deterministic order.
+# This guarantees:
+#   * staged footprints never overlap an existing user-placed footprint inside
+#     the floorplan
+#   * re-running ``import-footprints`` is a no-op (same refs hash to the same
+#     slot, but they are already present so they are skipped)
+#   * the staging slot for a given ref is stable across runs / output paths
+
+
+import hashlib
+import re as _re
+
+STAGING_ORIGIN_X = 200.0
+STAGING_ORIGIN_Y = 200.0
+STAGING_PITCH = 5.0
+STAGING_COLS = 20
+
+
+def _staging_xy(index: int) -> tuple[float, float]:
+    row, col = divmod(index, STAGING_COLS)
+    return (
+        STAGING_ORIGIN_X + col * STAGING_PITCH,
+        STAGING_ORIGIN_Y + row * STAGING_PITCH,
+    )
+
+
+def _det_uuid(seed: str) -> str:
+    """Deterministic UUIDv4-shaped string derived from a seed."""
+    h = hashlib.md5(seed.encode("utf-8")).hexdigest()
+    # Force version 4 / variant bits to keep KiCad happy.
+    return f"{h[0:8]}-{h[8:12]}-4{h[13:16]}-8{h[17:20]}-{h[20:32]}"
+
+
+def _ref_sort_key(ref: str) -> tuple[str, int, str]:
+    m = _re.match(r"^([A-Za-z]+)(\d+)(.*)$", ref)
+    if m:
+        return (m.group(1), int(m.group(2)), m.group(3))
+    return (ref, 0, "")
+
+
+def _existing_refs(text: str) -> set[str]:
+    refs: set[str] = set()
+    for open_idx, end_idx in _iter_top_blocks(text, "footprint"):
+        block = text[open_idx:end_idx]
+        m = _re.search(r'\(property\s+"Reference"\s+"([^"]+)"', block)
+        if m:
+            refs.add(m.group(1))
+    return refs
+
+
+def _strip_kicad_mod_header(mod_text: str) -> str:
+    """Remove top-level (version ...) (generator ...) (generator_version ...)
+    lines from a .kicad_mod so the footprint can be embedded in a board."""
+    out_lines: list[str] = []
+    for line in mod_text.splitlines(keepends=True):
+        stripped = line.lstrip()
+        if stripped.startswith("(version ") or stripped.startswith(
+            "(generator "
+        ) or stripped.startswith("(generator_version "):
+            # Only drop these when they appear at indent depth 1 (single tab).
+            if line.startswith("\t(") or line.startswith("  ("):
+                continue
+        out_lines.append(line)
+    return "".join(out_lines)
+
+
+def _reindent_footprint_block(mod_text: str) -> str:
+    """The .kicad_mod uses 1-tab base indent. Inside .kicad_pcb the footprint
+    sits at 1-tab depth too — so every line gets one extra leading tab."""
+    out_lines: list[str] = []
+    for line in mod_text.splitlines(keepends=True):
+        if line.strip() == "":
+            out_lines.append(line)
+            continue
+        out_lines.append("\t" + line)
+    return "".join(out_lines)
+
+
+_PROP_AT_RE = _re.compile(
+    r'(\(property\s+"(?P<key>[^"]+)"\s+)"(?P<val>[^"]*)"'
+)
+
+
+def _build_footprint_block(
+    *,
+    ref: str,
+    value: str,
+    lib_id: str,
+    mod_text: str,
+    at_xy: tuple[float, float],
+) -> str:
+    """Build a placed-footprint block from a .kicad_mod source.
+
+    Mutations applied to the .kicad_mod text:
+      1. The opening ``(footprint "<lib_name>"`` token is replaced with the
+         full ``LIB:Name`` lib_id (so KiCad knows which library it came from).
+      2. Header lines (version/generator/generator_version) are stripped.
+      3. A ``(uuid "...")`` is inserted after ``(layer "...")``.
+      4. A ``(at X Y 0)`` is inserted after the new uuid line.
+      5. ``(property "Reference" "REF**" ...)`` -> ``"<ref>"``.
+      6. ``(property "Value" "<orig>" ...)``    -> ``"<value>"``.
+      7. Existing inner uuids inside the footprint are replaced with
+         deterministic ones seeded from ``ref + offset`` so we don't reuse
+         placeholder uuids and don't introduce non-determinism.
+      8. The whole block is re-indented one tab deeper.
+    """
+    # 1. Header swap: (footprint "<lib_name>" ... -> (footprint "<lib_id>" ...
+    text = _re.sub(
+        r'^\(footprint\s+"[^"]*"',
+        f'(footprint "{lib_id}"',
+        mod_text,
+        count=1,
+    )
+
+    # 2. Strip header lines.
+    text = _strip_kicad_mod_header(text)
+
+    # 3. Replace the existing first (uuid "...") inside the .kicad_mod (if any)
+    #    or insert one after the first (layer "..."). Either way we end up with
+    #    a deterministic top-level footprint uuid.
+    fp_uuid = _det_uuid(f"{ref}:fp")
+    if _re.search(r'^\t\(uuid\s+"[^"]+"\)', text, _re.MULTILINE):
+        text = _re.sub(
+            r'^\t\(uuid\s+"[^"]+"\)',
+            f'\t(uuid "{fp_uuid}")',
+            text,
+            count=1,
+            flags=_re.MULTILINE,
+        )
+    else:
+        text = _re.sub(
+            r'(^\t\(layer\s+"[^"]+"\)\n)',
+            r'\1\t(uuid "' + fp_uuid + r'")\n',
+            text,
+            count=1,
+            flags=_re.MULTILINE,
+        )
+
+    # 4. Insert (at X Y 0) right after the (uuid ...) line at indent depth 1.
+    new_at = f'\t(at {_fmt_coord(at_xy[0])} {_fmt_coord(at_xy[1])} 0)\n'
+    text = _re.sub(
+        r'(^\t\(uuid\s+"[^"]+"\)\n)',
+        r'\1' + new_at,
+        text,
+        count=1,
+        flags=_re.MULTILINE,
+    )
+
+    # 5/6. Patch Reference / Value property values.
+    def _patch_prop(t: str, key: str, new_val: str) -> str:
+        return _re.sub(
+            r'(\(property\s+"' + _re.escape(key) + r'"\s+)"[^"]*"',
+            lambda m: m.group(1) + '"' + new_val.replace('"', '\\"') + '"',
+            t,
+            count=1,
+        )
+
+    text = _patch_prop(text, "Reference", ref)
+    if value:
+        text = _patch_prop(text, "Value", value)
+
+    # 7. Rewrite every inner (uuid "...") deterministically. We've already
+    #    placed the top-level fp uuid; now replace any remaining ones (pad,
+    #    fp_line, fp_circle, ...) with seeded values keyed by occurrence.
+    counter = {"i": 0}
+
+    def _sub_uuid(m: _re.Match) -> str:
+        counter["i"] += 1
+        return f'(uuid "{_det_uuid(ref + ":inner:" + str(counter["i"]))}")'
+
+    # Skip the very first uuid (the fp uuid we just set) by counting matches.
+    seen = {"first": True}
+
+    def _sub_uuid_skipfirst(m: _re.Match) -> str:
+        if seen["first"]:
+            seen["first"] = False
+            return m.group(0)
+        return _sub_uuid(m)
+
+    text = _re.sub(r'\(uuid\s+"[^"]+"\)', _sub_uuid_skipfirst, text)
+
+    # 8. Re-indent.
+    text = _reindent_footprint_block(text)
+
+    # Ensure the block ends with a single trailing newline.
+    if not text.endswith("\n"):
+        text += "\n"
+    return text
+
+
+def import_footprints(
+    pcb_path: str | Path,
+    schematic_netlist_path: str | Path,
+    *,
+    project_dir: str | Path | None = None,
+    output_path: str | Path | None = None,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Add missing schematic footprints to a board.
+
+    Existing footprints (and their placement) are preserved. New footprints are
+    appended just before the closing ``)`` of the ``(kicad_pcb ...)`` form, on
+    a deterministic staging grid outside the floorplan.
+
+    With ``output_path`` set, the input ``pcb_path`` is left untouched and the
+    new content is written to ``output_path``. Without ``output_path`` the
+    write is in place. ``dry_run`` skips writes entirely.
+    """
+    # Local import keeps pcb_edit usable without the netlist module on read
+    # paths that don't need import functionality.
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import pcb_netlist  # noqa: WPS433
+
+    pcb_path = Path(pcb_path)
+    schematic_netlist_path = Path(schematic_netlist_path)
+    project_dir = Path(project_dir) if project_dir is not None else pcb_path.parent
+
+    text = _read(pcb_path)
+    existing = _existing_refs(text)
+
+    components = pcb_netlist.parse_components(schematic_netlist_path)
+    sch_refs = sorted(components.keys(), key=_ref_sort_key)
+
+    missing: list[str] = [r for r in sch_refs if r not in existing]
+    skipped_no_footprint: list[dict[str, str]] = []
+    unresolved: list[dict[str, str]] = []
+    added: list[dict[str, Any]] = []
+
+    new_blocks: list[str] = []
+    for idx, ref in enumerate(missing):
+        comp = components[ref]
+        lib_id = comp["footprint"]
+        if not lib_id:
+            skipped_no_footprint.append({"ref": ref})
+            continue
+        mod_path = pcb_netlist.resolve_footprint_path(lib_id, project_dir)
+        if mod_path is None:
+            unresolved.append({"ref": ref, "lib_id": lib_id})
+            continue
+        mod_text = mod_path.read_text(encoding="utf-8")
+        xy = _staging_xy(idx)
+        block = _build_footprint_block(
+            ref=ref,
+            value=comp.get("value", ""),
+            lib_id=lib_id,
+            mod_text=mod_text,
+            at_xy=xy,
+        )
+        new_blocks.append(block)
+        added.append({
+            "ref": ref,
+            "lib_id": lib_id,
+            "value": comp.get("value", ""),
+            "at": {"x": xy[0], "y": xy[1]},
+            "source": str(mod_path),
+        })
+
+    # Insertion: just before the final `)` (the close of `(kicad_pcb ...)`).
+    if new_blocks:
+        # Find the final closing paren of the file.
+        m = _re.search(r"\)\s*\Z", text)
+        if not m:
+            raise ValueError("could not locate closing paren of kicad_pcb form")
+        insert_at = m.start()
+        new_text = text[:insert_at] + "".join(new_blocks) + text[insert_at:]
+    else:
+        new_text = text
+
+    diff = _diff(text, new_text, pcb_path)
+
+    target = Path(output_path) if output_path is not None else pcb_path
+    wrote = False
+    if not dry_run:
+        if output_path is not None:
+            # Output mode: write to output_path, never touch pcb_path.
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(new_text, encoding="utf-8")
+            wrote = True
+        else:
+            if text != new_text:
+                pcb_path.write_text(new_text, encoding="utf-8")
+                wrote = True
+
+    # Parity check (post-import view): compare schematic refs vs. resulting
+    # footprint refs on the target board.
+    after_text = new_text
+    after_refs = _existing_refs(after_text)
+    parity_missing = sorted(set(sch_refs) - after_refs, key=_ref_sort_key)
+    parity_extra = sorted(after_refs - set(sch_refs), key=_ref_sort_key)
+    parity_clean = not parity_missing and not unresolved
+
+    return {
+        "action": "import_footprints",
+        "changed": text != new_text,
+        "wrote": wrote,
+        "target": str(target),
+        "input_board": str(pcb_path),
+        "diff": diff,
+        "details": {
+            "schematic_refs": len(sch_refs),
+            "existing_refs": len(existing),
+            "added": added,
+            "skipped_no_footprint": skipped_no_footprint,
+            "unresolved": unresolved,
+            "staging": {
+                "origin": [STAGING_ORIGIN_X, STAGING_ORIGIN_Y],
+                "pitch": STAGING_PITCH,
+                "cols": STAGING_COLS,
+            },
+            "parity": {
+                "clean": parity_clean,
+                "missing_on_board": parity_missing,
+                "extra_on_board": parity_extra,
+            },
+        },
+    }
+
+
 __all__ = [
     "move_footprint",
     "move_footprint_property",
     "move_footprint_layer",
+    "import_footprints",
 ]
