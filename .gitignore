@@ -6,3 +6,4 @@ tmp/
 .DS_Store
 .history
 __pycache__/
+.claude/scheduled_tasks.lock
