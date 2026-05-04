@@ -28,6 +28,7 @@ For any decision about _what_ to change electrically (placement, grouping, decou
 - For automated cases (move/add/delete symbol, wire, label, junction; add-pin), use `sch edit ...` — see `kicad-tool`. Always pass `--dry-run` first, then re-run without it. Validate via `kicad-tool` after every edit.
 - Adding pins to symbols: use `sch edit symbol add-pin ...` — it updates both the schematic's embedded `lib_symbols` and the project's `.kicad_sym` library together. Coordinates are symbol-local (no Y negation here).
 - Do not `Read`/`cat`/`grep` `.kicad_sch` — raw S-expression files are huge and burn the context window. Use `sch query` for scoped JSON.
+- If `sch edit` lacks a subcommand for a write operation, **extend kicad-tool first** (`sch_edit.py` + argparse). Raw `Edit`/`Write` on `.kicad_sch` is the last resort and requires explicit user approval.
 
 ### Wire delete / replace — audit mid-span taps first
 
@@ -39,6 +40,8 @@ Before any `sch edit wire delete` / replace: run `sch query region` over the wir
 
 ```
 sch edit symbol move <sch> <REF> <X,Y> [--rotation R]
+sch edit symbol delete <sch> <REF>
+sch edit symbol set-property <sch> <REF> <KEY> <VALUE>
 sch edit wire add <sch> <X1,Y1> <X2,Y2>
 sch edit wire delete <sch> --uuid U | --from X,Y --to X,Y
 sch edit label add <sch> <KIND> <NAME> <X,Y> [--rotation R] [--justify J]   # KIND: global|hier|local

@@ -316,6 +316,208 @@ def move_symbol(
     }
 
 
+def delete_symbol(
+    sch_path: str | Path,
+    ref: str,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Delete a symbol by reference.
+
+    The block is removed verbatim (including its leading indent and trailing
+    newline). Connected wires/labels/junctions are NOT modified — instead, the
+    return ``details.connected_taps`` reports counts of those whose endpoint
+    coordinates coincide with one of the deleted symbol's pins, so the caller
+    can clean them up explicitly.
+
+    The ``lib_symbols`` entry is also left untouched (it may be referenced by
+    another symbol; KiCad ignores unused entries).
+    """
+    sch_path = Path(sch_path)
+    text = _read(sch_path)
+
+    found = _find_symbol_block_by_ref(text, ref)
+    if not found:
+        raise ValueError(f"symbol with reference {ref!r} not found in {sch_path}")
+    open_idx, end_idx, block = found
+
+    # ---- Extract metadata for the report ----
+    sym_at = _block_at(block)
+    if sym_at is None:
+        raise ValueError(f"symbol {ref!r} has no (at ...) field")
+    sx, sy, srot = sym_at
+
+    lib_id = None
+    m_lib = re.search(r'\(lib_id\s+"([^"]+)"\)', block)
+    if m_lib:
+        lib_id = m_lib.group(1)
+    sym_uuid = _block_uuid(block)
+
+    # ---- Compute absolute pin coordinates via kiutils (mirrors move_symbol) ----
+    pins_abs: list[dict[str, Any]] = []
+    try:
+        sch_obj = Schematic.from_file(str(sch_path))
+        lib = {s.entryName: s for s in sch_obj.libSymbols}
+        sym_obj = next(
+            (
+                s
+                for s in sch_obj.schematicSymbols
+                if any(p.key == "Reference" and p.value == ref for p in s.properties)
+            ),
+            None,
+        )
+        if sym_obj is not None:
+            libsym = lib.get(sym_obj.entryName)
+            if libsym is not None:
+                for unit in getattr(libsym, "units", []):
+                    for pin in getattr(unit, "pins", []):
+                        ax, ay = local_to_schematic(
+                            sx, sy, int(srot) % 360, pin.position.X, pin.position.Y
+                        )
+                        pins_abs.append(
+                            {
+                                "number": pin.number,
+                                "name": pin.name,
+                                "x": round(ax, 4),
+                                "y": round(ay, 4),
+                            }
+                        )
+    except Exception as exc:  # noqa: BLE001
+        pins_abs = [{"error": f"pin computation failed: {exc}"}]
+
+    # ---- Count connected taps (do not modify them) ----
+    pin_pts: list[tuple[float, float]] = [
+        (float(p["x"]), float(p["y"]))
+        for p in pins_abs
+        if "x" in p and "y" in p
+    ]
+
+    def _matches_pin(x: float, y: float, tol: float = 0.01) -> bool:
+        for px, py in pin_pts:
+            if abs(px - x) <= tol and abs(py - y) <= tol:
+                return True
+        return False
+
+    wire_taps = 0
+    for w_open, w_end in _iter_top_blocks(text, "wire"):
+        wblock = text[w_open:w_end]
+        pts = _wire_endpoints(wblock)
+        if pts is None:
+            continue
+        (a, b) = pts
+        if _matches_pin(a[0], a[1]) or _matches_pin(b[0], b[1]):
+            wire_taps += 1
+
+    label_taps = 0
+    for ltoken in _LABEL_TOKENS.values():
+        for l_open, l_end in _iter_top_blocks(text, ltoken):
+            lblock = text[l_open:l_end]
+            lat = _block_at(lblock)
+            if lat is None:
+                continue
+            if _matches_pin(lat[0], lat[1]):
+                label_taps += 1
+
+    junction_taps = 0
+    for j_open, j_end in _iter_top_blocks(text, "junction"):
+        jblock = text[j_open:j_end]
+        jat = _block_at(jblock)
+        if jat is None:
+            continue
+        if _matches_pin(jat[0], jat[1]):
+            junction_taps += 1
+
+    # ---- Remove the block ----
+    start, stop = _expand_block_with_indent(text, open_idx, end_idx)
+    new_text = text[:start] + text[stop:]
+    changed = _maybe_write(sch_path, text, new_text, dry_run)
+
+    return {
+        "action": "delete_symbol",
+        "changed": changed,
+        "diff": _diff(text, new_text, sch_path),
+        "details": {
+            "ref": ref,
+            "lib_id": lib_id,
+            "at": {"x": sx, "y": sy, "rotation": srot},
+            "uuid": sym_uuid,
+            "connected_taps": {
+                "wires": wire_taps,
+                "labels": label_taps,
+                "junctions": junction_taps,
+            },
+            "pins": pins_abs,
+        },
+    }
+
+
+def set_symbol_property(
+    sch_path: str | Path,
+    ref: str,
+    key: str,
+    value: str,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Set the value of a (property "<key>" "<value>") field on a symbol.
+
+    Any property key is accepted (standard built-ins and user-defined like
+    ``MPN``, ``LCSC``, ``Manufacturer``). The block's ``(at ...)``,
+    ``(effects ...)`` and other subblocks are preserved — only the value
+    string token is rewritten. Creating new properties is not supported.
+    """
+    sch_path = Path(sch_path)
+    text = _read(sch_path)
+
+    found = _find_symbol_block_by_ref(text, ref)
+    if not found:
+        raise ValueError(f"symbol with reference {ref!r} not found in {sch_path}")
+    open_idx, end_idx, block = found
+
+    # Enumerate available keys for error messages.
+    available_keys = re.findall(r'\(property\s+"([^"]+)"\s+"', block)
+
+    pat = re.compile(
+        r'(\(property\s+"' + re.escape(key) + r'"\s+")'
+        r'([^"\\]*(?:\\.[^"\\]*)*)'
+        r'(")'
+    )
+    matches = list(pat.finditer(block))
+    if not matches:
+        raise ValueError(
+            f"property {key!r} not found on symbol {ref!r}; "
+            f"available keys: {available_keys}"
+        )
+    if len(matches) > 1:
+        raise ValueError(
+            f"duplicate property {key!r} on symbol {ref!r} ({len(matches)} matches)"
+        )
+
+    m = matches[0]
+    old_value_raw = m.group(2)
+    # Decode escape sequences for the report's old_value.
+    old_value = re.sub(r'\\(.)', lambda mm: mm.group(1), old_value_raw)
+
+    # Escape the new value for embedding: backslash and double-quote.
+    new_value_raw = value.replace("\\", "\\\\").replace('"', '\\"')
+
+    new_block = (
+        block[: m.start(2)] + new_value_raw + block[m.end(2) :]
+    )
+    new_text = text[:open_idx] + new_block + text[end_idx:]
+
+    changed = _maybe_write(sch_path, text, new_text, dry_run)
+    return {
+        "action": "set_symbol_property",
+        "changed": changed,
+        "diff": _diff(text, new_text, sch_path),
+        "details": {
+            "ref": ref,
+            "key": key,
+            "old_value": old_value,
+            "new_value": value,
+        },
+    }
+
+
 def move_symbol_property(
     sch_path: str | Path,
     ref: str,
@@ -838,6 +1040,8 @@ def delete_junction(
 
 __all__ = [
     "move_symbol",
+    "delete_symbol",
+    "set_symbol_property",
     "move_symbol_property",
     "add_wire",
     "delete_wire",

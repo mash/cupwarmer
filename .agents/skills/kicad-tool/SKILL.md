@@ -60,6 +60,8 @@ Structural mutations. All take a positional `<schematic.kicad_sch>`, emit JSON b
 | `sch edit symbol move <sch> <REF> <X,Y> [--rotation R]`<br>e.g. `... rx-power.kicad_sch C7 100,95 --rotation 90` | Move/rotate a symbol |
 | `sch edit symbol move-property <sch> <REF> <KEY> <X,Y> [--rotation R]` | Move a symbol property field's placement |
 | `sch edit symbol add-pin <sch> <LIB_ID> <NUMBER> <NAME> <X,Y> --length L --type T [--rotation R] [--shape S] [--lib-file PATH]` | Add a pin to a symbol (updates embedded lib_symbols + standalone .kicad_sym) |
+| `sch edit symbol delete <sch> <REF>` | Delete a symbol by reference; reports connected wires/labels/junctions in `details.connected_taps` but does **not** remove them |
+| `sch edit symbol set-property <sch> <REF> <KEY> <VALUE>` | Set a symbol property value; any key (built-ins or user-defined like `MPN`/`LCSC`/`Manufacturer`) |
 | `sch edit wire add <sch> <X1,Y1> <X2,Y2> [--type solid\|default]` | Add a wire segment |
 | `sch edit wire delete <sch> (--uuid U \| --from X,Y --to X,Y)` | Delete a wire |
 | `sch edit label add <sch> <KIND> <NAME> <X,Y> [--rotation R] [--justify J]` | Add a label (KIND ∈ global/hier/local) |
