@@ -30,6 +30,7 @@ LCSC numbers display with `C` prefix (`C2040`); inputs accept `C2040` or `2040`.
 - `--basic` | `--preferred` (JLC tier, mutex)
 - `--attr "Key OP Value"` repeatable. Ops: `=` `>=` `<=` `>` `<` `~`. SI-prefixed numbers parsed (`0.1uF`, `25V`, `1k`).
 - `--limit N` — applied **after** ordering (top-N in the order below)
+- `--text-fallback` — if `--attr` filters yield 0 hits, retry with the attr **values** substring-matched against MPN/description (rescues parts whose upstream attribute fields are corrupt or use vendor-specific notation)
 
 Output columns: `LCSC  MPN  Pkg  Type  Stock  $1  $100  Description`. Order: basic → pref → ext, then stock desc, unit-price asc.
 
@@ -65,8 +66,9 @@ Zero results — work the funnel from the most-likely cause:
 1. **Wrong attribute key** — re-run `schema <category>` and copy the exact key name. X7R lives under `Dielectric` for some subcategories and `Temperature Coefficient` for others.
 2. **Too-strict operator** — swap `=` for `~` (substring) on text-ish attributes (`--attr "Dielectric~X7R"`).
 3. **Tier filter too narrow** — drop `--basic` / `--preferred` to include extended parts.
-4. **Absent from upstream** — yaqwsx drops parts that have been out of stock for >120 days; truly rare or new parts may not appear.
-5. **Stale DB** — if the stderr banner shows `⚠ DB is Nd old`, run `update` and retry.
+4. **Corrupt or vendor-specific attribute fields** — yaqwsx's parser occasionally mis-routes MPN tokens into wrong attribute keys (e.g. TORCH `CT41G-...-2X1-...-K(N)` puts `2X1` in `Temperature coefficient`; the `(N)` actually denotes NP0). Add `--text-fallback` to retry the search with attr values matched against MPN/description when the structured filter returns 0.
+5. **Absent from upstream** — yaqwsx drops parts that have been out of stock for >120 days; truly rare or new parts may not appear.
+6. **Stale DB** — if the stderr banner shows `⚠ DB is Nd old`, run `update` and retry.
 
 ## Out of scope
 

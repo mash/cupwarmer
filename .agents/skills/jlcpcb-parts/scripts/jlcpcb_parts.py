@@ -54,6 +54,25 @@ def cmd_search(args: argparse.Namespace) -> int:
             sys.stderr.write(f"error: {e}\n")
             return 2
     rows = searchmod.run_search(conn, opts)
+    if not rows and args.text_fallback and opts.attrs:
+        # Retry: drop --attr filters, add their values as substring AND-terms
+        # against mfr/description. Keys are dropped because upstream parser
+        # bugs occasionally mis-route attr values into wrong keys.
+        fb = searchmod.SearchOpts()
+        fb.category = opts.category
+        fb.package = opts.package
+        fb.manufacturer = opts.manufacturer
+        fb.min_stock = opts.min_stock
+        fb.basic_only = opts.basic_only
+        fb.preferred_only = opts.preferred_only
+        fb.limit = opts.limit
+        extra_terms = " ".join(v for _k, _o, v in opts.attrs if v)
+        fb.query = (opts.query + " " + extra_terms).strip() if opts.query else extra_terms
+        sys.stderr.write(
+            f"# 0 hits with --attr filters; retrying as substring search "
+            f"on MPN/description with terms: {fb.query!r}\n"
+        )
+        rows = searchmod.run_search(conn, fb)
     print(searchmod.format_search_table(rows))
     return 0
 
@@ -112,6 +131,11 @@ def build_parser() -> argparse.ArgumentParser:
                           help="attribute filter; OP in = >= <= > < ~ "
                                "(repeatable)")
     p_search.add_argument("--limit", type=int, default=20)
+    p_search.add_argument("--text-fallback", action="store_true",
+                          help="if --attr filters yield 0 hits, retry with "
+                               "their values substring-matched against "
+                               "MPN/description (rescues parts with corrupt "
+                               "upstream attribute fields)")
     p_search.set_defaults(func=cmd_search)
 
     p_show = sub.add_parser("show", help="show one part by LCSC")
