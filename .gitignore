@@ -7,3 +7,5 @@ tmp/
 .history
 __pycache__/
 .claude/scheduled_tasks.lock
+wiki/*
+!wiki/README.md
