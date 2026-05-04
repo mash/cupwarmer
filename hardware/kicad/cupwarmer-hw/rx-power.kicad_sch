@@ -5945,7 +5945,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 162.56 64.77 0)
+			(at 158.75 62.23 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6053,7 +6053,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000007")
 		(property "Reference" "R6"
-			(at 154.94 40.64 0)
+			(at 158.75 40.386 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7351,7 +7351,7 @@
 		(dnp no)
 		(uuid "e669be7a-5d52-4869-b5d3-457856042ec8")
 		(property "Reference" "R10"
-			(at 240.03 121.92 90)
+			(at 241.3 113.03 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7361,7 +7361,7 @@
 			)
 		)
 		(property "Value" "3k"
-			(at 240.97 113.03 0)
+			(at 233.934 113.03 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
