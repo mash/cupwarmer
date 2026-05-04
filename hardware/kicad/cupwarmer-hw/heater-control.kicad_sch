@@ -517,7 +517,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Wire:SolderWire-0.5sqmm_1x02_P4.8mm_D0.9mm_OD2.3mm_Relief2x"
+		(property "Footprint" "Connector_Wire:SolderWire-0.5sqmm_1x02_P4.8mm_D0.9mm_OD2.3mm"
 			(at 55.88 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -629,7 +629,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Wire:SolderWire-1sqmm_1x02_P5.4mm_D1.4mm_OD2.7mm_Relief"
+		(property "Footprint" "Connector_Wire:SolderWire-1sqmm_1x02_P5.4mm_D1.4mm_OD2.7mm"
 			(at 76.2 58.42 0)
 			(hide yes)
 			(show_name no)
