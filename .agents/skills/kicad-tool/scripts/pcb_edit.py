@@ -26,6 +26,7 @@ Locked footprints are refused for every mutating action.
 from __future__ import annotations
 
 import difflib
+import os
 import re
 import sys
 from pathlib import Path
@@ -158,18 +159,82 @@ def _is_locked(block: str) -> bool:
 
 
 def _block_layer(block: str) -> str | None:
-    """Extract the footprint's own (layer "...") at the top of the block.
+    """Extract the footprint's own (layer "...") subform.
 
-    The first ``(layer "...")`` after ``(footprint "...")`` is the footprint
-    side. Properties / pads / drawings have their own (layer ...) deeper in
-    the block.
+    Anchored to the footprint head: walks top-level subforms and returns the
+    first ``(layer "..." )`` (or ``(layer X)``) child. Pads/drawings/properties
+    have their own (layer ...) nested deeper, which we must NOT pick up here.
     """
-    m = re.search(r'\(layer\s+"([^"]+)"\)', block)
-    return m.group(1) if m else None
+    body_start = _footprint_head_end(block)
+    for head, open_idx, end_idx in _iter_subforms(block, body_start):
+        if head == "layer":
+            inner = block[open_idx:end_idx]
+            m = re.match(r'\(layer\s+"([^"]+)"\s*\)', inner)
+            if m:
+                return m.group(1)
+            m = re.match(r'\(layer\s+([A-Za-z0-9_.]+)\s*\)', inner)
+            if m:
+                return m.group(1)
+    return None
+
+
+_AT_RE = re.compile(r"\(at\s+(-?[\d.]+)\s+(-?[\d.]+)(?:\s+(-?[\d.]+))?\s*\)")
+
+
+def _footprint_head_end(block: str) -> int:
+    """Return the offset just past the ``(footprint "LIB:Name" [locked])`` head.
+
+    The next character is where the body subforms start (newline or space).
+    """
+    m = re.match(r'\(footprint\s+"[^"]*"(?:\s+[a-z_]+)?', block)
+    if not m:
+        raise ValueError("block does not start with (footprint \"...\"")
+    return m.end()
+
+
+def _iter_subforms(block: str, body_start: int):
+    """Yield (head_token, open_idx, end_idx) for each top-level subform of the
+    footprint block (i.e. children of the (footprint ...) form), starting at
+    ``body_start`` and stopping at the block's closing ')'.
+    """
+    n = len(block)
+    i = body_start
+    while i < n:
+        c = block[i]
+        if c == ")":
+            # Close of footprint form.
+            return
+        if c != "(":
+            i += 1
+            continue
+        end_idx = _find_block_end(block, i)
+        m = re.match(r"\(([A-Za-z_][A-Za-z0-9_]*)", block[i:end_idx])
+        head = m.group(1) if m else ""
+        yield head, i, end_idx
+        i = end_idx
+
+
+def _find_first_top_at(block: str) -> re.Match | None:
+    """Locate the FIRST top-level ``(at ...)`` subform of the footprint block.
+
+    Anchored to the footprint head (does not match (at) nested in properties,
+    pads, drawings, etc.). Returns a re.Match positioned at the absolute offset
+    in ``block``, or None.
+    """
+    body_start = _footprint_head_end(block)
+    for head, open_idx, end_idx in _iter_subforms(block, body_start):
+        if head == "at":
+            text = block[open_idx:end_idx]
+            m = _AT_RE.match(text)
+            if m:
+                # Re-run search from the same offset so the returned Match's
+                # span() is in absolute block coordinates.
+                return _AT_RE.search(block, open_idx, end_idx)
+    return None
 
 
 def _block_at(block: str) -> tuple[float, float, float] | None:
-    m = re.search(r"\(at\s+(-?[\d.]+)\s+(-?[\d.]+)(?:\s+(-?[\d.]+))?\s*\)", block)
+    m = _find_first_top_at(block)
     if not m:
         return None
     x, y = float(m.group(1)), float(m.group(2))
@@ -213,10 +278,10 @@ def move_footprint(
     new_x, new_y = float(to[0]), float(to[1])
     new_rot = float(rotation) if rotation is not None else old_rot
 
-    # Replace ONLY the first (at ...) inside the block — that is the
-    # footprint's own position.
-    sym_at_re = re.compile(r"\(at\s+-?[\d.]+\s+-?[\d.]+(?:\s+-?[\d.]+)?\s*\)")
-    m_at = sym_at_re.search(block)
+    # Replace ONLY the first top-level (at ...) inside the block — that is the
+    # footprint's own position. Anchored to the footprint head so we cannot
+    # accidentally pick an (at) nested in a property/pad/drawing.
+    m_at = _find_first_top_at(block)
     if not m_at:
         raise ValueError("footprint (at ...) not found")
     if rotation is None and old_rot == 0 and len(m_at.group(0).split()) == 3:
@@ -359,64 +424,122 @@ def _flip_layer_name(name: str) -> str:
 
 
 def _flip_layer_strings_in_block(block: str) -> str:
-    """Swap every quoted F.<x>/B.<x> layer string inside the block."""
-
-    def _sub_quoted(m: re.Match) -> str:
-        return '"' + _flip_layer_name(m.group(1)) + '"'
-
-    # Match any quoted layer name appearing in (layer "...") or (layers "..." "..." ...)
-    return re.sub(r'"((?:F|B)\.[A-Za-z]+)"', _sub_quoted, block)
-
-
-def _negate_y_in_at_lists(block: str, skip_first: bool) -> str:
-    """Mirror Y across X axis: negate the second coordinate inside every
-    ``(at X Y [R])`` form. If ``skip_first`` is True the first ``(at ...)``
-    (which is the footprint's own origin and is rewritten separately) is
-    skipped.
+    """Swap F.<x>/B.<x> tokens only inside (layer ...) and (layers ...)
+    S-expressions. Other text (string literals, property values, library
+    names) is left untouched.
     """
-    pat = re.compile(r"\(at\s+(-?[\d.]+)\s+(-?[\d.]+)((?:\s+-?[\d.]+)?)\s*\)")
-    state = {"first": skip_first}
 
-    def _sub(m: re.Match) -> str:
-        if state["first"]:
-            state["first"] = False
-            return m.group(0)
+    token_pat = re.compile(r'"([A-Za-z0-9_.]+)"|([A-Za-z0-9_.]+)')
+
+    def _swap_tokens(inner: str) -> str:
+        def _sub(m: re.Match) -> str:
+            quoted, bare = m.group(1), m.group(2)
+            if quoted is not None:
+                return '"' + _flip_layer_name(quoted) + '"'
+            return _flip_layer_name(bare)
+
+        return token_pat.sub(_sub, inner)
+
+    # Walk the block, using a depth tracker to extract each (layer ...) and
+    # (layers ...) form (including any nested subforms in the body) and swap
+    # F.* <-> B.* tokens only inside those forms. This is robust against any
+    # future KiCad output that might nest parens inside a (layers ...) body.
+    head_pat = re.compile(r'\((layer|layers)\b')
+    out: list[str] = []
+    cursor = 0
+    for m in head_pat.finditer(block):
+        open_idx = m.start()
+        if open_idx < cursor:
+            # Already consumed as part of an outer (layer/layers ...) form.
+            continue
+        end_idx = _find_block_end(block, open_idx)
+        head = m.group(1)
+        # Body is everything between "(layer" / "(layers" and the closing ')'.
+        head_end = open_idx + 1 + len(head)  # past "(layer" or "(layers"
+        body = block[head_end : end_idx - 1]
+        new_body = _swap_tokens(body)
+        out.append(block[cursor:open_idx])
+        out.append(f"({head}{new_body})")
+        cursor = end_idx
+    out.append(block[cursor:])
+    return "".join(out)
+
+
+# Top-level subforms of (footprint ...) whose internal coordinates are
+# geometric and must be mirrored on flip. Property and fp_text placement is
+# left alone — KiCad rotates those itself when the side flips, and forcing
+# Y-negation here corrupts user-positioned text on a single flip.
+_GEOMETRY_HEADS: frozenset[str] = frozenset(
+    {"fp_line", "fp_arc", "fp_circle", "fp_poly", "fp_rect", "pad"}
+)
+
+
+def _negate_y_in_geometry(text: str, head: str = "") -> str:
+    """Mirror Y across X-axis inside one geometry subform's text.
+
+    Negates Y in (at X Y [R]), (xy X Y), (start X Y), (end X Y),
+    (center X Y), (mid X Y).
+
+    For ``pad`` subforms specifically, pad rotation R in ``(at X Y R)`` is
+    also negated (KiCad's pad-flip semantics: R' = -R). For other geometry
+    forms (fp_line/fp_arc/fp_circle/fp_poly/fp_rect), any third numeric in
+    ``(at ...)`` is left untouched.
+    """
+    at_pat = re.compile(r"\(at\s+(-?[\d.]+)\s+(-?[\d.]+)((?:\s+-?[\d.]+)?)\s*\)")
+
+    is_pad = head == "pad"
+
+    def _sub_at(m: re.Match) -> str:
         x = float(m.group(1))
-        y = float(m.group(2))
+        y = -float(m.group(2))
         rest = m.group(3).strip()
-        ny = -y
         if rest:
-            return f"(at {_fmt_coord(x)} {_fmt_coord(ny)} {rest})"
-        return f"(at {_fmt_coord(x)} {_fmt_coord(ny)})"
+            if is_pad:
+                # Negate the pad rotation alongside Y mirroring.
+                rot = -float(rest)
+                return f"(at {_fmt_coord(x)} {_fmt_coord(y)} {_fmt_coord(rot)})"
+            return f"(at {_fmt_coord(x)} {_fmt_coord(y)} {rest})"
+        return f"(at {_fmt_coord(x)} {_fmt_coord(y)})"
 
-    return pat.sub(_sub, block)
+    text = at_pat.sub(_sub_at, text)
 
+    xy_pat = re.compile(r"\(xy\s+(-?[\d.]+)\s+(-?[\d.]+)\s*\)")
 
-def _negate_y_in_xy_lists(block: str) -> str:
-    """Mirror Y across X axis inside ``(xy X Y)`` forms used by fp_poly etc."""
-    pat = re.compile(r"\(xy\s+(-?[\d.]+)\s+(-?[\d.]+)\s*\)")
-
-    def _sub(m: re.Match) -> str:
+    def _sub_xy(m: re.Match) -> str:
         x = float(m.group(1))
         y = -float(m.group(2))
         return f"(xy {_fmt_coord(x)} {_fmt_coord(y)})"
 
-    return pat.sub(_sub, block)
+    text = xy_pat.sub(_sub_xy, text)
 
+    se_pat = re.compile(r"\((start|end|center|mid)\s+(-?[\d.]+)\s+(-?[\d.]+)\s*\)")
 
-def _negate_y_in_start_end(block: str) -> str:
-    """Mirror Y in (start X Y) / (end X Y) / (center X Y) / (mid X Y) forms."""
-    pat = re.compile(
-        r"\((start|end|center|mid)\s+(-?[\d.]+)\s+(-?[\d.]+)\s*\)"
-    )
-
-    def _sub(m: re.Match) -> str:
+    def _sub_se(m: re.Match) -> str:
         tok = m.group(1)
         x = float(m.group(2))
         y = -float(m.group(3))
         return f"({tok} {_fmt_coord(x)} {_fmt_coord(y)})"
 
-    return pat.sub(_sub, block)
+    return se_pat.sub(_sub_se, text)
+
+
+def _mirror_geometry_subforms(block: str) -> str:
+    """Walk top-level subforms of the footprint and Y-mirror geometry forms
+    only. Property/fp_text/footprint-origin (at) are left alone.
+    """
+    body_start = _footprint_head_end(block)
+    spans = list(_iter_subforms(block, body_start))
+    out: list[str] = [block[:body_start]]
+    cursor = body_start
+    for head, open_idx, end_idx in spans:
+        out.append(block[cursor:open_idx])
+        sub = block[open_idx:end_idx]
+        if head in _GEOMETRY_HEADS:
+            sub = _negate_y_in_geometry(sub, head)
+        out.append(sub)
+        cursor = end_idx
+    out.append(block[cursor:])
+    return "".join(out)
 
 
 _SIDE_TO_CU = {"front": "F.Cu", "back": "B.Cu"}
@@ -480,20 +603,21 @@ def move_footprint_layer(
     new_y = float(at[1]) if at is not None else old_y
     new_rot = float(rotation) if rotation is not None else old_rot
 
-    # Step 1+2: swap all F.* <-> B.* layer references inside the block. This
-    # also rewrites the footprint's own (layer "...") because it's the first
-    # quoted F./B. layer string we encounter.
+    # Step 1+2: swap F.* <-> B.* layer tokens, but only inside (layer ...)
+    # and (layers ...) S-expressions — never in string literals or property
+    # text.
     new_block = _flip_layer_strings_in_block(block)
 
-    # Step 3: mirror Y of geometry (skip first (at) — that's the origin).
-    new_block = _negate_y_in_at_lists(new_block, skip_first=True)
-    new_block = _negate_y_in_xy_lists(new_block)
-    new_block = _negate_y_in_start_end(new_block)
+    # Step 3: mirror Y of geometry subforms only (fp_line/fp_arc/fp_circle/
+    # fp_poly/fp_rect/pad). KiCad rotates (property ...) and (fp_text ...)
+    # itself when the side flips, so we must NOT touch them — doing so would
+    # corrupt user-positioned Reference/Value/property text on a single flip.
+    new_block = _mirror_geometry_subforms(new_block)
 
-    # Step 4: rewrite footprint origin (the first (at ...)). Always emit the
-    # 3-arg form when a flip happens to make the rotation explicit.
-    sym_at_re = re.compile(r"\(at\s+-?[\d.]+\s+-?[\d.]+(?:\s+-?[\d.]+)?\s*\)")
-    m_at = sym_at_re.search(new_block)
+    # Step 4: rewrite footprint origin — anchored to the FIRST top-level
+    # (at ...) child of the footprint form. Always emit the 3-arg form when a
+    # flip happens to make the rotation explicit.
+    m_at = _find_first_top_at(new_block)
     if not m_at:
         raise ValueError("footprint (at ...) not found after layer flip")
     new_at = f"(at {_fmt_coord(new_x)} {_fmt_coord(new_y)} {_fmt_coord(new_rot)})"
@@ -536,11 +660,25 @@ def move_footprint_layer(
 
 import hashlib
 import re as _re
+import uuid as _uuid
 
 STAGING_ORIGIN_X = 200.0
 STAGING_ORIGIN_Y = 200.0
 STAGING_PITCH = 5.0
 STAGING_COLS = 20
+
+
+def _same_file(a: Path, b: Path) -> bool:
+    """Robust same-file check across case-sensitive / case-insensitive
+    filesystems. Falls back to ``Path.resolve()`` equality when either path
+    does not exist or ``os.path.samefile`` raises.
+    """
+    try:
+        if a.exists() and b.exists() and os.path.samefile(a, b):
+            return True
+    except OSError:
+        pass
+    return a.resolve() == b.resolve()
 
 
 def _staging_xy(index: int) -> tuple[float, float]:
@@ -552,10 +690,13 @@ def _staging_xy(index: int) -> tuple[float, float]:
 
 
 def _det_uuid(seed: str) -> str:
-    """Deterministic UUIDv4-shaped string derived from a seed."""
-    h = hashlib.md5(seed.encode("utf-8")).hexdigest()
-    # Force version 4 / variant bits to keep KiCad happy.
-    return f"{h[0:8]}-{h[8:12]}-4{h[13:16]}-8{h[17:20]}-{h[20:32]}"
+    """Deterministic RFC-4122 v4 UUID derived from a seed.
+
+    Uses md5(seed) as the 16-byte payload and lets ``uuid.UUID(bytes=...,
+    version=4)`` set the version (0x40) and variant (0x80) bits correctly.
+    """
+    digest = hashlib.md5(seed.encode("utf-8")).digest()
+    return str(_uuid.UUID(bytes=digest, version=4))
 
 
 def _ref_sort_key(ref: str) -> tuple[str, int, str]:
@@ -796,17 +937,23 @@ def import_footprints(
     diff = _diff(text, new_text, pcb_path)
 
     target = Path(output_path) if output_path is not None else pcb_path
+    changed = text != new_text
     wrote = False
+    # Write contract:
+    #   - dry_run -> never write.
+    #   - in-place (output_path is None or == pcb_path) -> write iff changed.
+    #   - distinct output_path -> always write (caller asked for the copy),
+    #     but ``changed`` still reflects whether content actually differs.
     if not dry_run:
-        if output_path is not None:
-            # Output mode: write to output_path, never touch pcb_path.
+        in_place = output_path is None or _same_file(target, pcb_path)
+        if in_place:
+            if changed:
+                pcb_path.write_text(new_text, encoding="utf-8")
+                wrote = True
+        else:
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(new_text, encoding="utf-8")
             wrote = True
-        else:
-            if text != new_text:
-                pcb_path.write_text(new_text, encoding="utf-8")
-                wrote = True
 
     # Parity check (post-import view): compare schematic refs vs. resulting
     # footprint refs on the target board.

@@ -99,7 +99,8 @@ def _read_fp_lib_table(path: Path) -> dict[str, str]:
 
 
 def _expand_uri(uri: str, project_root: Path) -> str:
-    s = uri.replace("${KIPRJMOD}", str(project_root))
+    abs_root = project_root.resolve() if isinstance(project_root, Path) else Path(os.path.abspath(project_root))
+    s = uri.replace("${KIPRJMOD}", str(abs_root))
     fp_dir = os.environ.get("KICAD10_FOOTPRINT_DIR", KICAD10_FOOTPRINT_DIR_DEFAULT)
     s = s.replace("${KICAD10_FOOTPRINT_DIR}", fp_dir)
     s = s.replace("${KICAD9_FOOTPRINT_DIR}", fp_dir)
@@ -117,10 +118,9 @@ def load_fp_lib_table(project_dir: Path) -> dict[str, Path]:
     merged: dict[str, str] = {}
     g = _read_fp_lib_table(KICAD10_GLOBAL_FP_LIB_TABLE)
     merged.update(g)
-    # If the global table is just a pointer to the stock template, expand it.
+    # If the user's global table is missing or empty, fall back to the stock template.
     stock_template = Path("/Applications/KiCad/KiCad.app/Contents/SharedSupport/template/fp-lib-table")
-    if stock_template.exists() and "KiCad" in g:
-        merged.pop("KiCad", None)
+    if stock_template.exists() and not g:
         merged.update(_read_fp_lib_table(stock_template))
     proj = _read_fp_lib_table(project_dir / "fp-lib-table")
     merged.update(proj)

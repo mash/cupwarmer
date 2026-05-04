@@ -3,7 +3,7 @@
 Mirrors ``sch_query.py`` style: each ``query_*`` returns plain dict/list
 suitable for ``json.dumps``. Never mutates the file.
 
-Subcommand mapping (see plan ``20260502-kicad-pcb-cli-tool.md``):
+Subcommand mapping (see plan ``202605021336-kicad-pcb-cli-tool.md``):
 
     pcb query list <element>       -> query_list
     pcb query footprint <REF>      -> query_footprint
@@ -85,6 +85,12 @@ def _fp_to_abs(fp, lx: float, ly: float) -> tuple[float, float]:
     if fp.position is None:
         return (lx, ly)
     rot = float(fp.position.angle or 0)
+    # KiCad mirrors back-side footprint geometry across the X axis: local
+    # pad/graphic Y is negated before rotation/translation when fp.layer is
+    # a back layer (e.g. "B.Cu"). Front layers are unchanged.
+    layer = getattr(fp, "layer", None) or ""
+    if layer.startswith("B."):
+        ly = -ly
     rx, ry = _rotate(lx, ly, rot)
     # KiCad stores PCB Y-down; rotation in kiutils-stored angle matches the
     # native footprint orientation, so a simple translate after rotation is

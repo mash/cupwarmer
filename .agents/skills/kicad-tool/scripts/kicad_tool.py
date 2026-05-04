@@ -704,15 +704,28 @@ def _drc_violation_count(report_path: Path) -> int | None:
         text = report_path.read_text()
     except OSError:
         return None
-    # kicad-cli emits "** Found N DRC violations **" / similar.
-    m = re.search(r"Found\s+(\d+)\s+DRC\s+violations", text)
+    # KiCad 10 canonical combined form:
+    #   "Found N violations, M unconnected items"
+    m_combined = re.search(
+        r"Found\s+(\d+)\s+violations?,\s*(\d+)\s+unconnected\s+items?",
+        text,
+    )
+    if m_combined:
+        return int(m_combined.group(1)) + int(m_combined.group(2))
+    # Older split form: "Found N DRC violations" + "Found N unconnected pads/items".
+    found_any = False
+    total = 0
+    m = re.search(r"Found\s+(\d+)\s+DRC\s+violations?", text)
     if m:
-        n = int(m.group(1))
-        m2 = re.search(r"Found\s+(\d+)\s+unconnected", text)
-        if m2:
-            n += int(m2.group(1))
-        return n
-    # Fallback: treat the report as parseable if it has a trailing summary line.
+        found_any = True
+        total += int(m.group(1))
+    m2 = re.search(r"Found\s+(\d+)\s+unconnected", text)
+    if m2:
+        found_any = True
+        total += int(m2.group(1))
+    if found_any:
+        return total
+    # Fallback: treat the report as parseable if it has any "Found" summary line.
     if "Found" in text:
         return 0
     return None
@@ -735,14 +748,12 @@ def _run_pcb_drc(board: Path, report: Path) -> dict[str, Any]:
         stderr=subprocess.PIPE,
     )
     violations = _drc_violation_count(report)
-    crashed = False
-    if proc.returncode < 0:
-        crashed = True  # killed by a signal
-    if violations is None and proc.returncode != 0:
-        # Non-zero exit AND no parseable report: treat as a crash / missing
-        # report rather than silently passing.
-        crashed = True
-    status = "crashed" if crashed else ("violations" if (violations or 0) > 0 else "clean")
+    # Crashed iff killed by a signal, or the report is missing/unparseable.
+    # A nonzero returncode alone is expected with --exit-code-violations when
+    # violations > 0, so we rely on the parsed count for the clean/violations
+    # split rather than the exit code.
+    crashed = proc.returncode < 0 or violations is None
+    status = "crashed" if crashed else ("violations" if violations > 0 else "clean")
     return {
         "returncode": proc.returncode,
         "stdout": proc.stdout,
