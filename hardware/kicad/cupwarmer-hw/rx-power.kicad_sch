@@ -3588,7 +3588,7 @@
 				)
 			)
 		)
-		(property "Value" "10uF/25V"
+		(property "Value" "10uF"
 			(at 207.9506 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3824,7 +3824,7 @@
 				)
 			)
 		)
-		(property "Value" "10uF/25V"
+		(property "Value" "10uF"
 			(at 200.406 113.03 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6888,7 +6888,7 @@
 				)
 			)
 		)
-		(property "Value" "10uF/25V"
+		(property "Value" "10uF"
 			(at 215.5706 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7478,7 +7478,7 @@
 				)
 			)
 		)
-		(property "Value" "10uF/25V"
+		(property "Value" "10uF"
 			(at 207.95 113.03 0)
 			(show_name no)
 			(do_not_autoplace no)
