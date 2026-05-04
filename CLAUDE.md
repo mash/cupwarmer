@@ -15,6 +15,12 @@
 - If you need a before/after pair, two stable files is the cap (e.g. `tmp/score-pre.json`, `tmp/score-post.json`) — not a sequence per iteration.
 - Same for one-shot inputs to `git commit -F` / `gh pr create --body-file`: reuse `tmp/commit-msg.txt` / `tmp/pr-body.txt` rather than minting new names.
 
+## Reference material (datasheets, PDFs, source data)
+
+- PDFs, datasheets, and other relevant source data for the project are stored in **`./wiki/`**.
+- Search there first before fetching from the web or asking the user — the part/spec we need is likely already saved.
+- Before reading from or writing to `./wiki/`, read **`./wiki/README.md`** to understand the directory's conventions and index.
+
 ## Task management
 
 - Tasks for this project live in the Notion "cupwarmer" page: https://www.notion.so/3569b43540b180f2a55ac06afaac2cee

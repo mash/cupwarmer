@@ -328,7 +328,8 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - `BOOT1/BOOT2` 各 `47nF` (C5/C6) → **AC1/AC2 に接続**（ブートストラップ）
 - `VAA` `4.7uF` (C7) + `NTC → VAA 10k` pull-up (R7)
 - `VDD` `1uF` (C8) + HF bypass `100nF` (C4)
-- `VRECT` `10uF` (C9)
+- `VRECT` バルク+HF: `10uF×3` (C9, C20, C21) + `100nF` HF (C22) + `SMBJ18A` TVS (Z4) — STEVAL-WLC38RX UM3154 §9.1.3 / Figure 48 を踏襲
+- `VOUT` バルク+HF: `10uF×2` (C2, C23) + `100nF` HF (C24) + `SMBJ15A` TVS (Z3) — STEVAL-WLC38RX を踏襲（旧 C3 1uF は C24 100nF に置換）
 - `IEXT` clamp: `RCL 300R` (R4) → **VRECT** 接続（OVP クランプ用、IEXT 内部スイッチ経由）
 - `AC1/AC2` ESD: `SMF13A` (Z1/Z2) 各 `GND` 直結
 - `Cs` 系列共振 `100nF×5` (C1) + **`Cd` 並列共振 `3.3nF` (C15)**
@@ -341,7 +342,9 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - `VOUT` → heater-control シートへ
 - ヒーター gate 分圧: R1 = 10k (VOUT_12V → Q1.G), R2 = 10k (Q1.G → GND) で VGS ≈ 6V
 - F1: `KSD9700-70/5JSB/080C` を `heater-control.kicad_sch` / BOM に反映済み。トッププレート裏面に密着固定し、TH1/TH2/F1 open/reset の差は熱試験で確認する
-- VOUT OVP: `Z3 = Littelfuse SMBJ15A` を第一候補にする。`VOUT_12V → Z3 cathode`, `Z3 anode → SYS_GND` の一方向 TVS とし、VOUT 出口近傍に配置する
+- OVP TVS:
+  - `Z3 = Littelfuse SMBJ15A`（VOUT_12V → cathode、anode → SYS_GND、VR=15V）。VOUT 出口近傍に配置
+  - `Z4 = SMBJ18A`（VRECT → cathode、anode → SYS_GND、VR=18V）。VRECT 通常域 13–15V でリーク電流が無視できるよう VR=18V を選定し、VBR≈20V / VC=29.2V@20.55A で VRECT 25V 定格コンデンサより低い電圧で clamp する。U1 近傍 VRECT バルク帯に配置
 - LED: D1（給電中インジ、VOUT_12V → R10(3k) → D1 → GND）
 - GPIO0 LED: D2/R11（RX_VAA → R11(1k) → D2 → GPIO0、GPIO0 は NVM 設定前提の optional indicator）
 

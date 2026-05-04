@@ -116,12 +116,14 @@ def load_fp_lib_table(project_dir: Path) -> dict[str, Path]:
     Project table overrides the global table on collision.
     """
     merged: dict[str, str] = {}
+    # Always seed from stock template so system libraries (Capacitor_SMD,
+    # Resistor_SMD, ...) resolve even when the user's global fp-lib-table
+    # only contains a `(type "Table")` indirection back to the stock table.
+    stock_template = Path("/Applications/KiCad/KiCad.app/Contents/SharedSupport/template/fp-lib-table")
+    if stock_template.exists():
+        merged.update(_read_fp_lib_table(stock_template))
     g = _read_fp_lib_table(KICAD10_GLOBAL_FP_LIB_TABLE)
     merged.update(g)
-    # If the user's global table is missing or empty, fall back to the stock template.
-    stock_template = Path("/Applications/KiCad/KiCad.app/Contents/SharedSupport/template/fp-lib-table")
-    if stock_template.exists() and not g:
-        merged.update(_read_fp_lib_table(stock_template))
     proj = _read_fp_lib_table(project_dir / "fp-lib-table")
     merged.update(proj)
     return {name: Path(_expand_uri(uri, project_dir)) for name, uri in merged.items()}

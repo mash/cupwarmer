@@ -1,41 +1,45 @@
-ref,category,part,manufacturer,mpn,status,notes
-U1,Qi receiver IC,15W wireless power receiver,STMicroelectronics,STWLC38JRM,selected,WLCSP40 0.4mm pitch outsourced assembly
-L1,receiver coil,8uH Qi RX coil,Luxshare-ICT,LD81FP008-1H,selected,per STEVAL-WLC38RX eval board DCR=190mOhm
-SHIELD1,ferrite sheet,flexible ferrite shield,TBD,TBD,TBD,coil backing shield
-C1-C19,resonant capacitor,100nF C0G/NP0 50V,TBD,TBD,TBD,5 parallel resonant capacitors per DS14078 ref BOM
-C15,resonant capacitor,3.3nF/50V ceramic,TBD,TBD,TBD,Cd parallel resonant capacitor per DS14078 reference
-C2,output bulk,10uF/25V X5R,TBD,TBD,TBD,VOUT bulk decoupling
-C3,output HF bypass,1uF/25V X7R,TBD,TBD,TBD,VOUT high-frequency bypass
-Z1,AC ESD TVS,unidirectional TVS diode 13V,TBD,SMF13A,TBD,AC1 ESD clamp to SYS_GND per DS14078 reference
-Z2,AC ESD TVS,unidirectional TVS diode 13V,TBD,SMF13A,TBD,AC2 ESD clamp to SYS_GND per DS14078 reference
-Z3,VOUT TVS,unidirectional TVS diode SMB 15V,Littelfuse,SMBJ15A,selected,"VOUT_12V transient clamp to SYS_GND; VR=15V VBR=16.7-18.5V VC=24.4V@24.6A; 600W 10/1000us"
-C4,VDD bypass,100nF ceramic,TBD,TBD,TBD,VDD high-frequency bypass close to U1
-Q1,heater switch,N-MOSFET 30V 5.8A SOT-23,Shenzhen Hottech Electronics,AO3400,selected,"Rds(on)<=28mOhm@10V; SOT-23 pinout 1=G 2=S 3=D; gate driven from VOUT 12V"
-R1,gate divider top,10k resistor,TBD,TBD,TBD,VOUT_12V -> Q1.G; with R2 forms 10k/10k divider for VGS~=6V
-R2,gate divider bottom,10k resistor,TBD,TBD,TBD,Q1.G -> SYS_GND; with R1 forms 10k/10k divider for VGS~=6V
-R3,current sense / jumper,0R jumper or 0.05R current sense resistor,TBD,TBD,selected,"v1 normal build: fit 0R so Q1 source returns to SYS_GND; substitute 0.05R only for measured bring-up"
-R4,IEXT clamp resistor,300R resistor,TBD,TBD,TBD,IEXT clamp path resistor to VRECT per DS14078 reference
-TH1,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,top plate temperature monitor node NTC_TOP
-TH2,temperature sensor,10k NTC thermistor,TBD,TBD,TBD,board hotspot temperature near Qi coil; ties to RX_NTC for STWLC38 internal OTP
-F1,thermostat,NC auto-reset thermostat 70C,Xucheng Elec,KSD9700-70/5JSB/080C,selected,"independent thermal protection; open 70+/-5C reset 50+/-10C; AC250V 5A resistive; leaded 80mm wires; mount to underside of top plate"
-H1,heater solder pads,external flexible heater / F1 harness pads,TBD,TBD,TBD,"v1 uses large solder pads / wire pads for external 15 ohm heater and F1 series assembly; no board connector"
-J1,service header,I2C service header,TBD,TBD,TBD,"bring-up and configuration access; VREF=RX_VAA 2.5V required; do not connect fixed 3.3V pull-ups directly"
-J2,thermal monitor header,board-to-wire pads or connector,TBD,TBD,TBD,bring-up header for NTC_TOP and RX_NTC monitor taps
-J3,status monitor header,board-to-wire pads or connector,TBD,TBD,TBD,bring-up header for RX_INTB and I_HEATER_MON
-C5,bootstrap capacitor,47nF C0G/NP0,TBD,TBD,TBD,BOOT1 decoupling close to U1
-C6,bootstrap capacitor,47nF C0G/NP0,TBD,TBD,TBD,BOOT2 decoupling close to U1
-C7,supply decoupling,4.7uF ceramic,TBD,TBD,TBD,VAA analog supply decoupling
-C8,supply decoupling,1uF ceramic,TBD,TBD,TBD,VDD digital supply decoupling
-C9,rectifier decoupling,10uF ceramic,TBD,TBD,TBD,VRECT rectifier decoupling close to U1
-R5,I2C pull-up,10k resistor,TBD,TBD,TBD,SCL pull-up to RX_VAA 2.5V for service header
-R6,I2C pull-up,10k resistor,TBD,TBD,TBD,SDA pull-up to RX_VAA 2.5V for service header
-R7,NTC pull-up,10k resistor,TBD,TBD,TBD,RX_NTC -> RX_VAA pull-up; forms divider with TH2 (NTC_B) at ~RX_VAA/2 (25C)
-R8,NTC pull-up,10k resistor,TBD,TBD,TBD,NTC_TOP -> RX_VAA pull-up for external top-plate logging
-R10,LED current limit,3k resistor,TBD,TBD,TBD,D1 power-on indicator current limiting resistor from VOUT_12V
-R11,LED current limit,1k resistor,TBD,TBD,TBD,D2 GPIO0 indicator current limiting resistor from RX_VAA
-D1,power indicator LED,green LED,TBD,TBD,TBD,VOUT_12V power-on indicator
-D2,GPIO0 indicator LED,green LED,TBD,TBD,TBD,optional GPIO0 active-low indicator
-C11,ASK modulation,10nF/50V ceramic,TBD,TBD,TBD,COMA modulation capacitor
-C12,ASK modulation,22nF/50V ceramic,TBD,TBD,TBD,COMB modulation capacitor
-C13,ASK modulation,10nF/50V ceramic,TBD,TBD,TBD,COMA2 modulation capacitor
-C14,ASK modulation,22nF/50V ceramic,TBD,TBD,TBD,COMB2 modulation capacitor
+ref,category,part,manufacturer,mpn,lcsc,status,notes
+U1,Qi receiver IC,15W wireless power receiver,STMicroelectronics,STWLC38JRM,C5267845,selected,"WLCSP40 0.4mm pitch outsourced assembly; JLC stock low (~4) — verify before order"
+L1,receiver coil,8uH Qi RX coil,CND-tek,YX-A11-R351125-G0265,C49297385,selected,"8uH +/-10% @100kHz, 35mm OD ferrite-backed RX module, 11T, 0.25mm*2P litz, 65mm pigtail; DCR/ACR not in DS, measure on bring-up; substitutes Luxshare LD81FP008-1H from STEVAL-WLC38RX"
+SHIELD1,ferrite sheet,flexible ferrite shield,TBD,TBD,,mechanical,"coil backing shield; mechanical part, no JLC SMT placement; source separately (e.g. TDK IFL10, KEMET FLR-S, generic Qi shield)"
+"C1,C16,C17,C18,C19",resonant capacitor,100nF 50V X7R,Wuerth Elektronik,885012206095,C6715111,selected,"Cs 5x parallel resonant caps; 100nF 50V X7R +/-10% 0603; matches STEVAL-WLC38RX reference BOM exactly; JLC ext 607 stock (verify before high-volume order)"
+C15,resonant capacitor,3.3nF/50V ceramic,Walsin,0603N332J500CT,C152910,selected,"Cd parallel resonant cap; 3.3nF 50V NP0 +/-5% 0603; JLC ext 32k stock"
+C2,output bulk,10uF/35V X5R,Murata,GRM188R6YA106MA73D,C194427,selected,"VOUT bulk decoupling; matches STEVAL-WLC38RX (CRECT/COUT family); 10uF 35V X5R 0603"
+Z1,AC ESD TVS,unidirectional TVS diode 13V,Shandong Jingdao,SMF13A,C353315,selected,"AC1 ESD clamp to SYS_GND; SOD-123FL 13V 15.9V 200W; JLC ext 115k stock"
+Z2,AC ESD TVS,unidirectional TVS diode 13V,Shandong Jingdao,SMF13A,C353315,selected,"AC2 ESD clamp to SYS_GND; SOD-123FL 13V 15.9V 200W; JLC ext 115k stock"
+Z3,VOUT TVS,unidirectional TVS diode SMB 15V,Littelfuse,SMBJ15A,C83846,selected,"VOUT_12V transient clamp to SYS_GND; VR=15V VBR=16.7-18.5V VC=24.4V@24.6A; 600W 10/1000us"
+C4,VDD bypass,100nF 50V X7R,Wuerth Elektronik,885012206095,C6715111,selected,"VDD HF bypass close to U1; matches STEVAL-WLC38RX (100nF family); 100nF 50V X7R 0603"
+Q1,heater switch,N-MOSFET 30V 5.8A SOT-23,Shenzhen Hottech Electronics,AO3400,C181090,selected,"Rds(on)<=28mOhm@10V; SOT-23 pinout 1=G 2=S 3=D; gate driven from VOUT 12V"
+R1,gate divider top,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,VOUT_12V -> Q1.G; with R2 forms 10k/10k divider for VGS~=6V
+R2,gate divider bottom,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,Q1.G -> SYS_GND; with R1 forms 10k/10k divider for VGS~=6V
+R3,current sense / jumper,0R jumper or 0.05R current sense resistor,UNI-ROYAL,0603WAF0000T5E,C21189,selected,"v1 normal build: fit 0R so Q1 source returns to SYS_GND (0603 jumper); substitute 0.05R only for measured bring-up"
+R4,IEXT clamp resistor,300R resistor,UNI-ROYAL,0603WAF3000T5E,C23025,selected,"IEXT clamp path resistor to VRECT per DS14078 reference; 300Ω 0603 1% basic"
+TH1,temperature sensor,10k NTC thermistor,KEXIN,KNTC0603/10KF3950,C2892547,selected,"NTC_TOP node; 10kΩ 0603 NTC B=3950 ±1%"
+TH2,temperature sensor,10k NTC thermistor,KEXIN,KNTC0603/10KF3950,C2892547,selected,"RX_NTC for STWLC38 internal OTP; 10kΩ 0603 NTC B=3950 ±1%; place near Qi coil hotspot"
+F1,thermostat,NC auto-reset thermostat 70C,Xucheng Elec,KSD9700-70/5JSB/080C,C156512,selected,"independent thermal protection; open 70+/-5C reset 50+/-10C; AC250V 5A resistive; leaded 80mm wires; mount to underside of top plate"
+H1,heater solder pads,external flexible heater / F1 harness pads,N/A,N/A,,board-feature,"v1 uses large solder pads / wire pads for external 15 ohm heater and F1 series assembly; no board connector; PCB feature only"
+J1,service header,I2C service header 1x4 2.54mm,Boom Precision,PZ254V-11-04P,C2691448,selected,"bring-up and configuration access; 1x4 2.54mm THT pin header; VREF=RX_VAA 2.5V required; do not connect fixed 3.3V pull-ups directly"
+J2,thermal monitor header,1x2 2.54mm pin header,Boom Precision,PZ254V-11-02P,C492401,selected,"bring-up header for NTC_TOP and RX_NTC monitor taps; 1x2 2.54mm THT"
+J3,status monitor header,1x2 2.54mm pin header,Boom Precision,PZ254V-11-02P,C492401,selected,"bring-up header for RX_INTB and I_HEATER_MON; 1x2 2.54mm THT"
+C5,bootstrap capacitor,47nF X7R,Samsung,CL10B473KB8NNNC,C1622,selected,"BOOT1 decoupling close to U1; 47nF 50V X7R 0603 basic (C0G 47nF 0603 unavailable)"
+C6,bootstrap capacitor,47nF X7R,Samsung,CL10B473KB8NNNC,C1622,selected,"BOOT2 decoupling close to U1; 47nF 50V X7R 0603 basic (C0G 47nF 0603 unavailable)"
+C7,supply decoupling,4.7uF/25V X5R,Murata,GRM188R61E475KE11D,C90057,selected,"VAA analog supply decoupling; matches STEVAL-WLC38RX exactly; 4.7uF 25V X5R 0603"
+C8,supply decoupling,1uF ceramic,Samsung,CL10A105KB8NNNC,C15849,selected,"VDD digital supply decoupling; 1uF 50V X5R 0603 basic (same as C3)"
+C9,rectifier decoupling,10uF/35V X5R,Murata,GRM188R6YA106MA73D,C194427,selected,"VRECT rectifier decoupling close to U1; matches STEVAL-WLC38RX (CRECT/COUT family); 10uF 35V X5R 0603 (same as C2)"
+R5,I2C pull-up,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,SCL pull-up to RX_VAA 2.5V for service header
+R6,I2C pull-up,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,SDA pull-up to RX_VAA 2.5V for service header
+R7,NTC pull-up,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,RX_NTC -> RX_VAA pull-up; forms divider with TH2 (NTC_B) at ~RX_VAA/2 (25C)
+R8,NTC pull-up,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,NTC_TOP -> RX_VAA pull-up for external top-plate logging
+R10,LED current limit,3k resistor,UNI-ROYAL,0603WAF3001T5E,C4211,selected,"D1 power-on indicator current limiting from VOUT_12V; 3kΩ 0603 1% basic"
+R11,LED current limit,1k resistor,UNI-ROYAL,0603WAF1001T5E,C21190,selected,"D2 GPIO0 indicator current limiting from RX_VAA; 1kΩ 0603 1% basic"
+D1,power indicator LED,green LED,XINGLIGHT,XL-1608UGC-04,C965804,selected,"VOUT_12V power-on indicator; 0603 green 525nm 20mA"
+D2,GPIO0 indicator LED,green LED,XINGLIGHT,XL-1608UGC-04,C965804,selected,"optional GPIO0 active-low indicator; 0603 green 525nm 20mA"
+C11,ASK modulation,10nF/50V NP0,YAGEO,CC0603JRNPO9BN103,C389113,selected,"COMA modulation cap; 10nF 50V NP0 +/-5% 0603 ext (NP0 for stable ASK modulation depth)"
+C12,ASK modulation,22nF/50V ceramic,Samsung,CL10B223KB8NNNC,C21122,selected,"COMB modulation cap; 22nF 50V X7R 0603 basic"
+C13,ASK modulation,10nF/50V NP0,YAGEO,CC0603JRNPO9BN103,C389113,selected,"COMA2 modulation cap; 10nF 50V NP0 +/-5% 0603 ext (NP0 for stable ASK modulation depth)"
+C14,ASK modulation,22nF/50V ceramic,Samsung,CL10B223KB8NNNC,C21122,selected,"COMB2 modulation cap; 22nF 50V X7R 0603 basic"
+"C20,C21",rectifier bulk,10uF/35V X5R,Murata,GRM188R6YA106MA73D,C194427,selected,"VRECT additional bulk caps to match STEVAL-WLC38RX (3x10uF + HF + TVS); 10uF 35V X5R 0603"
+C22,rectifier HF bypass,100nF 50V X7R,Wuerth Elektronik,885012206095,C6715111,selected,"VRECT high-frequency decoupling; matches STEVAL-WLC38RX (100nF family); 100nF 50V X7R 0603"
+C23,output bulk,10uF/35V X5R,Murata,GRM188R6YA106MA73D,C194427,selected,"VOUT additional bulk cap to match STEVAL-WLC38RX (2x10uF + HF); 10uF 35V X5R 0603"
+C24,output HF bypass,100nF 50V X7R,Wuerth Elektronik,885012206095,C6715111,selected,"VOUT high-frequency decoupling (replaces C3 1uF); matches STEVAL-WLC38RX (100nF family); 100nF 50V X7R 0603"
+Z4,VRECT TVS,unidirectional TVS diode SMB 18V,hongjiacheng,SMBJ18A,C19077573,selected,"VRECT OVP clamp to SYS_GND; VR=18V VBR~=20V VC=29.2V@20.55A; 600W 10/1000us; preferred basic; pin2 cathode to VRECT pin1 anode to GND"

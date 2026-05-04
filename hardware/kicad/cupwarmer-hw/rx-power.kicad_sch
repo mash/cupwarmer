@@ -1371,6 +1371,42 @@
 		(color 0 0 0 0)
 		(uuid "a2a89b73-bf76-48f6-ac3b-192b68cc6c19")
 	)
+	(junction
+		(at 209.55 87.63)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1cca28c9-79fd-48aa-8d10-1cdb4dcfbf6e")
+	)
+	(junction
+		(at 217.17 87.63)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "63559a33-8cc9-4ddb-9564-e8f9f4d38cf2")
+	)
+	(junction
+		(at 224.79 87.63)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b2f28d63-2c96-466c-8e29-c446dd87a25b")
+	)
+	(junction
+		(at 201.93 87.63)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "64975080-e63c-4c29-a39a-314248ec899b")
+	)
+	(junction
+		(at 222.25 106.68)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ae16c370-c6ec-4228-9aec-bbf985309bca")
+	)
+	(junction
+		(at 214.63 119.38)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c6cf5f64-0fc7-4498-9f20-09f5c2aec5d2")
+	)
 	(no_connect
 		(at 146.05 81.28)
 		(uuid "5d647c08-cfdb-4766-9dbc-789a36568d78")
@@ -2737,6 +2773,126 @@
 		)
 		(uuid "ff280d07-b6f7-4401-b654-4e7e2e999a7a")
 	)
+	(wire
+		(pts
+			(xy 201.93 87.63) (xy 232.41 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92cd0830-44fb-4755-a621-f4c8419730dc")
+	)
+	(wire
+		(pts
+			(xy 209.55 87.63) (xy 209.55 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "da31cb28-4a8a-4bef-9db1-d4eb4530a062")
+	)
+	(wire
+		(pts
+			(xy 217.17 87.63) (xy 217.17 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cba26709-9c6f-455c-8a0f-4e6329023895")
+	)
+	(wire
+		(pts
+			(xy 224.79 87.63) (xy 224.79 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d21f9ae-b07f-4e88-9219-9fc0ac206780")
+	)
+	(wire
+		(pts
+			(xy 232.41 87.63) (xy 232.41 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eaec7e60-52bd-47bb-8223-3de96392f3d7")
+	)
+	(wire
+		(pts
+			(xy 209.55 99.06) (xy 209.55 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "91467eb4-f4a1-4ef1-b08d-9db42a3e562e")
+	)
+	(wire
+		(pts
+			(xy 217.17 99.06) (xy 217.17 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e89e0bdc-eac4-429c-b07e-dbbbc146a606")
+	)
+	(wire
+		(pts
+			(xy 224.79 99.06) (xy 224.79 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f041367-a9b7-4c4f-9c79-77504f1ba0e5")
+	)
+	(wire
+		(pts
+			(xy 232.41 99.06) (xy 232.41 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fec8fa69-d371-4b0d-829c-1820c75be57a")
+	)
+	(wire
+		(pts
+			(xy 222.25 107.95) (xy 222.25 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5697b32d-e879-4133-a116-68327fec6a36")
+	)
+	(wire
+		(pts
+			(xy 222.25 118.11) (xy 222.25 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cec6f511-03c9-418c-8b82-0261ab7d39f9")
+	)
+	(wire
+		(pts
+			(xy 214.63 119.38) (xy 222.25 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8d7da226-0df6-443f-9abc-ce53894441ee")
+	)
 	(global_label "RX_VAA"
 		(shape passive)
 		(at 139.7 142.24 180)
@@ -2749,6 +2905,94 @@
 		(uuid "1ef24b4e-b0c0-47e1-9714-a48eefd820a5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 139.7 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 232.41 101.6 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7a9ff5b4-afa4-4493-971d-f1273d3d9046")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 232.41 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 224.79 101.6 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c6563208-6175-4699-bc35-91398874382d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 224.79 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 217.17 101.6 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4d3b1cd2-29da-4d88-b857-7361dfa9e9b0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 217.17 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 209.55 101.6 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "65b161df-45e9-4d32-afe5-2567668cc07f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 209.55 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3175,6 +3419,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Samsung"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C21122"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CL10B223KB8NNNC"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "163ff0af-d2e8-49a9-9c4b-5777ecb46530")
 		)
@@ -3251,6 +3528,39 @@
 		)
 		(property "Description" "Resonant capacitor Cd (parallel)"
 			(at 85.09 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Walsin"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C152910"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "0603N332J500CT"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3345,6 +3655,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "XINGLIGHT"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C965804"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "XL-1608UGC-04"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "6b948cb0-2bde-4201-9882-f6a49c8602e3")
 		)
@@ -3387,7 +3730,7 @@
 				)
 			)
 		)
-		(property "Value" "LD81FP008-1H 8uH"
+		(property "Value" "YX-A11-R351125-G0265 8uH"
 			(at 50.8 105.41 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3421,6 +3764,39 @@
 		)
 		(property "Description" "Receiver coil per STEVAL-WLC38RX (8uH, DCR 190mR typ)"
 			(at 58.42 105.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "CND-tek"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C49297385"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "YX-A11-R351125-G0265"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3515,6 +3891,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Murata"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C194427"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R6YA106MA73D"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "11111111-aaaa-bbbb-cccc-111111111244")
 		)
@@ -3531,91 +3940,6 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "cupwarmer:PASSIVE_2")
-		(at 214.63 113.03 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "11111111-aaaa-bbbb-cccc-111111111246")
-		(property "Reference" "C3"
-			(at 210.82 111.76 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1uF/25V"
-			(at 218.44 113.792 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 214.63 113.03 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 214.63 113.03 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "High-frequency output capacitor placeholder"
-			(at 214.63 113.03 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "11111111-aaaa-bbbb-cccc-111111111247")
-		)
-		(pin "2"
-			(uuid "11111111-aaaa-bbbb-cccc-111111111248")
-		)
-		(instances
-			(project "rx-power"
-				(path "/11111111-aaaa-bbbb-cccc-111111111111"
-					(reference "C3")
-					(unit 1)
-				)
-			)
-			(project "cupwarmer-hw"
-				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-					(reference "C3")
 					(unit 1)
 				)
 			)
@@ -3676,6 +4000,39 @@
 		)
 		(property "Description" "IEXT clamp resistor placeholder"
 			(at 189.23 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23025"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "0603WAF3000T5E"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3770,6 +4127,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Shandong Jingdao"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C353315"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "SMF13A"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "11111111-aaaa-bbbb-cccc-111111111321")
 		)
@@ -3846,6 +4236,39 @@
 		)
 		(property "Description" "Resonant capacitor, one of five parallel 100nF C0G parts"
 			(at 64.77 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Wuerth Elektronik"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C6715111"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "885012206095"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3940,6 +4363,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Wuerth Elektronik"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C6715111"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "885012206095"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "11111111-aaaa-bbbb-cccc-111111111327")
 		)
@@ -4016,6 +4472,39 @@
 		)
 		(property "Description" "Resonant capacitor, one of five parallel 100nF C0G parts"
 			(at 64.77 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Wuerth Elektronik"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C6715111"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "885012206095"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4110,6 +4599,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Wuerth Elektronik"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C6715111"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "885012206095"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "11111111-aaaa-bbbb-cccc-11111111132e")
 		)
@@ -4195,6 +4717,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Wuerth Elektronik"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C6715111"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "885012206095"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "11111111-aaaa-bbbb-cccc-111111111332")
 		)
@@ -4271,6 +4826,39 @@
 		)
 		(property "Description" "15 W Qi wireless power receiver controller"
 			(at 150.368 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "STMicroelectronics"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C5267845"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "STWLC38JRM"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4479,6 +5067,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Wuerth Elektronik"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C6715111"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "885012206095"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "11111111-aaaa-bbbb-cccc-111111111331")
 		)
@@ -4555,6 +5176,39 @@
 		)
 		(property "Description" "AC2 ESD clamp TVS (uni-directional)"
 			(at 66.04 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Shandong Jingdao"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C353315"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "SMF13A"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4649,6 +5303,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Samsung"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C1622"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CL10B473KB8NNNC"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "22222222-aaaa-bbbb-cccc-300000000011")
 		)
@@ -4725,6 +5412,39 @@
 		)
 		(property "Description" "BOOT2 bootstrap capacitor"
 			(at 96.52 120.65 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Samsung"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C1622"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CL10B473KB8NNNC"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4819,6 +5539,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Murata"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C90057"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R61E475KE11D"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "22222222-aaaa-bbbb-cccc-300000000031")
 		)
@@ -4895,6 +5648,39 @@
 		)
 		(property "Description" "VDD digital supply decoupling"
 			(at 207.01 142.24 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Samsung"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C15849"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CL10A105KB8NNNC"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4989,6 +5775,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Murata"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C194427"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R6YA106MA73D"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "22222222-aaaa-bbbb-cccc-300000000051")
 		)
@@ -5065,6 +5884,39 @@
 		)
 		(property "Description" "I2C SCL pull-up to VAA"
 			(at 158.75 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "0603WAF1002T5E"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5159,6 +6011,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "0603WAF1002T5E"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "22222222-aaaa-bbbb-cccc-300000000071")
 		)
@@ -5235,6 +6120,39 @@
 		)
 		(property "Description" "Power-on indicator LED"
 			(at 229.87 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "XINGLIGHT"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C965804"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "XL-1608UGC-04"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5329,6 +6247,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "0603WAF1002T5E"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "33333333-aaaa-bbbb-cccc-300000000011")
 		)
@@ -5405,6 +6356,39 @@
 		)
 		(property "Description" "ASK modulation capacitor COMA"
 			(at 109.22 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "YAGEO"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C389113"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CC0603JRNPO9BN103"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5499,6 +6483,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Samsung"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C21122"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CL10B223KB8NNNC"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "44444444-aaaa-bbbb-cccc-300000000121")
 		)
@@ -5575,6 +6592,39 @@
 		)
 		(property "Description" "VOUT transient clamp TVS (pin2 cathode to VOUT, pin1 anode to GND)"
 			(at 189.23 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Littelfuse"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C83846"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "SMBJ15A"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5669,6 +6719,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C21190"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "0603WAF1001T5E"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "2cd8f6a4-64ab-45ab-983e-a9509ca13c37")
 		)
@@ -5745,6 +6828,39 @@
 		)
 		(property "Description" "ASK modulation capacitor COMA2"
 			(at 109.22 120.65 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "YAGEO"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C389113"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CC0603JRNPO9BN103"
+			(at 0 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5839,6 +6955,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C4211"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "0603WAF3001T5E"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "f66817ed-b8d3-4f48-a7c1-4abf3eab1019")
 		)
@@ -5855,6 +7004,714 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 209.55 93.98 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "0bf12c5e-3b00-4944-b3d8-303ca389ef07")
+		(property "Reference" "C20"
+			(at 205.74 95.25 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF/25V"
+			(at 213.0306 93.98 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 209.55 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 209.55 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VRECT bulk capacitor"
+			(at 209.55 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C194427"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R6YA106MA73D"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "75e2f4d9-6250-49cb-8134-6ddfcae1ac3a")
+		)
+		(pin "2"
+			(uuid "7d03ef79-8476-4c78-b090-304b5640d66c")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C20")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 217.17 93.98 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "73899e61-8005-4928-b50f-d5c92aaddb72")
+		(property "Reference" "C21"
+			(at 213.36 95.25 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF/25V"
+			(at 220.6506 93.98 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 217.17 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 217.17 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VRECT bulk capacitor"
+			(at 217.17 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C194427"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R6YA106MA73D"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3fff0225-8d36-44a8-9843-f64a33713121")
+		)
+		(pin "2"
+			(uuid "4b1e454b-2f93-49a5-86d4-f7205a21e001")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C21")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 224.79 93.98 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "11823027-aec1-48a1-a0a6-e0b85ce43611")
+		(property "Reference" "C22"
+			(at 220.98 95.25 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 228.2706 93.98 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 224.79 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 224.79 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VRECT HF decoupling"
+			(at 224.79 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Wuerth Elektronik"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C6715111"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "885012206095"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "129e3b61-7ba0-46cd-802b-7a056d2dc042")
+		)
+		(pin "2"
+			(uuid "622cc061-b50e-4f50-b3d0-72be3d00c283")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C22")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 232.41 93.98 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "721f15e8-3fb0-429c-a9aa-e1f010023028")
+		(property "Reference" "Z4"
+			(at 236.22 95.25 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SMBJ18A"
+			(at 228.346 94.234 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_SMD:D_SMB"
+			(at 232.41 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 232.41 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VRECT OVP TVS clamp (~20V breakdown, pin2 cathode to VRECT, pin1 anode to GND)"
+			(at 232.41 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "hongjiacheng"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C19077573"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "SMBJ18A"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "05e21060-5f53-4a1e-9012-b947def04134")
+		)
+		(pin "2"
+			(uuid "34e759ba-eb9c-469f-810f-3c95b30726e3")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "Z4")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "Z4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 214.63 113.03 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ff903581-297c-453d-a740-84160ccdd1d1")
+		(property "Reference" "C23"
+			(at 210.82 111.76 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF/25V"
+			(at 218.44 113.792 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 214.63 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 214.63 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VOUT bulk capacitor"
+			(at 214.63 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C194427"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R6YA106MA73D"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "89193933-aa33-475b-9b4b-f77f797323e2")
+		)
+		(pin "2"
+			(uuid "44a7dacf-89f5-4df0-b25c-e77c47ce79c8")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C23")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 222.25 113.03 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "c2226b56-343f-4887-90ee-b5858fb86c41")
+		(property "Reference" "C24"
+			(at 218.44 111.76 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 226.06 113.792 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 222.25 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 222.25 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VOUT HF decoupling"
+			(at 222.25 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Wuerth Elektronik"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C6715111"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "885012206095"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ede4aebd-597c-4b7b-9a42-7367e72893f7")
+		)
+		(pin "2"
+			(uuid "ab01fa35-5f20-48b1-9e9c-ae42fad1694a")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C24")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C24")
 					(unit 1)
 				)
 			)
