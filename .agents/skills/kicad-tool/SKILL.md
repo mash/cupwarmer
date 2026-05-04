@@ -1,6 +1,6 @@
 ---
 name: kicad-tool
-description: Use the repository-local unified KiCad CLI for schematic rendering, visual inspection/scoring, ERC, netlist export, validation, and PCB DRC. This is the single skill that owns `.agents/skills/kicad-tool/scripts/kicad_tool.py` and its helper modules.
+description: Use the repository-local unified KiCad CLI for schematic rendering, visual inspection/scoring, ERC, netlist export, validation, PCB DRC, PCB query/edit/render, footprint import, and full board validation. This is the single skill that owns `.agents/skills/kicad-tool/scripts/kicad_tool.py` and its helper modules.
 ---
 
 # KiCad Tool
@@ -32,6 +32,9 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py <domain> <command> ...
 | `sch netlist <top>` | Netlist export | `--output <path>` |
 | `sch validate <top>` | erc + netlist + inspect(--sheet) in one call | `--sheet <edited>` |
 | `pcb drc <board>` | PCB DRC | `--report <path>`, `--schematic-parity` |
+| `pcb validate <board> <top.kicad_sch>` | DRC + ref/footprint-lib parity vs schematic | `--save-baseline DIR`, `--baseline DIR` |
+| `pcb render-region <board> <X1,Y1,X2,Y2>` | Cropped PNG of the board (default agent layer set) | `--layers F.Cu,F.SilkS,...`, `--output <path>` |
+| `pcb import-footprints <board> <top.kicad_sch>` | Splice missing schematic footprints into the board on a 5 mm staging grid; never touches existing footprints | `--output <path>`, `--dry-run` |
 
 ### Query
 
@@ -64,6 +67,30 @@ Structural mutations. All take a positional `<schematic.kicad_sch>`, emit JSON b
 | `sch edit label delete <sch> <UUID>` | Delete a label |
 | `sch edit junction add <sch> <X,Y>` | Add a junction |
 | `sch edit junction delete <sch> (--uuid U \| --at X,Y)` | Delete a junction |
+
+### PCB Query
+
+Read-only inspection of a `.kicad_pcb`. All take a positional `<board.kicad_pcb>` and emit JSON.
+
+| Command | Purpose |
+|---|---|
+| `pcb query footprint <board> <REF>` | Position, layer, rotation, properties, locked state, pad summary |
+| `pcb query pad <board> <REF.PAD>` | Absolute pad geometry and net (back-side mirror handled) |
+| `pcb query net <board> <NAME_OR_REF.PAD>` | Members of a net (REF.PAD dispatched only when both ref and pad exist) |
+| `pcb query region <board> <X1,Y1,X2,Y2>` | All footprints/drawings/tracks/vias/zones intersecting the bbox |
+| `pcb query list <board> <KIND>` | Enumerate KIND ∈ footprints/tracks/vias/zones/drawings/nets |
+
+### PCB Edit
+
+Footprint placement mutations. All take a positional `<board.kicad_pcb>`, emit JSON, and support `--dry-run`.
+
+| Command | Purpose |
+|---|---|
+| `pcb edit footprint move <board> <REF> <X,Y> [--rotation R]` | Move/rotate a footprint |
+| `pcb edit footprint move-property <board> <REF> <KEY> <X,Y> [--rotation R]` | Move a footprint property field |
+| `pcb edit footprint move-layer <board> <REF> front\|back [--at X,Y] [--rotation R]` | Flip a footprint to F.Cu / B.Cu (mirrors geometry, preserves property positions) |
+
+Locked footprints are refused. Only the targeted footprint block is rewritten; UUIDs and surrounding formatting are preserved.
 
 ### Validate (with baseline)
 
