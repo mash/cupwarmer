@@ -156,8 +156,8 @@
 		)
 	)
 	(gr_line
-		(start 138 100)
-		(end 137.269841 107.413432)
+		(start 128.0 100.0)
+		(end 127.461988 105.462529)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -166,8 +166,8 @@
 		(uuid "2004231e-4891-4023-b05a-2ae61977cca2")
 	)
 	(gr_line
-		(start 137.269841 107.413432)
-		(end 135.107422 114.54197)
+		(start 127.461988 105.462529)
+		(end 125.868627 110.715136)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -176,8 +176,8 @@
 		(uuid "bc77b4ab-23c4-475b-a418-9235603e7fc8")
 	)
 	(gr_line
-		(start 135.107422 114.54197)
-		(end 131.595845 121.111669)
+		(start 125.868627 110.715136)
+		(end 123.281149 115.555967)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -186,8 +186,8 @@
 		(uuid "996a1aa1-2b2b-4b95-afb1-ea259dcf84e5")
 	)
 	(gr_line
-		(start 131.595845 121.111669)
-		(end 126.870058 126.870058)
+		(start 123.281149 115.555967)
+		(end 119.79899 119.79899)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -196,8 +196,8 @@
 		(uuid "ca3595e5-a53a-4005-b6a7-34b01b6a8c12")
 	)
 	(gr_line
-		(start 126.870058 126.870058)
-		(end 121.111669 131.595845)
+		(start 119.79899 119.79899)
+		(end 115.555967 123.281149)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -206,8 +206,8 @@
 		(uuid "7c852b71-99d5-459f-a58d-58e52ad72676")
 	)
 	(gr_line
-		(start 121.111669 131.595845)
-		(end 114.54197 135.107422)
+		(start 115.555967 123.281149)
+		(end 110.715136 125.868627)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -216,8 +216,8 @@
 		(uuid "8af47e69-d52b-4a9a-b145-c7cb25169fff")
 	)
 	(gr_line
-		(start 114.54197 135.107422)
-		(end 107.413432 137.269841)
+		(start 110.715136 125.868627)
+		(end 105.462529 127.461988)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -226,8 +226,8 @@
 		(uuid "20523acc-a5d6-4782-af5f-9b74f5343b2e")
 	)
 	(gr_line
-		(start 107.413432 137.269841)
-		(end 100 138)
+		(start 105.462529 127.461988)
+		(end 100.0 128.0)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -236,8 +236,8 @@
 		(uuid "452ae30b-96de-4510-9111-11c835b033fc")
 	)
 	(gr_line
-		(start 100 138)
-		(end 92.586568 137.269841)
+		(start 100.0 128.0)
+		(end 94.537471 127.461988)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -246,8 +246,8 @@
 		(uuid "a92fc74b-afcb-44d0-ae77-ab339839bff2")
 	)
 	(gr_line
-		(start 92.586568 137.269841)
-		(end 85.45803 135.107422)
+		(start 94.537471 127.461988)
+		(end 89.284864 125.868627)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -256,8 +256,8 @@
 		(uuid "9a60646b-e2ef-4e02-a185-312737cd5a0c")
 	)
 	(gr_line
-		(start 85.45803 135.107422)
-		(end 78.888331 131.595845)
+		(start 89.284864 125.868627)
+		(end 84.444033 123.281149)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -266,8 +266,8 @@
 		(uuid "2846a2d8-0192-494d-bb6f-a08c7401e8e4")
 	)
 	(gr_line
-		(start 78.888331 131.595845)
-		(end 73.129942 126.870058)
+		(start 84.444033 123.281149)
+		(end 80.20101 119.79899)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -276,8 +276,8 @@
 		(uuid "1513b2ab-46fe-484f-82ca-ec1c49245b60")
 	)
 	(gr_line
-		(start 73.129942 126.870058)
-		(end 68.404155 121.111669)
+		(start 80.20101 119.79899)
+		(end 76.718851 115.555967)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -286,8 +286,8 @@
 		(uuid "8f356060-4bb8-4848-a089-ca8ce6972f8f")
 	)
 	(gr_line
-		(start 68.404155 121.111669)
-		(end 64.892578 114.54197)
+		(start 76.718851 115.555967)
+		(end 74.131373 110.715136)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -296,8 +296,8 @@
 		(uuid "741939bc-f005-4a44-ac01-4d9199b3f685")
 	)
 	(gr_line
-		(start 64.892578 114.54197)
-		(end 62.730159 107.413432)
+		(start 74.131373 110.715136)
+		(end 72.538012 105.462529)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -306,8 +306,8 @@
 		(uuid "547d07aa-164b-488f-9db0-c7281840d215")
 	)
 	(gr_line
-		(start 62.730159 107.413432)
-		(end 62 100)
+		(start 72.538012 105.462529)
+		(end 72.0 100.0)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -316,8 +316,8 @@
 		(uuid "8869c249-0a7d-4257-bb95-313fe171df81")
 	)
 	(gr_line
-		(start 62 100)
-		(end 62.730159 92.586568)
+		(start 72.0 100.0)
+		(end 72.538012 94.537471)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -326,8 +326,8 @@
 		(uuid "fbad158f-cde7-4ada-92f1-ac4c2e1069ed")
 	)
 	(gr_line
-		(start 62.730159 92.586568)
-		(end 64.892578 85.45803)
+		(start 72.538012 94.537471)
+		(end 74.131373 89.284864)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -336,8 +336,8 @@
 		(uuid "9d0348f6-701b-4558-bd4d-f830bd1ff4a1")
 	)
 	(gr_line
-		(start 64.892578 85.45803)
-		(end 68.404155 78.888331)
+		(start 74.131373 89.284864)
+		(end 76.718851 84.444033)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -346,8 +346,8 @@
 		(uuid "6ca08574-89d0-41f9-94bd-759337d95959")
 	)
 	(gr_line
-		(start 68.404155 78.888331)
-		(end 73.129942 73.129942)
+		(start 76.718851 84.444033)
+		(end 80.20101 80.20101)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -356,8 +356,8 @@
 		(uuid "2de2ae2a-2fc9-4e9a-8136-2f86068e46fe")
 	)
 	(gr_line
-		(start 73.129942 73.129942)
-		(end 78.888331 68.404155)
+		(start 80.20101 80.20101)
+		(end 84.444033 76.718851)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -366,8 +366,8 @@
 		(uuid "1b91231f-19a2-4360-9e45-3369cb92cb6a")
 	)
 	(gr_line
-		(start 78.888331 68.404155)
-		(end 85.45803 64.892578)
+		(start 84.444033 76.718851)
+		(end 89.284864 74.131373)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -376,8 +376,8 @@
 		(uuid "3beff9ea-9433-421c-a4eb-2c5c95fa468d")
 	)
 	(gr_line
-		(start 85.45803 64.892578)
-		(end 92.586568 62.730159)
+		(start 89.284864 74.131373)
+		(end 94.537471 72.538012)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -386,8 +386,8 @@
 		(uuid "5b6bb7ea-9c99-4dd0-8efe-678f671758d9")
 	)
 	(gr_line
-		(start 92.586568 62.730159)
-		(end 100 62)
+		(start 94.537471 72.538012)
+		(end 100.0 72.0)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -396,8 +396,8 @@
 		(uuid "9876f0ae-8e31-4eec-8f2f-aae2aea0baea")
 	)
 	(gr_line
-		(start 100 62)
-		(end 107.413432 62.730159)
+		(start 100.0 72.0)
+		(end 105.462529 72.538012)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -406,8 +406,8 @@
 		(uuid "234020ef-2bcb-4567-ace2-69bb1f2356fd")
 	)
 	(gr_line
-		(start 107.413432 62.730159)
-		(end 114.54197 64.892578)
+		(start 105.462529 72.538012)
+		(end 110.715136 74.131373)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -416,8 +416,8 @@
 		(uuid "25084c7b-9cbc-443c-a11e-dc9bf149f32b")
 	)
 	(gr_line
-		(start 114.54197 64.892578)
-		(end 121.111669 68.404155)
+		(start 110.715136 74.131373)
+		(end 115.555967 76.718851)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -426,8 +426,8 @@
 		(uuid "58bddf58-9164-4c93-b088-40e17dcb3612")
 	)
 	(gr_line
-		(start 121.111669 68.404155)
-		(end 126.870058 73.129942)
+		(start 115.555967 76.718851)
+		(end 119.79899 80.20101)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -436,8 +436,8 @@
 		(uuid "c62b4572-b217-4d93-b800-33de2893baa7")
 	)
 	(gr_line
-		(start 126.870058 73.129942)
-		(end 131.595845 78.888331)
+		(start 119.79899 80.20101)
+		(end 123.281149 84.444033)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -446,8 +446,8 @@
 		(uuid "fa53ec6d-7fdf-4b50-8c3b-12d6068b4d39")
 	)
 	(gr_line
-		(start 131.595845 78.888331)
-		(end 135.107422 85.45803)
+		(start 123.281149 84.444033)
+		(end 125.868627 89.284864)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -456,8 +456,8 @@
 		(uuid "a138463f-5a94-46d5-b727-729457c34b1e")
 	)
 	(gr_line
-		(start 135.107422 85.45803)
-		(end 137.269841 92.586568)
+		(start 125.868627 89.284864)
+		(end 127.461988 94.537471)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -466,8 +466,8 @@
 		(uuid "216003ef-52ef-4742-b34a-8aafdd86c3bc")
 	)
 	(gr_line
-		(start 137.269841 92.586568)
-		(end 138 100)
+		(start 127.461988 94.537471)
+		(end 128.0 100.0)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -486,26 +486,6 @@
 			)
 		)
 	)
-	(gr_line
-		(start 100 62)
-		(end 100 138)
-		(stroke
-			(width 0.1)
-			(type dash)
-		)
-		(layer "Dwgs.User")
-		(uuid "aa59c3cb-1fdf-4688-addb-6e8e2f12a000")
-	)
-	(gr_line
-		(start 62 100)
-		(end 138 100)
-		(stroke
-			(width 0.1)
-			(type dash)
-		)
-		(layer "Dwgs.User")
-		(uuid "14cb336d-35d2-4f2d-884c-b1047cd697b7")
-	)
 	(gr_circle
 		(center 100 100)
 		(end 128 100)
@@ -516,28 +496,6 @@
 		(fill no)
 		(layer "Dwgs.User")
 		(uuid "e34aae7c-ff62-4468-bc4b-aefd072b2962")
-	)
-	(gr_circle
-		(center 100 100)
-		(end 134 100)
-		(stroke
-			(width 0.12)
-			(type dash)
-		)
-		(fill no)
-		(layer "Dwgs.User")
-		(uuid "eee5cfd3-4500-4170-be52-37f4128128db")
-	)
-	(gr_circle
-		(center 100 100)
-		(end 136 100)
-		(stroke
-			(width 0.12)
-			(type dot)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "ee4aad3f-0d66-4e3b-888c-a6bf1643c6d7")
 	)
 	(gr_circle
 		(center 100 100)
@@ -624,17 +582,6 @@
 		)
 		(layer "Cmts.User")
 		(uuid "e7126014-bd97-4a6d-b61e-f3a0ce9c8a59")
-	)
-	(gr_text "V1 FLOORPLAN\n76mm circular placeholder\ncenter: coil/ferrite axis"
-		(at 100 65 0)
-		(layer "Cmts.User")
-		(uuid "43186887-db88-425e-af38-0f1611f84120")
-		(effects
-			(font
-				(size 1.5 1.5)
-				(thickness 0.18)
-			)
-		)
 	)
 	(gr_text "COIL ENVELOPE TBD\nref 56mm dia"
 		(at 100 100 0)
