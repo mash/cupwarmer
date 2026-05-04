@@ -15,3 +15,8 @@
 - If you need a before/after pair, two stable files is the cap (e.g. `tmp/score-pre.json`, `tmp/score-post.json`) — not a sequence per iteration.
 - Same for one-shot inputs to `git commit -F` / `gh pr create --body-file`: reuse `tmp/commit-msg.txt` / `tmp/pr-body.txt` rather than minting new names.
 
+## Task management
+
+- Tasks for this project live in the Notion "cupwarmer" page: https://www.notion.so/3569b43540b180f2a55ac06afaac2cee
+- The Tasks database under it (data source `collection://e40439a7-b55e-4247-bb7a-1a6d049f03ef`) is the source of truth for project todos. Add new tasks there with `Project` linked to the cupwarmer page.
+
