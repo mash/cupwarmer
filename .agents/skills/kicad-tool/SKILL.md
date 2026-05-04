@@ -1,11 +1,35 @@
 ---
 name: kicad-tool
-description: Use the repository-local unified KiCad CLI for schematic rendering, visual inspection/scoring, ERC, netlist export, validation, PCB DRC, PCB query/edit/render, footprint import, and full board validation. This is the single skill that owns `.agents/skills/kicad-tool/scripts/kicad_tool.py` and its helper modules.
+description: Use for ANY read or write on `.kicad_sch` / `.kicad_pcb` / `.kicad_pro`. Do NOT `Read`/`cat`/`grep`/`Edit` these files — use `sch query` / `pcb query` (what is REF connected to, its Value/MPN/footprint, where it sits, what's in a region/net) and `sch edit` / `pcb edit` (move/add/delete symbols, wires, labels, junctions; set properties; move footprints). Also: render-region, inspect/score, ERC, netlist, validate (with baseline diff), PCB DRC, footprint import. Missing op → extend this tool, do not fall back to raw file ops.
 ---
 
 # KiCad Tool
 
 Single owner of repository-local KiCad commands. Other skills must call this CLI, never the helper modules.
+
+## When to use (instead of Read/Edit/grep)
+
+`.kicad_sch` / `.kicad_pcb` are huge S-expr files. Raw `Read`/`cat` blows context; raw `Edit` corrupts UUIDs, formatting, and `lib_symbols`. Use this CLI; if the op is missing, extend it.
+
+Reads (use `sch query` / `pcb query`, never `Read`/`cat`/`grep`):
+
+- net of a pin → `sch query pin <sch> REF.PIN --netlist N.json`
+- members of a net → `sch query net <sch> NAME --netlist N.json`
+- properties / placement of a symbol (Value, MPN, LCSC, Footprint, x/y/rot) → `sch query symbol <sch> REF`
+- what's at coords / in a bbox → `sch query region <sch> X1,Y1,X2,Y2`
+- list all of one kind → `sch query list <sch> {symbols,labels,wires,junctions,nets}`
+- lib_symbol pins/units → `sch query lib-symbol <sch> <LIB_ID>`
+- PCB equivalents → `pcb query {footprint,pad,net,region,list}`
+
+Writes (use `sch edit` / `pcb edit`, never `Edit`/`Write`):
+
+- set Value / MPN / LCSC / any property → `sch edit symbol set-property <sch> REF KEY VALUE`
+- move / rotate / delete a symbol → `sch edit symbol {move,delete} ...`
+- wire / label / junction add/delete → `sch edit {wire,label,junction} {add,delete} ...`
+- new pin on a custom symbol → `sch edit symbol add-pin ...`
+- footprint move/flip → `pcb edit footprint {move,move-property,move-layer} ...`
+
+Required args are positional — do not invent `--ref` / `--bbox` / `--symbol`.
 
 ## Entrypoint
 
