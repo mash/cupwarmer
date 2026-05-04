@@ -26,6 +26,11 @@ Repo-root-relative paths. No `2>&1` (stderr breaks JSON). Record `score.total`, 
 
 Greedy "fix highest-priority first" produces myopic rewires that later moves invalidate. Plan the target area with surrounding context first.
 
+0. **Bird's-eye framing — three zoom levels.** One sentence each before clustering:
+   - **Board**: does cleaning *this* sheet now fit the project's critical path, or should it wait?
+   - **Sheet**: what function does the area serve, and will cleaning it leave the rest of the sheet stylistically aligned or force a follow-up pass?
+   - **Area**: what does "done" look like at the bbox (uniform rows / mirror / min-collisions) — not per-issue.
+   Then one non-cleanup alternative the request might really mean (shorten Value text, widen pitch, hide References, restructure rail, *not now*). Surface it before clustering if it could be the better answer — clustering can't recover from solving the wrong problem.
 1. **Target bbox** = user instruction + latest validate JSON, expanded ~one local block.
 2. **Render** to `tmp/cleanup-overview.png` via `sch render-region`. Read alongside JSON.
 3. **Cluster issues** (≤6) by spatial locality + topological coupling (shared symbol/net/pin field).

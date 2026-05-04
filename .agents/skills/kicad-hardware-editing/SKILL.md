@@ -67,7 +67,13 @@ This skill is **stage 1: functional editing**. Visual/score cleanup is stage 2 a
 
 ### 0. Plan and get approval (mandatory)
 
-Before any `sch edit`, state and wait for approval:
+Before the approval plan, **bird's-eye self-check, three zoom levels** — one sentence each (for you; surface anything load-bearing):
+
+- **Board**: does this change fit the project's critical path now, or should it wait?
+- **Sheet**: what function does the region serve, and will the change ripple style-wise into a follow-up pass elsewhere?
+- **Local**: what does the *area* look like when done; what alternative framing might the request really mean (different scope/mechanism — "tighten labels" → "shorten Value text"; "add decoupling" → "consolidate an existing rail").
+
+Then state and wait for approval:
 
 1. **Goal** — what the design should do (design terms, not "add wires").
 2. **Problem** — what's missing/wrong, citing specific symbols/nets/pins (via `sch query`).
