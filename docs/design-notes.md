@@ -409,6 +409,7 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - ~~ST 推奨の完全な最小回路~~ → rx-power に反映済み
 - ~~COMA/COMB 変調キャパシタ~~ → 4 本構成で実装済み (CCOMA1/2, CCOMB1/2)
 - ~~exact coil baseline~~ → v1 は `Luxshare-ICT LD81FP008-1H` + `Cs=100nF×5` + `Cd=3.3nF` を基準にする。ferrite と実機共振値は積層後に実測で確定
+- **Cd (C15) 削除 (2026-05-05)**: UM3154 §9.1.2 で「Cd は省略可、Qi 認証時の特定 TX への後方互換用途のみ」と明記。cupwarmer は Qi 認証取得しない方針なので C15 (3.3 nF NP0 / Walsin 0603N332J500CT) を sch + PCB + BOM から削除。共振点はコイル + Cs (100 nF×5 = 500 nF) ではなく Cs 直列共振 (8 µH × 320 nF = ~99.5 kHz、`C18`/`C19` 修正前提) に依存。Cs/Cd 並列共振の変動要素が一つ減る。
 - ~~heater final resistance~~ → 15Ω 採用（暫定）。熱試験で再調整
 - ~~heater footprint~~ → v1 は大型 solder pads / wire pads。外部 heater/F1 series assembly を手実装し、F1 はトッププレート裏面へ密着固定する
 - ~~cup contact layer material~~ → v1 第一候補はアルミナ充填シリコーンパッド。熱伝導シリコーンシート、グラファイトシート + 薄い絶縁フィルムは比較サンプルとして残す
