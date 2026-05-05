@@ -4609,7 +4609,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 64.77 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -4631,7 +4631,7 @@
 				)
 			)
 		)
-		(property "Description" "Resonant capacitor, one of five parallel 100nF C0G parts"
+		(property "Description" "100nF 50V C0G +/-5%"
 			(at 64.77 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -4642,7 +4642,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Wuerth Elektronik"
+		(property "Manufacturer" "Murata"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -4653,7 +4653,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C6715111"
+		(property "LCSC" "C97946"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -4664,7 +4664,7 @@
 				)
 			)
 		)
-		(property "MPN" "885012206095"
+		(property "MPN" "GRM31C5C1H104JA01L"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -4727,7 +4727,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 64.77 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -4749,7 +4749,7 @@
 				)
 			)
 		)
-		(property "Description" "Resonant capacitor, one of five parallel 100nF C0G parts"
+		(property "Description" "100nF 50V C0G +/-5%"
 			(at 64.77 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -4760,7 +4760,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Wuerth Elektronik"
+		(property "Manufacturer" "Murata"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -4771,7 +4771,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C6715111"
+		(property "LCSC" "C97946"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -4782,7 +4782,7 @@
 				)
 			)
 		)
-		(property "MPN" "885012206095"
+		(property "MPN" "GRM31C5C1H104JA01L"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -5077,7 +5077,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 64.77 86.36 0)
 			(hide yes)
 			(show_name no)
@@ -5099,7 +5099,7 @@
 				)
 			)
 		)
-		(property "Description" "Resonant capacitor, one of five parallel 100nF C0G parts"
+		(property "Description" "100nF 50V C0G +/-5%"
 			(at 64.77 86.36 0)
 			(hide yes)
 			(show_name no)
@@ -5110,7 +5110,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Wuerth Elektronik"
+		(property "Manufacturer" "Murata"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -5121,7 +5121,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C6715111"
+		(property "LCSC" "C97946"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -5132,7 +5132,7 @@
 				)
 			)
 		)
-		(property "MPN" "885012206095"
+		(property "MPN" "GRM31C5C1H104JA01L"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
