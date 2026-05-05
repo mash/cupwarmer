@@ -1,6 +1,6 @@
 ---
 name: electronics-design-principles
-description: Electrical design invariants, placement/partitioning rules, and forbidden patterns for KiCad hardware work in this repo. Consult before moving/rotating components, planning new circuitry, or reviewing a sheet. Editing mechanics live in `kicad-hardware-editing`; validation mechanics live in `kicad-validate`.
+description: Electrical design invariants, placement/partitioning rules, and forbidden patterns for KiCad hardware work in this repo. Consult before moving/rotating components, planning new circuitry, or reviewing a sheet. Editing + validation mechanics live in the `kicad-workflow` skill (kicad-skills plugin); CLI commands live in `kicad-tool`.
 ---
 
 # Electronics Design Principles
@@ -111,4 +111,4 @@ In rough priority order, but always weighed in context:
 - During schematic review (run the invariants checklist).
 - When deciding how to partition a new sheet.
 
-For *how* to encode an edit safely, go to `kicad-hardware-editing`. For *how* to validate after, go to `kicad-validate`.
+For *how* to encode an edit safely and validate after, go to `kicad-workflow` (kicad-skills plugin).

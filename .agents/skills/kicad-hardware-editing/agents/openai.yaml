@@ -1,4 +1,0 @@
-interface:
-  display_name: "KiCad Hardware Editing"
-  short_description: "Workflow for safe KiCad schematic and PCB edits"
-  default_prompt: "Use this skill to edit KiCad schematic, PCB, project, or symbol files under hardware/kicad/cupwarmer-hw while preserving file structure, then use kicad-tool and kicad-validate for checks."

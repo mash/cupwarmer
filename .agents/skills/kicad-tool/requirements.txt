@@ -1,4 +1,0 @@
-# kiutils fork pinned to the KiCad-10 `(net "name")` parsing fix.
-# Install with:
-#   pip install -r .agents/skills/kicad-tool/requirements.txt
-kiutils @ git+https://github.com/mash/kiutils.git@77994e0e65c3d97e3f11910fe3d05d1fc3b06fc7
