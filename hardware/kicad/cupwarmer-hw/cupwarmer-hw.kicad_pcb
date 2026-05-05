@@ -6535,7 +6535,7 @@
 				)
 			)
 		)
-		(property "Value" "NTC 10k B3950"
+		(property "Value" "NTC 100k B4250"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "6d8111b2-2c05-4cef-80b2-f586236acdfb")
