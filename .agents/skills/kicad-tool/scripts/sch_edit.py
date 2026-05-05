@@ -684,16 +684,12 @@ def _wire_endpoints(block: str) -> tuple[tuple[float, float], tuple[float, float
 
 def delete_wire(
     sch_path: str | Path,
-    uuid: str | None = None,
-    pt_from: tuple[float, float] | None = None,
-    pt_to: tuple[float, float] | None = None,
+    uuid: str,
     dry_run: bool = False,
 ) -> dict[str, Any]:
-    """Delete a (wire ...) block by uuid or matching endpoints (order-insensitive)."""
+    """Delete a (wire ...) block by uuid."""
     sch_path = Path(sch_path)
     text = _read(sch_path)
-    if uuid is None and (pt_from is None or pt_to is None):
-        raise ValueError("delete_wire requires either uuid or both pt_from and pt_to")
 
     target: tuple[int, int] | None = None
     matched_uuid: str | None = None
@@ -701,35 +697,14 @@ def delete_wire(
     for open_idx, end_idx in _iter_top_blocks(text, "wire"):
         block = text[open_idx:end_idx]
         wuuid = _block_uuid(block)
-        if uuid is not None and wuuid == uuid:
+        if wuuid == uuid:
             target = (open_idx, end_idx)
             matched_uuid = wuuid
             matched_pts = _wire_endpoints(block)
             break
-        if uuid is None:
-            pts = _wire_endpoints(block)
-            if pts is None:
-                continue
-            (a, b) = pts
-            ok = (
-                _coords_close(a[0], pt_from[0])
-                and _coords_close(a[1], pt_from[1])
-                and _coords_close(b[0], pt_to[0])
-                and _coords_close(b[1], pt_to[1])
-            ) or (
-                _coords_close(a[0], pt_to[0])
-                and _coords_close(a[1], pt_to[1])
-                and _coords_close(b[0], pt_from[0])
-                and _coords_close(b[1], pt_from[1])
-            )
-            if ok:
-                target = (open_idx, end_idx)
-                matched_uuid = wuuid
-                matched_pts = pts
-                break
 
     if target is None:
-        raise ValueError("no matching wire found")
+        raise ValueError(f"no wire with uuid {uuid}")
 
     start, stop = _expand_block_with_indent(text, target[0], target[1])
     new_text = text[:start] + text[stop:]
@@ -1020,14 +995,11 @@ def add_junction(
 
 def delete_junction(
     sch_path: str | Path,
-    uuid: str | None = None,
-    at: tuple[float, float] | None = None,
+    uuid: str,
     dry_run: bool = False,
 ) -> dict[str, Any]:
     sch_path = Path(sch_path)
     text = _read(sch_path)
-    if uuid is None and at is None:
-        raise ValueError("delete_junction requires uuid or at")
 
     target: tuple[int, int] | None = None
     matched_uuid: str | None = None
@@ -1036,20 +1008,14 @@ def delete_junction(
         block = text[open_idx:end_idx]
         juuid = _block_uuid(block)
         jat = _block_at(block)
-        if uuid is not None and juuid == uuid:
+        if juuid == uuid:
             target = (open_idx, end_idx)
             matched_uuid = juuid
             matched_at = jat
             break
-        if uuid is None and at is not None and jat is not None:
-            if _coords_close(jat[0], at[0]) and _coords_close(jat[1], at[1]):
-                target = (open_idx, end_idx)
-                matched_uuid = juuid
-                matched_at = jat
-                break
 
     if target is None:
-        raise ValueError("no matching junction found")
+        raise ValueError(f"no junction with uuid {uuid}")
     start, stop = _expand_block_with_indent(text, target[0], target[1])
     new_text = text[:start] + text[stop:]
     changed = _maybe_write(sch_path, text, new_text, dry_run)

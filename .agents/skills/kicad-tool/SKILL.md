@@ -43,7 +43,7 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py <domain> <command> ...
 
 - `<schematic>` is always the first positional.
 - Required args are positional, in table order. Coordinates are a single `X,Y` (bbox: `X1,Y1,X2,Y2`); rotation is `--rotation R`.
-- `--flag` only for optional knobs, mutex selectors (e.g. `--uuid` vs `--at` for `wire delete`), and the universal `--dry-run` (edits) / `--format {json,text}` (all; default `json`).
+- `--flag` only for optional knobs, mutex selectors (e.g. `--uuid` vs `--at` vs `--through` for `sch query wire`), and the universal `--dry-run` (edits) / `--format {json,text}` (all; default `json`).
 - **Do not invent flags for required args.** `--bbox`, `--ref`, `--symbol` etc. do not exist; bbox/ref/coords are positional.
 
 ## Commands
@@ -87,12 +87,12 @@ Structural mutations. All take a positional `<schematic.kicad_sch>`, emit JSON b
 | `sch edit symbol delete <sch> <REF>` | Delete a symbol by reference; reports connected wires/labels/junctions in `details.connected_taps` but does **not** remove them |
 | `sch edit symbol set-property <sch> <REF> <KEY> <VALUE>` | Set a symbol property value; any key (built-ins or user-defined like `MPN`/`LCSC`/`Manufacturer`) |
 | `sch edit wire add <sch> <X1,Y1> <X2,Y2> [--type solid\|default]` | Add a wire segment |
-| `sch edit wire delete <sch> (--uuid U \| --from X,Y --to X,Y)` | Delete a wire |
+| `sch edit wire delete <sch> --uuid U` | Delete a wire |
 | `sch edit label add <sch> <KIND> <NAME> <X,Y> [--rotation R]` | Add a label (KIND ∈ global/hier/local); for passive global labels, `(justify left/right)` follows rotation |
 | `sch edit label move <sch> <UUID> <X,Y> [--rotation R]` | Move a label |
 | `sch edit label delete <sch> <UUID>` | Delete a label |
 | `sch edit junction add <sch> <X,Y>` | Add a junction |
-| `sch edit junction delete <sch> (--uuid U \| --at X,Y)` | Delete a junction |
+| `sch edit junction delete <sch> --uuid U` | Delete a junction |
 
 ### PCB Query
 

@@ -1122,8 +1122,6 @@ def cmd_sch_edit_wire_delete(args: argparse.Namespace) -> int:
     res = sch_edit.delete_wire(
         args.schematic,
         uuid=args.uuid,
-        pt_from=args.from_pt,
-        pt_to=args.to_pt,
         dry_run=args.dry_run,
     )
     return _emit_edit(args, res)
@@ -1166,7 +1164,6 @@ def cmd_sch_edit_junction_delete(args: argparse.Namespace) -> int:
     res = sch_edit.delete_junction(
         args.schematic,
         uuid=args.uuid,
-        at=args.at,
         dry_run=args.dry_run,
     )
     return _emit_edit(args, res)
@@ -1327,11 +1324,9 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("--format", choices=["json", "text"], default="json")
     p.set_defaults(func=cmd_sch_edit_wire_add)
 
-    p = wire_act.add_parser("delete", help="delete a wire")
+    p = wire_act.add_parser("delete", help="delete a wire by uuid")
     p.add_argument("schematic", type=Path)
-    p.add_argument("--uuid")
-    p.add_argument("--from", dest="from_pt", type=parse_xy, default=None, help="X,Y")
-    p.add_argument("--to", dest="to_pt", type=parse_xy, default=None, help="X,Y")
+    p.add_argument("--uuid", required=True)
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--format", choices=["json", "text"], default="json")
     p.set_defaults(func=cmd_sch_edit_wire_delete)
@@ -1375,10 +1370,9 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("--format", choices=["json", "text"], default="json")
     p.set_defaults(func=cmd_sch_edit_junction_add)
 
-    p = junc_act.add_parser("delete", help="delete a junction")
+    p = junc_act.add_parser("delete", help="delete a junction by uuid")
     p.add_argument("schematic", type=Path)
-    p.add_argument("--uuid")
-    p.add_argument("--at", type=parse_xy, default=None, help="X,Y")
+    p.add_argument("--uuid", required=True)
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--format", choices=["json", "text"], default="json")
     p.set_defaults(func=cmd_sch_edit_junction_delete)
