@@ -27,7 +27,7 @@ Writes (use `sch edit` / `pcb edit`, never `Edit`/`Write`):
 - move / rotate / delete a symbol → `sch edit symbol {move,delete} ...`
 - wire / label / junction add/delete → `sch edit {wire,label,junction} {add,delete} ...`
 - new pin on a custom symbol → `sch edit symbol add-pin ...`
-- footprint move/flip → `pcb edit footprint {move,move-property,move-layer} ...`
+- footprint move/flip → `pcb edit footprint {move,move-property,set-property,move-layer} ...`
 
 Required args are positional — do not invent `--ref` / `--bbox` / `--symbol`.
 
@@ -114,6 +114,7 @@ Footprint placement mutations. All take a positional `<board.kicad_pcb>`, emit J
 |---|---|
 | `pcb edit footprint move <board> <REF> <X,Y> [--rotation R]` | Move/rotate a footprint |
 | `pcb edit footprint move-property <board> <REF> <KEY> <X,Y> [--rotation R]` | Move a footprint property field |
+| `pcb edit footprint set-property <board> <REF> <KEY> <VALUE>` | Set a footprint property's string value (key must already exist) |
 | `pcb edit footprint move-layer <board> <REF> front\|back [--at X,Y] [--rotation R]` | Flip a footprint to F.Cu / B.Cu (mirrors geometry, preserves property positions) |
 
 Locked footprints are refused. Only the targeted footprint block is rewritten; UUIDs and surrounding formatting are preserved.

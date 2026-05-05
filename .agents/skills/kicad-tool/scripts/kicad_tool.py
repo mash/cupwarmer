@@ -624,6 +624,17 @@ def cmd_pcb_edit_footprint_move_property(args: argparse.Namespace) -> int:
     return _emit_edit(args, res)
 
 
+def cmd_pcb_edit_footprint_set_property(args: argparse.Namespace) -> int:
+    res = pcb_edit.set_footprint_property(
+        args.board,
+        args.ref,
+        args.key,
+        args.value,
+        dry_run=args.dry_run,
+    )
+    return _emit_edit(args, res)
+
+
 def cmd_pcb_edit_footprint_move_layer(args: argparse.Namespace) -> int:
     res = pcb_edit.move_footprint_layer(
         args.board,
@@ -1525,6 +1536,18 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--format", choices=["json", "text"], default="json")
     p.set_defaults(func=cmd_pcb_edit_footprint_move_property)
+
+    p = fp_act.add_parser(
+        "set-property",
+        help="set a footprint property's string value",
+    )
+    p.add_argument("board", type=Path)
+    p.add_argument("ref", help="footprint reference, e.g. R1")
+    p.add_argument("key", help="property key (e.g. Value, Description, MPN, LCSC)")
+    p.add_argument("value", help="new property value")
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.set_defaults(func=cmd_pcb_edit_footprint_set_property)
 
     p = fp_act.add_parser(
         "move-layer",

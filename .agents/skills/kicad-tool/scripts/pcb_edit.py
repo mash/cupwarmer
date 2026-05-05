@@ -392,6 +392,65 @@ def move_footprint_property(
 
 
 # ---------------------------------------------------------------------------
+# set_footprint_property
+# ---------------------------------------------------------------------------
+
+
+def set_footprint_property(
+    pcb_path: str | Path,
+    ref: str,
+    key: str,
+    value: str,
+    *,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Set a single property's string value inside a footprint block.
+
+    ``key`` is matched literally (e.g. ``Value``, ``Description``, ``MPN``,
+    ``LCSC``). The property must already exist on the footprint; if it does
+    not, a ``ValueError`` is raised. Only the quoted value is rewritten — any
+    sub-forms (``(at ...)``, ``(layer ...)``, ``(uuid ...)``, ``(effects ...)``)
+    are preserved verbatim. Only the first matching occurrence inside the
+    footprint block is changed.
+    """
+    pcb_path = Path(pcb_path)
+    text = _read(pcb_path)
+
+    found = _find_footprint_block_by_ref(text, ref)
+    if not found:
+        raise ValueError(f"footprint with reference {ref!r} not found in {pcb_path}")
+    fp_open_idx, fp_end_idx, fp_block = found
+
+    if _is_locked(fp_block):
+        raise ValueError(f"footprint {ref!r} is locked; refusing to set property")
+
+    prop_pat = re.compile(
+        r'(\(property\s+"' + re.escape(key) + r'"\s+")([^"]*)(")'
+    )
+    m = prop_pat.search(fp_block)
+    if not m:
+        raise ValueError(f"property {key!r} not found on footprint {ref!r}")
+
+    old_val = m.group(2)
+    new_prop_head = m.group(1) + value + m.group(3)
+    new_fp_block = fp_block[: m.start()] + new_prop_head + fp_block[m.end():]
+    new_text = text[:fp_open_idx] + new_fp_block + text[fp_end_idx:]
+
+    changed = _maybe_write(pcb_path, text, new_text, dry_run)
+    return {
+        "action": "set_footprint_property",
+        "changed": changed,
+        "diff": _diff(text, new_text, pcb_path),
+        "details": {
+            "ref": ref,
+            "key": key,
+            "old": old_val,
+            "new": value,
+        },
+    }
+
+
+# ---------------------------------------------------------------------------
 # move_footprint_layer (flip)
 # ---------------------------------------------------------------------------
 
