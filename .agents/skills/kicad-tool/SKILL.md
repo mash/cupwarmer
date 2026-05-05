@@ -39,6 +39,8 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py <domain> <command> ...
 
 `KICAD_CLI` overrides the executable. Default: `/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli`.
 
+Python deps (kiutils fork) are pinned in `.agents/skills/kicad-tool/requirements.txt`. Install with `pip install -r .agents/skills/kicad-tool/requirements.txt`.
+
 ## Argument conventions
 
 - `<schematic>` is always the first positional.
