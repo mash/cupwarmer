@@ -88,7 +88,7 @@ Structural mutations. All take a positional `<schematic.kicad_sch>`, emit JSON b
 | `sch edit symbol set-property <sch> <REF> <KEY> <VALUE>` | Set a symbol property value; any key (built-ins or user-defined like `MPN`/`LCSC`/`Manufacturer`) |
 | `sch edit wire add <sch> <X1,Y1> <X2,Y2> [--type solid\|default]` | Add a wire segment |
 | `sch edit wire delete <sch> (--uuid U \| --from X,Y --to X,Y)` | Delete a wire |
-| `sch edit label add <sch> <KIND> <NAME> <X,Y> [--rotation R] [--justify J]` | Add a label (KIND ∈ global/hier/local) |
+| `sch edit label add <sch> <KIND> <NAME> <X,Y> [--rotation R]` | Add a label (KIND ∈ global/hier/local); for passive global labels, `(justify left/right)` follows rotation |
 | `sch edit label move <sch> <UUID> <X,Y> [--rotation R]` | Move a label |
 | `sch edit label delete <sch> <UUID>` | Delete a label |
 | `sch edit junction add <sch> <X,Y>` | Add a junction |

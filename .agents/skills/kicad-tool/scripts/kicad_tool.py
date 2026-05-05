@@ -1127,7 +1127,6 @@ def cmd_sch_edit_label_add(args: argparse.Namespace) -> int:
         args.name,
         args.xy,
         rotation=args.rotation,
-        justify=args.justify,
         dry_run=args.dry_run,
     )
     return _emit_edit(args, res)
@@ -1337,7 +1336,6 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("name", help="label text")
     p.add_argument("xy", type=parse_xy, help="X,Y")
     p.add_argument("--rotation", type=float, default=0.0)
-    p.add_argument("--justify", default=None)
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--format", choices=["json", "text"], default="json")
     p.set_defaults(func=cmd_sch_edit_label_add)

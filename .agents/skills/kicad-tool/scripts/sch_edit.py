@@ -757,6 +757,12 @@ _LABEL_TOKENS = {
 }
 
 
+def _normalize_label_orientation(angle: float) -> tuple[float, str]:
+    a = int(angle) % 360
+    justify = "left" if a in (0, 90) else "right"
+    return float(a), justify
+
+
 def _find_sibling_label_block(text: str, kind_token: str) -> tuple[int, int, str] | None:
     for open_idx, end_idx in _iter_top_blocks(text, kind_token):
         return open_idx, end_idx, text[open_idx:end_idx]
@@ -769,7 +775,6 @@ def add_label(
     name: str,
     at: tuple[float, float],
     rotation: float = 0.0,
-    justify: str | None = None,  # noqa: ARG001 — kept for API parity; cloned from sibling
     dry_run: bool = False,
 ) -> dict[str, Any]:
     """Add a label by cloning a sibling block of the same kind.
@@ -778,8 +783,9 @@ def add_label(
     ``(effects ...)``, or related quirks from scratch — we copy from a sibling
     in the same file and only swap text/at/uuid.
 
-    The ``justify`` argument is currently ignored; the cloned sibling's justify
-    is preserved. Pass it explicitly only if a future implementation overrides.
+    For ``global_label`` blocks with ``(shape passive)``, the justify is
+    overridden post-clone based on ``rotation`` (left for 0/90, right for
+    180/270) so that ``--rotation`` alone picks the correct orientation.
     """
     sch_path = Path(sch_path)
     text = _read(sch_path)
@@ -797,7 +803,7 @@ def add_label(
 
     new_uuid = _new_uuid()
     x, y = float(at[0]), float(at[1])
-    rot = float(rotation)
+    rot, new_justify = _normalize_label_orientation(float(rotation))
 
     # Replace the head: ({token} "OLDNAME" → ({token} "NEWNAME"
     new_block = re.sub(
@@ -820,14 +826,23 @@ def add_label(
         new_block,
         count=1,
     )
-    # If global label has Intersheetrefs (at ...), align it to label position.
+    # If global label has Intersheetrefs (at ...), align position only —
+    # preserve the original angle (Intersheetrefs is hidden; angle is irrelevant).
     if token == "global_label":
         new_block = re.sub(
-            r'(\(property\s+"Intersheetrefs"[^\n]*\n\s*)\(at\s+-?[\d.]+\s+-?[\d.]+(?:\s+-?[\d.]+)?\s*\)',
-            lambda m: f"{m.group(1)}(at {_fmt_coord(x)} {_fmt_coord(y)} {_fmt_coord(rot)})",
+            r'(\(property\s+"Intersheetrefs"[^\n]*\n\s*)\(at\s+-?[\d.]+\s+-?[\d.]+(\s+-?[\d.]+)?\s*\)',
+            lambda m: f"{m.group(1)}(at {_fmt_coord(x)} {_fmt_coord(y)}{m.group(2) or ''})",
             new_block,
             count=1,
         )
+        # Override justify for passive global labels per rotation (left for 0/90, right for 180/270).
+        if "(shape passive)" in new_block:
+            new_block = re.sub(
+                r"(\(justify\s+)(left|right)(\s*\))",
+                lambda m: f"{m.group(1)}{new_justify}{m.group(3)}",
+                new_block,
+                count=1,
+            )
 
     # Insert immediately after the sibling block (preserving its trailing newline).
     insert_at = sib_end
@@ -888,7 +903,8 @@ def move_label(
         raise ValueError("label has no (at ...) field")
     old_x, old_y, old_rot = old_at
     new_x, new_y = float(to[0]), float(to[1])
-    new_rot = float(rotation) if rotation is not None else old_rot
+    raw_new_rot = float(rotation) if rotation is not None else old_rot
+    new_rot, new_justify = _normalize_label_orientation(raw_new_rot)
 
     # Replace the first (at ...)
     new_block = re.sub(
@@ -898,13 +914,23 @@ def move_label(
         count=1,
     )
     if token == "global_label":
-        # Update Intersheetrefs (at ...) — typically rot 0.
+        # Update Intersheetrefs (at ...) position only — preserve original angle
+        # (Intersheetrefs is hidden; its rotation has no visual/ERC effect).
         new_block = re.sub(
-            r'(\(property\s+"Intersheetrefs"[^\n]*\n\s*)\(at\s+-?[\d.]+\s+-?[\d.]+(?:\s+-?[\d.]+)?\s*\)',
-            lambda m: f"{m.group(1)}(at {_fmt_coord(new_x)} {_fmt_coord(new_y)} {_fmt_coord(new_rot)})",
+            r'(\(property\s+"Intersheetrefs"[^\n]*\n\s*)\(at\s+-?[\d.]+\s+-?[\d.]+(\s+-?[\d.]+)?\s*\)',
+            lambda m: f"{m.group(1)}(at {_fmt_coord(new_x)} {_fmt_coord(new_y)}{m.group(2) or ''})",
             new_block,
             count=1,
         )
+        # For passive global labels, sync (justify ...) to the new rotation
+        # (left for 0/90, right for 180/270). KiCad's R-key produces this pairing.
+        if "(shape passive)" in new_block:
+            new_block = re.sub(
+                r"(\(justify\s+)(left|right)(\s*\))",
+                lambda m: f"{m.group(1)}{new_justify}{m.group(3)}",
+                new_block,
+                count=1,
+            )
 
     new_text = text[:open_idx] + new_block + text[end_idx:]
     changed = _maybe_write(sch_path, text, new_text, dry_run)

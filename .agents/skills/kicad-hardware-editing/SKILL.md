@@ -44,7 +44,7 @@ sch edit symbol delete <sch> <REF>
 sch edit symbol set-property <sch> <REF> <KEY> <VALUE>
 sch edit wire add <sch> <X1,Y1> <X2,Y2>
 sch edit wire delete <sch> --uuid U | --from X,Y --to X,Y
-sch edit label add <sch> <KIND> <NAME> <X,Y> [--rotation R] [--justify J]   # KIND: global|hier|local
+sch edit label add <sch> <KIND> <NAME> <X,Y> [--rotation R]   # KIND: global|hier|local; for global passive labels, justify follows rotation
 sch edit label move <sch> <UUID> <X,Y> [--rotation R]
 sch edit label delete <sch> <UUID>
 sch edit junction add <sch> <X,Y>
@@ -118,7 +118,7 @@ If the new edit happens to introduce obvious local mess (overlapping label, cros
 #### Minimal worked example: add a global label
 
 ```
-sch edit label add <sch> global <NAME> X,Y [--rotation R] [--justify J] --dry-run
+sch edit label add <sch> global <NAME> X,Y [--rotation R] --dry-run
 ```
 
 Re-run without `--dry-run` to apply. Use `sch query` (above) to find coordinates first.
