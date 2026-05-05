@@ -1379,6 +1379,12 @@
 		(uuid "4fa584e6-20b5-41c7-8cbd-10d0cc1730ca")
 	)
 	(junction
+		(at 232.41 87.63)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "51f7aa51-e950-4f76-9fe1-43fca64f1db5")
+	)
+	(junction
 		(at 96.52 113.03)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2180,6 +2186,16 @@
 	)
 	(wire
 		(pts
+			(xy 232.41 83.82) (xy 232.41 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5a3c1e37-3d46-481d-84b0-19526b9556d7")
+	)
+	(wire
+		(pts
 			(xy 114.3 128.27) (xy 109.22 128.27)
 		)
 		(stroke
@@ -2560,7 +2576,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 87.63) (xy 236.22 87.63)
+			(xy 204.47 87.63) (xy 232.41 87.63)
 		)
 		(stroke
 			(width 0)
@@ -3110,6 +3126,16 @@
 	)
 	(wire
 		(pts
+			(xy 232.41 87.63) (xy 236.22 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fc39b5d9-94af-466b-aa66-ab637fdb5b3e")
+	)
+	(wire
+		(pts
 			(xy 109.22 128.27) (xy 109.22 125.73)
 		)
 		(stroke
@@ -3147,6 +3173,96 @@
 			(type solid)
 		)
 		(uuid "ff280d07-b6f7-4401-b654-4e7e2e999a7a")
+	)
+	(label "COMB2"
+		(at 116.84 118.11 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "112929e7-51bb-426b-adcd-002f4a875c5c")
+	)
+	(label "AC2"
+		(at 88.9 113.03 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "11a97dc4-5cb8-4c2c-95b4-658da3f10e10")
+	)
+	(label "BOOT1"
+		(at 118.11 87.63 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "140eeb60-73ba-4fb6-9767-b989d83f66c0")
+	)
+	(label "BOOT2"
+		(at 119.38 120.65 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "27ce3e08-c2a9-419c-b789-6736f31323f4")
+	)
+	(label "COMA2"
+		(at 114.3 115.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "55e1f267-ec71-4061-9662-0b5e1e78fa33")
+	)
+	(label "COMA1"
+		(at 113.03 92.71 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5a301749-267b-41b7-947e-c943856f83ec")
+	)
+	(label "COMB1"
+		(at 115.57 90.17 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6ae99f74-a61c-4b05-9736-e3ff53bc2594")
+	)
+	(label "VRECT"
+		(at 232.41 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "aac00a9e-a823-4e4b-96c3-f055f2ee2dd0")
+	)
+	(label "AC1"
+		(at 88.9 95.25 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cce094d0-e5d3-4e12-8c99-d9c9f3354b63")
 	)
 	(global_label "RX_VAA"
 		(shape passive)
