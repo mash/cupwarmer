@@ -990,9 +990,66 @@ def import_footprints(
     }
 
 
+def delete_footprint(
+    pcb_path: str | Path,
+    ref: str,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Delete a footprint from a PCB by reference.
+
+    Removes the entire ``(footprint ...)`` top-level block whose Reference
+    property equals ``ref``. Locked footprints are refused. Tracks/vias/zones
+    are NOT touched — caller is responsible for cleaning up any newly
+    orphaned copper if necessary.
+    """
+    pcb_path = Path(pcb_path)
+    text = _read(pcb_path)
+
+    found = _find_footprint_block_by_ref(text, ref)
+    if not found:
+        raise ValueError(f"footprint with reference {ref!r} not found in {pcb_path}")
+    open_idx, end_idx, block = found
+
+    if _is_locked(block):
+        raise ValueError(f"footprint {ref!r} is locked; refusing to delete")
+
+    # Trim leading tab and trailing newline so the surrounding formatting
+    # collapses cleanly. Top-level footprint blocks are emitted as
+    # "\t(footprint ...)\n" — drop the leading tab on the line and the
+    # trailing newline after the close paren if present.
+    line_start = text.rfind("\n", 0, open_idx) + 1
+    leading_ws = text[line_start:open_idx]
+    cut_start = open_idx - len(leading_ws) if leading_ws.strip() == "" else open_idx
+    cut_end = end_idx
+    if cut_end < len(text) and text[cut_end] == "\n":
+        cut_end += 1
+
+    new_text = text[:cut_start] + text[cut_end:]
+
+    cur_at = _block_at(block)
+    cur_layer = _block_layer(block)
+
+    changed = _maybe_write(pcb_path, text, new_text, dry_run)
+    return {
+        "action": "delete_footprint",
+        "changed": changed,
+        "diff": _diff(text, new_text, pcb_path),
+        "details": {
+            "ref": ref,
+            "at": (
+                {"x": cur_at[0], "y": cur_at[1], "rotation": cur_at[2]}
+                if cur_at
+                else None
+            ),
+            "layer": cur_layer,
+        },
+    }
+
+
 __all__ = [
     "move_footprint",
     "move_footprint_property",
     "move_footprint_layer",
+    "delete_footprint",
     "import_footprints",
 ]

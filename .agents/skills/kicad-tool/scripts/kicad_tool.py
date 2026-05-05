@@ -636,6 +636,15 @@ def cmd_pcb_edit_footprint_move_layer(args: argparse.Namespace) -> int:
     return _emit_edit(args, res)
 
 
+def cmd_pcb_edit_footprint_delete(args: argparse.Namespace) -> int:
+    res = pcb_edit.delete_footprint(
+        args.board,
+        args.ref,
+        dry_run=args.dry_run,
+    )
+    return _emit_edit(args, res)
+
+
 # ---------------------------------------------------------------------------
 # pcb import-footprints / pcb validate
 # ---------------------------------------------------------------------------
@@ -1536,6 +1545,13 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--format", choices=["json", "text"], default="json")
     p.set_defaults(func=cmd_pcb_edit_footprint_move_layer)
+
+    p = fp_act.add_parser("delete", help="delete a footprint by reference")
+    p.add_argument("board", type=Path)
+    p.add_argument("ref", help="footprint reference, e.g. R1")
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.set_defaults(func=cmd_pcb_edit_footprint_delete)
 
     # pcb import-footprints
     import_parser = pcb_commands.add_parser(
