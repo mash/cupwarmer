@@ -12,7 +12,10 @@ from pathlib import Path
 from typing import Any
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-REPO_ROOT = SCRIPT_DIR.parents[3]
+# Resolve relative paths against the caller's CWD, not the script's location.
+# This keeps the script working when installed as a plugin (where the script
+# lives outside the user's project tree) as well as when run in-tree.
+REPO_ROOT = Path.cwd()
 DEFAULT_KICAD_CLI = "/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
 
 if str(SCRIPT_DIR) not in sys.path:
