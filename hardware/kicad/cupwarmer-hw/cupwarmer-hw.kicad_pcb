@@ -5731,155 +5731,6 @@
 			)
 		)
 	)
-	(footprint "Connector_Wire:SolderWire-0.5sqmm_1x02_P4.8mm_D0.9mm_OD2.3mm"
-		(layer "F.Cu")
-		(uuid "c44d9792-2531-4c31-92c4-fb0dd1902781")
-		(at 100 80 0)
-		(descr "Soldered wire connection, for 2 times 0.5 mm² wires, reinforced insulation, conductor diameter 0.9mm, outer diameter 2.3mm, size source Multi-Contact FLEXI-xV 0.50 (https://www.staubli.com/content/dam/ecs/catalogs-brochures/TM/CAB-Main-11014119-en.pdf#page=11), bend radius 3 times outer diameter")
-		(tags "connector wire 0.5sqmm")
-		(property "Reference" "L1"
-			(at 2.4 -2.35 0)
-			(layer "F.SilkS")
-			(uuid "3e311718-d5b4-4df3-8ec7-befcf5959ea4")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Value" "YX-A11-R351125-G0265 8uH"
-			(at 2.4 2.35 0)
-			(layer "F.Fab")
-			(uuid "33685f09-f00c-4b1e-9477-38eb38796c3c")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 90)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "84a9ab2f-1096-497b-959f-768b56675655")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 0 0 90)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "66bb4110-8e02-4e9a-b6e1-b4300a43d441")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "KiLib_Generator" "connector/wire"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "23da6359-8204-4260-a71d-3af27dfb98c2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(attr exclude_from_pos_files exclude_from_bom)
-		(duplicate_pad_numbers_are_jumpers no)
-		(fp_rect
-			(start 2.9 -1.65)
-			(end 6.7 1.65)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.CrtYd")
-			(uuid "f3583fba-44c3-477f-b76e-e10e046acf03")
-		)
-		(fp_rect
-			(start -1.9 -1.65)
-			(end 1.9 1.65)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.CrtYd")
-			(uuid "7be1d19b-1218-4a70-b0d4-46476fa9bcd4")
-		)
-		(fp_circle
-			(center 4.8 0)
-			(end 5.95 0)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.Fab")
-			(uuid "3ef60973-6542-4615-89c3-3aad7b097730")
-		)
-		(fp_circle
-			(center 0 0)
-			(end 1.15 0)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.Fab")
-			(uuid "791e51df-3150-46db-bf08-a1a864a6ac06")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 2.4 0 90)
-			(layer "F.Fab")
-			(uuid "56d8401d-9e4f-4dc0-af5e-ca30aa13d362")
-			(effects
-				(font
-					(size 0.82 0.82)
-					(thickness 0.12)
-				)
-			)
-		)
-		(pad "1" thru_hole roundrect
-			(at 0 0)
-			(size 2.3 2.3)
-			(drill 1.15)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(roundrect_rratio 0.108696)
-			(uuid "9e467171-3065-4e52-90a9-eba814299ae5")
-		)
-		(pad "2" thru_hole circle
-			(at 4.8 0)
-			(size 2.3 2.3)
-			(drill 1.15)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(uuid "5ea93e1e-b3f3-489a-9468-f2ed144e5fb7")
-		)
-		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Connector_Wire.3dshapes/SolderWire-0.5sqmm_1x02_P4.8mm_D0.9mm_OD2.3mm.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
-	)
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "c52fdbd4-838d-4984-bd4a-ef3e56eeca4e")
@@ -8894,4 +8745,230 @@
 		)
 	)
 	(embedded_fonts no)
+	(footprint "Capacitor_SMD:C_0603_1608Metric"
+		(layer "F.Cu")
+		(uuid "257e5e54-cc90-40db-80f9-f88eacae0f88")
+		(at 200 200 0)
+		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
+		(tags "capacitor")
+		(property "Reference" "C15"
+			(at 0 -1.43 0)
+			(layer "F.SilkS")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "3.3nF/50V"
+			(at 0 1.43 0)
+			(layer "F.Fab")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "KiLib_Generator" "SMD_2terminal_chip_molded"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -0.14058 -0.51)
+			(end 0.14058 -0.51)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+		)
+		(fp_line
+			(start -0.14058 0.51)
+			(end 0.14058 0.51)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+		)
+		(fp_rect
+			(start -1.48 -0.73)
+			(end 1.48 0.73)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+		)
+		(fp_rect
+			(start -0.8 -0.4)
+			(end 0.8 0.4)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(effects
+				(font
+					(size 0.4 0.4)
+					(thickness 0.06)
+				)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -0.775 0)
+			(size 0.9 0.95)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+		)
+		(pad "2" smd roundrect
+			(at 0.775 0)
+			(size 0.9 0.95)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+		)
+		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "cupwarmer:SolderWire-Wuerth760308_1x02_P5.0mm_D1.2mm"
+		(layer "F.Cu")
+		(uuid "c44d9792-2531-4c31-92c4-fb0dd1902781")
+		(at 100 80 0)
+		(descr "Soldered wire pads for Würth 760308102207 RX coil leads, P5.0 mm, hole 1.2 mm")
+		(tags "connector wire coil wuerth 760308")
+		(property "Reference" "L1"
+			(at 2.5 -2.0 0)
+			(layer "F.SilkS")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "8uH"
+			(at 2.5 2.0 0)
+			(layer "F.Fab")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "KiLib_Generator" "connector/wire"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(attr exclude_from_pos_files exclude_from_bom)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_rect
+			(start -1.5 -1.5)
+			(end 1.5 1.5)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+		)
+		(fp_rect
+			(start 3.5 -1.5)
+			(end 6.5 1.5)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+		)
+		(fp_circle
+			(center 0 0)
+			(end 1.2 0)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+		)
+		(fp_circle
+			(center 5.0 0)
+			(end 6.2 0)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 2.5 0 90)
+			(layer "F.Fab")
+			(effects
+				(font
+					(size 0.94 0.94)
+					(thickness 0.14)
+				)
+			)
+		)
+		(fp_line (start -12.5 -20) (end 17.5 -20) (stroke (width 0.1) (type solid)) (layer "Dwgs.User"))
+		(fp_line (start -17.5 -15) (end -17.5 15) (stroke (width 0.1) (type solid)) (layer "Dwgs.User"))
+		(fp_line (start -12.5 20) (end 17.5 20) (stroke (width 0.1) (type solid)) (layer "Dwgs.User"))
+		(fp_line (start 22.5 -15) (end 22.5 15) (stroke (width 0.1) (type solid)) (layer "Dwgs.User"))
+		(fp_arc (start -12.5 -20) (mid -16.036 -16.464) (end -17.5 -15) (stroke (width 0.1) (type solid)) (layer "Dwgs.User"))
+		(fp_arc (start -17.5 15) (mid -16.036 16.464) (end -12.5 20) (stroke (width 0.1) (type solid)) (layer "Dwgs.User"))
+		(fp_arc (start 17.5 20) (mid 21.036 16.464) (end 22.5 15) (stroke (width 0.1) (type solid)) (layer "Dwgs.User"))
+		(fp_arc (start 22.5 -15) (mid 21.036 -16.464) (end 17.5 -20) (stroke (width 0.1) (type solid)) (layer "Dwgs.User"))
+		(pad "1" thru_hole roundrect
+			(at 0 0)
+			(size 2.4 2.4)
+			(drill 1.2)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(roundrect_rratio 0.104167)
+		)
+		(pad "2" thru_hole circle
+			(at 5.0 0)
+			(size 2.4 2.4)
+			(drill 1.2)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+		)
+		(embedded_fonts no)
+	)
 )

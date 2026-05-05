@@ -4265,7 +4265,7 @@
 				)
 			)
 		)
-		(property "Value" "YX-A11-R351125-G0265 8uH"
+		(property "Value" "8uH"
 			(at 50.8 105.41 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4275,7 +4275,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Wire:SolderWire-0.5sqmm_1x02_P4.8mm_D0.9mm_OD2.3mm"
+		(property "Footprint" "cupwarmer:SolderWire-Wuerth760308_1x02_P5.0mm_D1.2mm"
 			(at 58.42 105.41 0)
 			(hide yes)
 			(show_name no)
@@ -4308,7 +4308,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "CND-tek"
+		(property "Manufacturer" "Wuerth Elektronik"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -4319,7 +4319,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C49297385"
+		(property "LCSC" ""
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -4330,7 +4330,7 @@
 				)
 			)
 		)
-		(property "MPN" "YX-A11-R351125-G0265"
+		(property "MPN" "760308102207"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
