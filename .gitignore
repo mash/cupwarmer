@@ -1,6 +1,7 @@
 docs/plans
 tmp/
 *.rpt
+*.net
 *.kicad_prl
 *.lck
 .DS_Store
