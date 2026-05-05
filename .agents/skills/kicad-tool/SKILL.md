@@ -43,7 +43,9 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py <domain> <command> ...
 
 - `<schematic>` is always the first positional.
 - Required args are positional, in table order. Coordinates are a single `X,Y` (bbox: `X1,Y1,X2,Y2`); rotation is `--rotation R`.
-- `--flag` only for optional knobs, mutex selectors (e.g. `--uuid` vs `--at` vs `--through` for `sch query wire`), and the universal `--dry-run` (edits) / `--format {json,text}` (all; default `json`).
+- `--flag` only for optional knobs, mutex selectors (e.g. `--uuid` vs `--at` vs `--through` for `sch query wire`), and the universal `--dry-run` (edits) / `--format {json,text}` (all).
+- **Output is text by default for every command.** Pass `--format json` to get the structured payload (machine consumption / detailed query data).
+- **On runtime failure** the tool prints the offending subcommand's `usage:` line to stderr after the error message. Read the error tail; do **not** invoke `--help` separately.
 - **Do not invent flags for required args.** `--bbox`, `--ref`, `--symbol` etc. do not exist; bbox/ref/coords are positional.
 
 ## Commands
@@ -62,7 +64,7 @@ python3 .agents/skills/kicad-tool/scripts/kicad_tool.py <domain> <command> ...
 
 ### Query
 
-Read-only inspection of a sheet. All take a positional `<schematic.kicad_sch>` and emit JSON by default (always JSON for query commands).
+Read-only inspection of a sheet. All take a positional `<schematic.kicad_sch>` and emit a text summary by default (key/value lines and counts); pass `--format json` for the full structured payload.
 
 | Command | Purpose |
 |---|---|
@@ -77,7 +79,7 @@ Read-only inspection of a sheet. All take a positional `<schematic.kicad_sch>` a
 
 ### Edit
 
-Structural mutations. All take a positional `<schematic.kicad_sch>`, emit JSON by default (use `--format text` for a human summary), and support `--dry-run`.
+Structural mutations. All take a positional `<schematic.kicad_sch>`, emit a text summary by default (action / changed / details; dry-run also prints a unified diff), and support `--dry-run`. Pass `--format json` for the structured payload.
 
 | Command | Purpose |
 |---|---|
@@ -96,7 +98,7 @@ Structural mutations. All take a positional `<schematic.kicad_sch>`, emit JSON b
 
 ### PCB Query
 
-Read-only inspection of a `.kicad_pcb`. All take a positional `<board.kicad_pcb>` and emit JSON.
+Read-only inspection of a `.kicad_pcb`. All take a positional `<board.kicad_pcb>` and emit a text summary by default; pass `--format json` for the structured payload.
 
 | Command | Purpose |
 |---|---|
@@ -108,7 +110,7 @@ Read-only inspection of a `.kicad_pcb`. All take a positional `<board.kicad_pcb>
 
 ### PCB Edit
 
-Footprint placement mutations. All take a positional `<board.kicad_pcb>`, emit JSON, and support `--dry-run`.
+Footprint placement mutations. All take a positional `<board.kicad_pcb>`, emit a text summary by default, and support `--dry-run`. Pass `--format json` for the structured payload.
 
 | Command | Purpose |
 |---|---|
@@ -116,6 +118,7 @@ Footprint placement mutations. All take a positional `<board.kicad_pcb>`, emit J
 | `pcb edit footprint move-property <board> <REF> <KEY> <X,Y> [--rotation R]` | Move a footprint property field |
 | `pcb edit footprint set-property <board> <REF> <KEY> <VALUE>` | Set a footprint property's string value (key must already exist) |
 | `pcb edit footprint move-layer <board> <REF> front\|back [--at X,Y] [--rotation R]` | Flip a footprint to F.Cu / B.Cu (mirrors geometry, preserves property positions) |
+| `pcb edit footprint set-property <board> <REF> <KEY> <VALUE>` | Set a footprint property value (Value/MPN/LCSC/Manufacturer/etc); refuses `Reference` (use schematic + `pcb import-footprints` instead) |
 
 Locked footprints are refused. Only the targeted footprint block is rewritten; UUIDs and surrounding formatting are preserved.
 

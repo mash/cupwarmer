@@ -414,6 +414,11 @@ def set_footprint_property(
     footprint block is changed.
     """
     pcb_path = Path(pcb_path)
+    if key == "Reference":
+        raise KeyError(
+            "set Reference via the schematic + 'pcb import-footprints' instead "
+            "of editing the board directly"
+        )
     text = _read(pcb_path)
 
     found = _find_footprint_block_by_ref(text, ref)

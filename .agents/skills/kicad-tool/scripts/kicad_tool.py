@@ -984,8 +984,66 @@ def cmd_pcb_validate(args: argparse.Namespace) -> int:
 
 
 def _emit_query(args: argparse.Namespace, payload: dict[str, Any]) -> int:
-    print_json(payload)
-    return 0 if payload.get("found", True) else 1
+    if getattr(args, "format", "text") == "json":
+        print_json(payload)
+        return 0 if payload.get("found", True) else 1
+    if not payload.get("found", True):
+        print(f"not found: {payload.get('query') or payload.get('ref') or payload.get('name') or ''}".rstrip())
+        return 1
+    _format_query_text(payload)
+    return 0
+
+
+def _format_query_text(payload: dict[str, Any]) -> None:
+    """Emit a compact text summary of a query payload.
+
+    Heuristic: print top-level scalars as 'key: value' lines, and list-of-dicts
+    fields ('items', 'results', 'members', 'pins', 'pads', 'symbols',
+    'footprints', 'wires', 'labels', 'junctions', 'nets', 'tracks', 'vias',
+    'zones', 'drawings') as 'count: N' followed by up to 30 brief lines. Fall
+    back to JSON for anything else so callers always get usable data.
+    """
+    list_keys = (
+        "items", "results", "members", "pins", "pads",
+        "symbols", "footprints", "wires", "labels", "junctions",
+        "nets", "tracks", "vias", "zones", "drawings",
+    )
+    scalars: list[tuple[str, Any]] = []
+    list_field: tuple[str, list[Any]] | None = None
+    rich_remainder: dict[str, Any] = {}
+    for k, v in payload.items():
+        if isinstance(v, (str, int, float, bool)) or v is None:
+            scalars.append((k, v))
+        elif isinstance(v, list) and v and all(isinstance(x, dict) for x in v) and k in list_keys and list_field is None:
+            list_field = (k, v)
+        else:
+            rich_remainder[k] = v
+    for k, v in scalars:
+        print(f"{k}: {v}")
+    if list_field is not None:
+        k, items = list_field
+        print(f"{k}: {len(items)}")
+        for item in items[:30]:
+            label = (
+                item.get("ref")
+                or item.get("name")
+                or item.get("uuid")
+                or item.get("id")
+                or ""
+            )
+            extras = {kk: vv for kk, vv in item.items()
+                      if kk not in {"ref", "name", "uuid", "id"}
+                      and isinstance(vv, (str, int, float, bool))}
+            extras_str = " ".join(f"{kk}={vv}" for kk, vv in list(extras.items())[:4])
+            line = f"- {label}".rstrip()
+            if extras_str:
+                line = f"{line}  {extras_str}" if label else f"- {extras_str}"
+            print(line)
+        if len(items) > 30:
+            print(f"... ({len(items) - 30} more; use --format json for full list)")
+    if rich_remainder:
+        print("--- (remainder as JSON; pass --format json for full payload) ---")
+        print(json.dumps(rich_remainder, ensure_ascii=False, indent=2))
 
 
 def cmd_sch_query_symbol(args: argparse.Namespace) -> int:
@@ -1192,27 +1250,27 @@ def _add_query_subparsers(sch_commands) -> None:
     p = qsub.add_parser("symbol", help="query a symbol by reference")
     p.add_argument("schematic", type=Path)
     p.add_argument("ref", help="symbol reference, e.g. U1")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_query_symbol)
 
     p = qsub.add_parser("pin", help="query a pin (REF.PIN)")
     p.add_argument("schematic", type=Path)
     p.add_argument("ref_pin", help="REF.PIN, e.g. U1.F3")
     p.add_argument("--netlist", type=Path, default=None)
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_query_pin)
 
     p = qsub.add_parser("net", help="query a net by name or REF.PIN")
     p.add_argument("schematic", type=Path)
     p.add_argument("target", help="net name or REF.PIN (dispatched by '.')")
     p.add_argument("--netlist", type=Path, required=True)
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_query_net)
 
     p = qsub.add_parser("region", help="query elements in a bbox")
     p.add_argument("schematic", type=Path)
     p.add_argument("bbox", type=parse_bbox, help="X1,Y1,X2,Y2")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_query_region)
 
     p = qsub.add_parser("wire", help="query wire segments")
@@ -1220,27 +1278,27 @@ def _add_query_subparsers(sch_commands) -> None:
     p.add_argument("--uuid")
     p.add_argument("--at", type=parse_xy, help="endpoint X,Y")
     p.add_argument("--through", type=parse_xy, help="pass-through X,Y")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_query_wire)
 
     p = qsub.add_parser("label", help="query labels")
     p.add_argument("schematic", type=Path)
     p.add_argument("--name")
     p.add_argument("--uuid")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_query_label)
 
     p = qsub.add_parser("lib-symbol", help="query a library symbol's pins")
     p.add_argument("schematic", type=Path)
     p.add_argument("lib_id", help='e.g. "cupwarmer:PLACEHOLDER_1"')
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_query_lib_symbol)
 
     p = qsub.add_parser("list", help="list elements")
     p.add_argument("schematic", type=Path)
     p.add_argument("element", choices=["symbols", "labels", "wires", "junctions", "nets"])
     p.add_argument("--netlist", type=Path, default=None)
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_query_list)
 
 
@@ -1257,7 +1315,7 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("xy", type=parse_xy, help="destination X,Y")
     p.add_argument("--rotation", type=float, default=None)
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_edit_symbol_move)
 
     p = sym_act.add_parser(
@@ -1273,7 +1331,7 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("xy", type=parse_xy, help="destination X,Y")
     p.add_argument("--rotation", type=float, default=None)
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_edit_symbol_move_property)
 
     p = sym_act.add_parser(
@@ -1301,14 +1359,14 @@ def _add_edit_subparsers(sch_commands) -> None:
     )
     p.add_argument("--font-size", dest="font_size", type=float, default=1.27)
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_edit_symbol_add_pin)
 
     p = sym_act.add_parser("delete", help="delete a symbol by reference")
     p.add_argument("schematic", type=Path)
     p.add_argument("ref", help="symbol reference, e.g. R5")
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_edit_symbol_delete)
 
     p = sym_act.add_parser(
@@ -1320,7 +1378,7 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("key", help='property key, e.g. "Value", "MPN", "LCSC"')
     p.add_argument("value", help="new property value (empty string allowed)")
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_edit_symbol_set_property)
 
     # wire
@@ -1332,14 +1390,14 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("to_pt", type=parse_xy, metavar="TO", help="X2,Y2")
     p.add_argument("--type", choices=["solid", "default"], default="default")
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_edit_wire_add)
 
     p = wire_act.add_parser("delete", help="delete a wire by uuid")
     p.add_argument("schematic", type=Path)
     p.add_argument("--uuid", required=True)
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_edit_wire_delete)
 
     # label
@@ -1352,7 +1410,7 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("xy", type=parse_xy, help="X,Y")
     p.add_argument("--rotation", type=float, default=0.0)
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_edit_label_add)
 
     p = label_act.add_parser("move", help="move a label")
@@ -1361,14 +1419,14 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("xy", type=parse_xy, help="X,Y")
     p.add_argument("--rotation", type=float, default=None)
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_edit_label_move)
 
     p = label_act.add_parser("delete", help="delete a label")
     p.add_argument("schematic", type=Path)
     p.add_argument("uuid", help="label uuid")
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_edit_label_delete)
 
     # junction
@@ -1378,14 +1436,14 @@ def _add_edit_subparsers(sch_commands) -> None:
     p.add_argument("schematic", type=Path)
     p.add_argument("xy", type=parse_xy, help="X,Y")
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_edit_junction_add)
 
     p = junc_act.add_parser("delete", help="delete a junction by uuid")
     p.add_argument("schematic", type=Path)
     p.add_argument("--uuid", required=True)
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_sch_edit_junction_delete)
 
 
@@ -1406,26 +1464,26 @@ def build_parser() -> argparse.ArgumentParser:
     render_region_parser.add_argument("schematic", type=Path)
     render_region_parser.add_argument("bbox", type=parse_bbox, help="X1,Y1,X2,Y2 in mm")
     render_region_parser.add_argument("--output", type=Path, default=Path("tmp/region.png"))
-    render_region_parser.add_argument("--format", choices=["json", "text"], default="json")
+    render_region_parser.add_argument("--format", choices=["json", "text"], default="text")
     render_region_parser.set_defaults(func=cmd_sch_render_region)
 
     inspect_parser = sch_commands.add_parser("inspect", help="inspect schematic score and visual collisions")
     inspect_parser.add_argument("schematic", type=Path)
     inspect_parser.add_argument("--only-text")
     inspect_parser.add_argument("--margin", type=float, default=0.0)
-    inspect_parser.add_argument("--format", choices=["json", "text"], default="json")
+    inspect_parser.add_argument("--format", choices=["json", "text"], default="text")
     inspect_parser.set_defaults(func=cmd_sch_inspect)
 
     erc_parser = sch_commands.add_parser("erc", help="run schematic ERC")
     erc_parser.add_argument("schematic", type=Path)
     erc_parser.add_argument("--report", type=Path, default=Path("tmp/cupwarmer-erc.rpt"))
-    erc_parser.add_argument("--format", choices=["json", "text"], default="json")
+    erc_parser.add_argument("--format", choices=["json", "text"], default="text")
     erc_parser.set_defaults(func=cmd_sch_erc)
 
     netlist_parser = sch_commands.add_parser("netlist", help="export schematic netlist")
     netlist_parser.add_argument("schematic", type=Path)
     netlist_parser.add_argument("--output", type=Path, default=Path("tmp/cupwarmer-post.net"))
-    netlist_parser.add_argument("--format", choices=["json", "text"], default="json")
+    netlist_parser.add_argument("--format", choices=["json", "text"], default="text")
     netlist_parser.set_defaults(func=cmd_sch_netlist)
 
     validate_parser = sch_commands.add_parser("validate", help="run schematic validation checks")
@@ -1439,7 +1497,7 @@ def build_parser() -> argparse.ArgumentParser:
                                  help="write erc/netlist/inspect snapshot to DIR")
     validate_parser.add_argument("--baseline", type=Path, default=None,
                                  help="diff current state against a saved baseline DIR")
-    validate_parser.add_argument("--format", choices=["json", "text"], default="json")
+    validate_parser.add_argument("--format", choices=["json", "text"], default="text")
     validate_parser.set_defaults(func=cmd_sch_validate)
 
     _add_query_subparsers(sch_commands)
@@ -1452,7 +1510,7 @@ def build_parser() -> argparse.ArgumentParser:
     drc_parser.add_argument("board", type=Path)
     drc_parser.add_argument("--report", type=Path, default=Path("tmp/cupwarmer-drc.rpt"))
     drc_parser.add_argument("--schematic-parity", action="store_true")
-    drc_parser.add_argument("--format", choices=["json", "text"], default="json")
+    drc_parser.add_argument("--format", choices=["json", "text"], default="text")
     drc_parser.set_defaults(func=cmd_pcb_drc)
 
     pcb_render_parser = pcb_commands.add_parser(
@@ -1466,7 +1524,7 @@ def build_parser() -> argparse.ArgumentParser:
         help=f"comma-separated layer names (default: {DEFAULT_PCB_RENDER_LAYERS})",
     )
     pcb_render_parser.add_argument("--output", type=Path, default=Path("tmp/pcb-region.png"))
-    pcb_render_parser.add_argument("--format", choices=["json", "text"], default="json")
+    pcb_render_parser.add_argument("--format", choices=["json", "text"], default="text")
     pcb_render_parser.set_defaults(func=cmd_pcb_render_region)
 
     pcb_query_parser = pcb_commands.add_parser("query", help="read-only PCB queries")
@@ -1478,19 +1536,19 @@ def build_parser() -> argparse.ArgumentParser:
         "element",
         choices=["footprints", "tracks", "vias", "zones", "drawings", "nets", "layers"],
     )
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_pcb_query_list)
 
     p = pcb_qsub.add_parser("footprint", help="query a footprint by reference")
     p.add_argument("board", type=Path)
     p.add_argument("ref", help="footprint reference, e.g. U1")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_pcb_query_footprint)
 
     p = pcb_qsub.add_parser("pad", help="query a pad (REF.PAD)")
     p.add_argument("board", type=Path)
     p.add_argument("ref_pad", help="REF.PAD, e.g. U1.A1")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_pcb_query_pad)
 
     p = pcb_qsub.add_parser("net", help="query a net by name or REF.PAD")
@@ -1499,13 +1557,13 @@ def build_parser() -> argparse.ArgumentParser:
         "target",
         help="net name or REF.PAD (REF.PAD only when both ref and pad exist)",
     )
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_pcb_query_net)
 
     p = pcb_qsub.add_parser("region", help="query elements intersecting a bbox")
     p.add_argument("board", type=Path)
     p.add_argument("bbox", type=parse_bbox, help="X1,Y1,X2,Y2 in mm")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_pcb_query_region)
 
     # PCB edit subtree
@@ -1521,7 +1579,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("xy", type=parse_xy, help="destination X,Y")
     p.add_argument("--rotation", type=float, default=None)
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_pcb_edit_footprint_move)
 
     p = fp_act.add_parser(
@@ -1534,7 +1592,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("xy", type=parse_xy, help="destination X,Y")
     p.add_argument("--rotation", type=float, default=None)
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_pcb_edit_footprint_move_property)
 
     p = fp_act.add_parser(
@@ -1546,7 +1604,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("key", help="property key (e.g. Value, Description, MPN, LCSC)")
     p.add_argument("value", help="new property value")
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_pcb_edit_footprint_set_property)
 
     p = fp_act.add_parser(
@@ -1560,14 +1618,14 @@ def build_parser() -> argparse.ArgumentParser:
                    help="optional new origin X,Y; defaults to current position")
     p.add_argument("--rotation", type=float, default=None)
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_pcb_edit_footprint_move_layer)
 
     p = fp_act.add_parser("delete", help="delete a footprint by reference")
     p.add_argument("board", type=Path)
     p.add_argument("ref", help="footprint reference, e.g. R1")
     p.add_argument("--dry-run", action="store_true")
-    p.add_argument("--format", choices=["json", "text"], default="json")
+    p.add_argument("--format", choices=["json", "text"], default="text")
     p.set_defaults(func=cmd_pcb_edit_footprint_delete)
 
     # pcb import-footprints
@@ -1582,7 +1640,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="write merged board to this path; leaves the input board untouched",
     )
     import_parser.add_argument("--dry-run", action="store_true")
-    import_parser.add_argument("--format", choices=["json", "text"], default="json")
+    import_parser.add_argument("--format", choices=["json", "text"], default="text")
     import_parser.set_defaults(func=cmd_pcb_import_footprints)
 
     # pcb validate
@@ -1601,10 +1659,34 @@ def build_parser() -> argparse.ArgumentParser:
                                      help="write current drc/netlist/parity to DIR")
     pcb_validate_parser.add_argument("--baseline", type=Path, default=None,
                                      help="diff current state against a saved baseline DIR")
-    pcb_validate_parser.add_argument("--format", choices=["json", "text"], default="json")
+    pcb_validate_parser.add_argument("--format", choices=["json", "text"], default="text")
     pcb_validate_parser.set_defaults(func=cmd_pcb_validate)
 
+    _attach_subparser_refs(parser)
     return parser
+
+
+def _attach_subparser_refs(parser: argparse.ArgumentParser) -> None:
+    """Attach a `subparser` default to every leaf parser so `_print_help_for`
+    can show that parser's usage on runtime failure."""
+    has_sub = False
+    for action in parser._actions:
+        if isinstance(action, argparse._SubParsersAction):
+            has_sub = True
+            for sp in action.choices.values():
+                _attach_subparser_refs(sp)
+    if not has_sub:
+        parser.set_defaults(subparser=parser)
+
+
+def _print_help_for(args: argparse.Namespace) -> None:
+    p = getattr(args, "subparser", None)
+    example = getattr(args, "example", None)
+    if p is not None:
+        sys.stderr.write("\n")
+        sys.stderr.write(p.format_usage())
+    if example:
+        sys.stderr.write(f"example: {example}\n")
 
 
 def main() -> int:
@@ -1615,8 +1697,13 @@ def main() -> int:
     except subprocess.CalledProcessError as exc:
         sys.stderr.write(exc.stderr or "")
         return exc.returncode
+    except (FileNotFoundError, ValueError, KeyError, LookupError) as exc:
+        sys.stderr.write(f"ERROR: {exc}\n")
+        _print_help_for(args)
+        return 2
     except Exception as exc:
         sys.stderr.write(f"ERROR: {exc}\n")
+        _print_help_for(args)
         return 1
 
 
