@@ -355,7 +355,7 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - OVP TVS:
   - `Z3 = Littelfuse SMBJ15A`（VOUT_12V → cathode、anode → SYS_GND、VR=15V）。VOUT 出口近傍に配置
   - `Z4 = SMBJ18A`（VRECT → cathode、anode → SYS_GND、VR=18V）。VRECT 通常域 13–15V でリーク電流が無視できるよう VR=18V を選定し、VBR≈20V / VC=29.2V@20.55A で VRECT 35V 定格コンデンサに対して余裕を残す。U1 近傍 VRECT バルク帯に配置
-- LED: D1（給電中インジ、VOUT_12V → R10(3k) → D1 → GND）
+- LED: D1（給電中インジ、VOUT_12V → R10(3k) → D1(red) → GND、`XL-1608SURC-04` / `C965798`）
 - GPIO0 LED: D2/R11（RX_VAA → R11(1k) → D2 → GPIO0、GPIO0 は NVM 設定前提の optional indicator）
 
 VOUT OVP 候補（PDF: `SMBJ15A.pdf`）:

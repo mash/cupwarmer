@@ -6621,7 +6621,7 @@
 				)
 			)
 		)
-		(property "Value" "LED Green"
+		(property "Value" "LED Red"
 			(at 233.68 124.46 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6675,7 +6675,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C965804"
+		(property "LCSC" "C965798"
 			(at 7.62 0 0)
 			(hide yes)
 			(show_name no)
@@ -6686,7 +6686,7 @@
 				)
 			)
 		)
-		(property "MPN" "XL-1608UGC-04"
+		(property "MPN" "XL-1608SURC-04"
 			(at 7.62 0 0)
 			(hide yes)
 			(show_name no)
