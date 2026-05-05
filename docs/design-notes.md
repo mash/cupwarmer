@@ -82,7 +82,7 @@
   - Q1 候補: `AO3400` (SOT-23, RDS(ON)=28mΩ@VGS=10V, VGS_max ±12V)。I_heater = 0.8A での損失 ≈ 18mW で熱的に余裕。VGS マージンを上げたい場合は VGS ±20V 品（`DMN3404L` / `NTR4170N` 等）に置換。
 - 製品固有の温調ロジックは初版のスコープ外
 - `ENB` は未使用時 `GND` 固定を基本にする
-- `RX_NTC` には TH2 (10k NTC, board hotspot near Qi coil) を接続し、R7 (10k → RX_VAA) と分圧する。STWLC38 内蔵 OTP がコイル/基板温度で自律的に給電を絞る/停止する。NTC を未配置にする場合は R7 のみで pull-up 終端
+- `RX_NTC` には TH2 (100k NTC, board hotspot near Qi coil) を接続し、R7 (51k → RX_VAA) と分圧する。STWLC38 DS14078 Table 4 の external NTC OTP threshold は `VNTC,OTP = 0.55/0.59/0.65V` (typ 0.59V) なので、NCP18WF104F12RB (R25=100k, B25/85=4260K) の約69°C で threshold に到達するよう R7 を選ぶ。NTC を未配置にする場合は R7 のみで pull-up 終端
 - `INTB` は optional な bring-up / service 観測線として扱う
 - `IEXT` は `RCL + TVS` の clamp path を前提にする
 
@@ -335,7 +335,7 @@ flowchart TB
 DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 
 - `BOOT1/BOOT2` 各 `47nF` (C5/C6) → **AC1/AC2 に接続**（ブートストラップ）
-- `VAA` `4.7uF` (C7) + `NTC → VAA 10k` pull-up (R7)
+- `VAA` `4.7uF` (C7) + `NTC → VAA 51k` pull-up (R7)。DS14078 Table 4 の `VNTC,OTP` typ 0.59V に合わせ、TH2=100k NTC で約69°C trip を狙う
 - `VDD` `1uF` (C8) + HF bypass `100nF` (C4)
 - `VRECT` バルク+HF: `10uF×3` (C9, C20, C21) + `100nF` HF (C22) + `SMBJ18A` TVS (Z4) — STEVAL-WLC38RX UM3154 §9.1.3 / Figure 48 を踏襲
 - `VOUT` バルク+HF: `10uF×2` (C2, C23) + `100nF` HF (C24) + `SMBJ15A` TVS (Z3) — STEVAL-WLC38RX を踏襲（旧 C3 1uF は C24 100nF に置換）
@@ -376,9 +376,9 @@ VOUT OVP 候補（PDF: `SMBJ15A.pdf`）:
 `sensors-logic.kicad_sch`:
 
 - `J1`: I2C service header（VREF = VAA 2.5V、3.3V 固定ホスト直結禁止）
-- `TH1` / `TH2`: `10k NTC` placeholder
+- `TH1`: `10k NTC` placeholder。`TH2`: `100k NTC` (`NCP18WF104F12RB`) for STWLC38 internal OTP
 - `R8`: `RX_VAA` への `10k` pull-up（NTC_TOP 用）。R9 (旧 NTC_PCB pull-up) は削除
-- `RX_NTC` に TH2 (NTC_B) を接続、R7 (10k → RX_VAA) と分圧。STWLC38 内蔵 OTP 入力
+- `RX_NTC` に TH2 (NTC_B) を接続、R7 (51k → RX_VAA) と分圧。STWLC38 内蔵 OTP 入力。`VNTC,OTP` は DS14078 Table 4 で typ 0.59V、min/max 0.55-0.65V
 - `J2`: `NTC_TOP` / `RX_NTC` thermal monitor header
 - `J3`: `RX_INTB` / `I_HEATER_MON` status monitor header
 - `R3`: v1 通常実装は `0Ω`。評価時だけ `0.05Ω` に差し替え、R3 両端をテスター/オシロで測ってヒーター電流を推定する。`I_HEATER_MON` は bench bring-up 用の任意観測点で、製品制御には使わない
@@ -395,9 +395,9 @@ R3 / STWLC38JRM ADC 方針:
 `sensors-logic.kicad_sch` には以下を反映済み:
 
 - `J1`: `RX_VAA` 2.5V 参照付き `I2C` service header。外部 adapter は `VREF=RX_VAA` に追従させ、3.3V 固定 pull-up は接続しない
-- `TH1` / `TH2`: `10k NTC` placeholder
+- `TH1`: `10k NTC` placeholder。`TH2`: `100k NTC` (`NCP18WF104F12RB`) for STWLC38 internal OTP
 - `R8`: `RX_VAA` への `10k` pull-up（NTC_TOP 用）。R9 (旧 NTC_PCB pull-up) は削除
-- TH2 → `RX_NTC` (R7 と分圧、STWLC38 内蔵 OTP 入力)
+- TH2 → `RX_NTC` (R7=51k と分圧、STWLC38 内蔵 OTP 入力)。70°C 時の NTC 抵抗は約15.36kΩで、理想値は `R7 = R_NTC × (2.5V / 0.59V - 1) ≈ 49.7kΩ`。51k は JLCPCB basic (`C23196`, `0603WAF5102T5E`) で、実装時の trip 目安は threshold min/typ/max で約71.8/69.3/65.8°C
 - `J2`: `NTC_TOP` / `RX_NTC` の thermal monitor header
 - `J3`: `RX_INTB` / `I_HEATER_MON` の status monitor header
 - BOM 初回照合: `initial-bom.csv` は回路図 ref に合わせて `TH1/TH2`, `J3`, `R4/R8/R10/R11`, `D1/D2`, `Z1/Z2/Z3`, `C11-C15` を反映済み。`C10` は現行回路図に存在しないため削除

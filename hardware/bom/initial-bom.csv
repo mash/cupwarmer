@@ -26,7 +26,7 @@ C8,supply decoupling,1uF ceramic,Samsung,CL10A105KB8NNNC,C15849,selected,"VDD di
 C9,rectifier decoupling,10uF/35V X5R,Murata,GRM188R6YA106MA73D,C194427,selected,"VRECT rectifier decoupling close to U1; matches STEVAL-WLC38RX (CRECT/COUT family); 10uF 35V X5R 0603 (same as C2)"
 R5,I2C pull-up,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,SCL pull-up to RX_VAA 2.5V for service header
 R6,I2C pull-up,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,SDA pull-up to RX_VAA 2.5V for service header
-R7,NTC pull-up,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,"RX_NTC -> RX_VAA pull-up; forms divider with 100k TH2; matches ST STEVAL-WLC38RX reference"
+R7,NTC pull-up,51k resistor,UNI-ROYAL,0603WAF5102T5E,C23196,selected,"RX_NTC -> RX_VAA pull-up; forms divider with 100k TH2; DS14078 VNTC,OTP typ 0.59V gives ~69C trip with R7=51k"
 R10,LED current limit,3k resistor,UNI-ROYAL,0603WAF3001T5E,C4211,selected,"D1 power-on indicator current limiting from VOUT_12V; 3kΩ 0603 1% basic"
 R11,LED current limit,1k resistor,UNI-ROYAL,0603WAF1001T5E,C21190,selected,"D2 GPIO0 indicator current limiting from RX_VAA; 1kΩ 0603 1% basic"
 D1,power indicator LED,green LED,XINGLIGHT,XL-1608UGC-04,C965804,selected,"VOUT_12V power-on indicator; 0603 green 525nm 20mA"

@@ -6837,7 +6837,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "51k"
 			(at 141.224 137.16 180)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6869,7 +6869,7 @@
 				)
 			)
 		)
-		(property "Description" "NTC pull-up to VAA (10k); forms divider with TH2 on sensors-logic sheet for IC OTP"
+		(property "Description" "NTC pull-up to VAA (51k); forms divider with 100k TH2 for STWLC38 OTP (~69C typ, VNTC,OTP=0.59V)"
 			(at 144.78 137.16 180)
 			(hide yes)
 			(show_name no)
@@ -6891,7 +6891,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25804"
+		(property "LCSC" "C23196"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -6902,7 +6902,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF1002T5E"
+		(property "MPN" "0603WAF5102T5E"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
