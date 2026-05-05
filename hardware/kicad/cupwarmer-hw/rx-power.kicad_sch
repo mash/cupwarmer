@@ -3274,6 +3274,16 @@
 		)
 		(uuid "cce094d0-e5d3-4e12-8c99-d9c9f3354b63")
 	)
+	(label "LED2"
+		(at 140.97 80.01 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "db906320-c08d-4fd6-b036-2142d1e2ef19")
+	)
 	(global_label "RX_VAA"
 		(shape passive)
 		(at 144.78 142.24 270)
