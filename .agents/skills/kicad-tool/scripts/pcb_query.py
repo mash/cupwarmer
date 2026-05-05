@@ -542,4 +542,14 @@ def query_list(board: Board | str | Path, element: str) -> dict[str, Any]:
     if element in ("net", "nets"):
         items = [{"number": n.number, "name": n.name} for n in b.nets]
         return {"element": "nets", "items": items}
+    if element in ("layer", "layers"):
+        items = []
+        for layer in b.layers:
+            items.append({
+                "ordinal": getattr(layer, "ordinal", None),
+                "name": getattr(layer, "name", None),
+                "type": getattr(layer, "type", None),
+                "user_name": getattr(layer, "userName", None),
+            })
+        return {"element": "layers", "items": items}
     return {"element": element, "items": [], "reason": "unknown element"}

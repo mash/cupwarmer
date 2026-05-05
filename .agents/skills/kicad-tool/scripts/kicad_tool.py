@@ -1476,7 +1476,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("board", type=Path)
     p.add_argument(
         "element",
-        choices=["footprints", "tracks", "vias", "zones", "drawings", "nets"],
+        choices=["footprints", "tracks", "vias", "zones", "drawings", "nets", "layers"],
     )
     p.add_argument("--format", choices=["json", "text"], default="json")
     p.set_defaults(func=cmd_pcb_query_list)
