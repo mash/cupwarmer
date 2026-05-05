@@ -3234,6 +3234,16 @@
 		)
 		(uuid "5a301749-267b-41b7-947e-c943856f83ec")
 	)
+	(label "AC1 COIL"
+		(at 58.42 96.52 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6111a0f8-de53-4a2d-a325-cd950d48e6eb")
+	)
 	(label "COMB1"
 		(at 115.57 90.17 0)
 		(effects
