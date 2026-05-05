@@ -1265,6 +1265,12 @@
 		(uuid "062e8a7d-2bda-4044-b58d-a614ed50cfe7")
 	)
 	(junction
+		(at 186.69 87.63)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "078bc379-0678-4916-a446-9b79cdf9f371")
+	)
+	(junction
 		(at 144.78 132.08)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1301,7 +1307,7 @@
 		(uuid "1ac02e31-2856-4fbf-8989-d2841ffcd68c")
 	)
 	(junction
-		(at 204.47 87.63)
+		(at 212.09 87.63)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1cca28c9-79fd-48aa-8d10-1cdb4dcfbf6e")
@@ -1325,7 +1331,7 @@
 		(uuid "2978b320-40cc-4b5c-9e9b-23d495f17437")
 	)
 	(junction
-		(at 212.09 99.06)
+		(at 219.71 99.06)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2b3d2602-3b43-4cc4-b98c-a5621ef9e125")
@@ -1341,12 +1347,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3d9a01e9-f3ef-4d47-aa92-fce46f56a61a")
-	)
-	(junction
-		(at 186.69 87.63)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3f779e1b-da02-4111-966c-cc4805017370")
 	)
 	(junction
 		(at 158.75 80.01)
@@ -1397,7 +1397,7 @@
 		(uuid "61b81d17-da97-4880-8c09-fb43b8e7003f")
 	)
 	(junction
-		(at 212.09 87.63)
+		(at 219.71 87.63)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "63559a33-8cc9-4ddb-9564-e8f9f4d38cf2")
@@ -1409,16 +1409,10 @@
 		(uuid "637d145a-7ce6-4617-aaf1-5047b126df21")
 	)
 	(junction
-		(at 196.85 87.63)
+		(at 204.47 87.63)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "64975080-e63c-4c29-a39a-314248ec899b")
-	)
-	(junction
-		(at 85.09 95.25)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "71c275da-8c5e-442a-a039-3d090fb7e4f6")
 	)
 	(junction
 		(at 180.34 90.17)
@@ -1493,7 +1487,7 @@
 		(uuid "a9d3886b-81da-423f-b81e-04b5b2208a9e")
 	)
 	(junction
-		(at 219.71 99.06)
+		(at 227.33 99.06)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "acb9eae9-2ceb-4335-8efb-a7fbe14a9fc0")
@@ -1505,13 +1499,19 @@
 		(uuid "b06f943c-53ec-443d-a94d-7b66065a2344")
 	)
 	(junction
+		(at 186.69 100.33)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b0b69064-f47b-4c24-9370-ca05e75b069e")
+	)
+	(junction
 		(at 212.09 119.38)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b2c8c6de-2fbe-4a37-a319-ef74eb671d43")
 	)
 	(junction
-		(at 219.71 87.63)
+		(at 227.33 87.63)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b2f28d63-2c96-466c-8e29-c446dd87a25b")
@@ -1559,13 +1559,13 @@
 		(uuid "d5f5dddc-03d5-4cb1-b8df-08b5fca983b6")
 	)
 	(junction
-		(at 85.09 113.03)
+		(at 194.31 87.63)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "dd629255-ffbe-4245-be34-5518c6f3b9ff")
+		(uuid "e06f4a21-22ac-4c5b-8fad-7dc513404237")
 	)
 	(junction
-		(at 204.47 99.06)
+		(at 212.09 99.06)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "eff8e95c-87ef-48b6-a1c5-8cf5767ba43e")
@@ -1687,6 +1687,16 @@
 			(type default)
 		)
 		(uuid "0e95b4c1-a47a-414b-a7be-cea8cdd6cc59")
+	)
+	(wire
+		(pts
+			(xy 194.31 100.33) (xy 194.31 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "10e1fa22-c704-45ea-b60d-8f87527c1cc9")
 	)
 	(wire
 		(pts
@@ -1850,7 +1860,7 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 87.63) (xy 196.85 88.9)
+			(xy 204.47 87.63) (xy 204.47 88.9)
 		)
 		(stroke
 			(width 0)
@@ -1957,16 +1967,6 @@
 			(type solid)
 		)
 		(uuid "33957cea-b553-48bf-a6a7-3d9868a2f823")
-	)
-	(wire
-		(pts
-			(xy 85.09 95.25) (xy 96.52 95.25)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3b621900-3813-40b9-98b3-d582fc42b424")
 	)
 	(wire
 		(pts
@@ -2170,7 +2170,7 @@
 	)
 	(wire
 		(pts
-			(xy 186.69 87.63) (xy 196.85 87.63)
+			(xy 186.69 87.63) (xy 194.31 87.63)
 		)
 		(stroke
 			(width 0)
@@ -2190,7 +2190,7 @@
 	)
 	(wire
 		(pts
-			(xy 219.71 87.63) (xy 219.71 88.9)
+			(xy 227.33 87.63) (xy 227.33 88.9)
 		)
 		(stroke
 			(width 0)
@@ -2240,7 +2240,7 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 113.03) (xy 85.09 113.03)
+			(xy 66.04 113.03) (xy 96.52 113.03)
 		)
 		(stroke
 			(width 0)
@@ -2297,6 +2297,16 @@
 			(type default)
 		)
 		(uuid "6c9d2e60-a91a-40c8-8603-bb141580e8dc")
+	)
+	(wire
+		(pts
+			(xy 194.31 87.63) (xy 194.31 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6dc0b730-3d49-41b8-a275-b0d20ab93f73")
 	)
 	(wire
 		(pts
@@ -2420,6 +2430,16 @@
 	)
 	(wire
 		(pts
+			(xy 186.69 100.33) (xy 194.31 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7e68cbf8-505b-4cc3-9ccb-144b4ea3ae37")
+	)
+	(wire
+		(pts
 			(xy 200.66 147.32) (xy 200.66 152.4)
 		)
 		(stroke
@@ -2430,7 +2450,7 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 95.25) (xy 72.39 95.25)
+			(xy 72.39 95.25) (xy 96.52 95.25)
 		)
 		(stroke
 			(width 0)
@@ -2540,7 +2560,7 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 87.63) (xy 228.6 87.63)
+			(xy 204.47 87.63) (xy 236.22 87.63)
 		)
 		(stroke
 			(width 0)
@@ -2577,16 +2597,6 @@
 			(type solid)
 		)
 		(uuid "98a4e4ac-6c85-4742-8ee2-71ac0bf63aeb")
-	)
-	(wire
-		(pts
-			(xy 85.09 113.03) (xy 96.52 113.03)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "99511c94-9e87-4c51-9d45-4a983cba8fa3")
 	)
 	(wire
 		(pts
@@ -2780,7 +2790,7 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 99.06) (xy 228.6 99.06)
+			(xy 204.47 99.06) (xy 236.22 99.06)
 		)
 		(stroke
 			(width 0)
@@ -2870,7 +2880,7 @@
 	)
 	(wire
 		(pts
-			(xy 212.09 87.63) (xy 212.09 88.9)
+			(xy 219.71 87.63) (xy 219.71 88.9)
 		)
 		(stroke
 			(width 0)
@@ -2980,7 +2990,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 87.63) (xy 204.47 88.9)
+			(xy 212.09 87.63) (xy 212.09 88.9)
 		)
 		(stroke
 			(width 0)
@@ -3020,7 +3030,7 @@
 	)
 	(wire
 		(pts
-			(xy 212.09 99.06) (xy 212.09 101.6)
+			(xy 219.71 99.06) (xy 219.71 101.6)
 		)
 		(stroke
 			(width 0)
@@ -3050,7 +3060,7 @@
 	)
 	(wire
 		(pts
-			(xy 228.6 87.63) (xy 228.6 88.9)
+			(xy 236.22 87.63) (xy 236.22 88.9)
 		)
 		(stroke
 			(width 0)
@@ -3067,6 +3077,16 @@
 			(type solid)
 		)
 		(uuid "efa111ee-bb29-485a-9cfa-786b263bad02")
+	)
+	(wire
+		(pts
+			(xy 194.31 87.63) (xy 204.47 87.63)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "f2e47720-3818-48c0-8093-d6497b331be8")
 	)
 	(wire
 		(pts
@@ -3218,7 +3238,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 212.09 101.6 180)
+		(at 219.71 101.6 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3227,7 +3247,7 @@
 		)
 		(uuid "4d3b1cd2-29da-4d88-b857-7361dfa9e9b0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 212.09 101.6 0)
+			(at 219.71 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3990,7 +4010,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 204.47 93.98 270)
+		(at 212.09 93.98 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4000,7 +4020,7 @@
 		(dnp no)
 		(uuid "0bf12c5e-3b00-4944-b3d8-303ca389ef07")
 		(property "Reference" "C20"
-			(at 204.47 86.36 90)
+			(at 212.09 86.36 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4010,7 +4030,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 207.9506 93.98 0)
+			(at 215.5706 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4020,7 +4040,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 204.47 93.98 90)
+			(at 212.09 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4031,7 +4051,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 204.47 93.98 90)
+			(at 212.09 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4042,7 +4062,7 @@
 			)
 		)
 		(property "Description" "VRECT bulk capacitor"
-			(at 204.47 93.98 90)
+			(at 212.09 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4053,7 +4073,7 @@
 			)
 		)
 		(property "Manufacturer" "Murata"
-			(at -5.08 0 0)
+			(at 2.54 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4064,7 +4084,7 @@
 			)
 		)
 		(property "LCSC" "C194427"
-			(at -5.08 0 0)
+			(at 2.54 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4075,7 +4095,7 @@
 			)
 		)
 		(property "MPN" "GRM188R6YA106MA73D"
-			(at -5.08 0 0)
+			(at 2.54 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4354,7 +4374,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111317")
 		(property "Reference" "R4"
-			(at 182.88 95.25 0)
+			(at 186.69 86.36 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4363,8 +4383,8 @@
 				)
 			)
 		)
-		(property "Value" "RCL 300R"
-			(at 191.262 93.218 0)
+		(property "Value" "RCL 200R"
+			(at 190.246 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4373,7 +4393,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
 			(at 186.69 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -4395,7 +4415,7 @@
 				)
 			)
 		)
-		(property "Description" "IEXT clamp resistor placeholder"
+		(property "Description" "IEXT SOVP clamp resistor; one of two 200R 0805 surge resistors in parallel"
 			(at 186.69 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -4406,7 +4426,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
+		(property "Manufacturer" "PANASONIC"
 			(at -2.54 0 0)
 			(hide yes)
 			(show_name no)
@@ -4417,7 +4437,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23025"
+		(property "LCSC" "C543538"
 			(at -2.54 0 0)
 			(hide yes)
 			(show_name no)
@@ -4428,7 +4448,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF3000T5E"
+		(property "MPN" "ERJP06F2000V"
 			(at -2.54 0 0)
 			(hide yes)
 			(show_name no)
@@ -5638,7 +5658,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 219.71 93.98 270)
+		(at 227.33 93.98 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5648,7 +5668,7 @@
 		(dnp no)
 		(uuid "11823027-aec1-48a1-a0a6-e0b85ce43611")
 		(property "Reference" "C22"
-			(at 219.71 86.36 90)
+			(at 227.33 86.36 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5658,7 +5678,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 223.1906 93.98 0)
+			(at 230.8106 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5668,7 +5688,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 219.71 93.98 90)
+			(at 227.33 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5679,7 +5699,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 219.71 93.98 90)
+			(at 227.33 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5690,7 +5710,7 @@
 			)
 		)
 		(property "Description" "VRECT HF decoupling"
-			(at 219.71 93.98 90)
+			(at 227.33 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5701,7 +5721,7 @@
 			)
 		)
 		(property "Manufacturer" "Wuerth Elektronik"
-			(at -5.08 0 0)
+			(at 2.54 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5712,7 +5732,7 @@
 			)
 		)
 		(property "LCSC" "C6715111"
-			(at -5.08 0 0)
+			(at 2.54 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5723,7 +5743,7 @@
 			)
 		)
 		(property "MPN" "885012206095"
-			(at -5.08 0 0)
+			(at 2.54 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6228,7 +6248,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 196.85 93.98 270)
+		(at 204.47 93.98 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -6238,7 +6258,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-300000000005")
 		(property "Reference" "C9"
-			(at 196.85 86.36 90)
+			(at 204.47 86.36 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6248,7 +6268,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 200.3306 93.98 0)
+			(at 207.9506 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6258,7 +6278,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 196.85 93.98 90)
+			(at 204.47 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6269,7 +6289,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 196.85 93.98 90)
+			(at 204.47 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6280,7 +6300,7 @@
 			)
 		)
 		(property "Description" "VRECT rectifier decoupling"
-			(at 196.85 93.98 90)
+			(at 204.47 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6291,7 +6311,7 @@
 			)
 		)
 		(property "Manufacturer" "Murata"
-			(at -5.08 0 0)
+			(at 2.54 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6302,7 +6322,7 @@
 			)
 		)
 		(property "LCSC" "C194427"
-			(at -5.08 0 0)
+			(at 2.54 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6313,7 +6333,7 @@
 			)
 		)
 		(property "MPN" "GRM188R6YA106MA73D"
-			(at -5.08 0 0)
+			(at 2.54 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7532,7 +7552,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 228.6 93.98 90)
+		(at 236.22 93.98 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7542,7 +7562,7 @@
 		(dnp no)
 		(uuid "721f15e8-3fb0-429c-a9aa-e1f010023028")
 		(property "Reference" "Z4"
-			(at 228.6 86.36 90)
+			(at 236.22 86.36 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7552,7 +7572,7 @@
 			)
 		)
 		(property "Value" "SMBJ18A"
-			(at 232.08 93.98 0)
+			(at 239.7 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7562,7 +7582,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SMB"
-			(at 228.6 93.98 90)
+			(at 236.22 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7573,7 +7593,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 228.6 93.98 90)
+			(at 236.22 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7584,7 +7604,7 @@
 			)
 		)
 		(property "Description" "VRECT OVP TVS clamp (~20V breakdown, pin2 cathode to VRECT, pin1 anode to GND)"
-			(at 228.6 93.98 90)
+			(at 236.22 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7595,7 +7615,7 @@
 			)
 		)
 		(property "Manufacturer" "hongjiacheng"
-			(at -3.81 0 0)
+			(at 3.81 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7606,7 +7626,7 @@
 			)
 		)
 		(property "LCSC" "C19077573"
-			(at -3.81 0 0)
+			(at 3.81 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7617,7 +7637,7 @@
 			)
 		)
 		(property "MPN" "SMBJ18A"
-			(at -3.81 0 0)
+			(at 3.81 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7650,7 +7670,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 212.09 93.98 270)
+		(at 219.71 93.98 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7660,7 +7680,7 @@
 		(dnp no)
 		(uuid "73899e61-8005-4928-b50f-d5c92aaddb72")
 		(property "Reference" "C21"
-			(at 212.09 86.36 90)
+			(at 219.71 86.36 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7670,7 +7690,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 215.5706 93.98 0)
+			(at 223.1906 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7680,7 +7700,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 212.09 93.98 90)
+			(at 219.71 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7691,7 +7711,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 212.09 93.98 90)
+			(at 219.71 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7702,7 +7722,7 @@
 			)
 		)
 		(property "Description" "VRECT bulk capacitor"
-			(at 212.09 93.98 90)
+			(at 219.71 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7713,7 +7733,7 @@
 			)
 		)
 		(property "Manufacturer" "Murata"
-			(at -5.08 0 0)
+			(at 2.54 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7724,7 +7744,7 @@
 			)
 		)
 		(property "LCSC" "C194427"
-			(at -5.08 0 0)
+			(at 2.54 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7735,7 +7755,7 @@
 			)
 		)
 		(property "MPN" "GRM188R6YA106MA73D"
-			(at -5.08 0 0)
+			(at 2.54 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7761,6 +7781,124 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "C21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 194.31 93.98 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "7c0a7b41-2b3d-478e-9d15-8fe3f07cbe5d")
+		(property "Reference" "R14"
+			(at 194.31 86.36 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "RCL 200R"
+			(at 197.866 93.98 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 194.31 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 194.31 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "IEXT SOVP clamp resistor; one of two 200R 0805 surge resistors in parallel"
+			(at 194.31 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "PANASONIC"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C543538"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "ERJP06F2000V"
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6fa7443c-1422-414d-a0ad-3c30c051b626")
+		)
+		(pin "2"
+			(uuid "bcfb9009-096f-499d-a6d4-36cfaa0db479")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "R14")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "R14")
 					(unit 1)
 				)
 			)

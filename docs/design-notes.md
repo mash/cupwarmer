@@ -340,7 +340,7 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - `VRECT` バルク+HF: `10uF×3` (C9, C20, C21) + `100nF` HF (C22) + `SMBJ18A` TVS (Z4) — STEVAL-WLC38RX UM3154 §9.1.3 / Figure 48 を踏襲
 - `VOUT` バルク+HF: `10uF×2` (C2, C23) + `100nF` HF (C24) + `SMBJ15A` TVS (Z3) — STEVAL-WLC38RX を踏襲（旧 C3 1uF は C24 100nF に置換）
 - VRECT/VOUT bulk cap の耐圧判断: UM3154 §9.1.3 は VRECT cap を maximum input voltage と quick coil movement 由来の voltage peak で決め、余裕を推奨する。VOUT cap は selected output voltage で決める。v1 では VRECT 側 (C9/C20/C21) は coil movement peak と Z4 clamp 余裕を見て `10uF/35V` を維持する。VOUT 側 (C2/C23) は 12V 出力だけなら 25V でも成立するが、BOM 共通化、SMBJ15A clamp 時の短時間過渡、X5R の DC bias / 温度 derating 余裕を優先して同じ `GRM188R6YA106MA73D` (`10uF/35V`) に揃える。AC1/AC2 resonance / COM 系 cap は別扱いで、50V rating を維持する
-- `IEXT` clamp: `RCL 300R` (R4) → **VRECT** 接続（OVP クランプ用、IEXT 内部スイッチ経由）
+- `IEXT` clamp: `R4 || R14 = 200R || 200R = 100R` → **VRECT** 接続（SOVP クランプ用、IEXT 内部スイッチ経由）。UM3154 / ST reference schematic は `R4,R5=200R` 並列 + `R6=NA` の構成で、cupwarmer では `R5` が I2C pull-up で使用済みのため追加分を `R14` とする。部品は JLCPCB 登録表記 `ERJP06F2000V` (`C543538`) 0805 500mW surge/thick-film を使い、クランプ電流とパルスエネルギを2本に分散する
 - `AC1/AC2` ESD: `SMF13A` (Z1/Z2) 各 `GND` 直結
 - `Cs` 系列共振 `100nF×3` (C1/C16/C17) + `10nF×2` (C18/C19) = 320nF。`Cd` 並列共振 C15 は Qi 認証向け後方互換用途のため v1 では削除済み
 - 受電コイル: v1 は STEVAL-WLC38RX と同じ `Luxshare-ICT LD81FP008-1H` を基準にする（`8±0.2uH @100kHz`, `DCR=190mΩ±10%`, `ACR=225mΩ±10%`）
