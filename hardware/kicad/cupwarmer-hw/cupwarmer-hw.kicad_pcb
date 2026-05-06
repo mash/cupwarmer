@@ -11369,30 +11369,21 @@
 		(layer "Edge.Cuts")
 		(uuid "2004231e-4891-4023-b05a-2ae61977cca2")
 	)
-	(gr_text "NO LARGE METAL\nOVER COIL CORE"
-		(at 126 77.5 0)
+	(gr_text "U1 BGA escape vias: 0.15 mm drill / 0.25 mm diameter vias shall be epoxy-filled and copper-capped /plated over\nwhere located under or near U1 BGA pads. No open vias on BGA pads.\nOther component through-holes shall remain open and solderable.\n"
+		(at 70.5 137.6 0)
 		(layer "Cmts.User")
-		(uuid "0a2e3c1d-81eb-4f9b-b6d1-29d7cd845c9c")
+		(uuid "e6b32afb-b993-4629-b912-4fe3d9a3c200")
 		(effects
 			(font
-				(size 1.1 1.1)
-				(thickness 0.14)
+				(size 1.5 1.5)
+				(thickness 0.3)
+				(bold yes)
 			)
-		)
-	)
-	(gr_text "FERRITE / MECH ENVELOPE TBD"
-		(at 100 132 0)
-		(layer "Cmts.User")
-		(uuid "c8868208-b2bc-42e2-afe6-87fff6382514")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.15)
-			)
+			(justify left bottom)
 		)
 	)
 	(gr_text "Cup Warmer Hardware\nInitial PCB scaffold\nTarget RX: STWLC38JRM"
-		(at 77.5 69 0)
+		(at 88.65 64.15 0)
 		(layer "Cmts.User")
 		(uuid "8fd3ef2a-7c31-4fa7-bb6f-f0ab23368002")
 		(effects
