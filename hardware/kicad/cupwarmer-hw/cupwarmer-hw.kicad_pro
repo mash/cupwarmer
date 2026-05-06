@@ -60,52 +60,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        [
-          "hole_to_hole|93100000|99100000|0fbc2e64-347a-4cf9-bc0e-0ccc175c7e0f|163a84cc-e926-46c0-80cd-5edda10fc0eb",
-          ""
-        ],
-        [
-          "hole_to_hole|94300000|98700000|3775bda7-3534-42df-ab2a-5e6593921475|f1bad233-4571-4795-839c-c748f14e08c0",
-          ""
-        ],
-        [
-          "hole_to_hole|94300000|98700000|c30186d1-6ca7-43cb-a277-4d6f25d1abb8|f1bad233-4571-4795-839c-c748f14e08c0",
-          ""
-        ],
-        [
-          "hole_to_hole|94700000|99100000|3775bda7-3534-42df-ab2a-5e6593921475|87821dae-f683-419f-b40d-72208e23143f",
-          ""
-        ],
-        [
-          "hole_to_hole|94700000|99100000|3775bda7-3534-42df-ab2a-5e6593921475|c30186d1-6ca7-43cb-a277-4d6f25d1abb8",
-          ""
-        ],
-        [
-          "hole_to_hole|94700000|99100000|3775bda7-3534-42df-ab2a-5e6593921475|d85b3baa-cb6f-413b-8588-6ceeb61c947c",
-          ""
-        ],
-        [
-          "hole_to_hole|95100000|98700000|87821dae-f683-419f-b40d-72208e23143f|c30186d1-6ca7-43cb-a277-4d6f25d1abb8",
-          ""
-        ],
-        [
-          "hole_to_hole|95100000|99500000|c8952925-e1e2-44df-b2ae-e1cc0c13b697|d85b3baa-cb6f-413b-8588-6ceeb61c947c",
-          ""
-        ],
-        [
-          "hole_to_hole|95500000|99900000|14eff7ba-1be4-4d8d-9ba3-11c2ee652e48|a9715d9c-d408-48ee-8c6f-9300cbd664ec",
-          ""
-        ],
-        [
-          "hole_to_hole|95500000|99900000|a9715d9c-d408-48ee-8c6f-9300cbd664ec|c8952925-e1e2-44df-b2ae-e1cc0c13b697",
-          ""
-        ],
-        [
-          "hole_to_hole|95500000|99900000|a9715d9c-d408-48ee-8c6f-9300cbd664ec|d85b3baa-cb6f-413b-8588-6ceeb61c947c",
-          ""
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -704,6 +659,10 @@
       {
         "netclass": "POWER",
         "pattern": "/heater-control/HEATER_OUT"
+      },
+      {
+        "netclass": "POWER",
+        "pattern": "I_HEATER_MON"
       }
     ]
   },

@@ -257,6 +257,15 @@
 	(constraint hole_clearance (min 0.14mm))
 )
 
+(rule "JLCPCB: U1 BGA Escape Via Hole to Via Hole"
+	(condition "A.Type == 'Via' && B.Type == 'Via' && A.Net != B.Net && (A.intersectsCourtyard('U1') || B.intersectsCourtyard('U1'))")
+  # U1 uses the JLCPCB 4-layer BGA escape process: 0.15 mm drill /
+  # 0.25 mm via copper. Keep the generic 0.5 mm different-net
+  # hole-to-hole rule for the rest of the board, but allow the dense BGA
+  # fanout via cluster around U1.
+	(constraint hole_to_hole (min 0.25mm))
+)
+
 
 # --- Legend ---
 
