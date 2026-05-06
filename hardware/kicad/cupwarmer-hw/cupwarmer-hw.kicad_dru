@@ -2,6 +2,14 @@
 # Custom Design Rules (DRC) for KiCAD 8.0 (Stored in '<project>.kicad_dru' file).
 #
 # Matching JLCPCB capabilities: https://jlcpcb.com/capabilities/pcb-capabilities
+# Matching JLCPCB BGA guide:
+# https://jlcpcb.com/help/article/bga-design-guidelines---pcb-layout-recommendations-for-bga-packages
+#
+# Project target:
+# - 4-layer FR-4 PCB, SIG / GND / GND / SIG.
+# - STWLC38JRM WLCSP40, 0.4 mm pitch, 0.25 mm BGA pads.
+# - Standard through vias only; no blind/buried/microvias.
+# - Via-in-pad / filled / capped vias are not assumed for v1.
 #
 # KiCad documentation: https://docs.kicad.org/master/id/pcbnew/pcbnew_advanced.html#custom_design_rules
 #
@@ -37,16 +45,21 @@
   # Choose between:
   # 1-2 Layers
 	# (constraint hole_size (min 0.3mm))
-  # 4-6 Layers (more costly)
+  # 4-layer BGA: JLCPCB BGA guide, H = 0.15 mm
   (constraint hole_size (min 0.15mm))
   # 4-6 Layers (preferred)
   # (constraint hole_size (min 0.2mm))
 )
 
+(rule "JLCPCB: Via Copper Diameter"
+	(condition "A.Type == 'Via'")
+  # 4-layer BGA: JLCPCB BGA guide, P = 0.25 mm.
+	(constraint via_diameter (min 0.25mm))
+)
+
 (rule "JLCPCB: Via Annular Ring"
 	(condition "A.Type == 'Via'")
-  # Choose between:
-  # 1-6 Layers
+  # 4-layer BGA: 0.25 mm copper diameter with 0.15 mm drill leaves 0.05 mm ring.
   (constraint annular_width (min 0.05mm))
   # 1-6 Layers (preferred)
   # (constraint annular_width (min 0.075mm))
@@ -79,12 +92,9 @@
 	(constraint annular_width (min 0.25mm))
 )
 
-# An expensive 4-Wire Kelvin Test is automatically added for holes that are < 0.3mm with a diameter ≤ 0.4mm.
-(rule "JLCPCB: Avoid 4-Wire Kelvin Test"
-	(condition "(A.Type == 'Via' && A.Hole < 0.3mm && A.Diameter <= 0.4mm) || (A.Type == 'Pad' && ((A.Hole_Size_X < 0.3mm && A.Size_X <= 0.4mm) || (A.Hole_Size_Y < 0.3mm && A.Size_Y <= 0.4mm)))")
-  # 4-6 Layers
-  (constraint annular_width (min 0.125mm))
-)
+# Cost note: JLCPCB may add a 4-wire Kelvin test for holes < 0.3 mm with
+# copper diameter <= 0.4 mm. That is not a manufacturability limit, and this
+# board needs 0.15/0.25 mm BGA breakout vias, so do not enforce avoidance here.
 
 
 # --- VIA Support Rules --- 
@@ -121,6 +131,32 @@
 (rule "JLCPCB: Via/Pad to Via/Pad Clearance (Different Nets)"
 	(condition "(A.Type == 'Pad' || A.Type == 'Via') && (B.Type == 'Pad' || B.Type == 'Via') && A.Net != B.Net")
 	(constraint clearance (min 0.127mm))
+)
+
+(rule "JLCPCB: BGA Pad Size"
+	(condition "A.Type == 'Pad' && A.Fabrication_Property == 'BGA pad'")
+  # 4-layer BGA: JLCPCB BGA guide, B = 0.25 mm.
+	(constraint assertion "A.Size_X >= 0.25mm && A.Size_Y >= 0.25mm")
+)
+
+(rule "JLCPCB: BGA Pad to BGA Pad"
+	(condition "A.Type == 'Pad' && A.Fabrication_Property == 'BGA pad' && B.Type == 'Pad' && B.Fabrication_Property == 'BGA pad'")
+  # 0.4 mm pitch with 0.25 mm pads leaves 0.15 mm copper gap.
+  # Keep this below the generic 0.2 mm board setup clearance but above
+  # JLCPCB 4-layer BGA trace-to-pad/via-to-pad limits.
+	(constraint clearance (min 0.127mm))
+)
+
+(rule "JLCPCB: BGA Pad to Trace"
+	(condition "A.Type == 'Pad' && A.Fabrication_Property == 'BGA pad' && B.Type == 'Track' && A.Net != B.Net")
+  # 4-layer BGA: JLCPCB BGA guide, C = 0.10 mm.
+	(constraint clearance (min 0.10mm))
+)
+
+(rule "JLCPCB: Via Copper to BGA Pad"
+	(condition "A.Type == 'Via' && B.Type == 'Pad' && B.Fabrication_Property == 'BGA pad' && A.Net != B.Net")
+  # 4-layer BGA: JLCPCB BGA guide, G = 0.10 mm.
+	(constraint clearance (min 0.10mm))
 )
 
 # NOTE: This is not stated specifically, but is implied by other rules.
@@ -192,6 +228,33 @@
 	(constraint clearance (min 0.09mm))
   # 4-6 Layers (2oz)
   # (constraint clearance (min 0.2mm))
+)
+
+# --- U1 BGA Escape ---
+#
+# Keep POWER/SENSE/Default netclasses conservative for the rest of the board.
+# These local exceptions allow only the STWLC38JRM WLCSP40 fanout area to use
+# JLCPCB 4-layer BGA limits. Rules are intentionally placed after the generic
+# clearance/width rules because KiCad evaluates custom rules from bottom to top.
+
+(rule "JLCPCB: U1 BGA Escape Track Width"
+	(condition "A.Type == 'Track' && A.intersectsCourtyard('U1')")
+  # JLCPCB 4-layer BGA guide: trace width can use 0.09 mm in the fanout.
+	(constraint track_width (min 0.09mm))
+)
+
+(rule "JLCPCB: U1 BGA Escape Clearance"
+	(condition "A.intersectsCourtyard('U1') || B.intersectsCourtyard('U1')")
+  # JLCPCB 4-layer BGA guide: trace-to-trace spacing S = 0.09 mm.
+  # BGA pad-to-trace and via-to-BGA-pad are separately constrained to 0.10 mm.
+	(constraint clearance (min 0.09mm))
+)
+
+(rule "JLCPCB: U1 BGA Escape Via Hole to Trace"
+	(condition "((A.Type == 'Via' && B.Type == 'Track') || (A.Type == 'Track' && B.Type == 'Via')) && (A.intersectsCourtyard('U1') || B.intersectsCourtyard('U1'))")
+  # For 0.25/0.15 mm BGA escape vias, 0.09 mm copper-to-copper spacing
+  # corresponds to 0.14 mm from the drill edge to adjacent copper.
+	(constraint hole_clearance (min 0.14mm))
 )
 
 
