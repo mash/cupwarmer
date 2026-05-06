@@ -344,7 +344,7 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - `AC1/AC2` ESD: `SMF13A` (Z1/Z2) 各 `GND` 直結
 - `Cs` 系列共振 `100nF×3` (C1/C16/C17) + `10nF×2` (C18/C19) = 320nF。`Cd` 並列共振 C15 は Qi 認証向け後方互換用途のため v1 では削除済み
 - 受電コイル: v1 は STEVAL-WLC38RX と同じ `Luxshare-ICT LD81FP008-1H` を基準にする（`8±0.2uH @100kHz`, `DCR=190mΩ±10%`, `ACR=225mΩ±10%`）
-- フェライト: コイル付属/同等の backing ferrite を優先。別体 ferrite sheet を使う場合は coil L/Q と FOD を再測定する
+- フェライト: コイル付属/同等の backing ferrite を優先。別体 ferrite sheet は `SHIELD1 = Wuerth Elektronik WE-FSFS 364105` (60x60x0.5mm flexible sintered ferrite sheet) を第一候補にする。コイル外形に合わせてトリム/固定し、coil L/Q/DCR と FOD / 位置ずれ挙動を再測定する
 - COMA/COMB ASK 変調キャパ 4 本: C11=CCOMA1(10n→AC1), C12=CCOMB1(22n→AC1), C13=CCOMA2(10n→AC2), C14=CCOMB2(22n→AC2)
 - `VS` は RX-only では未使用。評価ボードでは DNP ジャンパ経由の外部 `VS` 評価点として扱われており、v1 では未接続
 - `ENB` → `GND` 固定
@@ -410,6 +410,7 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - ~~ST 推奨の完全な最小回路~~ → rx-power に反映済み
 - ~~COMA/COMB 変調キャパシタ~~ → 4 本構成で実装済み (CCOMA1/2, CCOMB1/2)
 - ~~exact coil baseline~~ → v1 は `Luxshare-ICT LD81FP008-1H` + `Cs=320nF` (100nF×3 + 10nF×2) を基準にする。`Cd=3.3nF` は Qi 認証向け後方互換用途のため削除済み。ferrite と実機共振値は積層後に実測で確定
+- ~~ferrite sheet baseline~~ → 別体フェライト候補は `Wuerth Elektronik WE-FSFS 364105` (60x60x0.5mm) を選定。BOM の `SHIELD1` に反映済み。コイル付属 ferrite と二重化する場合は磁気結合が変わるため、採否は組立後の L/Q/DCR、VRECT、FOD、金属マグ/カップなし停止境界で判断する
 - **Cs 誘電体 3×100 nF C0G 1206 で確定 (2026-05-05)**: C1/C16/C17 (Cs primary 3×100 nF) は現状 X7R 0603 (Würth 885012206095)。cup warmer は heater H1 + コイル損失で基板常時温間動作のため、X7R の温度 ±15% + DC bias 容量減で共振ドリフト → 効率低下・VRECT 変動。C0G (NP0、±30 ppm/°C、DC bias 影響なし) が必須。サイズは小さいほど良いが、JLCPCB DB 検索の結果 **100 nF/50 V C0G は 0603・0805 ともに存在せず、1206 のみ入手可**（C0G 体積効率の物理制約）。22 nF C0G 0805 多並列で代替する案は ~14 個必要 (35 mm²) で 3×1206 (15.4 mm²) より大幅にスペース消費。AC1/AC2 differential ~42 V peak のため 50 V 維持必須 (25 V 化で 0603/0805 を狙う案は不採用)。第一候補: **Murata GRM31C5C1H104JA01L (LCSC C97946)** 100 nF 50 V C0G ±5% 1206、$0.08@100、JLC extended。C18/C19 (10 nF NP0 0603) は既に C0G なので維持。Phase 1 で sch (footprint 0603→1206) + BOM (MPN) + PCB を更新する。
 - **Cd (C15) 削除 (2026-05-05)**: UM3154 §9.1.2 で「Cd は省略可、Qi 認証時の特定 TX への後方互換用途のみ」と明記。cupwarmer は Qi 認証取得しない方針なので C15 (3.3 nF NP0 / Walsin 0603N332J500CT) を sch + PCB + BOM から削除。共振点は Cd 付きの並列共振ではなく Cs 直列共振 (8 µH × 320 nF = ~99.5 kHz、`C18`/`C19` 修正前提) に依存。Cs/Cd 並列共振の変動要素が一つ減る。
 - ~~heater final resistance~~ → 15Ω 採用（暫定）。熱試験で再調整

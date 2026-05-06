@@ -73,7 +73,7 @@ v1 の第一候補はアルミナ充填シリコーンパッド。目的はカ�
 PCB 着手前または初回組立時に、以下の積層条件を記録する。
 
 - coil part number and measured L/Q/DCR
-- ferrite part number, thickness, and whether it is coil-bonded
+- ferrite part number, thickness, and whether it is coil-bonded (`SHIELD1` baseline: Wuerth Elektronik WE-FSFS 364105, 60x60x0.5mm, trimmed/fixtured to coil backing envelope)
 - coil-to-ferrite gap
 - ferrite-to-PCB gap
 - PCB-to-heater insulation thickness
@@ -88,7 +88,7 @@ EPP 15W pad と BPP 5W pad で、位置ずれ、金属マグ、カップなし�
 - 外径
 - 厚み
 - コイル直径
-- フェライト寸法
+- ~~フェライト寸法~~ → 別体候補は `SHIELD1 = Wuerth Elektronik WE-FSFS 364105`、60x60x0.5mm。最終外形は実コイル外形に合わせてトリム/固定し、L/Q/FOD 実測で採否を決める
 - F1 固定方法の最終選定
 - cup contact layer の具体品番
 - thermal test の実測結果
