@@ -398,6 +398,26 @@
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222213")
 	)
+	(label "HEATER_OUT"
+		(at 85.09 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6fe60c6d-d2f7-4880-8d7b-232f91fcd87b")
+	)
+	(label "HEATER_IN"
+		(at 60.96 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "82064ebd-d4c5-499c-9737-dbac4a270394")
+	)
 	(global_label "VOUT_12V"
 		(shape input)
 		(at 40.64 58.42 180)
