@@ -8,5 +8,6 @@ tmp/
 .history
 __pycache__/
 .claude/scheduled_tasks.lock
+hardware/kicad/cupwarmer-hw/cupwarmer-hw-backups/
 wiki/*
 !wiki/README.md
