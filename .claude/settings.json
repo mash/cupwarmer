@@ -1,5 +1,6 @@
 {
   "enabledPlugins": {
-    "kicad-skills@kicad-skills": true
+    "kicad-skills@kicad-skills": true,
+    "jlcpcb-skills@jlcpcb-skills": true
   }
 }
