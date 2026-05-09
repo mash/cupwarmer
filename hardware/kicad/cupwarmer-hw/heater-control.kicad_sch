@@ -508,7 +508,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Low-side heater stage: VOUT_12V -> R1(10k) / R2(10k) divider sets VGS~=6V on Q1 (keeps within VGS_max of AO3400-class FETs even on VOUT spikes). F1 -> H1 heater harness -> Q1 series path. H1 also carries heater NTC to RX_NTC."
+	(text "Low-side heater stage: VOUT_12V -> R1(10k) / R2(10k) divider sets VGS~=6V on Q1 (keeps within VGS_max of AO3400-class FETs even on VOUT spikes). VOUT_12V -> H1 -> H2 -> F1 -> R_HTR -> H2 -> H1 -> Q1 series path. H1/H2 also carry heater NTC (TH2) to RX_NTC."
 		(exclude_from_sim no)
 		(at 26.416 159.258 0)
 		(effects
@@ -520,27 +520,87 @@
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222290")
 	)
+	(text "Heater"
+		(exclude_from_sim no)
+		(at 185.928 24.638 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.2)
+			)
+			(justify left bottom)
+		)
+		(uuid "d35c6447-ff65-471d-89e9-08c3c672fa8c")
+	)
 	(junction
-		(at 87.63 111.76)
+		(at 184.15 52.07)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2f216ed4-14f4-4ec5-9122-0a89b8df82b6")
+	)
+	(junction
+		(at 184.15 62.23)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4322bb92-ab4b-416a-9f97-93323736da04")
+	)
+	(junction
+		(at 115.57 114.3)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4f3b3ed2-94cb-43d0-909b-05e2faac89f9")
+	)
+	(junction
+		(at 106.68 129.54)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5010cd35-30a1-411c-a6cb-949536b7cc49")
 	)
 	(junction
-		(at 41.91 36.83)
+		(at 72.39 62.23)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8bbc3332-77da-4ed6-80e5-5c56275a03ca")
 	)
 	(junction
-		(at 87.63 73.66)
+		(at 106.68 91.44)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e9002b30-cea0-45c5-8d03-a3261df4290f")
 	)
 	(wire
 		(pts
-			(xy 82.55 58.42) (xy 96.52 58.42)
+			(xy 179.07 62.23) (xy 184.15 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "07af35ab-b9f8-485f-9516-6566879496c3")
+	)
+	(wire
+		(pts
+			(xy 205.74 74.93) (xy 205.74 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0fa170a2-e6ad-45f4-8b74-677e6a3096b2")
+	)
+	(wire
+		(pts
+			(xy 184.15 62.23) (xy 184.15 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "11a0d18c-2eff-47ca-baf7-2dc8867eaf4e")
+	)
+	(wire
+		(pts
+			(xy 115.57 62.23) (xy 115.57 81.28)
 		)
 		(stroke
 			(width 0)
@@ -550,7 +610,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 73.66) (xy 50.8 73.66)
+			(xy 59.69 91.44) (xy 69.85 91.44)
 		)
 		(stroke
 			(width 0)
@@ -560,7 +620,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 114.3) (xy 87.63 111.76)
+			(xy 106.68 132.08) (xy 106.68 129.54)
 		)
 		(stroke
 			(width 0)
@@ -570,27 +630,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 58.42) (xy 50.8 58.42)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222201")
-	)
-	(wire
-		(pts
-			(xy 96.52 58.42) (xy 96.52 63.5)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222204")
-	)
-	(wire
-		(pts
-			(xy 96.52 83.82) (xy 96.52 96.52)
+			(xy 115.57 101.6) (xy 115.57 114.3)
 		)
 		(stroke
 			(width 0)
@@ -600,7 +640,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 73.66) (xy 87.63 81.28)
+			(xy 106.68 91.44) (xy 106.68 99.06)
 		)
 		(stroke
 			(width 0)
@@ -610,7 +650,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 106.68) (xy 96.52 111.76)
+			(xy 115.57 124.46) (xy 115.57 129.54)
 		)
 		(stroke
 			(width 0)
@@ -620,7 +660,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 96.52) (xy 106.68 96.52)
+			(xy 115.57 114.3) (xy 125.73 114.3)
 		)
 		(stroke
 			(width 0)
@@ -630,7 +670,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 73.66) (xy 87.63 73.66)
+			(xy 80.01 91.44) (xy 106.68 91.44)
 		)
 		(stroke
 			(width 0)
@@ -640,7 +680,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 91.44) (xy 87.63 111.76)
+			(xy 106.68 109.22) (xy 106.68 129.54)
 		)
 		(stroke
 			(width 0)
@@ -650,7 +690,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 111.76) (xy 96.52 111.76)
+			(xy 106.68 129.54) (xy 115.57 129.54)
 		)
 		(stroke
 			(width 0)
@@ -660,7 +700,17 @@
 	)
 	(wire
 		(pts
-			(xy 41.91 26.67) (xy 41.91 22.86)
+			(xy 184.15 49.53) (xy 184.15 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2320ec34-eed0-4d51-bbfe-fd1a9ae49cbc")
+	)
+	(wire
+		(pts
+			(xy 72.39 52.07) (xy 72.39 48.26)
 		)
 		(stroke
 			(width 0)
@@ -670,7 +720,37 @@
 	)
 	(wire
 		(pts
-			(xy 38.1 36.83) (xy 41.91 36.83)
+			(xy 176.53 40.64) (xy 187.96 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "258d6665-ca37-4f61-a3d7-871e3fa2d088")
+	)
+	(wire
+		(pts
+			(xy 179.07 52.07) (xy 179.07 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27f2aca6-e0ab-4398-b021-a1237afef47b")
+	)
+	(wire
+		(pts
+			(xy 176.53 40.64) (xy 176.53 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d07a3d2-06de-415c-9187-4b171078a0d8")
+	)
+	(wire
+		(pts
+			(xy 68.58 62.23) (xy 72.39 62.23)
 		)
 		(stroke
 			(width 0)
@@ -680,7 +760,37 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 36.83) (xy 77.47 49.53)
+			(xy 205.74 40.64) (xy 205.74 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b48b543-40d0-4378-aa57-1353164f356c")
+	)
+	(wire
+		(pts
+			(xy 179.07 62.23) (xy 179.07 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b7df2d1-4ecf-4845-9ff8-f3fe94555876")
+	)
+	(wire
+		(pts
+			(xy 184.15 62.23) (xy 191.77 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4064f713-6c3a-4cdb-a939-86391f75610b")
+	)
+	(wire
+		(pts
+			(xy 137.16 57.15) (xy 124.46 57.15)
 		)
 		(stroke
 			(width 0)
@@ -690,7 +800,27 @@
 	)
 	(wire
 		(pts
-			(xy 41.91 36.83) (xy 41.91 38.1)
+			(xy 184.15 52.07) (xy 179.07 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "82f8a5ba-51fb-4697-a464-b9103aff72b6")
+	)
+	(wire
+		(pts
+			(xy 176.53 62.23) (xy 175.26 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8cb2cb92-8bce-410e-a279-4278f5b41fc8")
+	)
+	(wire
+		(pts
+			(xy 72.39 62.23) (xy 72.39 63.5)
 		)
 		(stroke
 			(width 0)
@@ -700,7 +830,37 @@
 	)
 	(wire
 		(pts
-			(xy 41.91 22.86) (xy 45.72 22.86)
+			(xy 179.07 59.69) (xy 175.26 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "97d52962-5bcf-4705-b9b6-7667bc912a9c")
+	)
+	(wire
+		(pts
+			(xy 205.74 74.93) (xy 176.53 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9daa46d0-9ccb-46f3-ad52-2b8018ab6c7a")
+	)
+	(wire
+		(pts
+			(xy 198.12 40.64) (xy 205.74 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9fd48cc6-1589-4541-a0f4-e83fb6b9e26b")
+	)
+	(wire
+		(pts
+			(xy 72.39 48.26) (xy 76.2 48.26)
 		)
 		(stroke
 			(width 0)
@@ -710,17 +870,57 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 58.42) (xy 74.93 58.42)
+			(xy 179.07 57.15) (xy 175.26 57.15)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "d65e3d79-7a96-48ff-ac4a-e6d079fe3c35")
+		(uuid "b3204d05-d5ca-4af3-a185-9cdb39043d43")
 	)
 	(wire
 		(pts
-			(xy 82.55 36.83) (xy 82.55 58.42)
+			(xy 176.53 54.61) (xy 175.26 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c9ab3fb4-d4a9-48cc-83e7-65c67a022508")
+	)
+	(wire
+		(pts
+			(xy 176.53 74.93) (xy 176.53 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cc9f1f14-f530-41a9-9bfe-61f0add1b503")
+	)
+	(wire
+		(pts
+			(xy 137.16 54.61) (xy 124.46 54.61)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "cfe6a6bc-cc44-4ed8-b7f4-3e629a1ca8f8")
+	)
+	(wire
+		(pts
+			(xy 191.77 52.07) (xy 184.15 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eb1e7319-77e8-4ffd-98c8-05d5edc24e0c")
+	)
+	(wire
+		(pts
+			(xy 137.16 62.23) (xy 115.57 62.23)
 		)
 		(stroke
 			(width 0)
@@ -730,7 +930,7 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 36.83) (xy 80.01 49.53)
+			(xy 137.16 59.69) (xy 124.46 59.69)
 		)
 		(stroke
 			(width 0)
@@ -738,38 +938,8 @@
 		)
 		(uuid "ef57bb93-8f4d-45c6-b6e3-a03b5b6dca20")
 	)
-	(wire
-		(pts
-			(xy 74.93 36.83) (xy 74.93 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f799ec20-9375-435a-9318-cbcfc88e1713")
-	)
 	(label "HEATER_IN"
-		(at 74.93 49.53 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "129b2a62-6717-49e2-b586-03a2eddbb1b0")
-	)
-	(label "HEATER_OUT"
-		(at 116.84 66.04 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "91e7574c-7131-443c-9469-8b4b62f3221a")
-	)
-	(label "HEATER_IN"
-		(at 116.84 55.88 0)
+		(at 176.53 40.64 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -779,72 +949,28 @@
 		(uuid "113fcf4a-8ba3-41a2-b16d-d1cc3828e7e8")
 	)
 	(label "HEATER_OUT"
-		(at 85.09 58.42 0)
+		(at 115.57 64.77 270)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "6fe60c6d-d2f7-4880-8d7b-232f91fcd87b")
 	)
 	(label "HEATER_OUT"
-		(at 82.55 49.53 90)
+		(at 177.8 74.93 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "90a13d61-766c-4d78-816d-60a98bb3903a")
-	)
-	(global_label "RX_VAA"
-		(shape passive)
-		(at 45.72 22.86 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "0d43f3dd-4eaf-4bab-b788-5cdec06be838")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 45.72 22.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "SYS_GND"
-		(shape passive)
-		(at 96.52 66.04 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "2d97bcda-d92c-4d25-92da-33aa15a0ff8f")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 96.52 66.04 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
+		(uuid "91e7574c-7131-443c-9469-8b4b62f3221a")
 	)
 	(global_label "RX_NTC"
 		(shape passive)
-		(at 96.52 55.88 0)
+		(at 184.15 49.53 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -853,7 +979,29 @@
 		)
 		(uuid "044de69b-711b-4223-aa9d-6e8cea5cac00")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 96.52 55.88 0)
+			(at 184.15 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_VAA"
+		(shape passive)
+		(at 76.2 48.26 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "0d43f3dd-4eaf-4bab-b788-5cdec06be838")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 76.2 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -866,7 +1014,7 @@
 	)
 	(global_label "VOUT_12V"
 		(shape input)
-		(at 40.64 58.42 180)
+		(at 124.46 54.61 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -875,7 +1023,7 @@
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222220")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 40.64 58.42 0)
+			(at 124.46 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -888,7 +1036,7 @@
 	)
 	(global_label "VOUT_12V"
 		(shape input)
-		(at 40.64 73.66 180)
+		(at 59.69 91.44 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -897,7 +1045,7 @@
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222222")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 40.64 73.66 0)
+			(at 59.69 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -910,7 +1058,7 @@
 	)
 	(global_label "I_HEATER_MON"
 		(shape output)
-		(at 106.68 96.52 0)
+		(at 125.73 114.3 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -919,7 +1067,7 @@
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222223")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 106.68 96.52 0)
+			(at 125.73 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -932,7 +1080,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 96.52 111.76 270)
+		(at 115.57 129.54 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -941,7 +1089,7 @@
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222224")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 96.52 111.76 0)
+			(at 115.57 129.54 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -954,7 +1102,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape input)
-		(at 80.01 49.53 270)
+		(at 124.46 59.69 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -963,7 +1111,7 @@
 		)
 		(uuid "58768ed4-72d2-421f-9319-a9e0f35e2f53")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 80.01 49.53 0)
+			(at 124.46 59.69 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -976,7 +1124,7 @@
 	)
 	(global_label "RX_NTC"
 		(shape input)
-		(at 77.47 49.53 270)
+		(at 124.46 57.15 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -985,7 +1133,7 @@
 		)
 		(uuid "7ff3846d-f65f-43be-ac3f-f2074d88f10e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 77.47 49.53 0)
+			(at 124.46 57.15 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -998,7 +1146,7 @@
 	)
 	(global_label "RX_NTC"
 		(shape input)
-		(at 38.1 36.83 180)
+		(at 68.58 62.23 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1007,7 +1155,29 @@
 		)
 		(uuid "c13c1916-f41a-4a23-82a1-86071bce26ea")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 38.1 36.83 0)
+			(at 68.58 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape input)
+		(at 184.15 64.77 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e59ab618-d7df-4c1a-b48a-41c2ef059823")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 184.15 64.77 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1020,7 +1190,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 55.88 58.42 0)
+		(at 193.04 40.64 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1030,7 +1200,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222230")
 		(property "Reference" "F1"
-			(at 55.88 62.23 0)
+			(at 193.04 36.576 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1040,7 +1210,7 @@
 			)
 		)
 		(property "Value" "KSD9700-70/5JSB/080C"
-			(at 55.88 53.086 0)
+			(at 193.04 34.036 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1050,7 +1220,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 55.88 58.42 0)
+			(at 193.04 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1061,7 +1231,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 55.88 58.42 0)
+			(at 193.04 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1072,7 +1242,7 @@
 			)
 		)
 		(property "Description" "Independent thermal cutoff in series before heater"
-			(at 55.88 58.42 0)
+			(at 193.04 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1083,7 +1253,7 @@
 			)
 		)
 		(property "Manufacturer" "Xucheng Elec"
-			(at 0 0 0)
+			(at 137.16 -17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1094,7 +1264,7 @@
 			)
 		)
 		(property "LCSC" "C156512"
-			(at 0 0 0)
+			(at 137.16 -17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1105,7 +1275,7 @@
 			)
 		)
 		(property "MPN" "KSD9700-70/5JSB/080C"
-			(at 0 0 0)
+			(at 137.16 -17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1131,232 +1301,8 @@
 		)
 	)
 	(symbol
-		(lib_id "cupwarmer:PASSIVE_2")
-		(at 116.84 60.96 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "e8059227-c1ca-4207-8dc1-d4a959c9bf0e")
-		(property "Reference" "R_HTR"
-			(at 116.84 64.77 270)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "12R 12W heater coil"
-			(at 116.84 55.626 270)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 116.84 60.96 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 116.84 60.96 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Silicone heater element inside H1 harness; 12 ohm, 12 W nominal, off-board"
-			(at 116.84 60.96 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 0 0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" ""
-			(at 0 0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "MPN" ""
-			(at 0 0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "74505f98-8e78-4a33-978e-6618b9b4d11b")
-		)
-		(pin "2"
-			(uuid "2c164489-fc3f-4e88-a59b-801225ec1f02")
-		)
-		(instances
-			(project "cupwarmer-hw"
-				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
-					(reference "R_HTR")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "cupwarmer:PASSIVE_2")
-		(at 96.52 60.96 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "6b165cad-d9a3-48c1-a8f3-2bbcab377dc0")
-		(property "Reference" "TH2"
-			(at 96.52 64.77 270)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100k NTC B4260"
-			(at 96.52 55.626 270)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 96.52 60.96 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 96.52 60.96 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Heater-embedded 100k NTC thermistor (B=4260); physically inside H1 harness, off-board"
-			(at 96.52 60.96 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 0 0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" ""
-			(at 0 0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "MPN" ""
-			(at 0 0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "889bc867-8a81-4d42-a2dc-65cff73fb13e")
-		)
-		(pin "2"
-			(uuid "256b68d7-2ef4-434a-9921-5ddfd42d4cf7")
-		)
-		(instances
-			(project "cupwarmer-hw"
-				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
-					(reference "TH2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "cupwarmer:HEATER_HARNESS_4")
-		(at 78.74 31.75 0)
+		(at 142.24 58.42 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1366,7 +1312,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222233")
 		(property "Reference" "H1"
-			(at 74.93 27.432 0)
+			(at 146.558 54.61 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1375,8 +1321,8 @@
 				)
 			)
 		)
-		(property "Value" "4-pin heater harness connector"
-			(at 78.74 22.86 0)
+		(property "Value" "4-pin heater lead pcb side"
+			(at 151.13 58.42 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1386,7 +1332,7 @@
 			)
 		)
 		(property "Footprint" "cupwarmer:SolderWire-HeaterHarness_1x04_P5.0mm_D1.4mm"
-			(at 78.74 31.75 0)
+			(at 142.24 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1397,7 +1343,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 78.74 31.75 0)
+			(at 142.24 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1408,7 +1354,7 @@
 			)
 		)
 		(property "Description" "Four-wire silicone heater harness: H+ after F1, H- to Q1 drain, embedded 100k NTC to RX_NTC/SYS_GND"
-			(at 78.74 31.75 0)
+			(at 142.24 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1441,7 +1387,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:NMOS_LS")
-		(at 96.52 73.66 0)
+		(at 115.57 91.44 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1451,7 +1397,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222236")
 		(property "Reference" "Q1"
-			(at 96.52 82.55 0)
+			(at 115.57 100.33 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1461,7 +1407,7 @@
 			)
 		)
 		(property "Value" "AO3400 SOT-23"
-			(at 96.52 64.77 0)
+			(at 115.57 82.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1471,7 +1417,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 96.52 73.66 0)
+			(at 115.57 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1482,7 +1428,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 96.52 73.66 0)
+			(at 115.57 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1493,7 +1439,7 @@
 			)
 		)
 		(property "Description" "N-MOSFET 30V 5.7A Rds(on)=29mOhm SOT-23"
-			(at 96.52 73.66 0)
+			(at 115.57 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1504,7 +1450,7 @@
 			)
 		)
 		(property "Manufacturer" "Shenzhen Hottech Electronics"
-			(at 0 0 0)
+			(at 19.05 17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1515,7 +1461,7 @@
 			)
 		)
 		(property "LCSC" "C181090"
-			(at 0 0 0)
+			(at 19.05 17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1526,7 +1472,7 @@
 			)
 		)
 		(property "MPN" "AO3400"
-			(at 0 0 0)
+			(at 19.05 17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1556,7 +1502,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 55.88 73.66 0)
+		(at 74.93 91.44 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1566,7 +1512,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222240")
 		(property "Reference" "R1"
-			(at 55.88 77.47 0)
+			(at 74.93 95.25 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1576,7 +1522,7 @@
 			)
 		)
 		(property "Value" "10k Div Top"
-			(at 55.88 69.85 0)
+			(at 74.93 87.63 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1586,7 +1532,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 55.88 73.66 0)
+			(at 74.93 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1597,7 +1543,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 55.88 73.66 0)
+			(at 74.93 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1608,7 +1554,7 @@
 			)
 		)
 		(property "Description" "Gate divider top (VOUT_12V -> Q1.G)"
-			(at 55.88 73.66 0)
+			(at 74.93 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1619,7 +1565,7 @@
 			)
 		)
 		(property "Manufacturer" "UNI-ROYAL"
-			(at 7.62 0 0)
+			(at 26.67 17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1630,7 +1576,7 @@
 			)
 		)
 		(property "LCSC" "C25804"
-			(at 7.62 0 0)
+			(at 26.67 17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1641,7 +1587,7 @@
 			)
 		)
 		(property "MPN" "0603WAF1002T5E"
-			(at 7.62 0 0)
+			(at 26.67 17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1668,7 +1614,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 87.63 86.36 90)
+		(at 106.68 104.14 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1678,7 +1624,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222243")
 		(property "Reference" "R2"
-			(at 85.09 90.17 0)
+			(at 104.14 107.95 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1688,7 +1634,7 @@
 			)
 		)
 		(property "Value" "10k Div Bot"
-			(at 76.2 90.17 90)
+			(at 95.25 107.95 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1698,7 +1644,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 87.63 86.36 90)
+			(at 106.68 104.14 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1709,7 +1655,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 87.63 86.36 90)
+			(at 106.68 104.14 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1720,7 +1666,7 @@
 			)
 		)
 		(property "Description" "Gate divider bottom (Q1.G -> GND, VGS~=6V)"
-			(at 87.63 86.36 90)
+			(at 106.68 104.14 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1731,7 +1677,7 @@
 			)
 		)
 		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
+			(at 19.05 17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1742,7 +1688,7 @@
 			)
 		)
 		(property "LCSC" "C25804"
-			(at 0 0 0)
+			(at 19.05 17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1753,7 +1699,7 @@
 			)
 		)
 		(property "MPN" "0603WAF1002T5E"
-			(at 0 0 0)
+			(at 19.05 17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1780,7 +1726,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 96.52 101.6 90)
+		(at 115.57 119.38 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1790,7 +1736,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222246")
 		(property "Reference" "R3"
-			(at 100.33 101.6 90)
+			(at 119.38 119.38 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1800,7 +1746,7 @@
 			)
 		)
 		(property "Value" "0R/0.05R"
-			(at 91.44 101.6 0)
+			(at 110.49 119.38 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1810,7 +1756,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 96.52 101.6 90)
+			(at 115.57 119.38 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1821,7 +1767,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 96.52 101.6 90)
+			(at 115.57 119.38 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1832,7 +1778,7 @@
 			)
 		)
 		(property "Description" "Fit 0R for v1 normal build; substitute 0.05R for measured bring-up"
-			(at 96.52 101.6 90)
+			(at 115.57 119.38 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1843,7 +1789,7 @@
 			)
 		)
 		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
+			(at 19.05 17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1854,7 +1800,7 @@
 			)
 		)
 		(property "LCSC" "C21189"
-			(at 0 0 0)
+			(at 19.05 17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1865,7 +1811,7 @@
 			)
 		)
 		(property "MPN" "0603WAF0000T5E"
-			(at 0 0 0)
+			(at 19.05 17.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1892,7 +1838,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:TESTPAD_1")
-		(at 41.91 43.18 0)
+		(at 72.39 68.58 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1902,7 +1848,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222260")
 		(property "Reference" "TP1"
-			(at 41.91 45.72 0)
+			(at 72.39 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1912,7 +1858,7 @@
 			)
 		)
 		(property "Value" "TP_NTC"
-			(at 37.1 42.85 0)
+			(at 67.58 68.25 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1922,7 +1868,7 @@
 			)
 		)
 		(property "Footprint" "cupwarmer:TestPoint_Pad_D1.0mm_NoSilk"
-			(at 41.91 43.18 0)
+			(at 72.39 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1933,7 +1879,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 41.91 43.18 0)
+			(at 72.39 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1944,7 +1890,7 @@
 			)
 		)
 		(property "Description" "DMM probe pad for heater NTC before powered test"
-			(at 41.91 43.18 0)
+			(at 72.39 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1968,7 +1914,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:TESTPAD_1")
-		(at 87.63 119.38 0)
+		(at 106.68 137.16 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1978,7 +1924,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222262")
 		(property "Reference" "TP2"
-			(at 87.63 121.92 0)
+			(at 106.68 139.7 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1988,7 +1934,7 @@
 			)
 		)
 		(property "Value" "TP_NTC_GND"
-			(at 79.756 119.38 0)
+			(at 98.806 137.16 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1998,7 +1944,7 @@
 			)
 		)
 		(property "Footprint" "cupwarmer:TestPoint_Pad_D1.0mm_NoSilk"
-			(at 87.63 119.38 0)
+			(at 106.68 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2009,7 +1955,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 87.63 119.38 0)
+			(at 106.68 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2020,7 +1966,7 @@
 			)
 		)
 		(property "Description" "DMM return pad for heater NTC before powered test"
-			(at 87.63 119.38 0)
+			(at 106.68 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2043,18 +1989,19 @@
 		)
 	)
 	(symbol
-		(lib_id "cupwarmer:PASSIVE_2")
-		(at 41.91 31.75 270)
+		(lib_id "cupwarmer:HEATER_HARNESS_4")
+		(at 170.18 58.42 90)
+		(mirror x)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "af5606b2-e054-46ff-81d1-af839620aa26")
-		(property "Reference" "R7"
-			(at 45.72 31.75 0)
+		(uuid "2d4648b7-1be2-447d-8e45-927bb354c082")
+		(property "Reference" "H2"
+			(at 165.862 54.61 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2063,8 +2010,8 @@
 				)
 			)
 		)
-		(property "Value" "51k"
-			(at 38.354 31.75 180)
+		(property "Value" "4-pin heater lead heater side"
+			(at 161.29 58.42 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2073,8 +2020,8 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 41.91 31.75 180)
+		(property "Footprint" "cupwarmer:SolderWire-HeaterHarness_1x04_P5.0mm_D1.4mm"
+			(at 170.18 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2085,7 +2032,204 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 41.91 31.75 180)
+			(at 170.18 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Four-wire silicone heater harness: H+ after F1, H- to Q1 drain, embedded 100k NTC to RX_NTC/SYS_GND"
+			(at 170.18 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "144e4095-3c92-4080-a653-703037727d1b")
+		)
+		(pin "2"
+			(uuid "067500f7-24a3-4707-b799-3cb7dce58d92")
+		)
+		(pin "3"
+			(uuid "117f4701-3a9c-4f16-a604-6db7a3ed902a")
+		)
+		(pin "4"
+			(uuid "7944ac12-4fb5-404c-be9b-9fd7e56915de")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
+					(reference "H2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 191.77 57.15 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "6b165cad-d9a3-48c1-a8f3-2bbcab377dc0")
+		(property "Reference" "TH2"
+			(at 195.834 57.15 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100k NTC B4260"
+			(at 198.374 57.15 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 191.77 57.15 270)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 191.77 57.15 270)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Heater-embedded 100k NTC thermistor (B=4260); physically inside H1 harness, off-board"
+			(at 191.77 57.15 270)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 95.25 -3.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 95.25 -3.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" ""
+			(at 95.25 -3.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "889bc867-8a81-4d42-a2dc-65cff73fb13e")
+		)
+		(pin "2"
+			(uuid "256b68d7-2ef4-434a-9921-5ddfd42d4cf7")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
+					(reference "TH2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 72.39 57.15 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "af5606b2-e054-46ff-81d1-af839620aa26")
+		(property "Reference" "R7"
+			(at 76.2 57.15 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "51k"
+			(at 68.834 57.15 180)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 72.39 57.15 180)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 72.39 57.15 180)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2096,7 +2240,7 @@
 			)
 		)
 		(property "Description" "NTC pull-up to RX_VAA (51k); forms divider with external 100k/B4260 heater NTC on RX_NTC for STWLC38 OTP (~69C typ, VNTC,OTP=0.59V)"
-			(at 41.91 31.75 180)
+			(at 72.39 57.15 180)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2107,7 +2251,7 @@
 			)
 		)
 		(property "Manufacturer" "UNI-ROYAL"
-			(at -102.87 -105.41 0)
+			(at -72.39 -80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2118,7 +2262,7 @@
 			)
 		)
 		(property "LCSC" "C23196"
-			(at -102.87 -105.41 0)
+			(at -72.39 -80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2129,7 +2273,7 @@
 			)
 		)
 		(property "MPN" "0603WAF5102T5E"
-			(at -102.87 -105.41 0)
+			(at -72.39 -80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2149,6 +2293,118 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
 					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 205.74 57.15 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "e8059227-c1ca-4207-8dc1-d4a959c9bf0e")
+		(property "Reference" "R_HTR"
+			(at 210.566 57.15 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "12R 12W heater coil"
+			(at 213.106 57.404 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 205.74 57.15 270)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 205.74 57.15 270)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Silicone heater element inside H1 harness; 12 ohm, 12 W nominal, off-board"
+			(at 205.74 57.15 270)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 88.9 -3.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 88.9 -3.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" ""
+			(at 88.9 -3.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "74505f98-8e78-4a33-978e-6618b9b4d11b")
+		)
+		(pin "2"
+			(uuid "2c164489-fc3f-4e88-a59b-801225ec1f02")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
+					(reference "R_HTR")
 					(unit 1)
 				)
 			)
