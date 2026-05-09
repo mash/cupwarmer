@@ -539,28 +539,28 @@
 		(uuid "2f216ed4-14f4-4ec5-9122-0a89b8df82b6")
 	)
 	(junction
+		(at 106.68 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "42e442ae-91fd-4fd3-a796-0986d760b9dd")
+	)
+	(junction
 		(at 184.15 62.23)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4322bb92-ab4b-416a-9f97-93323736da04")
 	)
 	(junction
-		(at 115.57 114.3)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "4f3b3ed2-94cb-43d0-909b-05e2faac89f9")
-	)
-	(junction
-		(at 106.68 129.54)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5010cd35-30a1-411c-a6cb-949536b7cc49")
-	)
-	(junction
 		(at 72.39 62.23)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8bbc3332-77da-4ed6-80e5-5c56275a03ca")
+	)
+	(junction
+		(at 115.57 114.3)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9525bb03-ba8c-4e0a-a645-40d557fcc852")
 	)
 	(junction
 		(at 106.68 91.44)
@@ -620,16 +620,6 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 132.08) (xy 106.68 129.54)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1f060399-663c-4bf7-a0f2-6fb5b0d01019")
-	)
-	(wire
-		(pts
 			(xy 115.57 101.6) (xy 115.57 114.3)
 		)
 		(stroke
@@ -650,7 +640,7 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 124.46) (xy 115.57 129.54)
+			(xy 115.57 124.46) (xy 115.57 128.27)
 		)
 		(stroke
 			(width 0)
@@ -660,7 +650,7 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 114.3) (xy 125.73 114.3)
+			(xy 115.57 114.3) (xy 124.46 114.3)
 		)
 		(stroke
 			(width 0)
@@ -680,7 +670,7 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 109.22) (xy 106.68 129.54)
+			(xy 106.68 109.22) (xy 106.68 128.27)
 		)
 		(stroke
 			(width 0)
@@ -690,7 +680,7 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 129.54) (xy 115.57 129.54)
+			(xy 106.68 128.27) (xy 115.57 128.27)
 		)
 		(stroke
 			(width 0)
@@ -880,6 +870,16 @@
 	)
 	(wire
 		(pts
+			(xy 124.46 114.3) (xy 124.46 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b90b55e6-2ab1-4ebe-aa79-9e6e719f8a37")
+	)
+	(wire
+		(pts
 			(xy 176.53 54.61) (xy 175.26 54.61)
 		)
 		(stroke
@@ -887,6 +887,16 @@
 			(type default)
 		)
 		(uuid "c9ab3fb4-d4a9-48cc-83e7-65c67a022508")
+	)
+	(wire
+		(pts
+			(xy 106.68 128.27) (xy 106.68 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca82d81b-9082-4f90-afa3-20d26955c2c9")
 	)
 	(wire
 		(pts
@@ -1058,7 +1068,7 @@
 	)
 	(global_label "I_HEATER_MON"
 		(shape output)
-		(at 125.73 114.3 0)
+		(at 124.46 114.3 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1067,7 +1077,7 @@
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222223")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 125.73 114.3 0)
+			(at 124.46 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1080,7 +1090,7 @@
 	)
 	(global_label "SYS_GND"
 		(shape passive)
-		(at 115.57 129.54 270)
+		(at 115.57 128.27 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1089,7 +1099,7 @@
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222224")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 115.57 129.54 0)
+			(at 115.57 128.27 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1184,6 +1194,82 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:TESTPAD_1")
+		(at 124.46 137.16 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files no)
+		(dnp no)
+		(uuid "1a309a9a-49e9-4e36-b2fb-049138c117f5")
+		(property "Reference" "TP3"
+			(at 124.46 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TP_I_HEATER_MON"
+			(at 133.096 137.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 124.46 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 124.46 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "DMM probe pad for heater current monitor"
+			(at 124.46 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a8485ac9-dec8-4333-bc73-9eba7e6d5342")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
+					(reference "TP3")
+					(unit 1)
 				)
 			)
 		)
@@ -1867,7 +1953,7 @@
 				)
 			)
 		)
-		(property "Footprint" "cupwarmer:TestPoint_Pad_D1.0mm_NoSilk"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
 			(at 72.39 68.58 0)
 			(hide yes)
 			(show_name no)
@@ -1943,7 +2029,7 @@
 				)
 			)
 		)
-		(property "Footprint" "cupwarmer:TestPoint_Pad_D1.0mm_NoSilk"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
 			(at 106.68 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -2309,7 +2395,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "e8059227-c1ca-4207-8dc1-d4a959c9bf0e")
-		(property "Reference" "R_HTR"
+		(property "Reference" "R_HTR1"
 			(at 210.566 57.15 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2404,7 +2490,7 @@
 		(instances
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
-					(reference "R_HTR")
+					(reference "R_HTR1")
 					(unit 1)
 				)
 			)
