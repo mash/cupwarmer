@@ -4,6 +4,7 @@
 	(layer "F.Cu")
 	(descr "Four-wire solder pads for silicone heater harness: H+, H-, NTC, NTC_GND")
 	(tags "connector wire heater harness ntc")
+	(attr through_hole exclude_from_pos_files exclude_from_bom)
 	(property "Reference" "REF**"
 		(at 7.5 -2.8 0)
 		(layer "F.SilkS")
