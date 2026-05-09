@@ -24,7 +24,7 @@
 		)
 		(uuid "6605bf7f-d359-4476-9dca-3ba789770010")
 	)
-	(text "Key global labels: VOUT_12V, SYS_GND, RX_VAA, RX_NTC, RX_INTB, I2C_SCL, I2C_SDA, NTC_TOP, I_HEATER_MON"
+	(text "Key global labels: VOUT_12V, SYS_GND, RX_VAA, RX_NTC, RX_INTB, I2C_SCL, I2C_SDA, I_HEATER_MON"
 		(exclude_from_sim no)
 		(at 39.37 35.56 0)
 		(effects

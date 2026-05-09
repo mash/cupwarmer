@@ -16,11 +16,11 @@
 ```text
 [カップ]
    |
-[トッププレート] ← 熱伝導面（TH1 / NTC_A を裏面に配置）
+[トッププレート] ← 熱伝導面（F1 を裏面に密着、温度ロガーは外付け）
 [熱拡散層 / ヒーター層]
 [断熱層]
-[制御PCB] ← Qi 受電 + 電力制御 + 温度監視
-[TH2 / NTC_B] ← 電力系・コイル近傍保護
+[制御PCB] ← Qi 受電 + 電力制御
+[heater NTC] ← H1 4線ハーネス経由で RX_NTC へ入力
 [フェライトシート]
 [Qi 受電コイル]
 [底面シェル]
@@ -67,8 +67,9 @@
 初回ヒーター目標:
 
 - `12V`
-- `15Ω` 前後（2026-04-26 改定。10Ω では 14.4W となり EPP 15W × 80-85% 効率の利用可能 12-12.75W を超え、VOUT ドループ → OCP トリップの懸念）
-- `9.6W` 前後
+- `12Ω`（target）
+- `12W` 前後（1A）
+- 初回筐体なし試作は JLCPCB silicone flexible heater。heater 内蔵 `100kΩ / B25/85≈4260K` NTC を使う
 
 最終値は熱試験で再調整する。
 
@@ -82,7 +83,7 @@
   - Q1 候補: `AO3400` (SOT-23, RDS(ON)=28mΩ@VGS=10V, VGS_max ±12V)。I_heater = 0.8A での損失 ≈ 18mW で熱的に余裕。VGS マージンを上げたい場合は VGS ±20V 品（`DMN3404L` / `NTR4170N` 等）に置換。
 - 製品固有の温調ロジックは初版のスコープ外
 - `ENB` は未使用時 `GND` 固定を基本にする
-- `RX_NTC` には TH2 (100k NTC, board hotspot near Qi coil) を接続し、R7 (51k → RX_VAA) と分圧する。STWLC38 DS14078 Table 4 の external NTC OTP threshold は `VNTC,OTP = 0.55/0.59/0.65V` (typ 0.59V) なので、NCP18WF104F12RB (R25=100k, B25/85=4260K) の約69°C で threshold に到達するよう R7 を選ぶ。NTC を未配置にする場合は R7 のみで pull-up 終端
+- `RX_NTC` には heater 内蔵 NTC を接続し、R7 (51k → RX_VAA) と分圧する。STWLC38 DS14078 Table 4 の external NTC OTP threshold は `VNTC,OTP = 0.55/0.59/0.65V` (typ 0.59V) なので、NCP18WF104F12RB 相当 (R25=100k, B25/85≈4260K) の約69°C で threshold に到達するよう R7 を選ぶ。基板上 `TH2` は v1 では削除済み
 - `INTB` は optional な bring-up / service 観測線として扱う
 - `IEXT` は `RCL + TVS` の clamp path を前提にする
 
@@ -99,17 +100,17 @@ v2 以降または製品版で必要な制御:
 
 ### 5. 保護方針
 
-- `NTC_A`: top plate (TH1 → J2 経由で外部観測)
-- `NTC_B`: power board hotspot (TH2 → RX_NTC, IC 内蔵 OTP)
+- `NTC_A`: top plate / cup contact temperature は外部ロガーまたは将来センサで観測
+- `NTC_B`: heater 内蔵 NTC (`H1` pin3/pin4 → `RX_NTC` / `SYS_GND`, IC 内蔵 OTP)
 - `F1`: independent hardware cutoff。v1 は `Xucheng KSD9700-70/5JSB/080C` を第一候補にする
 - `FOD`: Qi 側の停止系として扱う
 
 Heater / F1 接続方針:
 
-- v1 の `H1` footprint はヒーター本体ではなく、外部 heater/F1 series assembly を受ける大型 solder pads / wire pads として扱う
+- v1 の `H1` footprint は heater power と heater NTC を同じ組立物として受ける4線大型 solder pads / wire pads として扱う
 - 接続順は `VOUT_12V -> F1 -> heater -> Q1 drain`。F1 は PCB 上に寝かせず、トッププレート裏面へ密着固定する
-- flexible heater と F1 は手実装ワイヤで接続する。v1 では board-to-wire connector や FPC/FFC connector は採用しない
-- pad は `12V`, `0.8A` 連続電流、手はんだ、引張緩和を前提に余裕を持たせる。connector 化は v2/量産検討
+- flexible heater、heater NTC、F1 は手実装ワイヤで接続する。v1 では board-to-wire connector や FPC/FFC connector は採用しない
+- `H1` pinout は `H+`, `H-`, `NTC`, `NTC_GND`。pad は `12V`, `1A` 連続電流、手はんだ、引張緩和を前提に余裕を持たせる。connector 化は v2/量産検討
 
 F1 採用候補（PDF: `Xucheng Elec KSD9700-70:5JSB:080C.pdf`）:
 
@@ -330,12 +331,12 @@ flowchart TB
 - `I2C` / `INTB` は製品制御ではなく、bring-up / service 用の観測・設定経路として扱う
 - `J1` I2C service header は `RX_VAA` 2.5V 参照の bring-up 専用口とする。v1 ではオンボード level shifter を載せず、外部 USB-I2C adapter は `VREF=RX_VAA` に追従できるものだけを使う。3.3V 固定 pull-up / 3.3V 出力の直結は禁止
 
-## 回路図ステータス（2026-05-01 時点）
+## 回路図ステータス（2026-05-09 時点）
 
 DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 
 - `BOOT1/BOOT2` 各 `47nF` (C5/C6) → **AC1/AC2 に接続**（ブートストラップ）
-- `VAA` `4.7uF` (C7) + `NTC → VAA 51k` pull-up (R7)。DS14078 Table 4 の `VNTC,OTP` typ 0.59V に合わせ、TH2=100k NTC で約69°C trip を狙う
+- `VAA` `4.7uF` (C7) + `NTC → VAA 51k` pull-up (R7)。DS14078 Table 4 の `VNTC,OTP` typ 0.59V に合わせ、heater 内蔵 `100kΩ / B25/85≈4260K` NTC で約69°C trip を狙う
 - `VDD` `1uF` (C8) + HF bypass `100nF` (C4)
 - `VRECT` バルク+HF: `10uF×3` (C9, C20, C21) + `100nF` HF (C22) + `SMBJ18A` TVS (Z4) — STEVAL-WLC38RX UM3154 §9.1.3 / Figure 48 を踏襲
 - `VOUT` バルク+HF: `10uF×2` (C2, C23) + `100nF` HF (C24) + `SMBJ15A` TVS (Z3) — STEVAL-WLC38RX を踏襲（旧 C3 1uF は C24 100nF に置換）
@@ -351,7 +352,7 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - **`SCL/SDA` pull-up `10k` (R5/R6) → `VAA` (2.5V)**（VDD は 1.1V LDO で I2C には低すぎる。J1 経由のホスト接続は `VREF=RX_VAA` 追従または外部レベルシフタ必須。3.3V 固定 pull-up の直結は禁止）
 - `VOUT` → heater-control シートへ
 - ヒーター gate 分圧: R1 = 10k (VOUT_12V → Q1.G), R2 = 10k (Q1.G → GND) で VGS ≈ 6V
-- F1: `KSD9700-70/5JSB/080C` を `heater-control.kicad_sch` / BOM に反映済み。トッププレート裏面に密着固定し、TH1/TH2/F1 open/reset の差は熱試験で確認する
+- F1: `KSD9700-70/5JSB/080C` を `heater-control.kicad_sch` / BOM に反映済み。トッププレート裏面に密着固定し、heater NTC と F1 open/reset の差は熱試験で確認する
 - OVP TVS:
   - `Z3 = Littelfuse SMBJ15A`（VOUT_12V → cathode、anode → SYS_GND、VR=15V）。VOUT 出口近傍に配置
   - `Z4 = SMBJ18A`（VRECT → cathode、anode → SYS_GND、VR=18V）。VRECT 通常域 13–15V でリーク電流が無視できるよう VR=18V を選定し、VBR≈20V / VC=29.2V@20.55A で VRECT 35V 定格コンデンサに対して余裕を残す。U1 近傍 VRECT バルク帯に配置
@@ -374,34 +375,26 @@ VOUT OVP 候補（PDF: `SMBJ15A.pdf`）:
 
 `VOUT_12V` は通常 12V なので `VR=15V` の TVS は通常動作では導通しない。異常時は 16.7V 以上で breakdown し、25V rated capacitors と 30V class MOSFET の破壊を避けるための短時間 clamp として扱う。TVS は連続過電圧を消費し続ける部品ではないため、故障時は Qi 送電側/受電側保護が停止する前提で評価する。
 
-`sensors-logic.kicad_sch`:
+現行シート構成:
 
-- `J1`: I2C service header（VREF = VAA 2.5V、3.3V 固定ホスト直結禁止）
-- `TH1`: `10k NTC` placeholder。`TH2`: `100k NTC` (`NCP18WF104F12RB`) for STWLC38 internal OTP
-- `R8`: `RX_VAA` への `10k` pull-up（NTC_TOP 用）。R9 (旧 NTC_PCB pull-up) は削除
-- `RX_NTC` に TH2 (NTC_B) を接続、R7 (51k → RX_VAA) と分圧。STWLC38 内蔵 OTP 入力。`VNTC,OTP` は DS14078 Table 4 で typ 0.59V、min/max 0.55-0.65V
-- `J2`: `NTC_TOP` / `RX_NTC` thermal monitor header
-- `J3`: `RX_INTB` / `I_HEATER_MON` status monitor header
+- `rx-power.kicad_sch`: STWLC38JRM、I2C service header、受電/保護/補助回路。`RX_NTC` は heater harness から来る外部 NTC 入力として扱う
+- `heater-control.kicad_sch`: F1、Q1 low-side switch、H1 4線 heater harness、NTC pre-power DMM test pads
 - `R3`: v1 通常実装は `0Ω`。評価時だけ `0.05Ω` に差し替え、R3 両端をテスター/オシロで測ってヒーター電流を推定する。`I_HEATER_MON` は bench bring-up 用の任意観測点で、製品制御には使わない
 
 R3 / STWLC38JRM ADC 方針:
 
 - STWLC38JRM の外部 analog input として使えるのは実質 `NTC/ADCIN2`
-- `NTC/ADCIN2` は TH2 (`RX_NTC`) に使うため、R3 の shunt 電圧入力には使わない
+- `NTC/ADCIN2` は heater 内蔵 NTC (`RX_NTC`) に使うため、R3 の shunt 電圧入力には使わない
 - GPIO0-2 は汎用 ADC 入力としては扱わない
 - `0.05Ω` shunt は `0.8A` 時でも約 `40mV` と小さく、10-bit ADC に直接入れて製品制御するには弱い
 - STWLC38JRM 内部の VOUT/OCP/FOD current measurement は I2C で参考値として見られる可能性があるが、これは R3 の外付け shunt 測定とは別物
 - ヒーター電流を製品制御に使うなら、外部 current sense amplifier と MCU/ADC を追加する
 
-`sensors-logic.kicad_sch` には以下を反映済み:
+現行 `heater-control.kicad_sch` には以下を反映済み:
 
-- `J1`: `RX_VAA` 2.5V 参照付き `I2C` service header。外部 adapter は `VREF=RX_VAA` に追従させ、3.3V 固定 pull-up は接続しない
-- `TH1`: `10k NTC` placeholder。`TH2`: `100k NTC` (`NCP18WF104F12RB`) for STWLC38 internal OTP
-- `R8`: `RX_VAA` への `10k` pull-up（NTC_TOP 用）。R9 (旧 NTC_PCB pull-up) は削除
-- TH2 → `RX_NTC` (R7=51k と分圧、STWLC38 内蔵 OTP 入力)。70°C 時の NTC 抵抗は約15.36kΩで、理想値は `R7 = R_NTC × (2.5V / 0.59V - 1) ≈ 49.7kΩ`。51k は JLCPCB basic (`C23196`, `0603WAF5102T5E`) で、実装時の trip 目安は threshold min/typ/max で約71.8/69.3/65.8°C
-- `J2`: `NTC_TOP` / `RX_NTC` の thermal monitor header
-- `J3`: `RX_INTB` / `I_HEATER_MON` の status monitor header
-- BOM 初回照合: `initial-bom.csv` は回路図 ref に合わせて `TH2`, `J3`, `R4/R10/R11`, `D1/D2`, `Z1/Z2/Z3`, `C11-C14` を反映済み。`TH1`, `R8`, `C10`, `C15` は現行回路図に存在しないため削除
+- `H1`: 4線 heater harness。pin1 `H+`, pin2 `H-`, pin3 `NTC`, pin4 `NTC_GND`
+- `TP1` / `TP2`: power-on 前に heater NTC 抵抗を DMM 確認するための test pads。これは B-only fail-safe の実装点で、能動的な NTC 未接続検出回路は載せない
+- BOM 初回照合: `initial-bom.csv` は回路図 ref に合わせて heater harness, F1, Q1, R1/R2/R3/R7, LED/TVS/coil 周辺部品を反映済み。基板上 `TH2` は削除済み
 
 ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mismatch` 警告のみ。
 

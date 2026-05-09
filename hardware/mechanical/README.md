@@ -7,7 +7,7 @@
 [Cup contact layer]
 [Top plate]
 [Flexible heater]
-[F1 thermostat + TH1 bonded to top plate underside]
+[F1 thermostat bonded near heater hotspot]
 [Insulation]
 [PCB]
 [Ferrite]
@@ -18,9 +18,8 @@
 ## 初回で固定すること
 
 - コイル中心と筐体中心を一致させる
-- `NTC_TOP` はトッププレート裏面へ直接接触
 - `F1` は `KSD9700-70/5JSB/080C` を使い、トッププレート裏面へ密着固定する
-- 電力基板 hottest area に `NTC_B`
+- heater 内蔵 NTC を `H1` の4線ハーネスで受け、`RX_NTC` へ接続する
 - トッププレート材は初回比較候補として
   - aluminum
   - ceramic
@@ -34,23 +33,23 @@
 
 ```text
 top plate underside
-  ├─ TH1: top surface representative point
+  ├─ heater NTC: flexible heater の代表温度点（heater側に実装）
   ├─ F1: heater hotspot寄り。ヒーターと同じ熱経路へ密着
-  └─ flexible heater: F1 と TH1 の位置が組立ごとに再現できるよう基準を持たせる
+  └─ flexible heater: F1 と heater NTC の位置が組立ごとに再現できるよう基準を持たせる
 ```
 
 固定方法の第一候補:
 
 - トッププレート裏面に浅い保持ポケットまたは位置決め面を作る
-- F1 と TH1 は電気絶縁を保ったまま、熱伝導性接着材または耐熱絶縁テープ + 機械的押さえで密着させる
+- F1 は電気絶縁を保ったまま、熱伝導性接着材または耐熱絶縁テープ + 機械的押さえで密着させる
 - F1 リードは引張緩和を設け、リード線の動きで F1 本体が浮かないようにする
-- heater/F1 harness は H1 の大型 solder pads / wire pads へ手はんだする
+- heater/F1/NTC harness は H1 の4線大型 solder pads / wire pads へ手はんだする
 
 固定方法の合否:
 
 - F1 本体がトッププレート裏面から浮かない
 - リード線に軽い引張がかかっても F1 の接触圧が変わらない
-- TH1、F1、heater の相対位置が再現できる
+- heater NTC、F1、heater の相対位置が再現できる
 - F1 open 後、F1 本体、リード、接点周辺が許容温度内に残る
 - 接着材、テープ、絶縁材が長時間 `70°C` 近傍で劣化しない
 

@@ -15,9 +15,8 @@ R2,gate divider bottom,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,"",
 R3,current sense / jumper,0R jumper or 0.05R current sense resistor,UNI-ROYAL,0603WAF0000T5E,C21189,selected,"",v1 normal build: fit 0R so Q1 source returns to SYS_GND (0603 jumper); substitute 0.05R only for measured bring-up
 R4,IEXT clamp resistor,200R 0805 surge resistor,PANASONIC,ERJP06F2000V,C543538,selected,"",IEXT SOVP clamp path resistor to VRECT; use R4 || R14 = 100Ω effective per ST reference; 200Ω 0805 500mW ±1% extended
 R14,IEXT clamp resistor,200R 0805 surge resistor,PANASONIC,ERJP06F2000V,C543538,selected,"",IEXT SOVP clamp path resistor to VRECT; parallel with R4 for current and pulse-energy sharing; 200Ω 0805 500mW ±1% extended
-TH2,temperature sensor,100k NTC thermistor,Murata Electronics,NCP18WF104F12RB,C71280,selected,"",RX_NTC for STWLC38 internal OTP; 100kΩ 0603 NTC B25/85=4260K ±1%; matches ST eval reference; place near Qi coil hotspot
 F1,thermostat,NC auto-reset thermostat 70C,Xucheng Elec,KSD9700-70/5JSB/080C,C156512,selected,"","independent thermal protection; open 70+/-5C reset 50+/-10C; AC250V 5A resistive; leaded 80mm wires; mount to underside of top plate; v1 PCB land = Connector_Wire:SolderWire-0.5sqmm_1x02_P4.8mm_D0.9mm_OD2.3mm (THT lead solder pads, no relief; strain relief expected from enclosure-side fixation; body mechanically mounted off-board)"
-H1,heater solder pads,external flexible heater / F1 harness pads,N/A,N/A,,board-feature,"","v1 uses large solder pads / wire pads for external 12 ohm heater (target 12W @ 12V, 1A) and F1 series assembly; no board connector; PCB feature only"
+H1,heater harness solder pads,4-wire silicone heater harness pads,N/A,N/A,,board-feature,"","v1 uses large solder pads / wire pads for external 12 ohm silicone heater (target 12W @ 12V, 1A) with embedded 100k/B4260 NTC; pinout H+, H-, NTC, NTC_GND; no board connector; PCB feature only"
 J1,service header,I2C service header 1x4 2.54mm,Boom Precision,PZ254V-11-04P,C2691448,selected,"",bring-up and configuration access; 1x4 2.54mm THT pin header; VREF=RX_VAA 2.5V required; do not connect fixed 3.3V pull-ups directly
 J3,status monitor header,1x2 2.54mm pin header,Boom Precision,PZ254V-11-02P,C492401,selected,"",bring-up header for RX_INTB and I_HEATER_MON; 1x2 2.54mm THT
 C5,bootstrap capacitor,47nF X7R,Samsung,CL10B473KB8NNNC,C1622,selected,"",BOOT1 decoupling close to U1; 47nF 50V X7R 0603 basic (C0G 47nF 0603 unavailable)
@@ -27,7 +26,7 @@ C8,supply decoupling,1uF ceramic,Samsung,CL10A105KB8NNNC,C15849,selected,"",VDD 
 C9,rectifier decoupling,10uF/35V X5R,Murata,GRM188R6YA106MA73D,C194427,selected,"",VRECT rectifier decoupling close to U1; matches STEVAL-WLC38RX (CRECT/COUT family); 10uF 35V X5R 0603 (same as C2)
 R5,I2C pull-up,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,"",SCL pull-up to RX_VAA 2.5V for service header
 R6,I2C pull-up,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,"",SDA pull-up to RX_VAA 2.5V for service header
-R7,NTC pull-up,51k resistor,UNI-ROYAL,0603WAF5102T5E,C23196,selected,"","RX_NTC -> RX_VAA pull-up; forms divider with 100k TH2; DS14078 VNTC,OTP typ 0.59V gives ~69C trip with R7=51k"
+R7,NTC pull-up,51k resistor,UNI-ROYAL,0603WAF5102T5E,C23196,selected,"","RX_NTC -> RX_VAA pull-up; forms divider with external 100k/B4260 heater NTC; DS14078 VNTC,OTP typ 0.59V gives ~69C trip with R7=51k"
 R10,LED current limit,3k resistor,UNI-ROYAL,0603WAF3001T5E,C4211,selected,"",D1 power-on indicator current limiting from VOUT_12V; 3kΩ 0603 1% basic
 R11,LED current limit,1k resistor,UNI-ROYAL,0603WAF1001T5E,C21190,selected,"",D2 GPIO0 indicator current limiting from RX_VAA; 1kΩ 0603 1% basic
 D1,power indicator LED,red LED,XINGLIGHT,XL-1608SURC-04,C965798,selected,"",VOUT_12V power-on indicator; 0603 red 624nm 20mA

@@ -144,6 +144,254 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "cupwarmer:HEATER_HARNESS_4"
+			(pin_names
+				(offset 0.762)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "H"
+				(at 0 6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "HEATER_HARNESS_4"
+				(at 0 -6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Four-wire silicone heater harness: heater power plus embedded NTC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "HEATER_HARNESS_4_0_1"
+				(rectangle
+					(start -3.81 5.08)
+					(end 3.81 -5.08)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "HEATER_HARNESS_4_1_1"
+				(pin passive line
+					(at -8.89 -1.27 0)
+					(length 5.08)
+					(name "H+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 8.89 -1.27 180)
+					(length 5.08)
+					(name "H-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -8.89 1.27 0)
+					(length 5.08)
+					(name "NTC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 8.89 1.27 180)
+					(length 5.08)
+					(name "NTC_GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "cupwarmer:TESTPAD_1"
+			(pin_names
+				(offset 0.762)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(in_pos_files no)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "TP"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TESTPAD_1"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Single exposed test pad"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "TESTPAD_1_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "TESTPAD_1_1_1"
+				(pin passive line
+					(at 0 5.08 270)
+					(length 3.81)
+					(name "TP"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "cupwarmer:PASSIVE_2"
 			(pin_names
 				(offset 0.762)
@@ -260,7 +508,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Low-side heater stage: VOUT_12V -> R1(10k) / R2(10k) divider sets VGS~=6V on Q1 (keeps within VGS_max of AO3400-class FETs even on VOUT spikes). F1 -> H1 -> Q1 series path."
+	(text "Low-side heater stage: VOUT_12V -> R1(10k) / R2(10k) divider sets VGS~=6V on Q1 (keeps within VGS_max of AO3400-class FETs even on VOUT spikes). F1 -> H1 heater harness -> Q1 series path. H1 also carries heater NTC to RX_NTC."
 		(exclude_from_sim no)
 		(at 30.48 31.75 0)
 		(effects
@@ -300,7 +548,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 58.42) (xy 71.12 58.42)
+			(xy 60.96 58.42) (xy 67.31 58.42)
 		)
 		(stroke
 			(width 0)
@@ -310,7 +558,7 @@
 	)
 	(wire
 		(pts
-			(xy 81.28 58.42) (xy 96.52 58.42)
+			(xy 85.09 58.42) (xy 96.52 58.42)
 		)
 		(stroke
 			(width 0)
@@ -327,6 +575,26 @@
 			(type solid)
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222204")
+	)
+	(wire
+		(pts
+			(xy 60.96 55.88) (xy 67.31 55.88)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "22222222-aaaa-bbbb-cccc-222222222216")
+	)
+	(wire
+		(pts
+			(xy 85.09 55.88) (xy 91.44 55.88)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "22222222-aaaa-bbbb-cccc-222222222217")
 	)
 	(wire
 		(pts
@@ -484,6 +752,50 @@
 			)
 		)
 	)
+	(global_label "RX_NTC"
+		(shape bidirectional)
+		(at 60.96 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "22222222-aaaa-bbbb-cccc-222222222225")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 60.96 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape passive)
+		(at 91.44 55.88 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "22222222-aaaa-bbbb-cccc-222222222226")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 91.44 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
 	(global_label "SYS_GND"
 		(shape passive)
 		(at 96.52 111.76 270)
@@ -619,8 +931,8 @@
 		)
 	)
 	(symbol
-		(lib_id "cupwarmer:PASSIVE_2")
-		(at 76.2 58.42 0)
+		(lib_id "cupwarmer:HEATER_HARNESS_4")
+		(at 76.2 57.15 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -639,8 +951,8 @@
 				)
 			)
 		)
-		(property "Value" "12R 12W Heater (external)"
-			(at 76.2 54.61 0)
+		(property "Value" "12R 12W Heater + 100k NTC"
+			(at 76.2 49.53 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -649,8 +961,8 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Wire:SolderWire-1sqmm_1x02_P5.4mm_D1.4mm_OD2.7mm"
-			(at 76.2 58.42 0)
+		(property "Footprint" "cupwarmer:SolderWire-HeaterHarness_1x04_P5.0mm_D1.4mm"
+			(at 76.2 57.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -661,7 +973,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 76.2 58.42 0)
+			(at 76.2 57.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -671,8 +983,8 @@
 				)
 			)
 		)
-		(property "Description" "Heater element after thermal cutoff; series path continues to Q1"
-			(at 76.2 58.42 0)
+		(property "Description" "Four-wire silicone heater harness: H+ after F1, H- to Q1 drain, embedded 100k NTC to RX_NTC/SYS_GND"
+			(at 76.2 57.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -688,10 +1000,168 @@
 		(pin "2"
 			(uuid "22222222-aaaa-bbbb-cccc-222222222235")
 		)
+		(pin "3"
+			(uuid "22222222-aaaa-bbbb-cccc-222222222218")
+		)
+		(pin "4"
+			(uuid "22222222-aaaa-bbbb-cccc-222222222219")
+		)
 		(instances
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
 					(reference "H1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:TESTPAD_1")
+		(at 67.31 60.96 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files no)
+		(dnp no)
+		(uuid "22222222-aaaa-bbbb-cccc-222222222260")
+		(property "Reference" "TP1"
+			(at 67.31 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TP_NTC"
+			(at 67.31 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "cupwarmer:TestPoint_Pad_D1.0mm_NoSilk"
+			(at 67.31 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 67.31 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "DMM probe pad for heater NTC before powered test"
+			(at 67.31 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22222222-aaaa-bbbb-cccc-222222222261")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
+					(reference "TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:TESTPAD_1")
+		(at 85.09 60.96 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files no)
+		(dnp no)
+		(uuid "22222222-aaaa-bbbb-cccc-222222222262")
+		(property "Reference" "TP2"
+			(at 85.09 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TP_NTC_GND"
+			(at 85.09 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "cupwarmer:TestPoint_Pad_D1.0mm_NoSilk"
+			(at 85.09 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 85.09 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "DMM return pad for heater NTC before powered test"
+			(at 85.09 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22222222-aaaa-bbbb-cccc-222222222263")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
+					(reference "TP2")
 					(unit 1)
 				)
 			)

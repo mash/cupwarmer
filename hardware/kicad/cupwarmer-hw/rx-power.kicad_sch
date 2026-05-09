@@ -1198,7 +1198,7 @@
 		)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111191")
 	)
-	(text "Stand-alone defaults: ENB -> GND if unused, NTC unused -> VAA via 10k, INTB optional for bring-up"
+	(text "Stand-alone defaults: ENB -> GND if unused, RX_NTC now comes from heater harness, INTB optional for bring-up"
 		(exclude_from_sim no)
 		(at 20.32 155.62 0)
 		(effects
@@ -3548,9 +3548,9 @@
 			)
 		)
 	)
-	(global_label "SYS_GND"
-		(shape passive)
-		(at 134.62 142.24 270)
+	(global_label "RX_NTC"
+		(shape bidirectional)
+		(at 134.62 132.08 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3559,7 +3559,7 @@
 		)
 		(uuid "7c5101e7-79f0-4303-aed5-cb482a1d2101")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 134.62 142.24 90)
+			(at 134.62 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7025,7 +7025,7 @@
 				)
 			)
 		)
-		(property "Description" "NTC pull-up to VAA (51k); forms divider with 100k TH2 for STWLC38 OTP (~69C typ, VNTC,OTP=0.59V)"
+		(property "Description" "NTC pull-up to RX_VAA (51k); forms divider with external 100k/B4260 heater NTC on RX_NTC for STWLC38 OTP (~69C typ, VNTC,OTP=0.59V)"
 			(at 144.78 137.16 180)
 			(hide yes)
 			(show_name no)
@@ -7209,124 +7209,6 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "J1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "cupwarmer:PASSIVE_2")
-		(at 134.62 137.16 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "33333333-aaaa-bbbb-cccc-333333333267")
-		(property "Reference" "TH2"
-			(at 138.43 137.16 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "NTC 100k B4250"
-			(at 130.81 137.16 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 134.62 137.16 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 134.62 137.16 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "RX_NTC for STWLC38 internal OTP; matches ST eval reference"
-			(at 134.62 137.16 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata Electronics"
-			(at -40.64 213.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C71280"
-			(at -40.64 213.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "MPN" "NCP18WF104F12RB"
-			(at -40.64 213.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "33333333-aaaa-bbbb-cccc-333333333268")
-		)
-		(pin "2"
-			(uuid "33333333-aaaa-bbbb-cccc-333333333269")
-		)
-		(instances
-			(project "rx-power"
-				(path "/11111111-aaaa-bbbb-cccc-111111111111"
-					(reference "TH2")
-					(unit 1)
-				)
-			)
-			(project "cupwarmer-hw"
-				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-					(reference "TH2")
 					(unit 1)
 				)
 			)
