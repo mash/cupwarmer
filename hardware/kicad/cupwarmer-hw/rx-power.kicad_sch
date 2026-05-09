@@ -1337,6 +1337,12 @@
 		(uuid "3d9a01e9-f3ef-4d47-aa92-fce46f56a61a")
 	)
 	(junction
+		(at 157.48 142.24)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "41b6f018-2e16-404c-a254-e3ab8f31f81c")
+	)
+	(junction
 		(at 109.22 95.25)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1461,6 +1467,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a5a5147e-d87e-476c-a93b-b0b57f6857d0")
+	)
+	(junction
+		(at 167.64 152.4)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a89b6804-e05b-4b26-8c40-fc068763ae35")
 	)
 	(junction
 		(at 66.04 113.03)
@@ -1865,6 +1877,16 @@
 			(type default)
 		)
 		(uuid "2b30cfca-55cf-4340-8112-3fc402347d94")
+	)
+	(wire
+		(pts
+			(xy 157.48 142.24) (xy 167.64 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2dd25377-a836-4e9d-b203-a20c901173ad")
 	)
 	(wire
 		(pts
@@ -2548,6 +2570,16 @@
 	)
 	(wire
 		(pts
+			(xy 167.64 152.4) (xy 200.66 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9afc2e16-691e-4f05-acb7-ceb8adb2467f")
+	)
+	(wire
+		(pts
 			(xy 113.03 81.28) (xy 109.22 81.28)
 		)
 		(stroke
@@ -2698,7 +2730,7 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 152.4) (xy 200.66 152.4)
+			(xy 157.48 152.4) (xy 167.64 152.4)
 		)
 		(stroke
 			(width 0)
@@ -3038,6 +3070,16 @@
 	)
 	(wire
 		(pts
+			(xy 156.21 142.24) (xy 157.48 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f45c998a-4f6c-4dc6-97c6-52328cb28dca")
+	)
+	(wire
+		(pts
 			(xy 232.41 87.63) (xy 236.22 87.63)
 		)
 		(stroke
@@ -3198,16 +3240,16 @@
 	)
 	(global_label "RX_VAA"
 		(shape passive)
-		(at 157.48 142.24 0)
+		(at 156.21 142.24 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "1ef24b4e-b0c0-47e1-9714-a48eefd820a5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 157.48 142.24 0)
+			(at 156.21 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7549,6 +7591,124 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "R14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 167.64 147.32 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "99b7f133-0cb9-41f7-b162-c52f7b0e7205")
+		(property "Reference" "C25"
+			(at 171.196 147.32 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 172.974 147.32 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 167.64 147.32 -180)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 167.64 147.32 -180)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "VAA high-frequency bypass 100nF"
+			(at 167.64 147.32 -180)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Wuerth Elektronik"
+			(at 3.81 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C6715111"
+			(at 3.81 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "885012206095"
+			(at 3.81 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "41c6e7ce-e24d-4247-86a2-9c97588d62fd")
+		)
+		(pin "2"
+			(uuid "78e64ea0-1fae-4a9c-b630-585f551d3b83")
+		)
+		(instances
+			(project "rx-power"
+				(path "/11111111-aaaa-bbbb-cccc-111111111111"
+					(reference "C25")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
+					(reference "C25")
 					(unit 1)
 				)
 			)

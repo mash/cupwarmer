@@ -23,6 +23,7 @@ J3,status monitor header,1x2 2.54mm pin header,Boom Precision,PZ254V-11-02P,C492
 C5,bootstrap capacitor,47nF X7R,Samsung,CL10B473KB8NNNC,C1622,selected,"",BOOT1 decoupling close to U1; 47nF 50V X7R 0603 basic (C0G 47nF 0603 unavailable)
 C6,bootstrap capacitor,47nF X7R,Samsung,CL10B473KB8NNNC,C1622,selected,"",BOOT2 decoupling close to U1; 47nF 50V X7R 0603 basic (C0G 47nF 0603 unavailable)
 C7,supply decoupling,4.7uF/25V X5R,Murata,GRM188R61E475KE11D,C90057,selected,"",VAA analog supply decoupling; matches STEVAL-WLC38RX exactly; 4.7uF 25V X5R 0603
+C25,supply decoupling,100nF 50V X7R,Wuerth Elektronik,885012206095,C6715111,selected,"",VAA high-frequency bypass close to U1; matches STEVAL-WLC38RX C28 100nF on VAA; 100nF 50V X7R 0603
 C8,supply decoupling,1uF ceramic,Samsung,CL10A105KB8NNNC,C15849,selected,"",VDD digital supply decoupling; 1uF 50V X5R 0603 basic (same as C3)
 C9,rectifier decoupling,10uF/35V X5R,Murata,GRM188R6YA106MA73D,C194427,selected,"",VRECT rectifier decoupling close to U1; matches STEVAL-WLC38RX (CRECT/COUT family); 10uF 35V X5R 0603 (same as C2)
 R5,I2C pull-up,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,"",SCL pull-up to RX_VAA 2.5V for service header

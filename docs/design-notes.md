@@ -336,7 +336,7 @@ flowchart TB
 DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 
 - `BOOT1/BOOT2` 各 `47nF` (C5/C6) → **AC1/AC2 に接続**（ブートストラップ）
-- `VAA` `4.7uF` (C7) + `NTC → VAA 51k` pull-up (R7)。DS14078 Table 4 の `VNTC,OTP` typ 0.59V に合わせ、heater 内蔵 `100kΩ / B25/85≈4260K` NTC で約69°C trip を狙う
+- `VAA` `4.7uF` (C7) + HF bypass `100nF` (C25) + `NTC → VAA 51k` pull-up (R7)。DS14078 Table 4 の `VNTC,OTP` typ 0.59V に合わせ、heater 内蔵 `100kΩ / B25/85≈4260K` NTC で約69°C trip を狙う
 - `VDD` `1uF` (C8) + HF bypass `100nF` (C4)
 - `VRECT` バルク+HF: `10uF×3` (C9, C20, C21) + `100nF` HF (C22) + `SMBJ18A` TVS (Z4) — STEVAL-WLC38RX UM3154 §9.1.3 / Figure 48 を踏襲
 - `VOUT` バルク+HF: `10uF×2` (C2, C23) + `100nF` HF (C24) + `SMBJ15A` TVS (Z3) — STEVAL-WLC38RX を踏襲（旧 C3 1uF は C24 100nF に置換）
