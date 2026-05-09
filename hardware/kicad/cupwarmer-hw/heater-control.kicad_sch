@@ -11,139 +11,6 @@
 		(comment 2 "Initial functional draft")
 	)
 	(lib_symbols
-		(symbol "cupwarmer:NMOS_LS"
-			(pin_names
-				(offset 0.762)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "Q"
-				(at 0 7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "NMOS_LS"
-				(at 0 -7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "Low-side N-MOSFET placeholder"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "NMOS_LS_0_1"
-				(rectangle
-					(start -3.81 5.08)
-					(end 3.81 -5.08)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "NMOS_LS_1_1"
-				(pin input line
-					(at -8.89 0 0)
-					(length 5.08)
-					(name "G"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -10.16 90)
-					(length 5.08)
-					(name "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 10.16 270)
-					(length 5.08)
-					(name "D"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "cupwarmer:HEATER_HARNESS_4"
 			(pin_names
 				(offset 0.762)
@@ -295,17 +162,17 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "cupwarmer:TESTPAD_1"
+		(symbol "cupwarmer:NMOS_LS"
 			(pin_names
 				(offset 0.762)
 			)
 			(exclude_from_sim no)
-			(in_bom no)
+			(in_bom yes)
 			(on_board yes)
-			(in_pos_files no)
+			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "TP"
-				(at 0 2.54 0)
+			(property "Reference" "Q"
+				(at 0 7.62 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -314,8 +181,8 @@
 					)
 				)
 			)
-			(property "Value" "TESTPAD_1"
-				(at 0 -2.54 0)
+			(property "Value" "NMOS_LS"
+				(at 0 -7.62 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -346,7 +213,7 @@
 					)
 				)
 			)
-			(property "Description" "Single exposed test pad"
+			(property "Description" "Low-side N-MOSFET placeholder"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -357,10 +224,10 @@
 					)
 				)
 			)
-			(symbol "TESTPAD_1_0_1"
-				(circle
-					(center 0 0)
-					(radius 1.27)
+			(symbol "NMOS_LS_0_1"
+				(rectangle
+					(start -3.81 5.08)
+					(end 3.81 -5.08)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -370,11 +237,11 @@
 					)
 				)
 			)
-			(symbol "TESTPAD_1_1_1"
-				(pin passive line
-					(at 0 5.08 270)
-					(length 3.81)
-					(name "TP"
+			(symbol "NMOS_LS_1_1"
+				(pin input line
+					(at -8.89 0 0)
+					(length 5.08)
+					(name "G"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -382,6 +249,42 @@
 						)
 					)
 					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -10.16 90)
+					(length 5.08)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 10.16 270)
+					(length 5.08)
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -507,10 +410,107 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "cupwarmer:TESTPAD_1"
+			(pin_names
+				(offset 0.762)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(in_pos_files no)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "TP"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TESTPAD_1"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Single exposed test pad"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "TESTPAD_1_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "TESTPAD_1_1_1"
+				(pin passive line
+					(at 0 5.08 270)
+					(length 3.81)
+					(name "TP"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(text "Low-side heater stage: VOUT_12V -> R1(10k) / R2(10k) divider sets VGS~=6V on Q1 (keeps within VGS_max of AO3400-class FETs even on VOUT spikes). F1 -> H1 heater harness -> Q1 series path. H1 also carries heater NTC to RX_NTC."
 		(exclude_from_sim no)
-		(at 30.48 31.75 0)
+		(at 26.416 159.258 0)
 		(effects
 			(font
 				(size 1.5 1.5)
@@ -526,6 +526,28 @@
 		(color 0 0 0 0)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222215")
 	)
+	(junction
+		(at 87.63 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5010cd35-30a1-411c-a6cb-949536b7cc49")
+	)
+	(junction
+		(at 41.91 36.83)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8bbc3332-77da-4ed6-80e5-5c56275a03ca")
+	)
+	(wire
+		(pts
+			(xy 82.55 58.42) (xy 96.52 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17967c6b-ff6a-4871-8952-ecb7fa39075a")
+	)
 	(wire
 		(pts
 			(xy 40.64 73.66) (xy 43.18 73.66)
@@ -535,6 +557,16 @@
 			(type default)
 		)
 		(uuid "1d73cb00-f723-4f01-b729-e7ac0c0016bf")
+	)
+	(wire
+		(pts
+			(xy 87.63 114.3) (xy 87.63 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1f060399-663c-4bf7-a0f2-6fb5b0d01019")
 	)
 	(wire
 		(pts
@@ -628,83 +660,103 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 58.42) (xy 67.31 58.42)
+			(xy 41.91 26.67) (xy 41.91 22.86)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f444ac3d-66ad-4384-a314-4b1019b3949f")
+		(uuid "244e2c36-3b2b-4900-a7d0-df1520a888f5")
 	)
 	(wire
 		(pts
-			(xy 85.09 58.42) (xy 96.52 58.42)
+			(xy 38.1 36.83) (xy 41.91 36.83)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e166223f-9af3-48dd-9eb7-1a1cf3c8b095")
+		(uuid "2d0bc181-16ac-460d-94b6-3dcbf8f7c40f")
 	)
 	(wire
 		(pts
-			(xy 60.96 55.88) (xy 67.31 55.88)
+			(xy 77.47 36.83) (xy 77.47 49.53)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "81757b47-1af4-4528-b327-9d8633b46bbe")
+		(uuid "43340a3d-7d85-4304-a3ac-e55836225959")
 	)
 	(wire
 		(pts
-			(xy 85.09 55.88) (xy 91.44 55.88)
+			(xy 41.91 36.83) (xy 41.91 38.1)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "14133e91-3b09-47a7-af5f-6ad09ac3eb57")
+		(uuid "90531cfb-7946-49eb-8a72-1ca0d274880b")
 	)
 	(wire
 		(pts
-			(xy 72.39 62.23) (xy 72.39 67.31)
+			(xy 41.91 22.86) (xy 45.72 22.86)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "1e8753e8-ad5a-41da-8501-536298668cf6")
+		(uuid "a2ea682a-e53e-431d-889a-185c405f4168")
 	)
 	(wire
 		(pts
-			(xy 74.93 62.23) (xy 74.93 67.31)
+			(xy 60.96 58.42) (xy 74.93 58.42)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "47f0bd4e-0d15-4439-882c-1dec9b1fbbb7")
+		(uuid "d65e3d79-7a96-48ff-ac4a-e6d079fe3c35")
 	)
 	(wire
 		(pts
-			(xy 77.47 62.23) (xy 77.47 67.31)
+			(xy 82.55 36.83) (xy 82.55 58.42)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "90d85dba-147f-492a-8064-11889c2cedc0")
+		(uuid "eb9933b2-38c5-48a4-97da-1d22b5bd29dd")
 	)
 	(wire
 		(pts
-			(xy 80.01 62.23) (xy 80.01 67.31)
+			(xy 80.01 36.83) (xy 80.01 49.53)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "1807665c-bc1f-4143-aaf9-d83652663290")
+		(uuid "ef57bb93-8f4d-45c6-b6e3-a03b5b6dca20")
+	)
+	(wire
+		(pts
+			(xy 74.93 36.83) (xy 74.93 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f799ec20-9375-435a-9318-cbcfc88e1713")
+	)
+	(label "HEATER_IN"
+		(at 74.93 49.53 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "129b2a62-6717-49e2-b586-03a2eddbb1b0")
 	)
 	(label "HEATER_OUT"
 		(at 85.09 58.42 0)
@@ -717,7 +769,7 @@
 		(uuid "6fe60c6d-d2f7-4880-8d7b-232f91fcd87b")
 	)
 	(label "HEATER_OUT"
-		(at 80.01 67.31 270)
+		(at 82.55 49.53 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -726,25 +778,27 @@
 		)
 		(uuid "90a13d61-766c-4d78-816d-60a98bb3903a")
 	)
-	(label "HEATER_IN"
-		(at 72.39 67.31 270)
+	(global_label "RX_VAA"
+		(shape passive)
+		(at 45.72 22.86 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify left)
 		)
-		(uuid "129b2a62-6717-49e2-b586-03a2eddbb1b0")
-	)
-	(label "HEATER_IN"
-		(at 60.96 58.42 0)
-		(effects
-			(font
-				(size 1.27 1.27)
+		(uuid "0d43f3dd-4eaf-4bab-b788-5cdec06be838")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 45.72 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-			(justify left bottom)
 		)
-		(uuid "82064ebd-d4c5-499c-9737-dbac4a270394")
 	)
 	(global_label "VOUT_12V"
 		(shape input)
@@ -758,50 +812,6 @@
 		(uuid "22222222-aaaa-bbbb-cccc-222222222220")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 40.64 58.42 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "SYS_GND"
-		(shape input)
-		(at 77.47 67.31 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "58768ed4-72d2-421f-9319-a9e0f35e2f53")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 77.47 67.31 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "RX_NTC"
-		(shape input)
-		(at 74.93 67.31 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "7ff3846d-f65f-43be-ac3f-f2074d88f10e")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 74.93 67.31 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -856,50 +866,6 @@
 			)
 		)
 	)
-	(global_label "RX_NTC"
-		(shape bidirectional)
-		(at 60.96 55.88 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222225")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 60.96 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "SYS_GND"
-		(shape passive)
-		(at 91.44 55.88 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222226")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 91.44 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
 	(global_label "SYS_GND"
 		(shape passive)
 		(at 96.52 111.76 270)
@@ -912,6 +878,72 @@
 		(uuid "22222222-aaaa-bbbb-cccc-222222222224")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 96.52 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape input)
+		(at 80.01 49.53 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "58768ed4-72d2-421f-9319-a9e0f35e2f53")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 80.01 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_NTC"
+		(shape input)
+		(at 77.47 49.53 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7ff3846d-f65f-43be-ac3f-f2074d88f10e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 77.47 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_NTC"
+		(shape input)
+		(at 38.1 36.83 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c13c1916-f41a-4a23-82a1-86071bce26ea")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 38.1 36.83 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1036,7 +1068,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:HEATER_HARNESS_4")
-		(at 76.2 57.15 0)
+		(at 78.74 31.75 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1046,7 +1078,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222233")
 		(property "Reference" "H1"
-			(at 76.2 64 0)
+			(at 74.93 27.432 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1056,7 +1088,7 @@
 			)
 		)
 		(property "Value" "12R 12W Heater + 100k NTC"
-			(at 76.2 49.53 0)
+			(at 78.74 22.86 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1066,7 +1098,7 @@
 			)
 		)
 		(property "Footprint" "cupwarmer:SolderWire-HeaterHarness_1x04_P5.0mm_D1.4mm"
-			(at 76.2 57.15 0)
+			(at 78.74 31.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1077,7 +1109,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 76.2 57.15 0)
+			(at 78.74 31.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1088,7 +1120,7 @@
 			)
 		)
 		(property "Description" "Four-wire silicone heater harness: H+ after F1, H- to Q1 drain, embedded 100k NTC to RX_NTC/SYS_GND"
-			(at 76.2 57.15 0)
+			(at 78.74 31.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1114,158 +1146,6 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
 					(reference "H1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "cupwarmer:TESTPAD_1")
-		(at 67.31 60.96 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(in_pos_files no)
-		(dnp no)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222260")
-		(property "Reference" "TP1"
-			(at 67.31 63.5 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TP_NTC"
-			(at 62.5 60.63 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "cupwarmer:TestPoint_Pad_D1.0mm_NoSilk"
-			(at 67.31 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 67.31 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "DMM probe pad for heater NTC before powered test"
-			(at 67.31 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "22222222-aaaa-bbbb-cccc-222222222261")
-		)
-		(instances
-			(project "cupwarmer-hw"
-				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
-					(reference "TP1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "cupwarmer:TESTPAD_1")
-		(at 85.09 60.96 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(in_pos_files no)
-		(dnp no)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222262")
-		(property "Reference" "TP2"
-			(at 85.09 63.5 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TP_NTC_GND"
-			(at 101.6 60.63 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "cupwarmer:TestPoint_Pad_D1.0mm_NoSilk"
-			(at 85.09 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 85.09 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "DMM return pad for heater NTC before powered test"
-			(at 85.09 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "22222222-aaaa-bbbb-cccc-222222222263")
-		)
-		(instances
-			(project "cupwarmer-hw"
-				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
-					(reference "TP2")
 					(unit 1)
 				)
 			)
@@ -1717,6 +1597,270 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
 					(reference "R3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:TESTPAD_1")
+		(at 41.91 43.18 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files no)
+		(dnp no)
+		(uuid "22222222-aaaa-bbbb-cccc-222222222260")
+		(property "Reference" "TP1"
+			(at 41.91 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TP_NTC"
+			(at 37.1 42.85 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "cupwarmer:TestPoint_Pad_D1.0mm_NoSilk"
+			(at 41.91 43.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 41.91 43.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "DMM probe pad for heater NTC before powered test"
+			(at 41.91 43.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22222222-aaaa-bbbb-cccc-222222222261")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
+					(reference "TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:TESTPAD_1")
+		(at 87.63 119.38 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files no)
+		(dnp no)
+		(uuid "22222222-aaaa-bbbb-cccc-222222222262")
+		(property "Reference" "TP2"
+			(at 87.63 121.92 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TP_NTC_GND"
+			(at 79.756 119.38 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "cupwarmer:TestPoint_Pad_D1.0mm_NoSilk"
+			(at 87.63 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 87.63 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "DMM return pad for heater NTC before powered test"
+			(at 87.63 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22222222-aaaa-bbbb-cccc-222222222263")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
+					(reference "TP2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
+		(at 41.91 31.75 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "af5606b2-e054-46ff-81d1-af839620aa26")
+		(property "Reference" "R7"
+			(at 45.72 31.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "51k"
+			(at 38.354 31.75 180)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 41.91 31.75 180)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 41.91 31.75 180)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "NTC pull-up to RX_VAA (51k); forms divider with external 100k/B4260 heater NTC on RX_NTC for STWLC38 OTP (~69C typ, VNTC,OTP=0.59V)"
+			(at 41.91 31.75 180)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at -102.87 -105.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23196"
+			(at -102.87 -105.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "0603WAF5102T5E"
+			(at -102.87 -105.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "5b0b4db0-f5da-41e9-89d1-5c64996d875a")
+		)
+		(pin "2"
+			(uuid "18639798-3cbe-432a-a7fa-e5a0a98b257a")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
+					(reference "R7")
 					(unit 1)
 				)
 			)
