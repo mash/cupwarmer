@@ -1841,7 +1841,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 115.57 119.38 90)
 			(hide yes)
 			(show_name no)
@@ -1863,7 +1863,7 @@
 				)
 			)
 		)
-		(property "Description" "Fit 0R for v1 normal build; substitute 0.05R for measured bring-up"
+		(property "Description" "Fit 0R for v1 normal build (C17888); substitute 0.05R 1W FRM121WFR050TM (C7467249) for measured bring-up"
 			(at 115.57 119.38 90)
 			(hide yes)
 			(show_name no)
@@ -1885,7 +1885,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C21189"
+		(property "LCSC" "C17888"
 			(at 19.05 17.78 0)
 			(hide yes)
 			(show_name no)
@@ -1896,7 +1896,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF0000T5E"
+		(property "MPN" "1206W4F0000T5E"
 			(at 19.05 17.78 0)
 			(hide yes)
 			(show_name no)
