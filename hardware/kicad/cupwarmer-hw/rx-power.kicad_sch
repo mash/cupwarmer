@@ -1271,12 +1271,6 @@
 		(uuid "078bc379-0678-4916-a446-9b79cdf9f371")
 	)
 	(junction
-		(at 144.78 132.08)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0f90b3d9-5e06-4129-af70-b19863d0f227")
-	)
-	(junction
 		(at 102.87 113.03)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2026,7 +2020,7 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 132.08) (xy 144.78 132.08)
+			(xy 142.24 132.08) (xy 144.78 132.08)
 		)
 		(stroke
 			(width 0)
@@ -2293,16 +2287,6 @@
 			(type default)
 		)
 		(uuid "6925b20b-8ddb-4e71-9062-d8dab6e62429")
-	)
-	(wire
-		(pts
-			(xy 144.78 142.24) (xy 157.48 142.24)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6c7ba7df-27cf-44ce-9a8e-3f0cb4a0cc29")
 	)
 	(wire
 		(pts
@@ -3286,16 +3270,16 @@
 	)
 	(global_label "RX_VAA"
 		(shape passive)
-		(at 144.78 142.24 270)
+		(at 157.48 142.24 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "1ef24b4e-b0c0-47e1-9714-a48eefd820a5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 144.78 142.24 90)
+			(at 157.48 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3550,7 +3534,7 @@
 	)
 	(global_label "RX_NTC"
 		(shape bidirectional)
-		(at 134.62 132.08 180)
+		(at 142.24 132.08 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3559,7 +3543,7 @@
 		)
 		(uuid "7c5101e7-79f0-4303-aed5-cb482a1d2101")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 134.62 132.08 0)
+			(at 142.24 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6967,124 +6951,6 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
 					(reference "J3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "cupwarmer:PASSIVE_2")
-		(at 144.78 137.16 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "33333333-aaaa-bbbb-cccc-300000000001")
-		(property "Reference" "R7"
-			(at 148.59 137.16 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "51k"
-			(at 141.224 137.16 180)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 144.78 137.16 180)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 144.78 137.16 180)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "NTC pull-up to RX_VAA (51k); forms divider with external 100k/B4260 heater NTC on RX_NTC for STWLC38 OTP (~69C typ, VNTC,OTP=0.59V)"
-			(at 144.78 137.16 180)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C23196"
-			(at 0 0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "MPN" "0603WAF5102T5E"
-			(at 0 0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "33333333-aaaa-bbbb-cccc-300000000011")
-		)
-		(pin "2"
-			(uuid "33333333-aaaa-bbbb-cccc-300000000012")
-		)
-		(instances
-			(project "rx-power"
-				(path "/11111111-aaaa-bbbb-cccc-111111111111"
-					(reference "R7")
-					(unit 1)
-				)
-			)
-			(project "cupwarmer-hw"
-				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/11111111-1111-1111-1111-111111111111"
-					(reference "R7")
 					(unit 1)
 				)
 			)

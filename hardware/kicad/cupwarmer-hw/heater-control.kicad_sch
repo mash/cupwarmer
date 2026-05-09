@@ -521,12 +521,6 @@
 		(uuid "22222222-aaaa-bbbb-cccc-222222222290")
 	)
 	(junction
-		(at 87.63 73.66)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222215")
-	)
-	(junction
 		(at 87.63 111.76)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -537,6 +531,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8bbc3332-77da-4ed6-80e5-5c56275a03ca")
+	)
+	(junction
+		(at 87.63 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e9002b30-cea0-45c5-8d03-a3261df4290f")
 	)
 	(wire
 		(pts
@@ -550,7 +550,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 73.66) (xy 43.18 73.66)
+			(xy 40.64 73.66) (xy 50.8 73.66)
 		)
 		(stroke
 			(width 0)
@@ -630,7 +630,7 @@
 	)
 	(wire
 		(pts
-			(xy 53.34 73.66) (xy 87.63 73.66)
+			(xy 60.96 73.66) (xy 87.63 73.66)
 		)
 		(stroke
 			(width 0)
@@ -1268,7 +1268,7 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
-		(at 48.26 73.66 0)
+		(at 55.88 73.66 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1278,7 +1278,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222240")
 		(property "Reference" "R1"
-			(at 48.26 77.47 0)
+			(at 55.88 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1288,7 +1288,7 @@
 			)
 		)
 		(property "Value" "10k Div Top"
-			(at 48.26 69.85 0)
+			(at 55.88 69.85 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1298,7 +1298,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 48.26 73.66 0)
+			(at 55.88 73.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1309,7 +1309,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 48.26 73.66 0)
+			(at 55.88 73.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1320,7 +1320,7 @@
 			)
 		)
 		(property "Description" "Gate divider top (VOUT_12V -> Q1.G)"
-			(at 48.26 73.66 0)
+			(at 55.88 73.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1331,7 +1331,7 @@
 			)
 		)
 		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
+			(at 7.62 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1342,7 +1342,7 @@
 			)
 		)
 		(property "LCSC" "C25804"
-			(at 0 0 0)
+			(at 7.62 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1353,7 +1353,7 @@
 			)
 		)
 		(property "MPN" "0603WAF1002T5E"
-			(at 0 0 0)
+			(at 7.62 0 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
