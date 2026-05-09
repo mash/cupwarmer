@@ -1,0 +1,16 @@
+{
+  "board": {
+    "design_settings": {
+      "defaults": {
+        "board_outline_line_width": 0.1
+      }
+    }
+  },
+  "meta": {
+    "filename": "heater.kicad_pro",
+    "version": 1
+  },
+  "project": {
+    "title": "Cup Warmer Flexible Heater"
+  }
+}
