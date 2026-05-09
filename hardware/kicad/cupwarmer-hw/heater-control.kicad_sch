@@ -825,7 +825,7 @@
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222230")
@@ -849,7 +849,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Wire:SolderWire-0.5sqmm_1x02_P4.8mm_D0.9mm_OD2.3mm"
+		(property "Footprint" ""
 			(at 55.88 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -942,7 +942,7 @@
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222233")
 		(property "Reference" "H1"
-			(at 76.2 62.23 0)
+			(at 76.2 64 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1037,7 +1037,7 @@
 			)
 		)
 		(property "Value" "TP_NTC"
-			(at 67.31 58.42 0)
+			(at 62.5 60.63 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1113,7 +1113,7 @@
 			)
 		)
 		(property "Value" "TP_NTC_GND"
-			(at 85.09 58.42 0)
+			(at 101.6 60.63 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

@@ -83,7 +83,7 @@
   - Q1 候補: `AO3400` (SOT-23, RDS(ON)=28mΩ@VGS=10V, VGS_max ±12V)。I_heater = 0.8A での損失 ≈ 18mW で熱的に余裕。VGS マージンを上げたい場合は VGS ±20V 品（`DMN3404L` / `NTR4170N` 等）に置換。
 - 製品固有の温調ロジックは初版のスコープ外
 - `ENB` は未使用時 `GND` 固定を基本にする
-- `RX_NTC` には heater 内蔵 NTC を接続し、R7 (51k → RX_VAA) と分圧する。STWLC38 DS14078 Table 4 の external NTC OTP threshold は `VNTC,OTP = 0.55/0.59/0.65V` (typ 0.59V) なので、NCP18WF104F12RB 相当 (R25=100k, B25/85≈4260K) の約69°C で threshold に到達するよう R7 を選ぶ。基板上 `TH2` は v1 では削除済み
+- `RX_NTC` には heater 内蔵 NTC (`TH2`) を接続し、R7 (51k → RX_VAA) と分圧する。STWLC38 DS14078 Table 4 の external NTC OTP threshold は `VNTC,OTP = 0.55/0.59/0.65V` (typ 0.59V) なので、`NCP18WF104F12RB` (R25=100k, B25/85=4260K) の約69°C で threshold に到達するよう R7 を選ぶ。`TH2` は基板上 SMT 部品ではなく、JLCPCB silicone heater 注文時に heater と同じ MPN 指定で一緒に手配する外部 NTC として BOM に残す
 - `INTB` は optional な bring-up / service 観測線として扱う
 - `IEXT` は `RCL + TVS` の clamp path を前提にする
 
@@ -394,7 +394,8 @@ R3 / STWLC38JRM ADC 方針:
 
 - `H1`: 4線 heater harness。pin1 `H+`, pin2 `H-`, pin3 `NTC`, pin4 `NTC_GND`
 - `TP1` / `TP2`: power-on 前に heater NTC 抵抗を DMM 確認するための test pads。これは B-only fail-safe の実装点で、能動的な NTC 未接続検出回路は載せない
-- BOM 初回照合: `initial-bom.csv` は回路図 ref に合わせて heater harness, F1, Q1, R1/R2/R3/R7, LED/TVS/coil 周辺部品を反映済み。基板上 `TH2` は削除済み
+- TH2 → `RX_NTC` (R7=51k と分圧、STWLC38 内蔵 OTP 入力)。70°C 時の NTC 抵抗は約15.36kΩで、理想値は `R7 = R_NTC × (2.5V / 0.59V - 1) ≈ 49.7kΩ`。51k は JLCPCB basic (`C23196`, `0603WAF5102T5E`) で、実装時の trip 目安は threshold min/typ/max で約71.8/69.3/65.8°C
+- BOM 初回照合: `initial-bom.csv` は回路図 ref に合わせて heater harness, F1, TH2, Q1, R1/R2/R3/R7, LED/TVS/coil 周辺部品を反映済み。`TH2` は基板上 SMT 部品ではなく、JLCPCB silicone heater と同時注文する外部 heater NTC として BOM に残す
 
 ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mismatch` 警告のみ。
 
