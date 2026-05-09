@@ -759,6 +759,26 @@
 		(uuid "129b2a62-6717-49e2-b586-03a2eddbb1b0")
 	)
 	(label "HEATER_OUT"
+		(at 116.84 66.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "91e7574c-7131-443c-9469-8b4b62f3221a")
+	)
+	(label "HEATER_IN"
+		(at 116.84 55.88 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "113fcf4a-8ba3-41a2-b16d-d1cc3828e7e8")
+	)
+	(label "HEATER_OUT"
 		(at 85.09 58.42 0)
 		(effects
 			(font
@@ -1112,6 +1132,118 @@
 	)
 	(symbol
 		(lib_id "cupwarmer:PASSIVE_2")
+		(at 116.84 60.96 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "e8059227-c1ca-4207-8dc1-d4a959c9bf0e")
+		(property "Reference" "R_HTR"
+			(at 116.84 64.77 270)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "12R 12W heater coil"
+			(at 116.84 55.626 270)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 116.84 60.96 270)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 116.84 60.96 270)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Silicone heater element inside H1 harness; 12 ohm, 12 W nominal, off-board"
+			(at 116.84 60.96 270)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" ""
+			(at 0 0 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "74505f98-8e78-4a33-978e-6618b9b4d11b")
+		)
+		(pin "2"
+			(uuid "2c164489-fc3f-4e88-a59b-801225ec1f02")
+		)
+		(instances
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
+					(reference "R_HTR")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:PASSIVE_2")
 		(at 96.52 60.96 270)
 		(unit 1)
 		(body_style 1)
@@ -1243,7 +1375,7 @@
 				)
 			)
 		)
-		(property "Value" "12R 12W Heater + 100k NTC"
+		(property "Value" "4-pin heater harness connector"
 			(at 78.74 22.86 0)
 			(show_name no)
 			(do_not_autoplace no)
