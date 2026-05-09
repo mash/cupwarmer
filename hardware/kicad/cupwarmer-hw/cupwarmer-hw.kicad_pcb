@@ -10088,149 +10088,6 @@
 			)
 		)
 	)
-	(footprint "cupwarmer:SolderWire-HeaterHarness_1x04_P5.0mm_D1.4mm"
-		(placed yes)
-		(layer "F.Cu")
-		(uuid "ea6f7517-bf9e-4997-94be-72c402432ca7")
-		(at 97.3 122.5)
-		(descr "Four-wire solder pads for silicone heater harness: H+, H-, NTC, NTC_GND, P5.0 mm")
-		(tags "connector wire heater harness ntc")
-		(property "Reference" "H1"
-			(at 2.5 -2.8 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "707ad663-1cd3-4766-b9d0-db09cb5bae0e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Value" "12R 12W Heater + 100k NTC"
-			(at 2.5 5.8 0)
-			(layer "F.Fab")
-			(uuid "4254c5f1-dd91-4de0-82c8-969b5ff8ede8")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "cd951f27-f827-4c96-90ea-2ba7c8e2be5a")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Four-wire silicone heater harness: H+ after F1, H- to Q1 drain, embedded 100k NTC to RX_NTC/SYS_GND"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "cf3aff73-89d5-46c4-a267-f7a41790a4db")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "KiLib_Generator" "manual"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "afe84cf9-0a2f-4509-9114-d264e2dc4b38")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(path "/22222222-2222-2222-2222-222222222222/22222222-aaaa-bbbb-cccc-222222222233")
-		(sheetname "/heater-control/")
-		(sheetfile "heater-control.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2" "3" "4")
-			)
-		)
-		(duplicate_pad_numbers_are_jumpers no)
-		(fp_rect
-			(start -1.9 -1.9)
-			(end 6.9 4.9)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.CrtYd")
-			(uuid "fd8b55b6-ec1c-4a34-a3ef-5900a09dc399")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 2.5 1.5 0)
-			(layer "F.Fab")
-			(uuid "85118d63-0c92-44a6-88a5-eb558c78d781")
-			(effects
-				(font
-					(size 0.94 0.94)
-					(thickness 0.14)
-				)
-			)
-		)
-		(pad "1" thru_hole roundrect
-			(at 0 0)
-			(size 2.75 2.75)
-			(drill 1.4)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(roundrect_rratio 0.090909)
-			(net "/heater-control/HEATER_IN")
-			(pinfunction "1_1")
-			(pintype "passive")
-			(uuid "947f59ac-3a1e-4c64-ab22-b2de96835076")
-		)
-		(pad "2" thru_hole circle
-			(at 5 0)
-			(size 2.75 2.75)
-			(drill 1.4)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "/heater-control/HEATER_OUT")
-			(pinfunction "2_2")
-			(pintype "passive")
-			(uuid "560a748f-81d1-4f0b-b3e6-f3ba7afa5aef")
-		)
-		(pad "3" thru_hole circle
-			(at 0 3)
-			(size 2.2 2.2)
-			(drill 1)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "RX_NTC")
-			(pinfunction "NTC_3")
-			(pintype "passive")
-			(uuid "4ad723d6-4c82-485d-a772-72f574b1a90e")
-		)
-		(pad "4" thru_hole circle
-			(at 5 3)
-			(size 2.2 2.2)
-			(drill 1)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "SYS_GND")
-			(pinfunction "NTC_GND_4")
-			(pintype "passive")
-			(uuid "2b9cb4b2-466a-45b7-837e-409e7f429496")
-		)
-		(embedded_fonts no)
-	)
 	(footprint "Resistor_SMD:R_0805_2012Metric"
 		(placed yes)
 		(layer "F.Cu")
@@ -16014,4 +15871,93 @@
 		)
 	)
 	(embedded_fonts no)
+	(footprint "cupwarmer:SolderWire-HeaterHarness_1x04_P5.0mm_D1.4mm"
+		(layer "F.Cu")
+		(uuid "f6cc0a58-52f4-4748-a4d0-415d3bdcd063")
+		(at 200 200 0)
+		(descr "Four-wire solder pads for silicone heater harness: H+, H-, NTC, NTC_GND")
+		(tags "connector wire heater harness ntc")
+		(property "Reference" "H1"
+			(at 7.5 -2.8 0)
+			(layer "F.SilkS")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "12R 12W Heater + 100k NTC"
+			(at 7.5 2.8 0)
+			(layer "F.Fab")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "KiLib_Generator" "manual"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_rect
+			(start -1.9 -1.9)
+			(end 16.9 1.9)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 7.5 -1.0 0)
+			(layer "F.Fab")
+			(effects
+				(font
+					(size 0.9 0.9)
+					(thickness 0.13)
+				)
+			)
+		)
+		(pad "1" thru_hole roundrect
+			(at 0 0)
+			(size 2.75 2.75)
+			(drill 1.4)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(roundrect_rratio 0.090909)
+		)
+		(pad "2" thru_hole circle
+			(at 15.0 0)
+			(size 2.75 2.75)
+			(drill 1.4)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+		)
+		(pad "3" thru_hole circle
+			(at 5.0 0)
+			(size 2.2 2.2)
+			(drill 1.0)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+		)
+		(pad "4" thru_hole circle
+			(at 10.0 0)
+			(size 2.2 2.2)
+			(drill 1.0)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+		)
+		(embedded_fonts no)
+	)
 )

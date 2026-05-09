@@ -5,7 +5,7 @@
 	(descr "Four-wire solder pads for silicone heater harness: H+, H-, NTC, NTC_GND")
 	(tags "connector wire heater harness ntc")
 	(property "Reference" "REF**"
-		(at 2.5 -2.8 0)
+		(at 7.5 -2.8 0)
 		(layer "F.SilkS")
 		(effects
 			(font
@@ -15,7 +15,7 @@
 		)
 	)
 	(property "Value" "SolderWire-HeaterHarness_1x04_P5.0mm_D1.4mm"
-		(at 2.5 5.8 0)
+		(at 7.5 2.8 0)
 		(layer "F.Fab")
 		(effects
 			(font
@@ -38,7 +38,7 @@
 	(duplicate_pad_numbers_are_jumpers no)
 	(fp_rect
 		(start -1.9 -1.9)
-		(end 6.9 4.9)
+		(end 16.9 1.9)
 		(stroke
 			(width 0.05)
 			(type solid)
@@ -47,7 +47,7 @@
 		(layer "F.CrtYd")
 	)
 	(fp_text user "${REFERENCE}"
-		(at 2.5 1.5 0)
+		(at 7.5 -1.0 0)
 		(layer "F.Fab")
 		(effects
 			(font
@@ -66,22 +66,22 @@
 	)
 	(pad "2" thru_hole circle
 		(at 5.0 0)
-		(size 2.75 2.75)
-		(drill 1.4)
+		(size 2.2 2.2)
+		(drill 1.0)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 	)
 	(pad "3" thru_hole circle
-		(at 0 3.0)
+		(at 10.0 0)
 		(size 2.2 2.2)
 		(drill 1.0)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 	)
 	(pad "4" thru_hole circle
-		(at 5.0 3.0)
-		(size 2.2 2.2)
-		(drill 1.0)
+		(at 15.0 0)
+		(size 2.75 2.75)
+		(drill 1.4)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 	)

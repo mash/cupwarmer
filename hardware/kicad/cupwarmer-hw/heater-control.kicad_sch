@@ -208,8 +208,8 @@
 			)
 			(symbol "HEATER_HARNESS_4_0_1"
 				(rectangle
-					(start -3.81 5.08)
-					(end 3.81 -5.08)
+					(start -5.08 2.54)
+					(end 5.08 -2.54)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -221,8 +221,8 @@
 			)
 			(symbol "HEATER_HARNESS_4_1_1"
 				(pin passive line
-					(at -8.89 -1.27 0)
-					(length 5.08)
+					(at -3.81 -5.08 90)
+					(length 2.54)
 					(name "H+"
 						(effects
 							(font
@@ -239,9 +239,9 @@
 					)
 				)
 				(pin passive line
-					(at 8.89 -1.27 180)
-					(length 5.08)
-					(name "H-"
+					(at -1.27 -5.08 90)
+					(length 2.54)
+					(name "NTC"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -257,9 +257,9 @@
 					)
 				)
 				(pin passive line
-					(at -8.89 1.27 0)
-					(length 5.08)
-					(name "NTC"
+					(at 1.27 -5.08 90)
+					(length 2.54)
+					(name "NTC_GND"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -275,9 +275,9 @@
 					)
 				)
 				(pin passive line
-					(at 8.89 1.27 180)
-					(length 5.08)
-					(name "NTC_GND"
+					(at 3.81 -5.08 90)
+					(length 2.54)
+					(name "H-"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -548,26 +548,6 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 58.42) (xy 67.31 58.42)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222202")
-	)
-	(wire
-		(pts
-			(xy 85.09 58.42) (xy 96.52 58.42)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222203")
-	)
-	(wire
-		(pts
 			(xy 96.52 58.42) (xy 96.52 63.5)
 		)
 		(stroke
@@ -575,26 +555,6 @@
 			(type solid)
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222204")
-	)
-	(wire
-		(pts
-			(xy 60.96 55.88) (xy 67.31 55.88)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222216")
-	)
-	(wire
-		(pts
-			(xy 85.09 55.88) (xy 91.44 55.88)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222217")
 	)
 	(wire
 		(pts
@@ -666,6 +626,86 @@
 		)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222213")
 	)
+	(wire
+		(pts
+			(xy 60.96 58.42) (xy 67.31 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f444ac3d-66ad-4384-a314-4b1019b3949f")
+	)
+	(wire
+		(pts
+			(xy 85.09 58.42) (xy 96.52 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e166223f-9af3-48dd-9eb7-1a1cf3c8b095")
+	)
+	(wire
+		(pts
+			(xy 60.96 55.88) (xy 67.31 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "81757b47-1af4-4528-b327-9d8633b46bbe")
+	)
+	(wire
+		(pts
+			(xy 85.09 55.88) (xy 91.44 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "14133e91-3b09-47a7-af5f-6ad09ac3eb57")
+	)
+	(wire
+		(pts
+			(xy 72.39 62.23) (xy 72.39 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1e8753e8-ad5a-41da-8501-536298668cf6")
+	)
+	(wire
+		(pts
+			(xy 74.93 62.23) (xy 74.93 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "47f0bd4e-0d15-4439-882c-1dec9b1fbbb7")
+	)
+	(wire
+		(pts
+			(xy 77.47 62.23) (xy 77.47 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "90d85dba-147f-492a-8064-11889c2cedc0")
+	)
+	(wire
+		(pts
+			(xy 80.01 62.23) (xy 80.01 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1807665c-bc1f-4143-aaf9-d83652663290")
+	)
 	(label "HEATER_OUT"
 		(at 85.09 58.42 0)
 		(effects
@@ -675,6 +715,26 @@
 			(justify left bottom)
 		)
 		(uuid "6fe60c6d-d2f7-4880-8d7b-232f91fcd87b")
+	)
+	(label "HEATER_OUT"
+		(at 80.01 67.31 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "90a13d61-766c-4d78-816d-60a98bb3903a")
+	)
+	(label "HEATER_IN"
+		(at 72.39 67.31 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "129b2a62-6717-49e2-b586-03a2eddbb1b0")
 	)
 	(label "HEATER_IN"
 		(at 60.96 58.42 0)
@@ -698,6 +758,50 @@
 		(uuid "22222222-aaaa-bbbb-cccc-222222222220")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 40.64 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "SYS_GND"
+		(shape input)
+		(at 77.47 67.31 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "58768ed4-72d2-421f-9319-a9e0f35e2f53")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 77.47 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "RX_NTC"
+		(shape input)
+		(at 74.93 67.31 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7ff3846d-f65f-43be-ac3f-f2074d88f10e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 74.93 67.31 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

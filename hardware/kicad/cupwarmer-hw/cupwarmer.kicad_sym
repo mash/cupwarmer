@@ -1397,8 +1397,8 @@
 		)
 		(symbol "HEATER_HARNESS_4_0_1"
 			(rectangle
-				(start -3.81 5.08)
-				(end 3.81 -5.08)
+				(start -5.08 2.54)
+				(end 5.08 -2.54)
 				(stroke
 					(width 0.1524)
 					(type default)
@@ -1410,8 +1410,8 @@
 		)
 		(symbol "HEATER_HARNESS_4_1_1"
 			(pin passive line
-				(at -8.89 -1.27 0)
-				(length 5.08)
+				(at -3.81 -5.08 90)
+				(length 2.54)
 				(name "H+"
 					(effects
 						(font
@@ -1428,9 +1428,9 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -1.27 180)
-				(length 5.08)
-				(name "H-"
+				(at -1.27 -5.08 90)
+				(length 2.54)
+				(name "NTC"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1446,9 +1446,9 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 1.27 0)
-				(length 5.08)
-				(name "NTC"
+				(at 1.27 -5.08 90)
+				(length 2.54)
+				(name "NTC_GND"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1464,9 +1464,9 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 1.27 180)
-				(length 5.08)
-				(name "NTC_GND"
+				(at 3.81 -5.08 90)
+				(length 2.54)
+				(name "H-"
 					(effects
 						(font
 							(size 1.27 1.27)
