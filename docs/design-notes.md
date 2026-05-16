@@ -83,7 +83,7 @@
   - Q1 候補: `AO3400` (SOT-23, RDS(ON)=28mΩ@VGS=10V, VGS_max ±12V)。I_heater = 0.8A での損失 ≈ 18mW で熱的に余裕。VGS マージンを上げたい場合は VGS ±20V 品（`DMN3404L` / `NTR4170N` 等）に置換。
 - 製品固有の温調ロジックは初版のスコープ外
 - `ENB` は未使用時 `GND` 固定を基本にする
-- `RX_NTC` には heater 内蔵 NTC (`TH2`) を接続し、R7 (51k → RX_VAA) と分圧する。STWLC38 DS14078 Table 4 の external NTC OTP threshold は `VNTC,OTP = 0.55/0.59/0.65V` (typ 0.59V) なので、`NCP18WF104F12RB` (R25=100k, B25/85=4260K) の約69°C で threshold に到達するよう R7 を選ぶ。`TH2` は基板上 SMT 部品ではなく、JLCPCB silicone heater 注文時に heater と同じ MPN 指定で一緒に手配する外部 NTC として BOM に残す
+- `RX_NTC` には heater 内蔵 NTC (`TH2`) を接続し、R7 (51k → RX_VAA) と分圧する。STWLC38 DS14078 Table 4 の external NTC OTP threshold は `VNTC,OTP = 0.55/0.59/0.65V` (typ 0.59V) なので、`NCP18WF104F12RB` (R25=100k, B25/85=4260K) の約69°C で threshold に到達するよう R7 を選ぶ。DS14078 §10.4 の意図に合わせ、この入力は基板温度ではなく coil / ferrite / top plate / heater stack の過熱保護として扱う。`TH2` は基板上 SMT 部品ではなく、JLCPCB silicone heater 注文時に heater と同じ MPN 指定で一緒に手配する外部 NTC として BOM に残す
 - `INTB` は optional な bring-up / service 観測線として扱う
 - `IEXT` は `RCL + TVS` の clamp path を前提にする
 
@@ -101,7 +101,7 @@ v2 以降または製品版で必要な制御:
 ### 5. 保護方針
 
 - `NTC_A`: top plate / cup contact temperature は外部ロガーまたは将来センサで観測
-- `NTC_B`: heater 内蔵 NTC (`H1` pin3/pin4 → `RX_NTC` / `SYS_GND`, IC 内蔵 OTP)
+- `NTC_B`: heater 内蔵 NTC (`H1` pin2/pin3 → `RX_NTC` / `SYS_GND`, IC 内蔵 OTP)。board 温度センサではなく、coil / ferrite / top plate / heater stack の hotspot を STWLC38 側へ伝える保護入力として扱う
 - `F1`: independent hardware cutoff。v1 は `Xucheng KSD9700-70/5JSB/080C` を第一候補にする
 - `FOD`: Qi 側の停止系として扱う
 
@@ -341,12 +341,12 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - `VRECT` バルク+HF: `10uF×3` (C9, C20, C21) + `100nF` HF (C22) + `SMBJ18A` TVS (Z4) — STEVAL-WLC38RX UM3154 §9.1.3 / Figure 48 を踏襲
 - `VOUT` バルク+HF: `10uF×2` (C2, C23) + `100nF` HF (C24) + `SMBJ15A` TVS (Z3) — STEVAL-WLC38RX を踏襲（旧 C3 1uF は C24 100nF に置換）
 - VRECT/VOUT bulk cap の耐圧判断: UM3154 §9.1.3 は VRECT cap を maximum input voltage と quick coil movement 由来の voltage peak で決め、余裕を推奨する。VOUT cap は selected output voltage で決める。v1 では VRECT 側 (C9/C20/C21) は coil movement peak と Z4 clamp 余裕を見て `10uF/35V` を維持する。VOUT 側 (C2/C23) は 12V 出力だけなら 25V でも成立するが、BOM 共通化、SMBJ15A clamp 時の短時間過渡、X5R の DC bias / 温度 derating 余裕を優先して同じ `GRM188R6YA106MA73D` (`10uF/35V`) に揃える。AC1/AC2 resonance / COM 系 cap は別扱いで、50V rating を維持する
-- `IEXT` clamp: `R4 || R14 = 200R || 200R = 100R` → **VRECT** 接続（SOVP クランプ用、IEXT 内部スイッチ経由）。UM3154 / ST reference schematic は `R4,R5=200R` 並列 + `R6=NA` の構成で、cupwarmer では `R5` が I2C pull-up で使用済みのため追加分を `R14` とする。部品は JLCPCB 登録表記 `ERJP06F2000V` (`C543538`) 0805 500mW surge/thick-film を使い、クランプ電流とパルスエネルギを2本に分散する
-- `AC1/AC2` ESD: `SMF13A` (Z1/Z2) 各 `GND` 直結
+- `IEXT` clamp: `R4 || R14 = 200R || 200R = 100R` → **VRECT** 接続（SOVP クランプ用、IEXT 内部スイッチ経由）。UM3154 / ST reference schematic は `R4,R5=200R` 並列 + `R6=NA` の構成で、cupwarmer では `R5` が I2C pull-up で使用済みのため追加分を `R14` とする。部品は JLCPCB 登録表記 `ERJP06F2000V` (`C543538`) 0805 500mW surge/thick-film を使い、クランプ電流とパルスエネルギを2本に分散する。UM3154 §9.1.5 は IEXT 内部 switch の上限を 300 mA とするため、`RCL=100Ω` では `VRECT=30V` が switch current limit 境界。12V 出力の dynamic/static SOVP 想定 `VRECT=14-17V` では `I=140-170mA`, `Ppair=1.96-2.89W`, `P_each=0.98-1.45W`。Z4 `SMBJ18A` の 10/1000us clamp `VC=29.2V` を最悪パルス電圧として見ると `I=292mA`, `Ppair=8.53W`, `P_each=4.26W`。pulse energy は `Epair=Ppair*t`, `E_each=P_each*t` で見積もり、例として `17V, 10ms` なら pair `28.9mJ` / each `14.5mJ`、`29.2V, 10ms` なら pair `85.3mJ` / each `42.6mJ`。これは 0805 500mW の連続消費では成立しないので、SOVP は短時間パルス保護として扱い、bring-up で SOVP duty、R4/R14 表面温度、VRECT clamp waveform、TX/RX 復帰挙動を確認する。SOVP が頻発または長時間化する場合は `RCL` 増加、より高パルス定格の抵抗、SOVP threshold / firmware policy を再検討する
+- `AC1/AC2` ESD: `SMF13A` (Z1/Z2) を各入力から `SYS_GND` へ個別に直結する。UM3154 §9.1.6 / DS14078 §10.4 は receiving coil 側を ESD/過電圧入口として扱い、AC1/AC2 それぞれに外付け TVS を置く前提。SMF13A は `VRWM=13V`, `VBR=14.4-15.9V`, `VC=21.5V@9.3A`, `IR<=1uA@VRWM`。bring-up ではコイル位置ずれ/高負荷/高温時に、通常 AC swing で不要導通やリーク増加がないことを確認する
 - `Cs` 系列共振 `100nF×3` (C1/C16/C17) + `10nF×2` (C18/C19) = 320nF。`Cd` 並列共振 C15 は Qi 認証向け後方互換用途のため v1 では削除済み
 - 受電コイル: v1 は STEVAL-WLC38RX と同じ `Luxshare-ICT LD81FP008-1H` を基準にする（`8±0.2uH @100kHz`, `DCR=190mΩ±10%`, `ACR=225mΩ±10%`）
 - フェライト: コイル付属/同等の backing ferrite を優先。別体 ferrite sheet は `SHIELD1 = Wuerth Elektronik WE-FSFS 364105` (60x60x0.5mm flexible sintered ferrite sheet) を第一候補にする。コイル外形に合わせてトリム/固定し、coil L/Q/DCR と FOD / 位置ずれ挙動を再測定する
-- COMA/COMB ASK 変調キャパ 4 本: C11=CCOMA1(10n→AC1), C12=CCOMB1(22n→AC1), C13=CCOMA2(10n→AC2), C14=CCOMB2(22n→AC2)
+- COMA/COMB ASK 変調キャパ 4 本: C11=CCOMA1(10n→AC1), C12=CCOMB1(22n→AC1), C13=CCOMA2(10n→AC2), C14=CCOMB2(22n→AC2)。UM3154 §9.1.4 / DS14078 §10.4 の初期値として採用し、custom board では coil/gap/VRECT/load/misalignment で TX 側 ASK demod が変わるため bring-up で `VRECT`, `COMA`, `COMB`, TX coil sense/demod を低負荷/高負荷・中央/位置ずれで観測する。重い負変調、TX packet error、VRECT drop 由来の過大損失が見えた場合だけ COMA/COMB 値または STWLC38 ASK configuration を再調整する
 - `VS` は RX-only では未使用。評価ボードでは DNP ジャンパ経由の外部 `VS` 評価点として扱われており、v1 では未接続
 - `ENB` → `GND` 固定
 - **`SCL/SDA` pull-up `10k` (R5/R6) → `VAA` (2.5V)**（VDD は 1.1V LDO で I2C には低すぎる。J1 経由のホスト接続は `VREF=RX_VAA` 追従または外部レベルシフタ必須。3.3V 固定 pull-up の直結は禁止）

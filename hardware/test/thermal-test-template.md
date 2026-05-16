@@ -22,7 +22,8 @@ Use this template for v1 heater, F1, cup contact layer, and Qi/FOD evaluation. K
 - Heater resistance measured cold:
 - F1 part:
 - F1 mounting method:
-- TH1 mounting method:
+- Heater NTC / TH2 mounting method:
+- Heater NTC target: coil / ferrite / top plate / heater hotspot, not PCB ambient
 - Insulation layer:
 - Coil:
 - Ferrite:
@@ -30,11 +31,13 @@ Use this template for v1 heater, F1, cup contact layer, and Qi/FOD evaluation. K
 
 ## Instrumentation
 
-- TH1 channel:
-- TH2 channel:
+- Heater NTC / TH2 channel:
+- F1 body probe:
+- Coil / ferrite edge probe:
 - Top surface probe:
 - Heater current measurement:
 - VOUT measurement:
+- RX_NTC voltage / STWLC38 NTC OTP event:
 - IR camera / image path:
 - Logging interval:
 
@@ -63,26 +66,29 @@ Use this template for v1 heater, F1, cup contact layer, and Qi/FOD evaluation. K
 
 ## Time Series Log
 
-| Time | VOUT | Heater current | Top surface | TH1 | TH2 | Qi status | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 00:00 | | | | | | | |
-| 01:00 | | | | | | | |
-| 02:00 | | | | | | | |
-| 05:00 | | | | | | | |
-| 10:00 | | | | | | | |
-| 20:00 | | | | | | | |
-| 30:00 | | | | | | | |
+| Time | VOUT | Heater current | Top surface | Heater NTC / TH2 | F1 body | Coil / ferrite edge | RX_NTC / OTP | Qi status | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 00:00 | | | | | | | | | |
+| 01:00 | | | | | | | | | |
+| 02:00 | | | | | | | | | |
+| 05:00 | | | | | | | | | |
+| 10:00 | | | | | | | | | |
+| 20:00 | | | | | | | | | |
+| 30:00 | | | | | | | | | |
 
 ## F1 Event Log
 
-| Event | Time | Top surface | TH1 | TH2 | VOUT | Heater current | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| F1 open | | | | | | | |
-| F1 reset | | | | | | | |
+| Event | Time | Top surface | Heater NTC / TH2 | F1 body | RX_NTC / OTP | VOUT | Heater current | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| F1 open | | | | | | | | |
+| F1 reset | | | | | | | | |
+| STWLC38 NTC OTP | | | | | | | | |
 
 ## Observations
 
 - Surface hot spots:
+- Heater NTC vs F1 open/reset delta:
+- STWLC38 NTC OTP relative to F1 open/reset:
 - Odor, discoloration, adhesive movement:
 - F1 or wire movement:
 - Qi pad stop / restart behavior:

@@ -29,6 +29,8 @@
 
 `F1` は製品制御用センサではなく、ヒーター系の独立ハード遮断として扱う。熱結合が悪いと安全側に働かないため、v1 では PCB 上に置かず、外部 heater/F1 series assembly の一部としてトッププレート裏面へ固定する。
 
+heater 内蔵 NTC (`TH2`) も PCB 温度ではなく、coil / ferrite / top plate / heater stack の過熱を STWLC38 の `RX_NTC` OTP 入力へ伝える保護点として扱う。`H1` のピン割りは `1=H+`, `2=NTC/RX_NTC`, `3=NTC_GND`, `4=H-` とし、heater NTC は F1 と同じ熱経路の代表点または hotspot 近傍に再現性を持って固定する。
+
 推奨する相対配置:
 
 ```text
