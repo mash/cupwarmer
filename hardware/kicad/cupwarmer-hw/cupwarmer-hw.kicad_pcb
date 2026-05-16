@@ -1848,7 +1848,7 @@
 				)
 			)
 		)
-		(property "Value" "10k Div Top"
+		(property "Value" "15k Div Top"
 			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "bd33ad51-edcf-45f1-8f0f-414a04eeccb6")
@@ -1906,7 +1906,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25804"
+		(property "LCSC" "C22809"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1919,7 +1919,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF1002T5E"
+		(property "MPN" "0603WAF1502T5E"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4417,7 +4417,7 @@
 				)
 			)
 		)
-		(property "Description" "Gate divider bottom (Q1.G -> GND, VGS~=6V)"
+		(property "Description" "Gate divider bottom (Q1.G -> GND, R1/R2=15k/10k gives VGS~=4.8V at VOUT=12V)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)

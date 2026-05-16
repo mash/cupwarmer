@@ -79,7 +79,7 @@
 `STWLC38JRM` の autonomous 動作、`I2C` service header、独立ハード保護で成立させる。
 
 - 初版は固定 `VOUT_12V` 前提
-- **v1 ヒーター gate ドライブ: 常時 ON（VOUT_12V → R1 (10k) → Q1.G、Q1.G → R2 (10k) → GND の分圧）**。VGS ≈ 6V でロジックレベル N-FET を確実に ON しつつ、`AO3400` クラス (VGS_max ±12V) でも VOUT スパイク時のマージンを確保する。Qi 給電中は連続通電。温度保護は F1 サーモスタットのみ。PWM/可変制御は v2 以降。MCU を入れる場合はゲートドライバ IC または低閾値 FET でレベル整合する。
+- **v1 ヒーター gate ドライブ: 常時 ON（VOUT_12V → R1 (15k) → Q1.G、Q1.G → R2 (10k) → GND の分圧）**。VGS ≈ 4.8V でロジックレベル N-FET を ON し、SMBJ15A clamp worst-ish `VC ≈ 24.4V` 時も VGS ≈ 9.76V に抑えて `AO3400` class (VGS_max ±12V) の余裕を確保する。Qi 給電中は連続通電。温度保護は F1 サーモスタットのみ。PWM/可変制御は v2 以降。MCU を入れる場合はゲートドライバ IC または低閾値 FET でレベル整合する。
   - Q1 候補: `AO3400` (SOT-23, RDS(ON)=28mΩ@VGS=10V, VGS_max ±12V)。I_heater = 0.8A での損失 ≈ 18mW で熱的に余裕。VGS マージンを上げたい場合は VGS ±20V 品（`DMN3404L` / `NTR4170N` 等）に置換。
 - 製品固有の温調ロジックは初版のスコープ外
 - `ENB` は未使用時 `GND` 固定を基本にする
@@ -351,7 +351,7 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - `ENB` → `GND` 固定
 - **`SCL/SDA` pull-up `10k` (R5/R6) → `VAA` (2.5V)**（VDD は 1.1V LDO で I2C には低すぎる。J1 経由のホスト接続は `VREF=RX_VAA` 追従または外部レベルシフタ必須。3.3V 固定 pull-up の直結は禁止）
 - `VOUT` → heater-control シートへ
-- ヒーター gate 分圧: R1 = 10k (VOUT_12V → Q1.G), R2 = 10k (Q1.G → GND) で VGS ≈ 6V
+- ヒーター gate 分圧: R1 = 15k (VOUT_12V → Q1.G), R2 = 10k (Q1.G → GND) で VGS ≈ 4.8V。SMBJ15A clamp `VC ≈ 24.4V` 時は VGS ≈ 9.76V。
 - F1: `KSD9700-70/5JSB/080C` を `heater-control.kicad_sch` / BOM に反映済み。トッププレート裏面に密着固定し、heater NTC と F1 open/reset の差は熱試験で確認する
 - OVP TVS:
   - `Z3 = Littelfuse SMBJ15A`（VOUT_12V → cathode、anode → SYS_GND、VR=15V）。VOUT 出口近傍に配置

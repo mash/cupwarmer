@@ -1607,7 +1607,7 @@
 				)
 			)
 		)
-		(property "Value" "10k Div Top"
+		(property "Value" "15k Div Top"
 			(at 74.93 87.63 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1661,7 +1661,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25804"
+		(property "LCSC" "C22809"
 			(at 26.67 17.78 0)
 			(hide yes)
 			(show_name no)
@@ -1672,7 +1672,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF1002T5E"
+		(property "MPN" "0603WAF1502T5E"
 			(at 26.67 17.78 0)
 			(hide yes)
 			(show_name no)
@@ -1751,7 +1751,7 @@
 				)
 			)
 		)
-		(property "Description" "Gate divider bottom (Q1.G -> GND, VGS~=6V)"
+		(property "Description" "Gate divider bottom (Q1.G -> GND, R1/R2=15k/10k gives VGS~=4.8V at VOUT=12V)"
 			(at 106.68 104.14 90)
 			(hide yes)
 			(show_name no)
