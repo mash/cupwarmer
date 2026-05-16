@@ -16313,5 +16313,103 @@
 			)
 		)
 	)
+
+	(gr_text "40x40mm rounded coil body guide"
+		(at 80 78 0)
+		(layer "Cmts.User")
+		(uuid "02306510-a0a1-48ba-8b10-18a4f4f07fed")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_line
+		(start 86 80)
+		(end 114 80)
+		(stroke
+			(width 0.1)
+			(type dash)
+		)
+		(layer "Cmts.User")
+		(uuid "3d39a6d1-e745-45a4-a736-11bf19ca07bd")
+	)
+	(gr_line
+		(start 120 86)
+		(end 120 114)
+		(stroke
+			(width 0.1)
+			(type dash)
+		)
+		(layer "Cmts.User")
+		(uuid "a8c2dc4e-2baf-46bd-bdaa-acc4a302e7ea")
+	)
+	(gr_line
+		(start 114 120)
+		(end 86 120)
+		(stroke
+			(width 0.1)
+			(type dash)
+		)
+		(layer "Cmts.User")
+		(uuid "5e59e157-c328-403f-af4f-5ed444326e5f")
+	)
+	(gr_line
+		(start 80 114)
+		(end 80 86)
+		(stroke
+			(width 0.1)
+			(type dash)
+		)
+		(layer "Cmts.User")
+		(uuid "57870a75-f26f-462c-8132-6349ecb2f896")
+	)
+	(gr_arc
+		(start 114 80)
+		(mid 118.242641 81.757359)
+		(end 120 86)
+		(stroke
+			(width 0.1)
+			(type dash)
+		)
+		(layer "Cmts.User")
+		(uuid "718d5b6a-d91a-4a2a-affa-042c9fab15aa")
+	)
+	(gr_arc
+		(start 120 114)
+		(mid 118.242641 118.242641)
+		(end 114 120)
+		(stroke
+			(width 0.1)
+			(type dash)
+		)
+		(layer "Cmts.User")
+		(uuid "646adaec-7d6f-46d9-9c3c-12f20c0108c9")
+	)
+	(gr_arc
+		(start 86 120)
+		(mid 81.757359 118.242641)
+		(end 80 114)
+		(stroke
+			(width 0.1)
+			(type dash)
+		)
+		(layer "Cmts.User")
+		(uuid "ab7ff550-e532-4b91-b0a8-c0f85063c151")
+	)
+	(gr_arc
+		(start 80 86)
+		(mid 81.757359 81.757359)
+		(end 86 80)
+		(stroke
+			(width 0.1)
+			(type dash)
+		)
+		(layer "Cmts.User")
+		(uuid "d1392c82-ce39-4433-9fbf-3bd3cb88675b")
+	)
+
 	(embedded_fonts no)
 )
