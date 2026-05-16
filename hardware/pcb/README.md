@@ -17,7 +17,7 @@
 1. Top (`F.Cu`): `U1`, small passives, AC1/AC2, VOUT_12V 出口, U1 escape
 2. Inner 1 (`In1.Cu`): solid `SYS_GND` plane（連続）
 3. Inner 2 (`In2.Cu`): solid `SYS_GND` plane（連続）
-4. Bottom (`B.Cu`): heater 高電流 return, `J1/J2/J3`, debug, optional MCU
+4. Bottom (`B.Cu`): heater 高電流 return, `J1`, debug test points, optional MCU
 
 VOUT_12V は単一 rail・`0.8A` のため内層 power plane を持たず、L1/L4 の
 太いポリゴン + `Z3 / C2/C23 / Q1.D` 近傍の via cluster で配電する。AC1/AC2

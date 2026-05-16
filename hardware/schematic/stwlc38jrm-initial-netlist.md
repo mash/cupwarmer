@@ -26,7 +26,7 @@
 |---|---|---|---|
 | `NTC_TOP` | `NTC_A` | evaluation pads or future monitor | top plate thermal placeholder |
 | `NTC_PCB` | `NTC_B` | evaluation pads or future monitor | board thermal placeholder |
-| `RX_INTB` | `U1` | status monitor header | optional interrupt/status observe point |
+| `RX_INTB` | `U1` | pull-up only | optional interrupt/status net; no dedicated header in v1 |
 | `I2C_SCL` | service header | `U1` | bring-up / configuration |
 | `I2C_SDA` | service header | `U1` | bring-up / configuration |
 | `HEATER_CTRL` | `TBD` | `Q1 gate network` | gate drive source still open |

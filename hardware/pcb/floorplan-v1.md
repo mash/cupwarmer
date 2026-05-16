@@ -45,4 +45,4 @@
 - `L1`: provisional wire-pad footprint を割当済み。実 coil tail / ferrite assembly が決まったら置換する。
 - `C1/C16/C17`: `100nF` Cs primary resonant capacitors。各 footprint は `Capacitor_SMD:C_1206_3216Metric`、MPN は Murata `GRM31C5C1H104JA01L` (`C97946`)。
 - `C18/C19`: `10nF` Cs tuning capacitors。各 footprint は `Capacitor_SMD:C_0603_1608Metric`。
-- `C2/C3/C4..C15`, `R1..R8/R10/R11`, `D1/D2`, `Z1/Z2/Z3`, `Q1`, `H1/F1`, `TH1/TH2`, `J1/J2/J3`: 初回 placement 用 footprint を割当済み。
+- `C2/C3/C4..C15`, `R1..R8/R10/R11`, `D1/D2`, `Z1/Z2/Z3`, `Q1`, `H1/F1`, `TH1/TH2`, `J1/J2`, `TP1..TP3`: 初回 placement 用 footprint を割当済み。
