@@ -363,7 +363,10 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
   - `Z3 = Littelfuse SMBJ15A`（VOUT_12V → cathode、anode → SYS_GND、VR=15V）。VOUT 出口近傍に配置
   - `Z4 = SMBJ18A`（VRECT → cathode、anode → SYS_GND、VR=18V）。VRECT 通常域 13–15V でリーク電流が無視できるよう VR=18V を選定し、VBR≈20V / VC=29.2V@20.55A で VRECT 35V 定格コンデンサに対して余裕を残す。U1 近傍 VRECT バルク帯に配置
 - LED: D1（給電中インジ、VOUT_12V → R10(3k) → D1(red) → GND、`XL-1608SURC-04` / `C965798`）
-- GPIO0 LED: D2/R11（RX_VAA → R11(1k) → D2 → GPIO0、GPIO0 は NVM 設定前提の optional indicator）。DS14078 / UM3154 の GPIO function `0x29` (open-drain, active low output) で GPIO0 を sink 出力として使う前提。`0x02` は input + internal pull-down であり、LED 駆動設定ではない。UM3154 は 2.5 V LDO/VAA を LED 等の低電力外部回路に使えるとし、外部取り出し上限を 20 mA とするため、R11=1k の D2 電流は容量上問題ない。`VDD` は 1.1 V LDO で LED に不向き、`VOUT_12V` は GPIO0 へ 12 V 系を持ち込むため採用しない。
+- GPIO0 LED: D2/R11（RX_VAA → R11(100Ω) → D2 → GPIO0、GPIO0 は NVM 設定前提の optional indicator）。DS14078 / UM3154 の GPIO function `0x29` (open-drain, active low output) で GPIO0 を sink 出力として使う前提。`0x02` は input + internal pull-down であり、LED 駆動設定ではない。UM3154 は 2.5 V LDO/VAA を LED 等の低電力外部回路に使えるとし、外部取り出し上限を 20 mA とするため、D2 電流は容量上問題ない。`VDD` は 1.1 V LDO で LED に不向き、`VOUT_12V` は GPIO0 へ 12 V 系を持ち込むため採用しない。
+  - **R11 値の根拠 (2026-05-17 改定: 1k → 100Ω)**: 経路は `VAA(2.5V) → R11 → D2 (red XL-1608SURC, Vf typ 1.95V@20mA, low-current では Vf ≈ 1.7–1.85V) → U1.GPIO0 (open-drain sink, VOL ≈ 0.4V@sink)`。順方向電圧マージン = `2.5 − Vf − VOL ≈ 2.5 − 1.8 − 0.4 = 0.3V`。
+    - R11=1k だと I ≈ 0.3mA — XL-1608SURC のデータシート Vf 曲線がほぼ flat になる領域より下で発光が不安定、最悪 LED が消灯したまま見える。さらに GPIO0 が NVM 未設定時に高インピーダンス入力 (function `0x02`, pull-down 内蔵想定) になっている期間中は R11=1k 経由で漏れ電流が pull-down を引いて GPIO0 を不定化させる懸念がある。
+    - R11=100Ω なら I ≈ 3mA で LED が確実に点灯し、XL-1608SURC Vf データシートの 1–5mA 領域 (~1.85V) でマージンが取れる。U1.GPIO0 sink 電流 3mA は VAA LDO の 20mA 上限内、open-drain output の sink 能力 (typ 数 mA 以上) にも余裕。NVM 未設定時に GPIO0 が input pull-down になった場合の漏れも、R11 が小さく VAA 側のソースインピーダンスを下げるため、GPIO0 入力が "logical low" 側に引かれて誤動作するリスクは増えるが、`0x02` は LED 駆動 NVM が書かれていない bring-up 初期だけの状態であり、組立後 NVM 書込み (`0x29`) 完了で正常動作する。**bring-up checklist では NVM 書込前は D2/R11 の VAA 側を切る (R11 を DNP) か、NVM 書込み完了まで電源を入れない手順とする**。
 
 VOUT OVP 候補（PDF: `SMBJ15A.pdf`）:
 

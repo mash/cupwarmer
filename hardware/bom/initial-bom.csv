@@ -28,9 +28,11 @@ C8,supply decoupling,1uF ceramic,Samsung,CL10A105KB8NNNC,C15849,selected,"",VDD 
 C9,rectifier decoupling,10uF/35V X5R,Murata,GRM188R6YA106MA73D,C194427,selected,"",VRECT rectifier decoupling close to U1; matches STEVAL-WLC38RX (CRECT/COUT family); 10uF 35V X5R 0603 (same as C2)
 R5,I2C pull-up,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,"",SCL pull-up to RX_VAA 2.5V for service header
 R6,I2C pull-up,10k resistor,UNI-ROYAL,0603WAF1002T5E,C25804,selected,"",SDA pull-up to RX_VAA 2.5V for service header
+R15,I2C SDA series,100R resistor,UNI-ROYAL,0603WAF1000T5E,C22775,selected,"",I2C SDA service-header series 100Ω placed close to U1.G5; limits ESD/surge current into U1.SDA pad; combined with bring-up adapter ESD strap mitigates HBM at J1
+R16,I2C SCL series,100R resistor,UNI-ROYAL,0603WAF1000T5E,C22775,selected,"",I2C SCL service-header series 100Ω placed close to U1.H5; limits ESD/surge current into U1.SCL pad; combined with bring-up adapter ESD strap mitigates HBM at J1
 R7,NTC pull-up,51k resistor,UNI-ROYAL,0603WAF5102T5E,C23196,selected,"","RX_NTC -> RX_VAA pull-up; forms divider with external 100k/B4260 heater NTC; DS14078 VNTC,OTP typ 0.59V gives ~69C trip with R7=51k"
 R10,LED current limit,3k resistor,UNI-ROYAL,0603WAF3001T5E,C4211,selected,"",D1 power-on indicator current limiting from VOUT_12V; 3kΩ 0603 1% basic
-R11,LED current limit,1k resistor,UNI-ROYAL,0603WAF1001T5E,C21190,selected,"",D2 GPIO0 indicator current limiting from RX_VAA; 1kΩ 0603 1% basic
+R11,LED current limit,100R resistor,UNI-ROYAL,0603WAF1000T5E,C22775,selected,"",D2 GPIO0 indicator current limiting from RX_VAA (changed 2026-05-17 1k->100R for Vf margin and reliable lighting at I~3mA; see design-notes); 100Ω 0603 1% basic
 D1,power indicator LED,red LED,XINGLIGHT,XL-1608SURC-04,C965798,selected,"",VOUT_12V power-on indicator; 0603 red 624nm 20mA
 D2,GPIO0 indicator LED,green LED,XINGLIGHT,XL-1608UGC-04,C965804,selected,"",optional GPIO0 active-low indicator; 0603 green 525nm 20mA
 C11,ASK modulation,10nF/50V NP0,YAGEO,CC0603JRNPO9BN103,C389113,selected,"",COMA modulation cap on AC1/AC2-side ASK network; keep 50V rating, do not substitute 25V; 10nF 50V NP0 +/-5% 0603 ext (NP0 for stable ASK modulation depth); initial STEVAL value, verify VRECT/COMA/TX demod depth during bring-up
