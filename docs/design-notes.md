@@ -80,6 +80,7 @@
 
 - 初版は固定 `VOUT_12V` 前提
 - **v1 ヒーター gate ドライブ: 常時 ON（VOUT_12V → R1 (15k) → Q1.G、Q1.G → R2 (10k) → GND の分圧）**。VGS ≈ 4.8V でロジックレベル N-FET を ON し、SMBJ15A clamp worst-ish `VC ≈ 24.4V` 時も VGS ≈ 9.76V に抑えて `AO3400` class (VGS_max ±12V) の余裕を確保する。Qi 給電中は連続通電。温度保護は F1 サーモスタットのみ。PWM/可変制御は v2 以降。MCU を入れる場合はゲートドライバ IC または低閾値 FET でレベル整合する。
+  - R3 bring-up shunt を `0.05Ω` に差し替えた場合、Q1 source は `I_HEATER × 0.05Ω` だけ浮くため、実効 `VGS = VOUT_12V × 10k / (15k + 10k) - I_HEATER × 0.05Ω`。12V 入力では `4.8V - I_HEATER × 0.05Ω` なので、0.8A で約4.76V、3A で約4.65V、5A でも約4.55V。bring-up 測定用 shunt による VGS 痩せは小さく、0Ω 通常実装ではこの低下は発生しない。
   - Q1 候補: `AO3400` (SOT-23, RDS(ON)=28mΩ@VGS=10V, VGS_max ±12V)。I_heater = 0.8A での損失 ≈ 18mW で熱的に余裕。VGS マージンを上げたい場合は VGS ±20V 品（`DMN3404L` / `NTR4170N` 等）に置換。
 - 製品固有の温調ロジックは初版のスコープ外
 - `ENB` は未使用時 `GND` 固定を基本にする
