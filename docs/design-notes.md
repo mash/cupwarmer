@@ -394,7 +394,7 @@ R3 / STWLC38JRM ADC 方針:
 現行 `heater-control.kicad_sch` には以下を反映済み:
 
 - `H1`: 4線 heater harness。pin1 `H+`, pin2 `NTC`, pin3 `NTC_GND`, pin4 `H-`
-- `TP1` / `TP2`: power-on 前に heater NTC 抵抗を DMM 確認するための test pads。これは B-only fail-safe の実装点で、能動的な NTC 未接続検出回路は載せない
+- `TP1`: power-on 前に heater NTC 抵抗を DMM 確認するための `RX_NTC` test pad。return は `H1` pin3 または `J1` pin2 の `SYS_GND` から取る。これは B-only fail-safe の実装点で、能動的な NTC 未接続検出回路は載せない
 - TH2 → `RX_NTC` (R7=51k と分圧、STWLC38 内蔵 OTP 入力)。70°C 時の NTC 抵抗は約15.36kΩで、理想値は `R7 = R_NTC × (2.5V / 0.59V - 1) ≈ 49.7kΩ`。51k は JLCPCB basic (`C23196`, `0603WAF5102T5E`) で、実装時の trip 目安は threshold min/typ/max で約71.8/69.3/65.8°C
 - BOM 初回照合: `initial-bom.csv` は回路図 ref に合わせて heater harness, F1, TH2, Q1, R1/R2/R3/R7, LED/TVS/coil 周辺部品を反映済み。`TH2` は基板上 SMT 部品ではなく、JLCPCB silicone heater と同時注文する外部 heater NTC として BOM に残す
 
@@ -414,7 +414,7 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - ~~hard cutoff implementation choice~~ → F1 は `Xucheng KSD9700-70/5JSB/080C` を第一候補に選定（open `70±5°C`, reset `50±10°C`）
 - **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制。手実装または機構固定を前提にする。詳細な固定候補は `hardware/mechanical/README.md`、熱試験記録は `hardware/test/thermal-test-template.md` に分離
 - ~~VOUT 過電圧保護 TVS~~ → `SMBJ15A` を第一候補に選定（`VR=15V`, `VBR=16.7-18.5V`, `VC=24.4V`, `600W`）
-- ~~LED-2 status indicator~~ → D2/R11 は `RX_VAA → R11(1k) → D2 → U1.F3(GPIO0)` に接続済み。`GPIO0 Func=0x29` (open-drain, active low output) の sink LED として使う。`0x02` input pull-down は LED 駆動ではない。UM3154 の 2.5 V LDO/VAA 外部低電力負荷許容 (20 mA max) に収まるため VAA のまま維持し、`VDD`/`VOUT_12V` へは移動しない。`RX_INTB` は R12 pull-up まで実装し、v1 では専用 header へは出さない。`I_HEATER_MON` は TP3 の 1-pin test point で観測する
+- ~~LED-2 status indicator~~ → D2/R11 は `RX_VAA → R11(1k) → D2 → U1.F3(GPIO0)` に接続済み。`GPIO0 Func=0x29` (open-drain, active low output) の sink LED として使う。`0x02` input pull-down は LED 駆動ではない。UM3154 の 2.5 V LDO/VAA 外部低電力負荷許容 (20 mA max) に収まるため VAA のまま維持し、`VDD`/`VOUT_12V` へは移動しない。`RX_INTB` は R12 pull-up まで実装し、v1 では専用 header へは出さない。`I_HEATER_MON` は TP2 の 1-pin test point で観測する
 - ~~R3 電流センス~~ → v1 通常実装は `0Ω`。評価時のみ `0.05Ω` に差し替えてベンチ測定する。STWLC38JRM には R3 を読ませない
 - ~~PCB GND トポロジー~~ → 回路図は `SYS_GND` 一本、PCB は solid GND plane を維持し、`VSSP` power return と `VSSA` quiet reference を配置/配線で分離する
 - ~~I2C service header 3.3V 制約~~ → v1 はオンボード level shifter なし。J1 は `RX_VAA` 2.5V VREF 追従アダプタ専用で、3.3V 固定 pull-up の直結は禁止

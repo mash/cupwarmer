@@ -890,16 +890,6 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 128.27) (xy 106.68 132.08)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ca82d81b-9082-4f90-afa3-20d26955c2c9")
-	)
-	(wire
-		(pts
 			(xy 176.53 74.93) (xy 176.53 62.23)
 		)
 		(stroke
@@ -1209,7 +1199,7 @@
 		(in_pos_files no)
 		(dnp no)
 		(uuid "1a309a9a-49e9-4e36-b2fb-049138c117f5")
-		(property "Reference" "TP3"
+		(property "Reference" "TP2"
 			(at 124.46 139.7 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1268,7 +1258,7 @@
 		(instances
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
-					(reference "TP3")
+					(reference "TP2")
 					(unit 1)
 				)
 			)
@@ -1993,82 +1983,6 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
 					(reference "TP1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "cupwarmer:TESTPAD_1")
-		(at 106.68 137.16 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(in_pos_files no)
-		(dnp no)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222262")
-		(property "Reference" "TP2"
-			(at 106.68 139.7 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TP_NTC_GND"
-			(at 98.806 137.16 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
-			(at 106.68 137.16 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 106.68 137.16 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "DMM return pad for heater NTC before powered test"
-			(at 106.68 137.16 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "22222222-aaaa-bbbb-cccc-222222222263")
-		)
-		(instances
-			(project "cupwarmer-hw"
-				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
-					(reference "TP2")
 					(unit 1)
 				)
 			)
