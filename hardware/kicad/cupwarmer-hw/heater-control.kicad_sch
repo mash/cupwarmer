@@ -11,6 +11,168 @@
 		(comment 2 "Initial functional draft")
 	)
 	(lib_symbols
+		(symbol "cupwarmer:DIODE_2"
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "D"
+				(at 0 3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "DIODE_2"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Schottky diode, pin 1 cathode, pin 2 anode (KiCad Device:D convention)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "MPN" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "DIODE_2_0_1"
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy 1.27 0) (xy -1.27 -1.27) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.2)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.27) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.2)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "DIODE_2_1_1"
+				(pin passive line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "cupwarmer:HEATER_HARNESS_4"
 			(pin_names
 				(offset 0.762)
@@ -539,16 +701,16 @@
 		(uuid "2f216ed4-14f4-4ec5-9122-0a89b8df82b6")
 	)
 	(junction
-		(at 106.68 128.27)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "42e442ae-91fd-4fd3-a796-0986d760b9dd")
-	)
-	(junction
 		(at 184.15 62.23)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4322bb92-ab4b-416a-9f97-93323736da04")
+	)
+	(junction
+		(at 67.31 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "50f7f719-9ea4-4c0d-8694-041d97ffa9d9")
 	)
 	(junction
 		(at 72.39 62.23)
@@ -567,6 +729,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e9002b30-cea0-45c5-8d03-a3261df4290f")
+	)
+	(junction
+		(at 115.57 77.47)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ffa7e9d7-af53-40e2-a1c8-67610c5826c6")
 	)
 	(wire
 		(pts
@@ -600,7 +768,7 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 62.23) (xy 115.57 81.28)
+			(xy 115.57 62.23) (xy 115.57 77.47)
 		)
 		(stroke
 			(width 0)
@@ -610,7 +778,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 91.44) (xy 69.85 91.44)
+			(xy 59.69 91.44) (xy 67.31 91.44)
 		)
 		(stroke
 			(width 0)
@@ -660,16 +828,6 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 91.44) (xy 106.68 91.44)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222211")
-	)
-	(wire
-		(pts
 			(xy 106.68 109.22) (xy 106.68 128.27)
 		)
 		(stroke
@@ -707,6 +865,16 @@
 			(type default)
 		)
 		(uuid "244e2c36-3b2b-4900-a7d0-df1520a888f5")
+	)
+	(wire
+		(pts
+			(xy 67.31 91.44) (xy 69.85 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "24d89b66-cb16-43a5-af39-faff32aec13e")
 	)
 	(wire
 		(pts
@@ -790,6 +958,26 @@
 	)
 	(wire
 		(pts
+			(xy 115.57 77.47) (xy 115.57 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "49727e4f-91ff-4e4c-921e-af9f86fd1fe1")
+	)
+	(wire
+		(pts
+			(xy 96.52 77.47) (xy 67.31 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5a45ff43-4d73-4b6d-bb86-bb6b4becef1f")
+	)
+	(wire
+		(pts
 			(xy 184.15 52.07) (xy 179.07 52.07)
 		)
 		(stroke
@@ -860,6 +1048,26 @@
 	)
 	(wire
 		(pts
+			(xy 67.31 77.47) (xy 67.31 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a620470d-9555-48b0-b6e6-50c51e5e3662")
+	)
+	(wire
+		(pts
+			(xy 80.01 91.44) (xy 106.68 91.44)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "adf8bdb8-26d8-434d-b569-7f2cb4ed9747")
+	)
+	(wire
+		(pts
 			(xy 179.07 57.15) (xy 175.26 57.15)
 		)
 		(stroke
@@ -907,6 +1115,16 @@
 			(type solid)
 		)
 		(uuid "cfe6a6bc-cc44-4ed8-b7f4-3e629a1ca8f8")
+	)
+	(wire
+		(pts
+			(xy 106.68 77.47) (xy 115.57 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e472028f-0870-40d4-8e45-59ad3e441daf")
 	)
 	(wire
 		(pts
@@ -1597,7 +1815,7 @@
 				)
 			)
 		)
-		(property "Value" "15k Div Top"
+		(property "Value" "12k Div Top"
 			(at 74.93 87.63 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1651,7 +1869,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C22809"
+		(property "LCSC" "C22790"
 			(at 26.67 17.78 0)
 			(hide yes)
 			(show_name no)
@@ -1662,7 +1880,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF1502T5E"
+		(property "MPN" "0603WAF1202T5E"
 			(at 26.67 17.78 0)
 			(hide yes)
 			(show_name no)
@@ -2293,6 +2511,124 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
 					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "cupwarmer:DIODE_2")
+		(at 101.6 77.47 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d2d03dc1-5aff-40e8-b841-a44d870b7449")
+		(property "Reference" "D3"
+			(at 101.6 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "B5819W"
+			(at 101.6 81.28 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_SMD:D_SOD-123"
+			(at 101.6 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Heater flyback diode (HEATER_OUT -> VOUT_12V)"
+			(at 101.6 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "MDD"
+			(at 213.36 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C8598"
+			(at 213.36 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "B5819W"
+			(at 213.36 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6d3be48e-c61a-437e-8be1-78a145a31a81")
+		)
+		(pin "2"
+			(uuid "eac0a0cd-fbda-438c-8889-68081551dfea")
+		)
+		(instances
+			(project "heater-control"
+				(path "/22222222-aaaa-bbbb-cccc-222222222221"
+					(reference "D3")
+					(unit 1)
+				)
+			)
+			(project "cupwarmer-hw"
+				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
+					(reference "D3")
 					(unit 1)
 				)
 			)

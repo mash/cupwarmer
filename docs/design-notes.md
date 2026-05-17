@@ -79,8 +79,10 @@
 `STWLC38JRM` の autonomous 動作、`I2C` service header、独立ハード保護で成立させる。
 
 - 初版は固定 `VOUT_12V` 前提
-- **v1 ヒーター gate ドライブ: 常時 ON（VOUT_12V → R1 (15k) → Q1.G、Q1.G → R2 (10k) → GND の分圧）**。VGS ≈ 4.8V でロジックレベル N-FET を ON し、SMBJ15A clamp worst-ish `VC ≈ 24.4V` 時も VGS ≈ 9.76V に抑えて `AO3400` class (VGS_max ±12V) の余裕を確保する。Qi 給電中は連続通電。温度保護は F1 サーモスタットのみ。PWM/可変制御は v2 以降。MCU を入れる場合はゲートドライバ IC または低閾値 FET でレベル整合する。
-  - R3 bring-up shunt を `0.05Ω` に差し替えた場合、Q1 source は `I_HEATER × 0.05Ω` だけ浮くため、実効 `VGS = VOUT_12V × 10k / (15k + 10k) - I_HEATER × 0.05Ω`。12V 入力では `4.8V - I_HEATER × 0.05Ω` なので、0.8A で約4.76V、3A で約4.65V、5A でも約4.55V。bring-up 測定用 shunt による VGS 痩せは小さく、0Ω 通常実装ではこの低下は発生しない。
+- **v1 ヒーター gate ドライブ: 常時 ON（VOUT_12V → R1 (12k) → Q1.G、Q1.G → R2 (10k) → GND の分圧）**。VGS ≈ 5.45V でロジックレベル N-FET を ON し、SMBJ15A clamp worst-ish `VC ≈ 24.4V` 時も VGS ≈ 11.09V に抑えて `AO3400` class (VGS_max ±12V) の余裕を確保する (マージン 0.91V)。Qi 給電中は連続通電。温度保護は F1 サーモスタットのみ。PWM/可変制御は v2 以降。MCU を入れる場合はゲートドライバ IC または低閾値 FET でレベル整合する。
+  - **D3 (B5819W, SOD-123) flyback / freewheel ダイオード**: anode=`HEATER_OUT` (Q1.drain = H1.pin4)、cathode=`VOUT_12V` (H1.pin1)。Q1 OFF 遷移時、ヒーターハーネスの寄生インダクタンスが Q1.drain を VOUT より上に押し上げるため、その電流を VOUT bulk (C2 / C23 / C24) へ還流させて Q1.drain の VDS スパイクを `VOUT_12V + Vf` (約 12.6V) にクランプする。AO3400 の VDS_max=30V に対して安全側。通常 ON 時は VOUT > HEATER_OUT で逆バイアス、漏れ電流のみ。Schottky を採用するのは Vf 低減と高速回復のため。1A 級 Schottky で v1 ヒーター 1A 連続 + 寄生インダクタによる短時間サージを吸収する。
+  - R3 bring-up shunt を `0.05Ω` に差し替えた場合、Q1 source は `I_HEATER × 0.05Ω` だけ浮くため、実効 `VGS = VOUT_12V × 10k / (12k + 10k) - I_HEATER × 0.05Ω`。12V 入力では `5.45V - I_HEATER × 0.05Ω` なので、0.8A で約5.41V、1A で約5.40V。
+  - **bring-up shunt 評価時の電流上限は 1.5A (短時間)、連続は 1.0A まで**。理由: SOT-23 Q1 (AO3400) は θJA ≈ 250°C/W、RDS(on) max 33mΩ × I² で発熱、また R3 (0603, 1/10W) のパルス耐量も 1A 強で頭打ち。**5A 級評価は禁止** (Q1 で 825mW、R3 で 1.25W に達し SOA 超過、確実に破壊)。高電流評価が必要な場合は外付け shunt + bench supply current limit で行うこと。
   - Q1 候補: `AO3400` (SOT-23, RDS(ON)=28mΩ@VGS=10V, VGS_max ±12V)。I_heater = 0.8A での損失 ≈ 18mW で熱的に余裕。VGS マージンを上げたい場合は VGS ±20V 品（`DMN3404L` / `NTR4170N` 等）に置換。
 - 製品固有の温調ロジックは初版のスコープ外
 - `ENB` は未使用時 `GND` 固定を基本にする
@@ -110,6 +112,8 @@ Heater / F1 接続方針:
 
 - v1 の `H1` footprint は heater power と heater NTC を同じ組立物として受ける4線大型 solder pads / wire pads として扱う
 - 接続順は `VOUT_12V -> F1 -> heater -> Q1 drain`。F1 は PCB 上に寝かせず、トッププレート裏面へ密着固定する
+- PCB 側には Q1 の近傍に **D3 (B5819W Schottky, SOD-123)** を flyback 還流ダイオードとして実装する。anode = `HEATER_OUT` (Q1.drain / H1.pin4)、cathode = `VOUT_12V` (H1.pin1)。Q1 OFF 時にハーネス寄生インダクタンスによる drain サージを VOUT へ還流させ、Q1 VDS を保護する
+- **F1 は heater アセンブリ側に実装する**。すなわち PCB 上には F1 用フットプリントを置かず、heater ピグテール (H+ 側) の途中に F1 を直列実装してからユーザーが H1.pin1 に半田付けする運用とする。PCB の H1.pin1 ネット名は VOUT_12V のままだが、heater 組立物 (heater + TH2 + F1) を一体として扱うことで Layer-4 独立ハード遮断を担保する。組立手順書とハーネス BOM に F1 の挿入位置 (heater H+ リード途中) を明記すること
 - flexible heater、heater NTC、F1 は手実装ワイヤで接続する。v1 では board-to-wire connector や FPC/FFC connector は採用しない
 - `H1` pinout は pin1 `H+`, pin2 `NTC`, pin3 `NTC_GND`, pin4 `H-`。footprint は `SolderWire-HeaterHarness_1x04_P5.0mm_D1.4mm` とし、5.0 mm pitch、heater power pads は drill 1.4 mm、NTC pads は drill 1.0 mm。pad は `12V`, `1A` 連続電流、手はんだ、引張緩和を前提に余裕を持たせる。connector 化は v2/量産検討
 
@@ -352,7 +356,8 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - `ENB` → `GND` 固定
 - **`SCL/SDA` pull-up `10k` (R5/R6) → `VAA` (2.5V)**（VDD は 1.1V LDO で I2C には低すぎる。J1 経由のホスト接続は `VREF=RX_VAA` 追従または外部レベルシフタ必須。3.3V 固定 pull-up の直結は禁止）
 - `VOUT` → heater-control シートへ
-- ヒーター gate 分圧: R1 = 15k (VOUT_12V → Q1.G), R2 = 10k (Q1.G → GND) で VGS ≈ 4.8V。SMBJ15A clamp `VC ≈ 24.4V` 時は VGS ≈ 9.76V。
+- ヒーター gate 分圧: R1 = 12k (VOUT_12V → Q1.G), R2 = 10k (Q1.G → GND) で VGS ≈ 5.45V。SMBJ15A clamp `VC ≈ 24.4V` 時は VGS ≈ 11.09V (VGS_max ±12V マージン 0.91V)。
+- D3 (B5819W Schottky SOD-123): flyback / freewheel ダイオード。anode=`HEATER_OUT`, cathode=`VOUT_12V`。Q1 OFF 遷移時のヒーターハーネス寄生インダクタンス由来 drain サージを VOUT bulk へ還流させる。
 - F1: `KSD9700-70/5JSB/080C` を `heater-control.kicad_sch` / BOM に反映済み。トッププレート裏面に密着固定し、heater NTC と F1 open/reset の差は熱試験で確認する
 - OVP TVS:
   - `Z3 = Littelfuse SMBJ15A`（VOUT_12V → cathode、anode → SYS_GND、VR=15V）。VOUT 出口近傍に配置
