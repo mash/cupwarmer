@@ -260,6 +260,7 @@ F1 採用候補（PDF: `Xucheng Elec KSD9700-70:5JSB:080C.pdf`）:
   PCB までの隙間に SMT 部品高さ（0603 で 0.8mm、SMB TVS でも 2.4mm 程度）が収まる
   限り問題ない。F1/H1/L1 半田パッドはコイル外周外（リム）に置いてピグテール線を
   外に出す。
+- **heater pigtail 引き出し方向の制約 (2026-05-17 追記)**: H1 ピグテール (H+, H-, NTC, NTC_GND の 4 線) は **PCB エッジに対して垂直に外側へ** 引き出し、PCB を回り込ませない。pigtail loop が L1 コイル磁束を切るような経路 (例: H1 から PCB エッジに沿って横方向 → 上方向 → 反対側、と PCB 周囲を半周以上巡る) は禁止。AC 1次磁束 (~100kHz, 数 mT) が pigtail loop を貫くと数 V 級の誘導電圧が乗り、Qi 送電機の FOD が金属異物として誤検出して送電停止する。組立指示書に「heater 線は H1 から最短距離で PCB 外へ出し、コイル中心側を横切らない」と明記すること。
 - cup contact layer と coil の距離は最小化しつつ、金属干渉は後で実測する
 - カップ側は湾曲している可能性が高いため、硬い平板 top plate ではなく、曲面追従できる柔軟な thermal interface / cup contact layer を優先して評価する
 - v1 第一候補はアルミナ充填シリコーンパッドにする。電気絶縁性、曲面追従、熱伝導、Qi 近傍での扱いやすさのバランスを優先する
@@ -405,6 +406,23 @@ R3 / STWLC38JRM ADC 方針:
 - `TP1`: power-on 前に heater NTC 抵抗を DMM 確認するための `RX_NTC` test pad。return は `H1` pin3 または `J1` pin2 の `SYS_GND` から取る。これは B-only fail-safe の実装点で、能動的な NTC 未接続検出回路は載せない
 - TH2 → `RX_NTC` (R7=51k と分圧、STWLC38 内蔵 OTP 入力)。70°C 時の NTC 抵抗は約15.36kΩで、理想値は `R7 = R_NTC × (2.5V / 0.59V - 1) ≈ 49.7kΩ`。51k は JLCPCB basic (`C23196`, `0603WAF5102T5E`) で、実装時の trip 目安は threshold min/typ/max で約71.8/69.3/65.8°C
 - BOM 初回照合: `initial-bom.csv` は回路図 ref に合わせて heater harness, F1, TH2, Q1, R1/R2/R3/R7, LED/TVS/coil 周辺部品を反映済み。`TH2` は基板上 SMT 部品ではなく、JLCPCB silicone heater と同時注文する外部 heater NTC として BOM に残す
+
+### Off-board 部品 手配チェックリスト (2026-05-17 追記)
+
+JLCPCB SMT 発注と分離して別ルートで手配が必要な部品 (PCB ＋ SMT 実装到着までに揃わないと bring-up が止まる):
+
+| 部品 | 用途 | 候補 | 手配先 | 状態 |
+|---|---|---|---|---|
+| `F1` | 独立ハード遮断 (heater 側実装) | Xucheng KSD9700-70/5JSB/080C | LCSC C156512 / 直販 | TODO |
+| heater (シリコンヒーター本体) | 12Ω 12W 想定 | JLCPCB 専用フォーム (flexheater.jlcpcb.com) | JLCPCB heater 部門 | TODO |
+| `TH2` | heater 内蔵 NTC | Murata NCP18WF104F12RB (C71280) | heater と同時注文で heater に組込 | TODO |
+| `L1` | 8μH Qi RX コイル | Wuerth 760308102207 | Mouser / Digi-Key | TODO |
+| `SHIELD1` | 60×60×0.5mm フェライトシート | Wuerth WE-FSFS 364105 | Wuerth distributor / Digi-Key | TODO |
+
+発注時のルール:
+- JLCPCB PCB+SMT 発注の **前に** 手配ステータスを確認し、リードタイム最長のもの (通常 heater + ferrite) を先行発注する
+- F1 と heater は同じ heater アセンブリ上に手実装するため、両方が揃わないと bring-up できない
+- coil + ferrite は実装後の L/Q/DCR/FOD 実測で構成変更の可能性あり、予備在庫を 1.5–2 倍持っておく
 
 ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mismatch` 警告のみ。
 
