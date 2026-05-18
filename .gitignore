@@ -10,5 +10,6 @@ __pycache__/
 .claude/scheduled_tasks.lock
 hardware/kicad/cupwarmer-hw/cupwarmer-hw-backups/
 *.bak
+*.zip
 wiki/*
 !wiki/README.md
