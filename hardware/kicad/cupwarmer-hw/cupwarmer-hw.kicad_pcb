@@ -921,6 +921,39 @@
 				)
 			)
 		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "a3f93c15-a49e-4b14-93b7-daf4c2e4fb15")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C22775"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "5406d32b-d9cc-4579-b22d-9e45bece1d4b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "0603WAF1000T5E"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "04f2a358-4b77-4fae-850d-1cb82d6f2246")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(property "KiLib_Generator" "SMD_2terminal_chip_molded"
 			(at 0 0 90)
 			(layer "F.SilkS")
@@ -4130,7 +4163,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -4863,6 +4896,39 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "88abb793-0f50-42be-8a10-a53a7f9960b9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "24a8d7a9-e2af-4f2f-9372-06e6255f0124")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C22775"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "74803f6b-df79-4bd7-9c3c-475a8fa64fe3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "0603WAF1000T5E"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e2a04ee1-fc04-4abb-b40f-2684ff0ce458")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8268,7 +8334,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -10659,7 +10725,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
