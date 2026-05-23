@@ -1,12 +1,12 @@
-G04 #@! TF.GenerationSoftware,KiCad,Pcbnew,10.0.0*
-G04 #@! TF.CreationDate,2026-05-17T23:22:24+03:00*
-G04 #@! TF.ProjectId,cupwarmer-hw,63757077-6172-46d6-9572-2d68772e6b69,rev?*
-G04 #@! TF.SameCoordinates,Original*
-G04 #@! TF.FileFunction,Legend,Bot*
-G04 #@! TF.FilePolarity,Positive*
+%TF.GenerationSoftware,KiCad,Pcbnew,10.0.0*%
+%TF.CreationDate,2026-05-23T15:42:25+03:00*%
+%TF.ProjectId,cupwarmer-hw,63757077-6172-46d6-9572-2d68772e6b69,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,Legend,Bot*%
+%TF.FilePolarity,Positive*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 10.0.0) date 2026-05-17 23:22:24*
+G04 Created by KiCad (PCBNEW 10.0.0) date 2026-05-23 15:42:25*
 %MOMM*%
 %LPD*%
 G01*
@@ -39,30 +39,46 @@ G04 Aperture macros list end*
 G04 APERTURE END LIST*
 %LPC*%
 D10*
+%TO.C,TP2*%
 X109000000Y-114800000D03*
+%TD*%
 D11*
+%TO.C,H4*%
 X116000000Y-116000000D03*
+%TD*%
+%TO.C,H5*%
 X84000000Y-84000000D03*
+%TD*%
 D12*
+%TO.C,L1*%
 X76500000Y-102500000D03*
 D13*
 X76500000Y-97500000D03*
+%TD*%
 D10*
+%TO.C,J1*%
 X96190000Y-77000000D03*
 D14*
 X98730000Y-77000000D03*
 X101270000Y-77000000D03*
 X103810000Y-77000000D03*
+%TD*%
 D10*
+%TO.C,TP1*%
 X87000000Y-119000000D03*
+%TD*%
 D11*
+%TO.C,H3*%
 X116000000Y-84000000D03*
+%TD*%
 D15*
+%TO.C,H1*%
 X92500000Y-121700000D03*
 D11*
 X97500000Y-121700000D03*
 X102500000Y-121700000D03*
 D16*
 X107500000Y-121700000D03*
+%TD*%
 %LPD*%
 M02*

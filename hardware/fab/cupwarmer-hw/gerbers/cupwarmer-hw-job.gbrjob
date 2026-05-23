@@ -5,7 +5,7 @@
       "Application": "Pcbnew",
       "Version": "10.0.0"
     },
-    "CreationDate": "2026-05-17T23:22:24+03:00"
+    "CreationDate": "2026-05-23T15:42:25+03:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -44,6 +44,16 @@
     {
       "Path": "cupwarmer-hw-F_Cu.gtl",
       "FileFunction": "Copper,L1,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "cupwarmer-hw-GND1.g1",
+      "FileFunction": "Copper,L2,Inr",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "cupwarmer-hw-GND2.g2",
+      "FileFunction": "Copper,L3,Inr",
       "FilePolarity": "Positive"
     },
     {

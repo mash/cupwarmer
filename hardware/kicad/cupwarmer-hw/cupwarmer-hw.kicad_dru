@@ -4,6 +4,8 @@
 # Matching JLCPCB capabilities: https://jlcpcb.com/capabilities/pcb-capabilities
 # Matching JLCPCB BGA guide:
 # https://jlcpcb.com/help/article/bga-design-guidelines---pcb-layout-recommendations-for-bga-packages
+# Additional Seeed Fusion Advanced PCB stricter overlays:
+# https://support.seeed.cc/portal/en/kb/articles/fusion-advanced-pcb-specification
 #
 # Project target:
 # - 4-layer FR-4 PCB, SIG / GND / GND / SIG.
@@ -266,6 +268,57 @@
 	(constraint hole_to_hole (min 0.25mm))
 )
 
+
+# --- Seeed Fusion Advanced PCB stricter overlays ---
+#
+# These rules keep the JLCPCB-oriented rules above in place, and only add
+# Fusion Advanced constraints that are stricter for the current 4-layer,
+# nominal 1 oz outer / 1 oz inner copper assumption.
+#
+# Relevant Seeed limits:
+# - Outer 1 oz copper trace/spacing: 5/5 mil = 0.127 mm.
+# - Inner 1 oz copper trace/spacing: 4/4 mil = 0.1016 mm.
+# - Via annular ring: 4 mil = 0.1016 mm.  For this board's 0.15 mm
+#   minimum via drill, that requires at least 0.3532 mm via copper diameter.
+# - Through-hole annular ring: 8 mil = 0.2032 mm.
+# - Different-net via wall spacing: 9 mil prototype / 12 mil mass production.
+#   The generic JLCPCB 0.5 mm rule is already stricter, except the U1 BGA
+#   fanout exception remains above the 9 mil prototype limit.
+#
+
+(rule "Seeed Fusion Advanced: Via Annular Ring"
+	(condition "A.Type == 'Via'")
+	(constraint assertion "A.Diameter >= A.Hole + 0.2032mm")
+)
+
+(rule "Seeed Fusion Advanced: PTH Annular Ring"
+	(condition "A.Type == 'Pad' && A.Pad_Type == 'Through-hole' && A.isPlated()")
+	(constraint assertion "A.Size_X >= A.Hole_Size_X + 0.4064mm && A.Size_Y >= A.Hole_Size_Y + 0.4064mm")
+)
+
+(rule "Seeed Fusion Advanced: Trace Width (Outer 1oz)"
+	(layer outer)
+	(condition "A.Type == 'Track'")
+	(constraint track_width (min 0.127mm))
+)
+
+(rule "Seeed Fusion Advanced: Trace Spacing (Outer 1oz)"
+	(layer outer)
+	(condition "A.Type == 'Track' && B.Type == 'Track' && A.Net != B.Net && !A.intersectsCourtyard('U1') && !B.intersectsCourtyard('U1')")
+	(constraint clearance (min 0.127mm))
+)
+
+(rule "Seeed Fusion Advanced: Trace Width (Inner 1oz)"
+	(layer inner)
+	(condition "A.Type == 'Track'")
+	(constraint track_width (min 0.1016mm))
+)
+
+(rule "Seeed Fusion Advanced: Trace Spacing (Inner 1oz)"
+	(layer inner)
+	(condition "A.Type == 'Track' && B.Type == 'Track' && A.Net != B.Net")
+	(constraint clearance (min 0.1016mm))
+)
 
 # --- Legend ---
 
