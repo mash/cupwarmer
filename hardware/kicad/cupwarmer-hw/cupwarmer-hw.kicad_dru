@@ -280,6 +280,8 @@
 # - Inner 1 oz copper trace/spacing: 4/4 mil = 0.1016 mm.
 # - Via annular ring: 4 mil = 0.1016 mm.  For this board's 0.15 mm
 #   minimum via drill, that requires at least 0.3532 mm via copper diameter.
+#   U1 fanout vias intentionally use the JLCPCB 4-layer BGA process
+#   limit above: 0.25 mm copper / 0.15 mm drill = 0.05 mm annular ring.
 # - Through-hole annular ring: 8 mil = 0.2032 mm.
 # - Different-net via wall spacing: 9 mil prototype / 12 mil mass production.
 #   The generic JLCPCB 0.5 mm rule is already stricter, except the U1 BGA
@@ -287,7 +289,7 @@
 #
 
 (rule "Seeed Fusion Advanced: Via Annular Ring"
-	(condition "A.Type == 'Via'")
+	(condition "A.Type == 'Via' && !A.intersectsCourtyard('U1')")
 	(constraint assertion "A.Diameter >= A.Hole + 0.2032mm")
 )
 
