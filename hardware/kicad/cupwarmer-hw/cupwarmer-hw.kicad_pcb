@@ -7428,7 +7428,7 @@
 			)
 		)
 	)
-	(footprint "MountingHole:MountingHole_2.2mm_M2"
+	(footprint "cupwarmer:MountingHole_M2_Plastic_D2.4mm"
 		(layer "F.Cu")
 		(uuid "b1000001-0000-4000-8000-000000000001")
 		(at 122 92)
@@ -7445,7 +7445,7 @@
 				)
 			)
 		)
-		(property "Value" "MountingHole_2.4mm_M2"
+		(property "Value" "MountingHole_M2_Plastic_D2.4mm"
 			(at 0 3.15 0)
 			(layer "F.Fab")
 			(uuid "b1000001-0000-4000-8000-000000000012")
@@ -7467,7 +7467,7 @@
 				)
 			)
 		)
-		(property "Description" "PCB-only NPTH mounting hole"
+		(property "Description" "Mounting Hole without connection"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7522,7 +7522,7 @@
 		)
 		(embedded_fonts no)
 	)
-	(footprint "MountingHole:MountingHole_2.2mm_M2"
+	(footprint "cupwarmer:MountingHole_M2_Plastic_D2.4mm"
 		(layer "F.Cu")
 		(uuid "b1000002-0000-4000-8000-000000000001")
 		(at 78 108)
@@ -7539,7 +7539,7 @@
 				)
 			)
 		)
-		(property "Value" "MountingHole_2.4mm_M2"
+		(property "Value" "MountingHole_M2_Plastic_D2.4mm"
 			(at 0 3.15 0)
 			(layer "F.Fab")
 			(uuid "b1000002-0000-4000-8000-000000000012")
@@ -7561,7 +7561,7 @@
 				)
 			)
 		)
-		(property "Description" "PCB-only NPTH mounting hole"
+		(property "Description" "Mounting Hole without connection"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
