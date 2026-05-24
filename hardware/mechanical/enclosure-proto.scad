@@ -118,7 +118,9 @@ f1_on_heater_z = -f1_z;
 // PCB support. The original H3/H4/H5 mounting holes land inside the 40x40 mm
 // L1 coil envelope, so the enclosure supports the PCB by six small ribs from
 // the wall instead of through-board bosses or a full annular shelf.
-pcb_support_rib_count = 6;
+pcb_support_rib_count = 4;
+// Interleaved between the four stack-retention ribs at 30/120/210/300 deg.
+pcb_support_rib_angle0 = 60;
 pcb_support_rib_w = 5.0;
 pcb_support_rib_depth = 2.4;
 pcb_support_outer_r = pcb_clear_od / 2;
@@ -130,7 +132,7 @@ pcb_support_h = z_pcb - bottom_floor_th;
 // through local PCB/insulation edge notches. They act as perimeter datum ribs
 // for the heater/spreader stack, not as hard clamps on the heater.
 stack_retention_rib_count = 4;
-stack_retention_rib_angle0 = 45;
+stack_retention_rib_angle0 = 30;
 stack_retention_rib_w = 4.0;
 stack_retention_outer_r = enclosure_od / 2 - wall;
 stack_retention_rib_depth = stack_retention_outer_r - (spreader_pocket_od / 2 - 0.2 - 2.0);
@@ -235,7 +237,7 @@ module bottom_tray() {
         // Six local support ribs rise from the bottom floor and support the
         // PCB outer edge. The center remains open for L1/ferrite keepout.
         for (i = [0 : pcb_support_rib_count - 1]) {
-          rotate([0, 0, i * 360 / pcb_support_rib_count + 30])
+          rotate([0, 0, i * 360 / pcb_support_rib_count + pcb_support_rib_angle0])
             translate([pcb_support_inner_r, -pcb_support_rib_w / 2, pcb_support_z])
               cube([pcb_support_rib_depth, pcb_support_rib_w, pcb_support_h]);
         }
