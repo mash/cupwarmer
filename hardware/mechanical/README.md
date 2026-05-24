@@ -164,3 +164,4 @@ EPP 15W pad と BPP 5W pad で、位置ずれ、金属マグ、カップなし�
 - F1 固定方法の最終選定
 - cup contact layer の具体品番
 - thermal test の実測結果
+- bottom tray の側壁に PCB 上の 2 個の LED を外から視認できる穴 / 導光窓を追加する
