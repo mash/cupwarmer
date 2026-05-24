@@ -713,12 +713,6 @@
 		(uuid "50f7f719-9ea4-4c0d-8694-041d97ffa9d9")
 	)
 	(junction
-		(at 72.39 62.23)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8bbc3332-77da-4ed6-80e5-5c56275a03ca")
-	)
-	(junction
 		(at 115.57 114.3)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -995,16 +989,6 @@
 			(type default)
 		)
 		(uuid "8cb2cb92-8bce-410e-a279-4278f5b41fc8")
-	)
-	(wire
-		(pts
-			(xy 72.39 62.23) (xy 72.39 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "90531cfb-7946-49eb-8a72-1ca0d274880b")
 	)
 	(wire
 		(pts
@@ -1417,7 +1401,7 @@
 		(in_pos_files no)
 		(dnp no)
 		(uuid "1a309a9a-49e9-4e36-b2fb-049138c117f5")
-		(property "Reference" "TP2"
+		(property "Reference" "TP1"
 			(at 124.46 139.7 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1476,7 +1460,7 @@
 		(instances
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
-					(reference "TP2")
+					(reference "TP1")
 					(unit 1)
 				)
 			)
@@ -2125,82 +2109,6 @@
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
 					(reference "R3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "cupwarmer:TESTPAD_1")
-		(at 72.39 68.58 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(in_pos_files no)
-		(dnp no)
-		(uuid "22222222-aaaa-bbbb-cccc-222222222260")
-		(property "Reference" "TP1"
-			(at 72.39 71.12 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TP_NTC"
-			(at 67.58 68.25 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
-			(at 72.39 68.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 72.39 68.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "DMM probe pad for heater NTC before powered test"
-			(at 72.39 68.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "22222222-aaaa-bbbb-cccc-222222222261")
-		)
-		(instances
-			(project "cupwarmer-hw"
-				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
-					(reference "TP1")
 					(unit 1)
 				)
 			)
