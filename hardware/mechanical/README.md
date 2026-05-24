@@ -40,6 +40,10 @@ heat spreader / heater stack underside
   └─ flexible heater: F1 と heater NTC の位置が組立ごとに再現できるよう基準を持たせる
 ```
 
+F1 は JLCPCB flexible-heater service で heater assembly に組み込む前提にする。`Xucheng KSD9700-70/5JSB/080C/QG` (`LCSC C156512`) の図面寸法を基準にし、shell material は iron shell、body envelope は `20.0 x 8.9 x 5.1mm`、リードは `80 +/-3mm`、strip/tin は `8 +/-1mm` とする。
+
+JLC heater の `Adhesive Position = Non-soldering Side` は、heater を internal aluminum spreader へ貼る面として予約する。F1 は heater bottom side、すなわち spreader adhesive bond の反対側に載る前提で扱う。このため heater 下側には F1 body `5.1mm` + clearance の逃げを確保し、PCB / insulation と干渉させない。mechanical model では `f1_clearance_gap = 5.6mm` を初期値にする。
+
 固定方法の第一候補:
 
 - spreader / heater stack 側に浅い保持ポケットまたは位置決め面を作る
@@ -57,21 +61,24 @@ heat spreader / heater stack underside
 
 ## 筐体プロト方針
 
-v1 enclosure は二分割の非金属樹脂筐体を第一候補にする。
+v1 enclosure は一体型の非金属樹脂 bottom tray を第一候補にする。cup contact layer の保持は、別体 top ring ではなく bottom tray 一体の低い integrated retaining lip で行う。
 
 OpenSCAD study model: `enclosure-proto.scad`
 
 - bottom tray: 浅い凹型トレー。PCB、coil/ferrite clearance、断熱材、heater stack を保持する
-- top retaining ring: cup contact layer を外周で保持し、内部 metal spreader のエッジを隠す
+- integrated retaining lip: bottom tray 一体の低い外周リムで cup contact layer を保持し、内部 metal spreader のエッジを隠す
 - bottom tray の Qi pad 側底面は薄くし、金属を入れない
-- H1 heater pigtail は一箇所から半径方向へまっすぐ逃がし、PCB 外周を回り込ませない
+- H1 heater cable は側面から外へ逃がさず、heater underside からPCB側へ落として H1 pads / wire pads へ接続する。bottom tray side wall には heater cable 用の横穴を作らない。heater board の `J1` leadout pads は基板中心 `(100,100)` から `(0,+22.5mm)` の位置で、pad row envelope は約 `24 x 5mm`
 - 滑り止めは底面外周の薄いシリコーンリングまたは足で行う
 - コイル中心付近の金属ねじは避け、必要なら perimeter の樹脂スナップ、樹脂ボス、nylon M2 ねじを使う
-- カップ底面は凹形状が多いため、cup contact layer の上面は浅い凸形状にする。top retaining ring は pad 上面より低くし、カップ側に凹形状を作らない
-- 旧 PCB mounting holes `H3=(116,84)`, `H4=(116,116)`, `H5=(84,84)` は、board/enclosure center `(100,100)` 基準で `(16,-16)`, `(16,16)`, `(-16,-16)` にあり、`40x40mm` L1 coil envelope 内へ入っていたため KiCad から削除済み。PCB は bottom tray の perimeter ledge / rims で outer edge を支える
-- PCB support ledge は `φ56mm` PCB の外周 `~2.2mm` だけを受け、中心の L1 / ferrite keepout を開ける。初期値は support outer OD `56.7mm`、inner OD `51.6mm`、thickness `0.3mm`
+- カップ底面は凹形状が多いため、cup contact layer の上面は浅い凸形状にする。integrated retaining lip は pad 上面より低くし、カップ側に凹形状を作らない
+- 旧 PCB mounting holes `H3=(116,84)`, `H4=(116,116)`, `H5=(84,84)` は、board/enclosure center `(100,100)` 基準で `(16,-16)`, `(16,16)`, `(-16,-16)` にあり、`40x40mm` L1 coil envelope 内へ入っていたため KiCad から削除済み。PCB は bottom tray 内壁から出る局所 support ribs で outer edge を支える
+- PCB support ribs は6本を初期値にする。各 rib は bottom floor から PCB underside まで立ち上げ、width `5.0mm`、radial depth `2.4mm` とし、中心の L1 / ferrite keepout を開ける
+- aluminum spreader + heater stack の保持は、heater の `3M 468MP` 接着、spreader pocket、cup contact pad の軽い圧縮、integrated retaining lip の横ずれ防止を主にする。追加で bottom floor から立ち上がり outer tray wall へつながる4本の stack retention ribs を入れ、rib top は retaining lip / spreader pocket の下面高さに揃える。PCB と insulation sheet は外周ノッチで避け、縦リブが基板を貫通する形にする。これらの rib は heater を強く点押しする clamp ではなく、外周の高さ基準と横位置ガイドとして扱う
 
-top retaining ring は v1 では残すが、cup contact surface より低い保持リングとして扱う。理由は、cup contact layer を接着主固定にせず機械保持すること、internal aluminum spreader のエッジを隠すこと、水滴が直接内部へ落ちる経路を減らすこと、熱/FOD 試験後に分解できること。将来、cup contact pad を別手段で確実に固定でき、金属エッジ露出と水滴経路を別構造で潰せる場合だけ削除候補にする。
+別体 top retaining ring は使わず、bottom tray 一体の低い integrated retaining lip へ統合する。理由は、カップ側に凹形状を作らず、部品点数を減らしつつ、cup contact layer の横ずれ防止と internal aluminum spreader のエッジ隠しを維持するため。分解性は下がるため、v1 では pad を圧入/摩擦保持できる寸法にして、必要な場合のみ外周少量の neutral-cure silicone で補助固定する。
+
+integrated retaining lip は独立部品として製造しない。bottom tray と同じ樹脂材料で、同じ造形/成形プロセスの一部として作る。試作では SLA/MJF/SLS/切削樹脂のいずれかで bottom tray と一体造形し、内径側だけ軽く面取りして pad を入れやすくする。量産では射出成形の固定側/可動側で上端リップを抜ける形状にし、必要なら内側に小さい C 面または R を付ける。アンダーカットになる snap lip にはせず、浅い垂直リム + 摩擦保持 + 必要最小限の外周 silicone 固定で始める。
 
 L1 receiver coil は `Wuerth Elektronik 760308102207` を基準にする。外形は `40x40x1.2mm` の rounded-square Qi RX coil、visible corner radius は DS 図から `5-8mm` 程度として扱う。coil termination は 2 holes `φ1.2mm` / `5.0mm` pitch の solder-pad termination。datasheet は integrated ferrite shield を明記していないため、受領品で背面 ferrite / EMI shield の有無を確認し、`SHIELD1` を削除するか別体フェライトを併用するかは L/Q/DCR/FOD 実測で決める。
 
@@ -85,6 +92,11 @@ L1 receiver coil は `Wuerth Elektronik 760308102207` を基準にする。外�
 | Cup contact silicone pad OD | 56-57mm | spreader を完全に覆う |
 | Bottom floor over RX coil | 0.8-1.2mm | Qi 距離を増やしすぎない |
 | Side wall | 1.5-2.0mm | 56mm PCB とのクリアランスは要確認 |
+| F1 clearance gap below heater | 5.6mm | C156512 body `5.1mm` + initial clearance |
+| Bottom tray wall height | ~12.2mm | F1 組込み後の current stack に追従。pad top `~12.45mm` より `0.25mm` 低い |
+| PCB support ribs | 6x, 5.0mm wide x 2.4mm radial | bottom floor から PCB underside まで立ち上げる |
+| Stack retention ribs | 4x, 4.0mm wide x ~3.0mm radial | bottom floor から retaining lip / spreader pocket 下面まで。outer tray wall へ接続し、PCB / insulation は外周ノッチで避ける |
+| Integrated retaining lip inner OD | 55.6mm | pad を保持しつつ凸接触面を邪魔しない |
 | Cup contact layer compression | 5-15% | まず軽い圧縮から評価 |
 
 高さ `7mm` は参考値に留める。断熱、F1 固定、Qi 安定性を優先し、必要なら厚みを増やす。
@@ -122,7 +134,7 @@ v1 の第一候補はアルミナ充填シリコーンパッド。目的はカ�
 
 金属板は初回標準にしない。比較する場合も、Qi / FOD / 渦電流発熱の別リスクとして扱う。
 
-cup contact layer は接着を主固定にしない。top retaining ring と浅いポケットで機械保持し、internal spreader / heater stack へ軽く圧縮する。必要な場合も、neutral-cure silicone または thermal silicone adhesive の外周少量固定に留め、全面の硬い接着、cyanoacrylate、epoxy、通常両面テープは避ける。
+cup contact layer は接着を主固定にしない。integrated retaining lip と浅いポケットで機械保持し、internal spreader / heater stack へ軽く圧縮する。必要な場合も、neutral-cure silicone または thermal silicone adhesive の外周少量固定に留め、全面の硬い接着、cyanoacrylate、epoxy、通常両面テープは避ける。
 
 ## Coil / ferrite / top stack 測定
 
@@ -144,7 +156,7 @@ EPP 15W pad と BPP 5W pad で、位置ずれ、金属マグ、カップなし�
 ## Open Items
 
 - exact enclosure height
-- exact resin material for bottom tray / top retaining ring
+- exact resin material for bottom tray / integrated retaining lip
 - コイル直径
 - ~~フェライト寸法~~ → 別体候補は `SHIELD1 = Wuerth Elektronik WE-FSFS 364105`、60x60x0.5mm。最終外形は実コイル外形に合わせてトリム/固定し、L/Q/FOD 実測で採否を決める
 - JLC heater `3M 468MP` / `Non-soldering Side` の向き確認
