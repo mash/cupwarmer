@@ -127,6 +127,15 @@ pcb_support_outer_r = pcb_clear_od / 2;
 pcb_support_inner_r = pcb_support_outer_r - pcb_support_rib_depth;
 pcb_support_z = bottom_floor_th;
 pcb_support_h = z_pcb - bottom_floor_th;
+// Cylindrical boss on the rib for an M2 plastic self-tap screw through a
+// matching PCB clearance hole. Boss is shifted outward (toward the wall) by
+// pcb_support_boss_inset from the rib inner face so the boss does not
+// protrude into the L1 coil envelope.
+pcb_support_boss_d = pcb_support_rib_w;
+pcb_support_boss_inset = 0.5;
+pcb_support_boss_r = pcb_support_inner_r + pcb_support_boss_inset;
+pcb_support_pilot_d = 1.7;
+pcb_support_pilot_depth = 4.0;
 
 // Taller stack retention ribs. These are molded with the bottom tray and pass
 // through local PCB/insulation edge notches. They act as perimeter datum ribs
@@ -185,6 +194,24 @@ module stack_retention_ribs() {
   }
 }
 
+module pcb_support_ribs() {
+  for (i = [0 : pcb_support_rib_count - 1]) {
+    rotate([0, 0, i * 360 / pcb_support_rib_count + pcb_support_rib_angle0]) {
+      difference() {
+        hull() {
+          translate([pcb_support_inner_r, -pcb_support_rib_w / 2, pcb_support_z])
+            cube([pcb_support_rib_depth, pcb_support_rib_w, pcb_support_h]);
+          translate([pcb_support_boss_r, 0, pcb_support_z])
+            cyl(pcb_support_boss_d, pcb_support_h);
+        }
+        translate([pcb_support_boss_r, 0,
+                   pcb_support_z + pcb_support_h - pcb_support_pilot_depth])
+          cyl(pcb_support_pilot_d, pcb_support_pilot_depth + 0.10);
+      }
+    }
+  }
+}
+
 module heater_cable_insulation_slot(h) {
   translate([
     heater_cable_x - heater_cable_w / 2 - heater_cable_slot_clearance,
@@ -234,13 +261,11 @@ module bottom_tray() {
             annulus(enclosure_od - 3.0, enclosure_od - 6.0, 0.45);
         }
 
-        // Six local support ribs rise from the bottom floor and support the
-        // PCB outer edge. The center remains open for L1/ferrite keepout.
-        for (i = [0 : pcb_support_rib_count - 1]) {
-          rotate([0, 0, i * 360 / pcb_support_rib_count + pcb_support_rib_angle0])
-            translate([pcb_support_inner_r, -pcb_support_rib_w / 2, pcb_support_z])
-              cube([pcb_support_rib_depth, pcb_support_rib_w, pcb_support_h]);
-        }
+        // Four local support ribs with half-cylinder bosses rise from the
+        // bottom floor and support the PCB outer edge. M2 plastic screws
+        // fasten the PCB to the boss tops. The center remains open for
+        // L1/ferrite keepout.
+        pcb_support_ribs();
 
         stack_retention_ribs();
         integrated_retaining_lip();

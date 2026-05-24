@@ -1589,7 +1589,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "22222222-aaaa-bbbb-cccc-222222222233")
-		(property "Reference" "H1"
+		(property "Reference" "J2"
 			(at 146.558 54.61 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1657,7 +1657,7 @@
 		(instances
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
-					(reference "H1")
+					(reference "J2")
 					(unit 1)
 				)
 			)
@@ -2126,7 +2126,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "2d4648b7-1be2-447d-8e45-927bb354c082")
-		(property "Reference" "H2"
+		(property "Reference" "J3"
 			(at 165.862 54.61 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2194,7 +2194,7 @@
 		(instances
 			(project "cupwarmer-hw"
 				(path "/f3c63676-f392-4700-9f58-a6787e1eb284/22222222-2222-2222-2222-222222222222"
-					(reference "H2")
+					(reference "J3")
 					(unit 1)
 				)
 			)
