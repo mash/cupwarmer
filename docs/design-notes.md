@@ -405,7 +405,7 @@ R3 / STWLC38JRM ADC 方針:
 - `H1`: 4線 heater harness。pin1 `H+`, pin2 `NTC`, pin3 `NTC_GND`, pin4 `H-`
 - `TP1`: power-on 前に heater NTC 抵抗を DMM 確認するための `RX_NTC` test pad。return は `H1` pin3 または `J1` pin2 の `SYS_GND` から取る。これは B-only fail-safe の実装点で、能動的な NTC 未接続検出回路は載せない
 - TH2 → `RX_NTC` (R7=51k と分圧、STWLC38 内蔵 OTP 入力)。70°C 時の NTC 抵抗は約15.36kΩで、理想値は `R7 = R_NTC × (2.5V / 0.59V - 1) ≈ 49.7kΩ`。51k は JLCPCB basic (`C23196`, `0603WAF5102T5E`) で、実装時の trip 目安は threshold min/typ/max で約71.8/69.3/65.8°C
-- BOM 初回照合: `initial-bom.csv` は回路図 ref に合わせて heater harness, F1, TH2, Q1, R1/R2/R3/R7, LED/TVS/coil 周辺部品を反映済み。`TH2` は基板上 SMT 部品ではなく、JLCPCB silicone heater と同時注文する外部 heater NTC として BOM に残す
+- BOM 初回照合: `bom.csv` は回路図 ref に合わせて heater harness, F1, TH2, Q1, R1/R2/R3/R7, LED/TVS/coil 周辺部品を反映済み。`TH2` は基板上 SMT 部品ではなく、JLCPCB silicone heater と同時注文する外部 heater NTC として BOM に残す。メカ部品 (`MECH-*`) も同じ `bom.csv` に統合し、JLCPCB / Seeed Fusion 発注時に SMT 形式へ抽出する
 
 ### Off-board 部品 手配チェックリスト (2026-05-17 追記)
 
@@ -444,7 +444,7 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - ~~R3 電流センス~~ → v1 通常実装は `0Ω`。評価時のみ `0.05Ω` に差し替えてベンチ測定する。STWLC38JRM には R3 を読ませない
 - ~~PCB GND トポロジー~~ → 回路図は `SYS_GND` 一本、PCB は solid GND plane を維持し、`VSSP` power return と `VSSA` quiet reference を配置/配線で分離する
 - ~~I2C service header 3.3V 制約~~ → v1 はオンボード level shifter なし。J1 は `RX_VAA` 2.5V VREF 追従アダプタ専用で、3.3V 固定 pull-up の直結は禁止
-- ~~BOM 再生成・照合~~ → `initial-bom.csv` を現行 schematic ref と照合済み。採用品未確定の受動部品/ヘッダ/LED は `TBD` のまま管理
+- ~~BOM 再生成・照合~~ → `bom.csv` を現行 schematic ref と照合済み。採用品未確定の受動部品/ヘッダ/LED は `TBD` のまま管理。メカ BOM (`MECH-*`) も同ファイルに統合
 
 ## 設計リスクと対策
 
