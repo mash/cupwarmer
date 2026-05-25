@@ -1487,7 +1487,7 @@
 				)
 			)
 		)
-		(property "Value" "KSD9700-70/5JSB/080C"
+		(property "Value" "NR72CB0"
 			(at 193.04 34.036 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1519,7 +1519,7 @@
 				)
 			)
 		)
-		(property "Description" "Independent thermal cutoff in series before heater"
+		(property "Description" "Independent low-profile 12V heater thermal cutoff"
 			(at 193.04 40.64 0)
 			(hide yes)
 			(show_name no)
@@ -1530,7 +1530,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Xucheng Elec"
+		(property "Manufacturer" "Bourns"
 			(at 137.16 -17.78 0)
 			(hide yes)
 			(show_name no)
@@ -1541,7 +1541,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C156512"
+		(property "LCSC" "C183007"
 			(at 137.16 -17.78 0)
 			(hide yes)
 			(show_name no)
@@ -1552,7 +1552,7 @@
 				)
 			)
 		)
-		(property "MPN" "KSD9700-70/5JSB/080C"
+		(property "MPN" "NR72CB0"
 			(at 137.16 -17.78 0)
 			(hide yes)
 			(show_name no)

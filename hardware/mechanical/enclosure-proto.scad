@@ -70,7 +70,7 @@ ferrite_od = 56.0;
 ferrite_th = 0.50;
 insulation_od = 56.0;
 insulation_th = 0.70;
-f1_clearance_gap = 5.6;
+f1_clearance_gap = 1.4;
 
 // Assembly clearances.
 radial_clearance = 0.35;
@@ -101,39 +101,38 @@ heater_cable_d = 5.0;
 heater_cable_drop_h = z_heater - (z_pcb + pcb_th);
 heater_cable_slot_clearance = 0.40;
 
-// F1: Xucheng KSD9700-70/5JSB/080C/QG, LCSC C156512.
-// C156512 drawing: iron shell, 20.0 mm body length, 8.9 mm max width,
-// 5.1 mm max thickness. Leads are 80 +/-3 mm with 8 +/-1 mm stripped/tinned.
-// JLCPCB flexible-heater service will include the thermostat switch in the
+// F1: Bourns NR72CB0, LCSC C183007.
+// Datasheet body envelope: 4.8 x 3.2 x 0.89 mm SMD thermal cutoff.
+// The 1.4 mm stack gap reserves about 0.5 mm installation clearance.
+// JLCPCB flexible-heater service will include the thermal cutoff in the
 // heater assembly. With 3M 468MP on the non-soldering side, F1 is modeled on
 // the heater bottom side, away from the spreader adhesive bond.
-f1_x = 20.0;
-f1_y = 8.9;
-f1_z = 5.1;
-f1_corner_r = 1.5;
+f1_x = 4.8;
+f1_y = 3.2;
+f1_z = 0.89;
+f1_corner_r = 0.35;
 f1_on_heater_x = 0;
 f1_on_heater_y = -14.0;
 f1_on_heater_z = -f1_z;
 
-// PCB support. The original H3/H4/H5 mounting holes land inside the 40x40 mm
-// L1 coil envelope, so the enclosure supports the PCB by six small ribs from
-// the wall instead of through-board bosses or a full annular shelf.
-pcb_support_rib_count = 4;
-// Interleaved between the four stack-retention ribs at 30/120/210/300 deg.
-pcb_support_rib_angle0 = 60;
+// PCB support. H1/H2 are KiCad mounting holes on the 56 mm PCB, expressed
+// relative to the board/enclosure center at (100,100) in cupwarmer-hw.kicad_pcb.
+// Keep these centers and pcb_mounting_hole_d in sync with the PCB footprint.
+pcb_support_holes = [
+  [23.5, -8.0], // H1 = (123.5, 92)
+  [-23.5, 8.0]  // H2 = (76.5, 108)
+];
+pcb_support_rib_count = len(pcb_support_holes);
+pcb_mounting_hole_d = 2.4;
 pcb_support_rib_w = 5.0;
 pcb_support_rib_depth = 2.4;
 pcb_support_outer_r = pcb_clear_od / 2;
 pcb_support_inner_r = pcb_support_outer_r - pcb_support_rib_depth;
 pcb_support_z = bottom_floor_th;
 pcb_support_h = z_pcb - bottom_floor_th;
-// Cylindrical boss on the rib for an M2 plastic self-tap screw through a
-// matching PCB clearance hole. Boss is shifted outward (toward the wall) by
-// pcb_support_boss_inset from the rib inner face so the boss does not
-// protrude into the L1 coil envelope.
+// Cylindrical boss on each rib for an M2 plastic self-tap screw through the
+// matching PCB clearance hole.
 pcb_support_boss_d = pcb_support_rib_w;
-pcb_support_boss_inset = 0.5;
-pcb_support_boss_r = pcb_support_inner_r + pcb_support_boss_inset;
 pcb_support_pilot_d = 1.7;
 pcb_support_pilot_depth = 4.0;
 
@@ -196,19 +195,28 @@ module stack_retention_ribs() {
 
 module pcb_support_ribs() {
   for (i = [0 : pcb_support_rib_count - 1]) {
-    rotate([0, 0, i * 360 / pcb_support_rib_count + pcb_support_rib_angle0]) {
+    support_xy = pcb_support_holes[i];
+    support_angle = atan2(support_xy[1], support_xy[0]);
+    rotate([0, 0, support_angle]) {
       difference() {
         hull() {
           translate([pcb_support_inner_r, -pcb_support_rib_w / 2, pcb_support_z])
             cube([pcb_support_rib_depth, pcb_support_rib_w, pcb_support_h]);
-          translate([pcb_support_boss_r, 0, pcb_support_z])
+          translate([norm(support_xy), 0, pcb_support_z])
             cyl(pcb_support_boss_d, pcb_support_h);
         }
-        translate([pcb_support_boss_r, 0,
+        translate([norm(support_xy), 0,
                    pcb_support_z + pcb_support_h - pcb_support_pilot_depth])
           cyl(pcb_support_pilot_d, pcb_support_pilot_depth + 0.10);
       }
     }
+  }
+}
+
+module pcb_mounting_hole_cutouts(h) {
+  for (support_xy = pcb_support_holes) {
+    translate([support_xy[0], support_xy[1], -0.05])
+      cyl(pcb_mounting_hole_d, h + 0.10);
   }
 }
 
@@ -261,7 +269,7 @@ module bottom_tray() {
             annulus(enclosure_od - 3.0, enclosure_od - 6.0, 0.45);
         }
 
-        // Four local support ribs with half-cylinder bosses rise from the
+        // Two local support ribs with half-cylinder bosses rise from the
         // bottom floor and support the PCB outer edge. M2 plastic screws
         // fasten the PCB to the boss tops. The center remains open for
         // L1/ferrite keepout.
@@ -334,6 +342,7 @@ module pcb_reference() {
       difference() {
         cyl(pcb_od, pcb_th);
         stack_retention_edge_slots(pcb_th);
+        pcb_mounting_hole_cutouts(pcb_th);
       }
 }
 
@@ -350,7 +359,7 @@ module rx_coil_reference() {
 }
 
 module f1_reference() {
-  // KSD9700 C156512 iron-shell body envelope. JLCPCB heater assembly places
+  // NR72CB0 C183007 SMD body envelope. JLCPCB heater assembly places
   // this on the heater bottom side, opposite the non-soldering adhesive side.
   color([0.05, 0.05, 0.05, 0.85])
     translate([f1_on_heater_x, f1_on_heater_y, f1_on_heater_z])

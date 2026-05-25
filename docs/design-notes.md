@@ -105,7 +105,7 @@ v2 以降または製品版で必要な制御:
 
 - `NTC_A`: top plate / cup contact temperature は外部ロガーまたは将来センサで観測
 - `NTC_B`: heater 内蔵 NTC (`H1` pin2/pin3 → `RX_NTC` / `SYS_GND`, IC 内蔵 OTP)。board 温度センサではなく、coil / ferrite / top plate / heater stack の hotspot を STWLC38 側へ伝える保護入力として扱う
-- `F1`: independent hardware cutoff。v1 は `Xucheng KSD9700-70/5JSB/080C` を第一候補にする
+- `F1`: independent hardware cutoff。v1 は低背化のため `Bourns NR72CB0` (`LCSC C183007`) を第一候補にする
 - `FOD`: Qi 側の停止系として扱う
 
 Heater / F1 接続方針:
@@ -117,21 +117,19 @@ Heater / F1 接続方針:
 - flexible heater、heater NTC、F1 は手実装ワイヤで接続する。v1 では board-to-wire connector や FPC/FFC connector は採用しない
 - `H1` pinout は pin1 `H+`, pin2 `NTC`, pin3 `NTC_GND`, pin4 `H-`。footprint は `SolderWire-HeaterHarness_1x04_P5.0mm_D1.4mm` とし、5.0 mm pitch、heater power pads は drill 1.4 mm、NTC pads は drill 1.0 mm。pad は `12V`, `1A` 連続電流、手はんだ、引張緩和を前提に余裕を持たせる。connector 化は v2/量産検討
 
-F1 採用候補（PDF: `Xucheng Elec KSD9700-70:5JSB:080C.pdf`）:
+F1 採用候補（PDF: `wiki/raw/assets/bourns-nr72cb0-c183007.pdf`）:
 
-- 型番/仕様: `KSD9700-70/5JSB/080C/QG`
-- 種別: 双金属片突跳式、自動復帰サーモスタット
-- 接点: `SPST-NC`（常閉、温度上昇で open）
-- 動作温度: `70 ±5°C`
-- 復帰温度: `50 ±10°C`
-- 定格: `AC250V 5A` 抵抗負荷、10,000 cycles
-- 接触抵抗: `≤50mΩ`
-- 絶縁抵抗: `DC500V ≥100MΩ`
-- 耐圧: `AC1450V / 1min`
-- リード: `1015 20AWG black wire`, `80mm`, 先端 `8mm` 予備はんだ
-- 実装: トッププレート裏面に密着。JLCPCB 自動実装が難しければ基板側に接続パッド/穴だけ用意して手実装
+- 型番/仕様: `Bourns NR72CB0` (`LCSC C183007`)
+- 種別: SMD thermal cutoff / breaker
+- 動作温度: `72 ±5°C`
+- 復帰温度: `40°C min`
+- 定格: `DC12V / 12A`, 6000 cycles
+- 最大電圧条件: `DC28V / 12A`, 100 cycles
+- trip 後 leakage: `150mA max @25°C`
+- body envelope: `4.8 x 3.2 x 0.89mm`
+- 実装: トッププレート裏面 / heater hotspot へ密着。12V heater protector として扱い、trip 後の残留発熱は熱試験で確認する
 
-今回のヒーター電流は `12V / 15Ω ≈ 0.8A` なので、PDF の AC 抵抗負荷定格に対して電流余裕は十分。ただし DC 定格は PDF に明記されていないため、v1 熱試験で開閉挙動と接点温度を確認する。
+今回のヒーター電流は `12V / 12Ω = 1A` 想定なので、NR72CB0 の `DC12V / 12A` contact rating に対して電流余裕は大きい。ただし trip 後 leakage は最大 `150mA @25°C` として指定されるため、v1 熱試験で残留発熱、再投入温度、接点温度を確認する。
 
 最低 4 層の保護として考える:
 
@@ -359,7 +357,7 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - `VOUT` → heater-control シートへ
 - ヒーター gate 分圧: R1 = 12k (VOUT_12V → Q1.G), R2 = 10k (Q1.G → GND) で VGS ≈ 5.45V。SMBJ15A clamp `VC ≈ 24.4V` 時は VGS ≈ 11.09V (VGS_max ±12V マージン 0.91V)。
 - D3 (B5819W Schottky SOD-123): flyback / freewheel ダイオード。anode=`HEATER_OUT`, cathode=`VOUT_12V`。Q1 OFF 遷移時のヒーターハーネス寄生インダクタンス由来 drain サージを VOUT bulk へ還流させる。
-- F1: `KSD9700-70/5JSB/080C` を `heater-control.kicad_sch` / BOM に反映済み。トッププレート裏面に密着固定し、heater NTC と F1 open/reset の差は熱試験で確認する
+- F1: `Bourns NR72CB0` (`C183007`) を BOM に反映済み。トッププレート裏面に密着固定し、heater NTC と F1 trip/reset、trip 後 leakage による残留発熱は熱試験で確認する
 - OVP TVS:
   - `Z3 = Littelfuse SMBJ15A`（VOUT_12V → cathode、anode → SYS_GND、VR=15V）。VOUT 出口近傍に配置
   - `Z4 = SMBJ18A`（VRECT → cathode、anode → SYS_GND、VR=18V）。VRECT 通常域 13–15V でリーク電流が無視できるよう VR=18V を選定し、VBR≈20V / VC=29.2V@20.55A で VRECT 35V 定格コンデンサに対して余裕を残す。U1 近傍 VRECT バルク帯に配置
@@ -413,7 +411,7 @@ JLCPCB SMT 発注と分離して別ルートで手配が必要な部品 (PCB ＋
 
 | 部品 | 用途 | 候補 | 手配先 | 状態 |
 |---|---|---|---|---|
-| `F1` | 独立ハード遮断 (heater 側実装) | Xucheng KSD9700-70/5JSB/080C | LCSC C156512 / 直販 | TODO |
+| `F1` | 独立ハード遮断 (heater 側実装) | Bourns NR72CB0 | LCSC C183007 | TODO |
 | heater (シリコンヒーター本体) | 12Ω 12W 想定 | JLCPCB 専用フォーム (flexheater.jlcpcb.com) | JLCPCB heater 部門 | TODO |
 | `TH2` | heater 内蔵 NTC | Murata NCP18WF104F12RB (C71280) | heater と同時注文で heater に組込 | TODO |
 | `L1` | 8μH Qi RX コイル | Wuerth 760308102207 | Mouser / Digi-Key | TODO |
@@ -437,7 +435,7 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - ~~heater final resistance~~ → 15Ω 採用（暫定）。熱試験で再調整
 - ~~heater footprint~~ → v1 は大型 solder pads / wire pads。外部 heater/F1 series assembly を手実装し、F1 はトッププレート裏面へ密着固定する
 - ~~cup contact layer material~~ → v1 第一候補はアルミナ充填シリコーンパッド。熱伝導シリコーンシート、グラファイトシート + 薄い絶縁フィルムは比較サンプルとして残す
-- ~~hard cutoff implementation choice~~ → F1 は `Xucheng KSD9700-70/5JSB/080C` を第一候補に選定（open `70±5°C`, reset `50±10°C`）
+- ~~hard cutoff implementation choice~~ → F1 は低背 `Bourns NR72CB0` を第一候補に選定（trip `72±5°C`, reset `40°C min`, `DC12V/12A`）
 - **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制。手実装または機構固定を前提にする。詳細な固定候補は `hardware/mechanical/README.md`、熱試験記録は `hardware/test/thermal-test-template.md` に分離
 - ~~VOUT 過電圧保護 TVS~~ → `SMBJ15A` を第一候補に選定（`VR=15V`, `VBR=16.7-18.5V`, `VC=24.4V`, `600W`）
 - ~~LED-2 status indicator~~ → D2/R11 は `RX_VAA → R11(1k) → D2 → U1.F3(GPIO0)` に接続済み。`GPIO0 Func=0x29` (open-drain, active low output) の sink LED として使う。`0x02` input pull-down は LED 駆動ではない。UM3154 の 2.5 V LDO/VAA 外部低電力負荷許容 (20 mA max) に収まるため VAA のまま維持し、`VDD`/`VOUT_12V` へは移動しない。`RX_INTB` は R12 pull-up まで実装し、v1 では専用 header へは出さない。`I_HEATER_MON` は TP2 の 1-pin test point で観測する
