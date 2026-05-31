@@ -322,6 +322,20 @@
 	(constraint clearance (min 0.1016mm))
 )
 
+(rule "DFM Warning: Trace Spacing (F.Cu)"
+	(layer "F.Cu")
+	(condition "A.Type == 'Track' && B.Type == 'Track' && !A.intersectsCourtyard('U1') && !B.intersectsCourtyard('U1')")
+	(constraint clearance (min 0.15mm))
+	(severity warning)
+)
+
+(rule "DFM Warning: Trace Spacing (B.Cu)"
+	(layer "B.Cu")
+	(condition "A.Type == 'Track' && B.Type == 'Track' && !A.intersectsCourtyard('U1') && !B.intersectsCourtyard('U1')")
+	(constraint clearance (min 0.15mm))
+	(severity warning)
+)
+
 # --- Legend ---
 
 (rule "JLCPCB: Minimum Line Width"
