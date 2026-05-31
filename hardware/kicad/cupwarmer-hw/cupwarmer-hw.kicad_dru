@@ -379,6 +379,38 @@
 	(constraint silk_clearance (min 0.15mm))
 )
 
+(rule "DFM Warning: Pad to Silkscreen"
+	(condition "A.Type == 'Pad' && ((A.existsOnLayer('F.Mask') && B.Layer == 'F.Silkscreen') || (A.existsOnLayer('B.Mask') && B.Layer == 'B.Silkscreen'))")
+	(constraint silk_clearance (min 0.18mm))
+	(severity warning)
+)
+
+(rule "DFM Warning: Silkscreen to Pad"
+	(condition "B.Type == 'Pad' && ((B.existsOnLayer('F.Mask') && A.Layer == 'F.Silkscreen') || (B.existsOnLayer('B.Mask') && A.Layer == 'B.Silkscreen'))")
+	(constraint silk_clearance (min 0.18mm))
+	(severity warning)
+)
+
+(rule "DFM Warning: Silkscreen Text to Pad"
+	(condition "B.Type == 'Pad' && (A.Type == 'Text' || A.Type == 'Text Box') && ((B.existsOnLayer('F.Mask') && A.Layer == 'F.Silkscreen') || (B.existsOnLayer('B.Mask') && A.Layer == 'B.Silkscreen'))")
+	(constraint silk_clearance (min 0.18mm))
+	(severity warning)
+)
+
+(rule "DFM Warning: Silkscreen to Solder Mask"
+	(condition "(A.Layer == 'F.Silkscreen' && B.Layer == 'F.Mask') || (A.Layer == 'B.Silkscreen' && B.Layer == 'B.Mask') || (B.Layer == 'F.Silkscreen' && A.Layer == 'F.Mask') || (B.Layer == 'B.Silkscreen' && A.Layer == 'B.Mask')")
+	(constraint silk_clearance (min 0.18mm))
+	(severity warning)
+)
+
+(rule "DFM Warning: Fiducial Mask to Silkscreen"
+	(condition "(A.Type == 'Pad' && (A.memberOfFootprint('FID1') || A.memberOfFootprint('FID2') || A.memberOfFootprint('FID3')) && B.Layer == 'F.Silkscreen') || (B.Type == 'Pad' && (B.memberOfFootprint('FID1') || B.memberOfFootprint('FID2') || B.memberOfFootprint('FID3')) && A.Layer == 'F.Silkscreen')")
+	# Fiducial_1mm_Mask3mm has a 1.0 mm mask expansion beyond copper radius.
+	# Add 0.18 mm DFM silkscreen margin to approximate silk-to-mask clearance.
+	(constraint silk_clearance (min 1.18mm))
+	(severity warning)
+)
+
 
 # --- Board Outlines ---
 
