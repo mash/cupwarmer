@@ -348,6 +348,18 @@
 	(severity warning)
 )
 
+(rule "DFM Warning: Through-Hole to SMD Pad (F.Cu)"
+	(condition "A.existsOnLayer('F.Cu') && B.existsOnLayer('F.Cu') && (((A.Type == 'Pad' && A.Pad_Type == 'Through-hole') && B.Type == 'Pad' && B.Pad_Type != 'Through-hole' && B.Pad_Type != 'NPTH, mechanical') || ((B.Type == 'Pad' && B.Pad_Type == 'Through-hole') && A.Type == 'Pad' && A.Pad_Type != 'Through-hole' && A.Pad_Type != 'NPTH, mechanical'))")
+	(constraint clearance (min 3.05mm))
+	(severity warning)
+)
+
+(rule "DFM Warning: Through-Hole to SMD Pad (B.Cu)"
+	(condition "A.existsOnLayer('B.Cu') && B.existsOnLayer('B.Cu') && (((A.Type == 'Pad' && A.Pad_Type == 'Through-hole') && B.Type == 'Pad' && B.Pad_Type != 'Through-hole' && B.Pad_Type != 'NPTH, mechanical') || ((B.Type == 'Pad' && B.Pad_Type == 'Through-hole') && A.Type == 'Pad' && A.Pad_Type != 'Through-hole' && A.Pad_Type != 'NPTH, mechanical'))")
+	(constraint clearance (min 3.05mm))
+	(severity warning)
+)
+
 # --- Legend ---
 
 (rule "JLCPCB: Minimum Line Width"
