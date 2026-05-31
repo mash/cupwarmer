@@ -336,6 +336,18 @@
 	(severity warning)
 )
 
+(rule "DFM Warning: Pad/Via Spacing (F.Cu)"
+	(condition "A.Net != B.Net && A.existsOnLayer('F.Cu') && B.existsOnLayer('F.Cu') && (A.Type == 'Pad' || A.Type == 'Via' || A.Type == 'Track') && (B.Type == 'Pad' || B.Type == 'Via' || B.Type == 'Track') && (A.Type == 'Pad' || A.Type == 'Via' || B.Type == 'Pad' || B.Type == 'Via')")
+	(constraint clearance (min 0.15mm))
+	(severity warning)
+)
+
+(rule "DFM Warning: Pad/Via Spacing (B.Cu)"
+	(condition "A.Net != B.Net && A.existsOnLayer('B.Cu') && B.existsOnLayer('B.Cu') && (A.Type == 'Pad' || A.Type == 'Via' || A.Type == 'Track') && (B.Type == 'Pad' || B.Type == 'Via' || B.Type == 'Track') && (A.Type == 'Pad' || A.Type == 'Via' || B.Type == 'Pad' || B.Type == 'Via')")
+	(constraint clearance (min 0.15mm))
+	(severity warning)
+)
+
 # --- Legend ---
 
 (rule "JLCPCB: Minimum Line Width"
