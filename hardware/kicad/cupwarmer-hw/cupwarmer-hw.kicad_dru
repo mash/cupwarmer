@@ -411,6 +411,17 @@
 	(severity warning)
 )
 
+(rule "JLCPCB: Silkscreen to Hole"
+	(condition "(A.Layer == 'F.SilkS' || A.Layer == 'B.SilkS') && (B.Type == 'Via' || (B.Type == 'Pad' && (B.Pad_Type == 'Through-hole' || B.Pad_Type == 'NPTH, mechanical')))")
+	(constraint silk_clearance (min 0.13mm))
+)
+
+(rule "DFM Warning: Silkscreen to Hole"
+	(condition "(A.Layer == 'F.SilkS' || A.Layer == 'B.SilkS') && (B.Type == 'Via' || (B.Type == 'Pad' && (B.Pad_Type == 'Through-hole' || B.Pad_Type == 'NPTH, mechanical')))")
+	(constraint silk_clearance (min 0.18mm))
+	(severity warning)
+)
+
 
 # --- Board Outlines ---
 
