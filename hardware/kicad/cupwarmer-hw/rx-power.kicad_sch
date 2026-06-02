@@ -413,6 +413,172 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Device:D_Zener"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "D_Zener"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Zener diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "D_Zener_0_1"
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy -1.27 1.27) (xy -0.762 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "D_Zener_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "cupwarmer:DEBUG_HDR_4"
 			(pin_names
 				(offset 0.762)
@@ -3550,6 +3716,86 @@
 		)
 		(uuid "ff280d07-b6f7-4401-b654-4e7e2e999a7a")
 	)
+	(wire
+		(pts
+			(xy 72.39 123.19) (xy 72.39 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b718616a-f63a-49cc-a2a9-a1eedeab46a8")
+	)
+	(wire
+		(pts
+			(xy 72.39 115.57) (xy 72.39 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "86fc6ed3-9c77-4060-895a-bc825d30fe8d")
+	)
+	(wire
+		(pts
+			(xy 66.04 115.57) (xy 66.04 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9dd48417-f0f6-45a8-8b7d-7253f377892d")
+	)
+	(wire
+		(pts
+			(xy 66.04 123.19) (xy 66.04 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99907d55-833d-4f87-8ea4-a210c8f93d53")
+	)
+	(wire
+		(pts
+			(xy 220.98 116.84) (xy 220.98 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7c31818e-32b6-4413-be94-6b36c924498f")
+	)
+	(wire
+		(pts
+			(xy 220.98 109.22) (xy 220.98 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bfe7f870-fb04-42ea-a98f-1c32d2b38e75")
+	)
+	(wire
+		(pts
+			(xy 236.22 97.79) (xy 236.22 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b4b90fe-7d3c-42a8-99b8-52ab7b54d1c1")
+	)
+	(wire
+		(pts
+			(xy 236.22 90.17) (xy 236.22 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e284d98a-5a9d-45e2-b483-93489deb00d5")
+	)
 	(label "COMB2"
 		(at 116.84 118.11 0)
 		(effects
@@ -4949,8 +5195,8 @@
 		)
 	)
 	(symbol
-		(lib_id "cupwarmer:PASSIVE_2")
-		(at 72.39 119.38 90)
+		(lib_id "Device:D_Zener")
+		(at 72.39 119.38 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4960,7 +5206,7 @@
 		(dnp no)
 		(uuid "11111111-aaaa-bbbb-cccc-111111111320")
 		(property "Reference" "Z1"
-			(at 78.74 119.38 0)
+			(at 78.74 119.38 180)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4970,7 +5216,7 @@
 			)
 		)
 		(property "Value" "SMF13A Z1"
-			(at 76 119.38 0)
+			(at 76 119.38 180)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4980,7 +5226,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SOD-123F"
-			(at 72.39 119.38 0)
+			(at 72.39 119.38 180)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4991,7 +5237,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 72.39 119.38 0)
+			(at 72.39 119.38 180)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5002,7 +5248,7 @@
 			)
 		)
 		(property "Description" "AC1 ESD clamp TVS (uni-directional)"
-			(at 72.39 119.38 0)
+			(at 72.39 119.38 180)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6007,7 +6253,7 @@
 		)
 	)
 	(symbol
-		(lib_id "cupwarmer:PASSIVE_2")
+		(lib_id "Device:D_Zener")
 		(at 66.04 119.38 270)
 		(unit 1)
 		(body_style 1)
@@ -7547,8 +7793,8 @@
 		)
 	)
 	(symbol
-		(lib_id "cupwarmer:PASSIVE_2")
-		(at 220.98 113.03 90)
+		(lib_id "Device:D_Zener")
+		(at 220.98 113.03 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7558,7 +7804,7 @@
 		(dnp no)
 		(uuid "47ec3195-d55f-4f0d-b3f6-44f7e4989500")
 		(property "Reference" "Z3"
-			(at 220.98 120.65 90)
+			(at 220.98 120.65 270)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7568,7 +7814,7 @@
 			)
 		)
 		(property "Value" "SMBJ15A"
-			(at 224.536 113.03 0)
+			(at 224.536 113.03 180)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7578,7 +7824,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SMB"
-			(at 220.98 113.03 90)
+			(at 220.98 113.03 270)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7589,7 +7835,7 @@
 			)
 		)
 		(property "Datasheet" "/Users/mash/Downloads/SMBJ15A.pdf"
-			(at 220.98 113.03 90)
+			(at 220.98 113.03 270)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7600,7 +7846,7 @@
 			)
 		)
 		(property "Description" "VOUT transient clamp TVS (pin2 cathode to VOUT, pin1 anode to GND)"
-			(at 220.98 113.03 90)
+			(at 220.98 113.03 270)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7665,8 +7911,8 @@
 		)
 	)
 	(symbol
-		(lib_id "cupwarmer:PASSIVE_2")
-		(at 236.22 93.98 90)
+		(lib_id "Device:D_Zener")
+		(at 236.22 93.98 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7676,7 +7922,7 @@
 		(dnp no)
 		(uuid "721f15e8-3fb0-429c-a9aa-e1f010023028")
 		(property "Reference" "Z4"
-			(at 236.22 86.36 90)
+			(at 236.22 86.36 270)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7686,7 +7932,7 @@
 			)
 		)
 		(property "Value" "SMBJ18A"
-			(at 239.7 93.98 0)
+			(at 239.7 93.98 180)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7696,7 +7942,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SMB"
-			(at 236.22 93.98 90)
+			(at 236.22 93.98 270)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7707,7 +7953,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 236.22 93.98 90)
+			(at 236.22 93.98 270)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7718,7 +7964,7 @@
 			)
 		)
 		(property "Description" "VRECT OVP TVS clamp (~20V breakdown, pin2 cathode to VRECT, pin1 anode to GND)"
-			(at 236.22 93.98 90)
+			(at 236.22 93.98 270)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
