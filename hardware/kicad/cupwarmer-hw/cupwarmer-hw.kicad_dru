@@ -207,8 +207,10 @@
   # Choose between:
   # 1-2 Layers (1oz)
   # (constraint clearance (min 0.127mm))
-  # 4-6 Layers (1oz and 0.5oz)
-	(constraint clearance (min 0.09mm))
+  # 4-6 Layers (1oz and 0.5oz): JLC limit is 0.09mm; require strictly
+  # greater than 0.09mm. KiCad quantizes rule clearance to 1um, so 0.091mm
+  # is the smallest value that rejects an exactly-0.09mm gap.
+	(constraint clearance (min 0.091mm))
   # 1-6 Layers (2oz)
   # (constraint clearance (min 0.2mm))
 )
@@ -226,8 +228,10 @@
 	(layer inner)
 	(condition "A.Type == 'Track' && B.Type == 'Track'")
   # Choose between:
-  # 4-6 Layers (1oz and 0.5oz)
-	(constraint clearance (min 0.09mm))
+  # 4-6 Layers (1oz and 0.5oz): JLC limit is 0.09mm; require strictly
+  # greater than 0.09mm. KiCad quantizes rule clearance to 1um, so 0.091mm
+  # is the smallest value that rejects an exactly-0.09mm gap.
+	(constraint clearance (min 0.091mm))
   # 4-6 Layers (2oz)
   # (constraint clearance (min 0.2mm))
 )
@@ -249,7 +253,10 @@
 	(condition "A.intersectsCourtyard('U1') || B.intersectsCourtyard('U1')")
   # JLCPCB 4-layer BGA guide: trace-to-trace spacing S = 0.09 mm.
   # BGA pad-to-trace and via-to-BGA-pad are separately constrained to 0.10 mm.
-	(constraint clearance (min 0.09mm))
+  # Require greater than 0.09mm. KiCad quantizes rule clearance to 1um,
+  # so 0.091mm is the smallest value that rejects an exactly-0.09mm gap
+  # (no zero-margin routing at the JLC limit).
+	(constraint clearance (min 0.091mm))
 )
 
 (rule "JLCPCB: U1 BGA Escape Via Hole to Trace"

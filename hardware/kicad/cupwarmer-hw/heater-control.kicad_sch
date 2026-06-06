@@ -64,7 +64,7 @@
 				)
 			)
 			(property "Description" "Schottky diode, pin 1 cathode, pin 2 anode (KiCad Device:D convention)"
-				(at 0 0 0)
+				(at -1.016 -5.842 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -2477,7 +2477,7 @@
 				)
 			)
 		)
-		(property "Description" "Heater flyback diode (HEATER_OUT -> VOUT_12V)"
+		(property "Description" "Schottky diode, pin 1 cathode, pin 2 anode (KiCad Device:D convention)"
 			(at 101.6 77.47 0)
 			(hide yes)
 			(show_name no)

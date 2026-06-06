@@ -11,6 +11,172 @@
 		(comment 2 "Initial functional draft")
 	)
 	(lib_symbols
+		(symbol "Device:D_Zener"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "D_Zener"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Zener diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "D_Zener_0_1"
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy -1.27 1.27) (xy -0.762 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "D_Zener_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:LED"
 			(pin_numbers
 				(hide yes)
@@ -67,7 +233,7 @@
 				)
 			)
 			(property "Description" "Light emitting diode"
-				(at 0 0 0)
+				(at 0.508 -4.318 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -374,172 +540,6 @@
 				)
 			)
 			(symbol "LED_1_1_1"
-				(pin passive line
-					(at -3.81 0 0)
-					(length 2.54)
-					(name "K"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 3.81 0 180)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Device:D_Zener"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "D"
-				(at 0 2.54 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "D_Zener"
-				(at 0 -2.54 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "Zener diode"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "diode"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "D_Zener_0_1"
-				(polyline
-					(pts
-						(xy -1.27 -1.27) (xy -1.27 1.27) (xy -0.762 1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 0) (xy -1.27 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "D_Zener_1_1"
 				(pin passive line
 					(at -3.81 0 0)
 					(length 2.54)
@@ -2468,16 +2468,6 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 76.2) (xy 72.39 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "338d000a-2a9b-4de8-bdf1-8cee708a9b78")
-	)
-	(wire
-		(pts
 			(xy 113.03 92.71) (xy 127 92.71)
 		)
 		(stroke
@@ -2588,6 +2578,16 @@
 	)
 	(wire
 		(pts
+			(xy 236.22 97.79) (xy 236.22 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b4b90fe-7d3c-42a8-99b8-52ab7b54d1c1")
+	)
+	(wire
+		(pts
 			(xy 127 87.63) (xy 118.11 87.63)
 		)
 		(stroke
@@ -2688,7 +2688,7 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 124.46) (xy 66.04 128.27)
+			(xy 66.04 123.19) (xy 66.04 128.27)
 		)
 		(stroke
 			(width 0)
@@ -2948,6 +2948,16 @@
 	)
 	(wire
 		(pts
+			(xy 220.98 116.84) (xy 220.98 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7c31818e-32b6-4413-be94-6b36c924498f")
+	)
+	(wire
+		(pts
 			(xy 186.69 100.33) (xy 194.31 100.33)
 		)
 		(stroke
@@ -2988,13 +2998,23 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 124.46) (xy 72.39 128.27)
+			(xy 72.39 123.19) (xy 72.39 128.27)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "86d746ff-5a25-4f1b-8fea-3053d7a169bc")
+	)
+	(wire
+		(pts
+			(xy 72.39 76.2) (xy 72.39 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "86fc6ed3-9c77-4060-895a-bc825d30fe8d")
 	)
 	(wire
 		(pts
@@ -3098,7 +3118,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 107.95) (xy 220.98 106.68)
+			(xy 220.98 106.68) (xy 220.98 109.22)
 		)
 		(stroke
 			(width 0)
@@ -3155,6 +3175,16 @@
 			(type default)
 		)
 		(uuid "9d5af6d3-35db-42d2-99b5-ff05afd054fc")
+	)
+	(wire
+		(pts
+			(xy 66.04 113.03) (xy 66.04 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9dd48417-f0f6-45a8-8b7d-7253f377892d")
 	)
 	(wire
 		(pts
@@ -3448,16 +3478,6 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 113.03) (xy 66.04 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d08b5919-8a3e-42f5-a8fb-f99063db3132")
-	)
-	(wire
-		(pts
 			(xy 116.84 130.81) (xy 102.87 130.81)
 		)
 		(stroke
@@ -3588,7 +3608,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 87.63) (xy 236.22 88.9)
+			(xy 236.22 87.63) (xy 236.22 90.17)
 		)
 		(stroke
 			(width 0)
@@ -3605,16 +3625,6 @@
 			(type default)
 		)
 		(uuid "ef9a801f-a222-468a-9dea-778e8655d628")
-	)
-	(wire
-		(pts
-			(xy 220.98 119.38) (xy 220.98 118.11)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "efa111ee-bb29-485a-9cfa-786b263bad02")
 	)
 	(wire
 		(pts
@@ -3715,86 +3725,6 @@
 			(type solid)
 		)
 		(uuid "ff280d07-b6f7-4401-b654-4e7e2e999a7a")
-	)
-	(wire
-		(pts
-			(xy 72.39 123.19) (xy 72.39 124.46)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b718616a-f63a-49cc-a2a9-a1eedeab46a8")
-	)
-	(wire
-		(pts
-			(xy 72.39 115.57) (xy 72.39 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "86fc6ed3-9c77-4060-895a-bc825d30fe8d")
-	)
-	(wire
-		(pts
-			(xy 66.04 115.57) (xy 66.04 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9dd48417-f0f6-45a8-8b7d-7253f377892d")
-	)
-	(wire
-		(pts
-			(xy 66.04 123.19) (xy 66.04 124.46)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "99907d55-833d-4f87-8ea4-a210c8f93d53")
-	)
-	(wire
-		(pts
-			(xy 220.98 116.84) (xy 220.98 118.11)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7c31818e-32b6-4413-be94-6b36c924498f")
-	)
-	(wire
-		(pts
-			(xy 220.98 109.22) (xy 220.98 107.95)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bfe7f870-fb04-42ea-a98f-1c32d2b38e75")
-	)
-	(wire
-		(pts
-			(xy 236.22 97.79) (xy 236.22 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4b4b90fe-7d3c-42a8-99b8-52ab7b54d1c1")
-	)
-	(wire
-		(pts
-			(xy 236.22 90.17) (xy 236.22 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e284d98a-5a9d-45e2-b483-93489deb00d5")
 	)
 	(label "COMB2"
 		(at 116.84 118.11 0)
@@ -8553,7 +8483,7 @@
 				)
 			)
 		)
-		(property "Description" "Power-on indicator LED"
+		(property "Description" "Light emitting diode"
 			(at 237.49 124.46 90)
 			(hide yes)
 			(show_name no)
