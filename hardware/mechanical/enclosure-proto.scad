@@ -25,7 +25,6 @@ show_reference_stack = true;
 
 /* [Visibility] */
 
-show_bottom_tray = true;
 show_cup_contact_pad = true;
 show_aluminum_spreader = true;
 show_flexible_heater = true;
@@ -33,6 +32,7 @@ show_insulation = true;
 show_pcb_reference = true;
 show_ferrite_reference = true;
 show_rx_coil_reference = true;
+show_bottom_tray = true;
 
 /* [Quality] */
 
@@ -90,6 +90,10 @@ z_pad = z_spreader + spreader_th;
 z_ring = z_spreader - 0.20;
 bottom_tray_h = z_pad + pad_th - lip_below_pad;
 z_lip_pocket_bottom = z_spreader - spreader_pocket_depth;
+
+// Overall external height: tray floor bottom (z=0) to cup contact pad top.
+overall_height = z_pad + pad_th;
+echo(str("overall height (tray bottom -> pad top) = ", overall_height, " mm"));
 
 // Heater cable drops internally from the heater underside to PCB pads.
 // Heater J1 pads in hardware/kicad/heater/heater.kicad_pcb are centered at
