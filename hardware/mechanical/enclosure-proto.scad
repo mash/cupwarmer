@@ -133,12 +133,12 @@ f1_on_heater_x = 0;
 f1_on_heater_y = -14.0;
 f1_on_heater_z = -f1_z;
 
-// PCB support. H1/H2 are KiCad mounting holes on the 56 mm PCB, expressed
+// PCB support. H1/H2 are KiCad mounting holes on the 50 mm PCB, expressed
 // relative to the board/enclosure center at (100,100) in cupwarmer-hw.kicad_pcb.
 // Keep these centers and pcb_mounting_hole_d in sync with the PCB footprint.
 pcb_support_holes = [
-  [23.5, -8.0], // H1 = (123.5, 92)
-  [-23.5, 8.0]  // H2 = (76.5, 108)
+  [21.0, -8.0], // H1 = (121, 92)
+  [-21.0, 8.0]  // H2 = (79, 108)
 ];
 pcb_support_rib_count = len(pcb_support_holes);
 pcb_mounting_hole_d = 2.4;
@@ -288,11 +288,9 @@ module bottom_tray() {
         // Two local support ribs with half-cylinder bosses rise from the
         // bottom floor and support the PCB outer edge. M2 plastic screws
         // fasten the PCB to the boss tops. The center remains open for
-        // L1/ferrite keepout.
-        // TODO(pcb-50mm): these ribs/bosses and pcb_support_holes still assume
-        // the old 56 mm PCB (holes at r~24.8). Re-derive for the 50 mm PCB once
-        // the new KiCad mounting-hole positions are fixed. The Ø50.7 lower bore
-        // now also guides the stack, so stack_retention_ribs may be droppable.
+        // L1/ferrite keepout. pcb_support_holes track the 50 mm PCB H1/H2
+        // (r~22.5). The Ø50.7 lower bore now also guides the stack, so
+        // stack_retention_ribs may be droppable.
         pcb_support_ribs();
 
         stack_retention_ribs();
