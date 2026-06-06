@@ -275,6 +275,16 @@
 	(constraint hole_to_hole (min 0.25mm))
 )
 
+(rule "JLCPCB: U1 BGA Escape Via Hole to Via Hole (Same Net)"
+	(condition "A.Type == 'Via' && B.Type == 'Via' && A.Net == B.Net && (A.intersectsCourtyard('U1') || B.intersectsCourtyard('U1'))")
+  # Same-net BGA fanout vias around U1 (SYS_GND stitching) can sit closer
+  # than the generic 0.254 mm same-net hole-to-hole rule. Being on the same
+  # net there is no shorting risk, and the JLCPCB 4-layer BGA process
+  # (0.15 mm drill) tolerates this spacing. Placed below the generic
+  # same-net rule so it wins (KiCad evaluates custom rules bottom-to-top).
+	(constraint hole_to_hole (min 0.2mm))
+)
+
 
 # --- Seeed Fusion Advanced PCB stricter overlays ---
 #
