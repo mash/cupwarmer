@@ -1,12 +1,12 @@
 %TF.GenerationSoftware,KiCad,Pcbnew,10.0.0*%
-%TF.CreationDate,2026-06-06T10:52:18+03:00*%
+%TF.CreationDate,2026-06-06T13:27:16+03:00*%
 %TF.ProjectId,cupwarmer-hw,63757077-6172-46d6-9572-2d68772e6b69,rev?*%
 %TF.SameCoordinates,Original*%
 %TF.FileFunction,Soldermask,Top*%
 %TF.FilePolarity,Negative*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 10.0.0) date 2026-06-06 10:52:18*
+G04 Created by KiCad (PCBNEW 10.0.0) date 2026-06-06 13:27:16*
 %MOMM*%
 %LPD*%
 G01*
