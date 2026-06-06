@@ -25,6 +25,7 @@ show_reference_stack = true;
 
 /* [Visibility] */
 
+show_top_retaining_ring = true;
 show_cup_contact_pad = true;
 show_aluminum_spreader = true;
 show_flexible_heater = true;
@@ -43,15 +44,27 @@ enclosure_od = 60.0;
 wall = 1.6;
 bottom_floor_th = 1.0;
 lip_below_pad = 0.25;
-integrated_lip_h = 1.15;
-integrated_lip_inner_od = 55.6;
 spreader_pocket_od = 55.2;
 spreader_pocket_depth = 0.45;
 
+// Top retaining ring -- a SEPARATE printed part placed after the cup contact
+// pad. Splitting it off the tray removes the single-piece undercut: all parts
+// (incl. the Ø56.5 pad) drop straight into the open tray, then this ring is
+// fitted on top and its inner flange overhangs the pad edge to capture it.
+// PROVISIONAL geometry/height -- joinery to the tray (screws / thread / snap)
+// is still TBD; refine once the fastening method is chosen.
+ring_od = enclosure_od;             // flush with the enclosure outer wall
+ring_inner_od = 54.5;               // overhang the pad (Ø56.5) ~1 mm/side
+ring_th = 0.60;                     // kept below the pad crown so the cup meets the pad
+
 // Functional round parts.
-pcb_od = 56.0;
+// pcb/ferrite/insulation shrink to 50 mm so they pass the heater-seat bore
+// opening and drop to the floor; only the heater/spreader/pad stay ~56 mm.
+pcb_od = 50.0;
 pcb_th = 1.0;
-heater_od = 56.0;
+// Heater stays larger than the 50 mm stack so it lands on the seat step, but
+// trimmed to 55 mm so it clears the 55.6 mm retaining lip for top-loading.
+heater_od = 55.0;
 heater_th = 0.35;
 spreader_od = 54.5;
 spreader_th = 0.30;
@@ -66,9 +79,9 @@ coil_x = 40.0;
 coil_y = 40.0;
 coil_corner_r = 6.0;
 coil_th = 1.20;
-ferrite_od = 56.0;
+ferrite_od = 50.0;
 ferrite_th = 0.50;
-insulation_od = 56.0;
+insulation_od = 50.0;
 insulation_th = 0.70;
 f1_clearance_gap = 1.4;
 
@@ -77,6 +90,7 @@ radial_clearance = 0.35;
 tray_inner_od = enclosure_od - 2 * wall;
 pcb_clear_od = pcb_od + 2 * radial_clearance;
 heater_clear_od = heater_od + 2 * radial_clearance;
+pad_clear_od = pad_od + 2 * radial_clearance;
 
 // Z positions in assembled view.
 z_bottom_floor_top = bottom_floor_th;
@@ -256,46 +270,43 @@ module bottom_tray() {
         difference() {
           cyl(enclosure_od, bottom_tray_h);
 
-          // Internal ledge under the heat stack. It also acts as a drip break.
-          translate([0, 0, bottom_tray_h - 0.70])
-            annulus(enclosure_od - 1.2, heater_clear_od, 0.70);
-
-          // Main cavity. The bottom floor stays solid and thin for Qi coupling.
+          // Stepped bore. Lower bore (pcb_clear_od) clears the 50 mm
+          // pcb/ferrite/insulation/coil stack down to the floor. The upper bore
+          // opens to the pad clearance (pad_clear_od) and runs straight from the
+          // heater seat to the rim, so there is NO inward shelf or lip on the
+          // tray -- the wall is a single clean vertical surface and the Ø56.5
+          // pad drops straight in. The step face at z_heater is the heater seat:
+          // the heater lands on it while the 50 mm parts drop through the lower
+          // bore. The floor stays solid for Qi. Pad capture is by the separate
+          // top_retaining_ring fitted afterwards, not by the tray.
           translate([0, 0, bottom_floor_th])
-            cyl(tray_inner_od, bottom_tray_h + 0.20);
-
-          // Clearance for a 56 mm PCB/heater stack inside a 60 mm enclosure.
-          translate([0, 0, bottom_floor_th])
-            cyl(pcb_clear_od, bottom_tray_h + 0.20);
-
-          // Bottom anti-slip ring groove.
-          translate([0, 0, -0.05])
-            annulus(enclosure_od - 3.0, enclosure_od - 6.0, 0.45);
+            cyl(pcb_clear_od, z_heater - bottom_floor_th);
+          translate([0, 0, z_heater])
+            cyl(pad_clear_od, bottom_tray_h - z_heater + 0.20);
         }
 
         // Two local support ribs with half-cylinder bosses rise from the
         // bottom floor and support the PCB outer edge. M2 plastic screws
         // fasten the PCB to the boss tops. The center remains open for
         // L1/ferrite keepout.
+        // TODO(pcb-50mm): these ribs/bosses and pcb_support_holes still assume
+        // the old 56 mm PCB (holes at r~24.8). Re-derive for the 50 mm PCB once
+        // the new KiCad mounting-hole positions are fixed. The Ø50.7 lower bore
+        // now also guides the stack, so stack_retention_ribs may be droppable.
         pcb_support_ribs();
 
         stack_retention_ribs();
-        integrated_retaining_lip();
       }
 }
 
-module integrated_retaining_lip() {
-  lip_z = z_pad + pad_th - integrated_lip_h - lip_below_pad;
-  color([0.12, 0.12, 0.12, 1.0])
-    union() {
-      translate([0, 0, lip_z])
-        annulus(enclosure_od, integrated_lip_inner_od, integrated_lip_h);
-
-      // Pocket wall hides the aluminum spreader edge while keeping the cup
-      // contact crown proud of the enclosure.
-      translate([0, 0, z_lip_pocket_bottom])
-        annulus(enclosure_od - 0.8, spreader_pocket_od, spreader_pocket_depth);
-    }
+module top_retaining_ring() {
+  // Separate part: rests on the tray rim and overhangs the cup contact pad
+  // edge to retain it. Fitted after the pad is placed, so the inward overhang
+  // is no longer an assembly undercut. PROVISIONAL -- see ring_* constants.
+  color([0.20, 0.20, 0.22, 1.0])
+    maybe_cutaway()
+      translate([0, 0, bottom_tray_h])
+        annulus(ring_od, ring_inner_od, ring_th);
 }
 
 module cup_contact_pad() {
@@ -375,6 +386,10 @@ module assembly() {
 
   if (show_bottom_tray) {
     bottom_tray();
+  }
+
+  if (show_top_retaining_ring) {
+    translate([0, 0, 8 * explode]) top_retaining_ring();
   }
 
   if (show_reference_stack) {

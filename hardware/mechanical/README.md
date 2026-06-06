@@ -1,5 +1,31 @@
 # 初回メカ前提
 
+## 部品名（正式名称 — 以後この名前を使う）
+
+このプロジェクトの説明・レビュー・コミットでは、必ず下記の **正式名称（Canonical name）** を使う。
+正式名称は `enclosure-proto.scad` のモジュール名／`show_*` トグルに一致させる。
+右端の「使わない別名」は過去の表記揺れで、今後は使わない。
+
+| 正式名称 (Canonical) | SCAD 識別子 | 現行寸法 (OD×厚) | 役割 | 使わない別名 |
+| --- | --- | --- | --- | --- |
+| **cup contact pad** | `cup_contact_pad` / `pad_*` | Ø56.5 × 0.80 | カップ底に触れる接触面（凸クラウン）。素材はシリコーン等を評価中 | cup contact layer, cup contact silicone pad, pad（口語可） |
+| **aluminum spreader** | `aluminum_spreader` / `spreader_*` | Ø54.5 × 0.30 | 内部ヒートスプレッダ。cup contact pad の下で熱を面拡散 | internal heat spreader, support plate, metal spreader |
+| **flexible heater** | `flexible_heater` / `heater_*` | Ø55 × 0.35 | JLC フレキヒータ。heater seat 段差に乗る。NTC 内蔵 | heater stack |
+| **F1** | `f1_reference` / `f1_*` | 4.8×3.2×0.89 | Bourns NR72CB0 (C183007) サーマルカットオフ。flexible heater 下面に密着 | thermostat, thermal cutoff（説明補足は可） |
+| **insulation** | `insulation_layer` / `insulation_*` | Ø50 × 0.70 | 下方への熱漏れを抑える断熱層 | insulation sheet |
+| **PCB** | `pcb_reference` / `pcb_*` | Ø50 × 1.0 | メイン基板 | board |
+| **ferrite** | `ferrite_reference` / `ferrite_*` | Ø50 × 0.50 | Qi 磁束シールド | shield |
+| **RX coil** | `rx_coil_reference` / `coil_*` | 40×40 × 1.20 | Qi 受電コイル L1 (Würth 760308102207) | L1（補足可）, rx coil reference |
+| **bottom tray** | `bottom_tray` | enclosure_od Ø60 | 開いた樹脂トレイ。全スタックを保持。底面は Qi 面。内向き庇・棚なし（pad まで上から落とし込める） | bottom shell, enclosure（文脈で可） |
+| **top retaining ring** | `top_retaining_ring` / `ring_*` | 外径Ø60 / 内径Ø54.5 | bottom tray とは**別体**の印刷パーツ。pad 装着後に被せ、内フランジが pad エッジを抑えて抜け止め。固定方法（ネジ/ねじ込み/接着）は未定 | integrated retaining lip, lip, retaining lip |
+| **heater seat** | bottom tray の bore 段差 @z_heater | 下部 Ø50.7 / 上部 Ø57.2 | flexible heater が乗る段差。下の Ø50 部品は素通り、上部ボアは pad クリアランス | ledge |
+| **PCB support ribs** | `pcb_support_ribs` | 2本 ×幅5.0 | PCB を H1/H2 で支持・ねじ留め（Ø50 化で要再設計） | support rib |
+| **stack retention ribs** | `stack_retention_ribs` | 4本 ×幅4.0 | 外周の高さ基準・横ずれガイド（Ø50 化で要再検討） | retention rib |
+
+> スタック順（下→上）は下記「積層案」を参照。現行の試作寸法変更は
+> `docs/plans/20260606-enclosure-grow-topload-heater-seat.md` で進行中（PCB/ferrite/insulation→Ø50、
+> heater→Ø55、heater seat 段差化、底面溝削除、lip を別体 top retaining ring に分離）。下表「初期寸法目安」の一部はこの plan で更新中。
+
 ## 積層案
 
 ```
