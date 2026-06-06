@@ -5962,7 +5962,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "YAGEO"
+		(property "Manufacturer" "Murata Electronics"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -5973,7 +5973,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C389113"
+		(property "LCSC" "C85973"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -5984,7 +5984,7 @@
 				)
 			)
 		)
-		(property "MPN" "CC0603JRNPO9BN103"
+		(property "MPN" "GRM1885C1H103JA01D"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -6198,7 +6198,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "YAGEO"
+		(property "Manufacturer" "Murata Electronics"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -6209,7 +6209,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C389113"
+		(property "LCSC" "C85973"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -6220,7 +6220,7 @@
 				)
 			)
 		)
-		(property "MPN" "CC0603JRNPO9BN103"
+		(property "MPN" "GRM1885C1H103JA01D"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -7620,7 +7620,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "YAGEO"
+		(property "Manufacturer" "Murata Electronics"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -7631,7 +7631,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C389113"
+		(property "LCSC" "C85973"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -7642,7 +7642,7 @@
 				)
 			)
 		)
-		(property "MPN" "CC0603JRNPO9BN103"
+		(property "MPN" "GRM1885C1H103JA01D"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -8971,7 +8971,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "YAGEO"
+		(property "Manufacturer" "Murata Electronics"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -8982,7 +8982,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C389113"
+		(property "LCSC" "C85973"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
@@ -8993,7 +8993,7 @@
 				)
 			)
 		)
-		(property "MPN" "CC0603JRNPO9BN103"
+		(property "MPN" "GRM1885C1H103JA01D"
 			(at 0 0 0)
 			(hide yes)
 			(show_name no)
