@@ -110,7 +110,7 @@ def board_text() -> str:
 \t(footprint "Heater:LeadoutPads"
 \t\t(layer "F.Cu")
 \t\t(uuid "{uid("leadout-footprint")}")
-\t\t(at 100 122.5 0)
+\t\t(at 100 121.7 0)
 \t\t(property "Reference" "J1" (at 0 -4 0) (layer "F.Fab") (uuid "{uid("leadout-ref")}")
 \t\t\t(effects (font (size 1 1) (thickness 0.15))))
 \t\t(property "Value" "Heater and NTC leads" (at 0 4 0) (layer "F.Fab") (uuid "{uid("leadout-val")}")
