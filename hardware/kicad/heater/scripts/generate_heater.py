@@ -16,7 +16,7 @@ README = ROOT / "README.md"
 
 CENTER_X = 100.0
 CENTER_Y = 100.0
-OUTLINE_RADIUS = 28.0
+OUTLINE_RADIUS = 27.5
 
 
 def uid(name: str) -> str:
@@ -80,7 +80,7 @@ def board_text() -> str:
 \t\t(rev "v1")
 \t\t(company "cupwarmer")
 \t\t(comment 1 "JLCPCB flexible heater order file")
-\t\t(comment 2 "Outline matches cupwarmer PCB: 56 mm diameter")
+\t\t(comment 2 "Outline 55 mm diameter, sized to thermal stack (aluminum spreader 54.5 mm, heater seat), not the 50 mm control PCB")
 \t\t(comment 3 "No heater routing drawn; JLCPCB to route for 12 ohm at 12 V")
 \t)
 \t(layers
@@ -161,7 +161,7 @@ def readme_text() -> str:
 
 This directory contains a KiCad-generated Gerber package for the external flexible heater.
 
-- Board outline: 56 mm diameter, matching `hardware/kicad/cupwarmer-hw/cupwarmer-hw.kicad_pcb`
+- Board outline: 55 mm diameter, sized to the thermal stack (aluminum spreader Ø54.5 mm, heater seat Ø50.7/Ø57.2 mm) — **not** the Ø50 mm control PCB. The heater covers the spreader, seats on the bottom-tray heater-seat step, and stays under the Ø56.5 mm cup contact pad.
 - Heating element routing: intentionally not drawn; ask JLCPCB to route it during engineering review
 - Bottom lead-out pads: four pads labelled `H+`, `NTC`, `NTC_GND`, and `H-`
 - Center NTC placement marker: `NTC` near the board center
@@ -172,11 +172,11 @@ JLCPCB flexible-heater order notes:
 
 - Upload `gerber/heater-jlcpcb-flex-heater.zip`.
 - Select a flexible heater service, not a normal FR-4 PCB service.
-- Ask JLCPCB to route the heater pattern. The uploaded Gerber only defines the 56 mm circular shape, bottom lead-out pad locations, and requested center NTC location.
+- Ask JLCPCB to route the heater pattern. The uploaded Gerber only defines the 55 mm circular shape, bottom lead-out pad locations, and requested center NTC location.
 - Ask JLCPCB to manufacture the heating element as FeCrAl 0.05 mm, or adjust routing/material during engineering review to hit 12 ohm.
 - Ask for an embedded 100k NTC, B25/85 approximately 4260 K, placed at the center `NTC` marker if available.
 - Cable exit should be from the bottom lead-pad area. The cupwarmer PCB harness expects `H+`, `H-`, `NTC`, and `NTC_GND` as separate wires.
-- The Gerber dimensions should auto-detect as 56 mm x 56 mm on JLCPCB.
+- The Gerber dimensions should auto-detect as 55 mm x 55 mm on JLCPCB.
 """
 
 

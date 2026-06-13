@@ -113,7 +113,8 @@ L1 receiver coil は `Wuerth Elektronik 760308102207` を基準にする。外�
 | Feature | Initial value | Notes |
 | --- | ---: | --- |
 | Enclosure OD | 60.0mm max | design-notes の改定方針に合わせる |
-| PCB / heater OD | 56.0mm max | 現行 heater Gerber と整合 |
+| PCB OD | 50.0mm | 現行 control PCB Gerber（Ø50 resize 済み）と整合 |
+| flexible heater OD | 55.0mm | 現行 heater Gerber（Ø55）と整合。spreader Ø54.5 を覆い heater seat に乗る |
 | Internal aluminum spreader OD | 54-55mm | cup contact layer より小さくし、エッジを隠す |
 | Cup contact silicone pad OD | 56-57mm | spreader を完全に覆う |
 | Bottom floor over RX coil | 0.8-1.2mm | Qi 距離を増やしすぎない |
