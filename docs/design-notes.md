@@ -179,6 +179,27 @@ F1 採用候補（PDF: `wiki/raw/assets/bourns-nr72cb0-c183007.pdf`）:
 - セラミック天板も比較候補
 - 断熱材は `5W` 案の流用前提にしない
 
+### フレキシブルヒーター (外部発注品)
+
+ヒーターは PCB ではなく JLCPCB フレキシブルヒーターサービスで別発注する外部部品。KiCad で生成した Gerber は外形・引き出しパッド・NTC 位置だけを定義し、発熱パターンは JLCPCB に engineering review で引いてもらう。Gerber パッケージは `hardware/fab/heater/`（zip: `heater-jlcpcb-flex-heater.zip`、個別 gerber は `gerbers/`）。
+
+仕様と意図:
+
+- **外形 Ø55mm**: 熱スタック（aluminum spreader Ø54.5mm、heater seat Ø50.7/Ø57.2mm）に合わせたサイズで、Ø50mm の制御 PCB 基準ではない。spreader を覆い、bottom-tray の heater-seat 段に座り、Ø56.5mm の cup contact pad の下に収まる
+- 電気仕様: `12V` / 約 `12W` / nominal `12Ω`
+- 発熱素子材料の第一候補: FeCrAl 0.05mm（JLCPCB 側で nominal 12Ω に合わせ調整）
+- 底面引き出しパッド 4 つ: `H+`, `NTC`, `NTC_GND`, `H-`
+- 中心 NTC マーカー: board 中央付近の `NTC`
+
+JLCPCB 発注ノート:
+
+- 通常 FR-4 PCB ではなく flexible heater サービスを選ぶ
+- 発熱パターンの routing を JLCPCB に依頼する（アップロード Gerber は Ø55mm 円形・底面引き出しパッド位置・中心 NTC 位置のみ定義）
+- 発熱素子は FeCrAl 0.05mm で製造、または engineering review で routing/材料を調整して 12Ω に合わせる
+- 内蔵 100k NTC（B25/85 約 4260K）を中心 `NTC` マーカー位置に埋め込み依頼（可能なら）
+- ケーブルは底面 lead-pad エリアから引き出す。cupwarmer PCB harness は `H+`, `H-`, `NTC`, `NTC_GND` を個別線として期待する
+- Gerber 寸法は JLCPCB 上で 55mm × 55mm として自動検出されるはず
+
 ## メカニカル設計
 
 位置ずれは `15W` でも性能と `FOD` に効く。
