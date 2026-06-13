@@ -11,7 +11,7 @@ This directory contains a KiCad-generated Gerber package for the external flexib
 
 JLCPCB flexible-heater order notes:
 
-- Upload `gerber/heater-jlcpcb-flex-heater.zip`.
+- Upload `hardware/fab/heater/heater-jlcpcb-flex-heater.zip` (individual gerbers live in `hardware/fab/heater/gerbers/`).
 - Select a flexible heater service, not a normal FR-4 PCB service.
 - Ask JLCPCB to route the heater pattern. The uploaded Gerber only defines the 55 mm circular shape, bottom lead-out pad locations, and requested center NTC location.
 - Ask JLCPCB to manufacture the heating element as FeCrAl 0.05 mm, or adjust routing/material during engineering review to hit 12 ohm.
