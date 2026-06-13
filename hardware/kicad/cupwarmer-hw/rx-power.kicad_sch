@@ -8494,6 +8494,24 @@
 				)
 			)
 		)
+		(property "MPN" "XL-1608SURC-04"
+			(at 237.49 124.46 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C965798"
+			(at 237.49 124.46 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "268833e5-4c42-4650-bd0f-d1093abfe038")
 		)
@@ -8810,6 +8828,24 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "XL-1608UGC-04"
+			(at 140.97 73.66 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C965804"
+			(at 140.97 73.66 0)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
