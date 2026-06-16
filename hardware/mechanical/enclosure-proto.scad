@@ -119,15 +119,18 @@ heater_cable_d = 5.0;
 heater_cable_drop_h = z_heater - (z_pcb + pcb_th);
 heater_cable_slot_clearance = 0.40;
 
-// F1: Bourns NR72CB0, LCSC C183007.
-// Datasheet body envelope: 4.8 x 3.2 x 0.89 mm SMD thermal cutoff.
-// The 1.4 mm stack gap reserves about 0.5 mm installation clearance.
-// JLCPCB flexible-heater service will include the thermal cutoff in the
-// heater assembly. With 3M 468MP on the non-soldering side, F1 is modeled on
-// the heater bottom side, away from the spreader adhesive bond.
-f1_x = 4.8;
-f1_y = 3.2;
-f1_z = 0.89;
+// F1: Xucheng Elec KSD9700-70/5JSB/080C, LCSC C156512 (current part).
+// Leaded bimetal thermostat in a phi 8.9 x 28 mm metal can + 80 mm tinned leads.
+// Reverted from SMD NR72CB0 (C183007) / SA77SB0 (C143808) because the JLCPCB
+// flexible-heater process requires laser welding for those; KSD9700-70 is
+// wire-solderable. JLCPCB heater service includes F1 in the heater assembly,
+// bonded to the heater hotspot in series with H+.
+// WARNING: the f1_* dims below are STALE SMD placeholders (4.8 x 3.2 x 0.89 mm)
+// and the 1.4 mm f1_clearance_gap no longer fits the can. Rework the stack to
+// the can geometry (pocket / relocate F1 off-center) before trusting this model.
+f1_x = 4.8;  // STALE placeholder; real part is a phi 8.9 x 28 mm can
+f1_y = 3.2;  // STALE placeholder
+f1_z = 0.89; // STALE placeholder; can lying flat is ~8.9 mm tall
 f1_corner_r = 0.35;
 f1_on_heater_x = 0;
 f1_on_heater_y = -14.0;
@@ -372,8 +375,10 @@ module rx_coil_reference() {
 }
 
 module f1_reference() {
-  // NR72CB0 C183007 SMD body envelope. JLCPCB heater assembly places
-  // this on the heater bottom side, opposite the non-soldering adhesive side.
+  // STALE SMD-placeholder box (see f1_* dims). Real F1 is KSD9700-70 (C156512),
+  // a phi 8.9 x 28 mm leaded can — this box must be reworked to that geometry.
+  // JLCPCB heater assembly places F1 on the heater bottom side, opposite the
+  // non-soldering adhesive side.
   color([0.05, 0.05, 0.05, 0.85])
     translate([f1_on_heater_x, f1_on_heater_y, f1_on_heater_z])
       rounded_box(f1_x, f1_y, f1_corner_r, f1_z);

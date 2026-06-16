@@ -11,7 +11,7 @@
 | **cup contact pad** | `cup_contact_pad` / `pad_*` | Ø56.5 × 0.80 | カップ底に触れる接触面（凸クラウン）。素材はシリコーン等を評価中 | cup contact layer, cup contact silicone pad, pad（口語可） |
 | **aluminum spreader** | `aluminum_spreader` / `spreader_*` | Ø54.5 × 0.30 | 内部ヒートスプレッダ。cup contact pad の下で熱を面拡散 | internal heat spreader, support plate, metal spreader |
 | **flexible heater** | `flexible_heater` / `heater_*` | Ø55 × 0.35 | JLC フレキヒータ。heater seat 段差に乗る。NTC 内蔵 | heater stack |
-| **F1** | `f1_reference` / `f1_*` | 4.8×3.2×0.89 | Bourns NR72CB0 (C183007) サーマルカットオフ。flexible heater 下面に密着 | thermostat, thermal cutoff（説明補足は可） |
+| **F1** | `f1_reference` / `f1_*` | φ8.9×28（缶）+ 80mm リード | Xucheng Elec KSD9700-70/5JSB/080C (C156512) リード式バイメタルサーモスタット。heater hotspot に密着、H+ 直列。SCAD の f1_reference 寸法は旧 SMD 値のままなので要更新 | thermostat, thermal cutoff（説明補足は可） |
 | **insulation** | `insulation_layer` / `insulation_*` | Ø50 × 0.70 | 下方への熱漏れを抑える断熱層 | insulation sheet |
 | **PCB** | `pcb_reference` / `pcb_*` | Ø50 × 1.0 | メイン基板 | board |
 | **ferrite** | `ferrite_reference` / `ferrite_*` | Ø50 × 0.50 | Qi 磁束シールド | shield |
@@ -44,7 +44,7 @@
 ## 初回で固定すること
 
 - コイル中心と筐体中心を一致させる
-- `F1` は `Bourns NR72CB0` (`C183007`) を使い、internal heat spreader / support plate または heater stack へ密着固定する
+- `F1` は `Xucheng Elec KSD9700-70/5JSB/080C` (`C156512`) を使い、internal heat spreader / support plate または heater stack へ密着固定する
 - heater 内蔵 NTC を `H1` の4線ハーネスで受け、`RX_NTC` へ接続する
 - カップに触れる面へ金属を露出させない
 - 内部 heat spreader / support plate は、カップから完全に隠れる場合に限り thin aluminum を比較候補にする
@@ -66,9 +66,9 @@ heat spreader / heater stack underside
   └─ flexible heater: F1 と heater NTC の位置が組立ごとに再現できるよう基準を持たせる
 ```
 
-F1 は JLCPCB flexible-heater service で heater assembly に組み込む前提にする。低背化のため `Bourns NR72CB0` (`LCSC C183007`) の図面寸法を基準にし、body envelope は `4.8 x 3.2 x 0.89mm` とする。`NR72CB0` は `DC12V/12A` rating の低電圧 DC heater protector として扱い、trip 後 leakage は熱試験で確認する。
+F1 は JLCPCB flexible-heater service で heater assembly に組み込む前提にする。当初は低背化のため SMD の `Bourns NR72CB0` (`C183007`) を候補にしたが、JLC 工程では `NR72CB0` も `SA77SB0` (`C143808`) も laser welding 必須で手はんだ不可だったため、手はんだ可能なリード品 `Xucheng Elec KSD9700-70/5JSB/080C` (`LCSC C156512`) に戻した。body は `φ8.9 × 28mm` 金属缶 + `80mm` 浸錫ワイヤリード。`KSD9700-70` は `AC250V/5A`・`DC12V/12A` rating のバイメタルサーモスタット（trip 70±5°C / reset 50±10°C, 自己復帰 NC）として扱い、trip/reset/再投入挙動を熱試験で確認する。**低背 SMD 前提の `4.8 x 3.2 x 0.89mm` envelope は無効になったので、缶寸法に合わせて機械設計（heater 下クリアランス・スタック高さ）を見直すこと。**
 
-JLC heater の `Adhesive Position = Non-soldering Side` は、heater を internal aluminum spreader へ貼る面として予約する。F1 は heater bottom side、すなわち spreader adhesive bond の反対側に載る前提で扱う。このため heater 下側には F1 body `0.89mm` + installation clearance の逃げを確保し、PCB / insulation と干渉させない。mechanical model では `f1_clearance_gap = 1.4mm` を初期値にする。
+JLC heater の `Adhesive Position = Non-soldering Side` は、heater を internal aluminum spreader へ貼る面として予約する。F1 は heater bottom side、すなわち spreader adhesive bond の反対側に載る前提で扱う。このため heater 下側には F1 body + installation clearance の逃げを確保し、PCB / insulation と干渉させない。**`KSD9700-70` の缶は `φ8.9 × 28mm` と大きく、旧 SMD 前提の `f1_clearance_gap = 1.4mm` では収まらない**。缶を heater 下面に寝かせると約 9mm の高さを食うため、(a) enclosure 側で缶用ポケット/逃げを作る、または (b) F1 を heater 中央から外周・harness 側へ寄せて hotspot 熱結合を別途確保する、のいずれかで再設計する。
 
 固定方法の第一候補:
 
@@ -119,7 +119,7 @@ L1 receiver coil は `Wuerth Elektronik 760308102207` を基準にする。外�
 | Cup contact silicone pad OD | 56-57mm | spreader を完全に覆う |
 | Bottom floor over RX coil | 0.8-1.2mm | Qi 距離を増やしすぎない |
 | Side wall | 1.5-2.0mm | 56mm PCB とのクリアランスは要確認 |
-| F1 clearance gap below heater | 1.4mm | C183007 body `0.89mm` + installation clearance |
+| F1 clearance below heater | 要再設計 | KSD9700-70 缶 `φ8.9 × 28mm`。旧 SMD 前提の 1.4mm は無効。缶用ポケット or F1 を外周/harness 側へ移設 |
 | Bottom tray wall height | ~8.0mm | F1 組込み後の current stack に追従。pad top `~8.25mm` より `0.25mm` 低い |
 | PCB support ribs | 2x, 5.0mm wide x 2.4mm radial | H1/H2 `2.4mm` PCB clearance holes と boss center を一致させる |
 | Stack retention ribs | 4x, 4.0mm wide x ~3.0mm radial | bottom floor から retaining lip / spreader pocket 下面まで。outer tray wall へ接続し、PCB / insulation は外周ノッチで避ける |
@@ -189,6 +189,8 @@ EPP 15W pad と BPP 5W pad で、位置ずれ、金属マグ、カップなし�
 - JLC heater `3M 468MP` / `Non-soldering Side` の向き確認
 - internal aluminum spreader の厚み / OD
 - F1 固定方法の最終選定
+- **F1 缶クリアランス再設計**: F1 が `KSD9700-70` (`φ8.9 × 28mm` 缶) に確定したため、heater 下の薄型スタック（旧 `f1_clearance_gap=1.4mm`）では収まらない。enclosure に缶用ポケット/逃げを作るか、F1 を heater 中央から外周・harness 側へ移設して hotspot 熱結合を別途確保するか決める
+- **SCAD `f1_reference` 寸法更新**: `enclosure-proto.scad` の `f1_x/f1_y/f1_z` は旧 SMD 値の placeholder。`KSD9700-70` 缶寸法に合わせて更新する
 - cup contact layer の具体品番
 - thermal test の実測結果
 - bottom tray の側壁に PCB 上の 2 個の LED を外から視認できる穴 / 導光窓を追加する

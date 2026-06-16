@@ -105,7 +105,7 @@ v2 以降または製品版で必要な制御:
 
 - `NTC_A`: top plate / cup contact temperature は外部ロガーまたは将来センサで観測
 - `NTC_B`: heater 内蔵 NTC (`H1` pin2/pin3 → `RX_NTC` / `SYS_GND`, IC 内蔵 OTP)。board 温度センサではなく、coil / ferrite / top plate / heater stack の hotspot を STWLC38 側へ伝える保護入力として扱う
-- `F1`: independent hardware cutoff。v1 は低背化のため `Bourns NR72CB0` (`LCSC C183007`) を第一候補にする
+- `F1`: independent hardware cutoff。v1 は手はんだ可能なリード品 `Xucheng Elec KSD9700-70/5JSB/080C` (`LCSC C156512`) を採用（低背 SMD 候補は JLC 工程で溶接必須のため不採用、下記参照）
 - `FOD`: Qi 側の停止系として扱う
 
 Heater / F1 接続方針:
@@ -117,19 +117,21 @@ Heater / F1 接続方針:
 - flexible heater、heater NTC、F1 は手実装ワイヤで接続する。v1 では board-to-wire connector や FPC/FFC connector は採用しない
 - `H1` pinout は pin1 `H+`, pin2 `NTC`, pin3 `NTC_GND`, pin4 `H-`。footprint は `SolderWire-HeaterHarness_1x04_P5.0mm_D1.4mm` とし、5.0 mm pitch、heater power pads は drill 1.4 mm、NTC pads は drill 1.0 mm。pad は `12V`, `1A` 連続電流、手はんだ、引張緩和を前提に余裕を持たせる。connector 化は v2/量産検討
 
-F1 採用候補（PDF: `wiki/raw/assets/bourns-nr72cb0-c183007.pdf`）:
+F1 採用品（PDF: `wiki/raw/assets/xc-ksd9700-70-c156512.pdf` / datasheet 要約 `wiki/source-ksd9700-datasheet.md`）:
 
-- 型番/仕様: `Bourns NR72CB0` (`LCSC C183007`)
-- 種別: SMD thermal cutoff / breaker
-- 動作温度: `72 ±5°C`
-- 復帰温度: `40°C min`
-- 定格: `DC12V / 12A`, 6000 cycles
-- 最大電圧条件: `DC28V / 12A`, 100 cycles
-- trip 後 leakage: `150mA max @25°C`
-- body envelope: `4.8 x 3.2 x 0.89mm`
-- 実装: トッププレート裏面 / heater hotspot へ密着。12V heater protector として扱い、trip 後の残留発熱は熱試験で確認する
+- 型番/仕様: `Xucheng Elec KSD9700-70/5JSB/080C` (`LCSC C156512`)
+- 種別: leaded bimetal thermostat（金属缶・自己復帰 NC）
+- 動作温度: `70 ±5°C`
+- 復帰温度: `50 ±10°C`
+- 定格: `AC250V / 5A`、`DC12V / 12A`、`DC24V / 10A`
+- 接触抵抗: `≤50mΩ`
+- body: `φ8.9 × 28mm` 金属缶 + `80mm` 浸錫ワイヤリード（先端 8mm 浸錫）。手はんだ可
+- 認証: `CQC08002022252` / UL / TÜV / EN60730-2-9 / GB14536
+- 実装: heater hotspot へ密着、H+ リード直列。トッププレート裏面 / heater assembly 側に実装し PCB には載せない
 
-今回のヒーター電流は `12V / 12Ω = 1A` 想定なので、NR72CB0 の `DC12V / 12A` contact rating に対して電流余裕は大きい。ただし trip 後 leakage は最大 `150mA @25°C` として指定されるため、v1 熱試験で残留発熱、再投入温度、接点温度を確認する。
+> **F1 部品変更 (2026-06-15)**: 低背化のため一旦 SMD の `Bourns NR72CB0` (`C183007`) を第一候補にしたが、JLCPCB flexible-heater 工程では `NR72CB0` も同等品 `SA77SB0` (`C143808`) も **laser welding 必須・手はんだ不可**（データシートで solder 禁止）と判明。手はんだ可能で 70°C 帯・自己復帰のリード品は JLC 在庫では `KSD9700-70` が事実上最小のため、当初部品である `KSD9700-70/5JSB/080C` (`C156512`) に戻した。代償は低背性で、`φ8.9 × 28mm` 缶は heater 下面の薄いスタックに収まらない → enclosure 側で逃げを作るか F1 を harness 側へ寄せる（Open Items 参照）。
+
+今回のヒーター電流は `12V / 12Ω = 1A` 想定なので、`KSD9700-70` の `DC12V / 12A` 定格・`AC250V / 5A` に対して電圧・電流とも余裕が大きい（SMD 代替品にあった 9V contact rating の懸念も無い）。trip 後は機械接点が完全 open する自己復帰型で、`50 ±10°C` まで冷えると復帰する。v1 熱試験では trip/reset 温度、接点温度、再投入挙動を確認する。
 
 最低 4 層の保護として考える:
 
@@ -378,7 +380,7 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - `VOUT` → heater-control シートへ
 - ヒーター gate 分圧: R1 = 12k (VOUT_12V → Q1.G), R2 = 10k (Q1.G → GND) で VGS ≈ 5.45V。SMBJ15A clamp `VC ≈ 24.4V` 時は VGS ≈ 11.09V (VGS_max ±12V マージン 0.91V)。
 - D3 (B5819W Schottky SOD-123): flyback / freewheel ダイオード。anode=`HEATER_OUT`, cathode=`VOUT_12V`。Q1 OFF 遷移時のヒーターハーネス寄生インダクタンス由来 drain サージを VOUT bulk へ還流させる。
-- F1: `Bourns NR72CB0` (`C183007`) を BOM に反映済み。トッププレート裏面に密着固定し、heater NTC と F1 trip/reset、trip 後 leakage による残留発熱は熱試験で確認する
+- F1: `Xucheng Elec KSD9700-70/5JSB/080C` (`C156512`) を BOM に反映済み。トッププレート裏面 / heater hotspot に密着固定し、heater NTC と F1 trip/reset、再投入挙動を熱試験で確認する
 - OVP TVS:
   - `Z3 = Littelfuse SMBJ15A`（VOUT_12V → cathode、anode → SYS_GND、VR=15V）。VOUT 出口近傍に配置
   - `Z4 = SMBJ18A`（VRECT → cathode、anode → SYS_GND、VR=18V）。VRECT 通常域 13–15V でリーク電流が無視できるよう VR=18V を選定し、VBR≈20V / VC=29.2V@20.55A で VRECT 35V 定格コンデンサに対して余裕を残す。U1 近傍 VRECT バルク帯に配置
@@ -432,7 +434,7 @@ JLCPCB SMT 発注と分離して別ルートで手配が必要な部品 (PCB ＋
 
 | 部品 | 用途 | 候補 | 手配先 | 状態 |
 |---|---|---|---|---|
-| `F1` | 独立ハード遮断 (heater 側実装) | Bourns NR72CB0 | LCSC C183007 | TODO |
+| `F1` | 独立ハード遮断 (heater 側実装) | KSD9700-70/5JSB/080C | LCSC C156512 | TODO |
 | heater (シリコンヒーター本体) | 12Ω 12W 想定 | JLCPCB 専用フォーム (flexheater.jlcpcb.com) | JLCPCB heater 部門 | TODO |
 | `TH2` | heater 内蔵 NTC | Murata NCP18WF104F12RB (C71280) | heater と同時注文で heater に組込 | TODO |
 | `L1` | 8μH Qi RX コイル | Wuerth 760308102207 | Mouser / Digi-Key | TODO |
@@ -456,7 +458,8 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 - ~~heater final resistance~~ → **12Ω 採用（暫定、12V/1A/12W）**。§3・heater README・`generate_heater.py` と一致。連続 1A 前提 (R3 shunt 評価上限・Q1 損失計算) と整合。熱試験で再調整
 - ~~heater footprint~~ → v1 は大型 solder pads / wire pads。外部 heater/F1 series assembly を手実装し、F1 はトッププレート裏面へ密着固定する
 - ~~cup contact layer material~~ → v1 第一候補はアルミナ充填シリコーンパッド。熱伝導シリコーンシート、グラファイトシート + 薄い絶縁フィルムは比較サンプルとして残す
-- ~~hard cutoff implementation choice~~ → F1 は低背 `Bourns NR72CB0` を第一候補に選定（trip `72±5°C`, reset `40°C min`, `DC12V/12A`）
+- ~~hard cutoff implementation choice~~ → F1 は手はんだ可能なリード品 `KSD9700-70/5JSB/080C` (`C156512`) を採用（trip `70±5°C`, reset `50±10°C`, `AC250V/5A`・`DC12V/12A`）。低背 SMD 候補 (`NR72CB0`/`SA77SB0`) は JLC 工程で溶接必須のため不採用
+- **F1 機械的クリアランス**: `KSD9700-70` は `φ8.9 × 28mm` 缶で従来の薄型スタック想定 (`f1_clearance_gap=1.4mm`) に収まらない。enclosure で逃げを作るか F1 を heater 中心から外して harness 側へ寄せ、hotspot 熱結合を別途確保するか要検討
 - **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制。手実装または機構固定を前提にする。詳細な固定候補は `hardware/mechanical/README.md`、熱試験記録は `hardware/test/thermal-test-template.md` に分離
 - ~~VOUT 過電圧保護 TVS~~ → `SMBJ15A` を第一候補に選定（`VR=15V`, `VBR=16.7-18.5V`, `VC=24.4V`, `600W`）
 - ~~LED-2 status indicator~~ → D2/R11 は `RX_VAA → R11(1k) → D2 → U1.F3(GPIO0)` に接続済み。`GPIO0 Func=0x29` (open-drain, active low output) の sink LED として使う。`0x02` input pull-down は LED 駆動ではない。UM3154 の 2.5 V LDO/VAA 外部低電力負荷許容 (20 mA max) に収まるため VAA のまま維持し、`VDD`/`VOUT_12V` へは移動しない。`RX_INTB` は R12 pull-up まで実装し、v1 では専用 header へは出さない。`I_HEATER_MON` は TP2 の 1-pin test point で観測する
