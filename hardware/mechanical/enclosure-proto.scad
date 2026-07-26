@@ -4,8 +4,8 @@
 // This is a mechanical study model, not a production CAD source.
 // It captures the current enclosure intent:
 // - no cup-contact metal
-// - hidden internal aluminum spreader
-// - single-piece resin bottom tray with integrated low retaining lip
+// - direct flat thermal pad on the flexible heater for the first thermal trial
+// - integrated low centering rim, kept away from the pad cup-contact face
 // - heater cable drops internally to the PCB
 // - non-metal Qi-facing bottom shell
 
@@ -25,9 +25,8 @@ show_reference_stack = true;
 
 /* [Visibility] */
 
-show_top_retaining_ring = true;
 show_cup_contact_pad = true;
-show_aluminum_spreader = true;
+show_aluminum_spreader = false;
 show_flexible_heater = true;
 show_insulation = true;
 show_pcb_reference = true;
@@ -43,34 +42,33 @@ $fn = 128;
 enclosure_od = 60.0;
 wall = 1.6;
 bottom_floor_th = 1.0;
-lip_below_pad = 0.25;
 spreader_pocket_od = 55.2;
 spreader_pocket_depth = 0.45;
 
-// Top retaining ring -- a SEPARATE printed part placed after the cup contact
-// pad. Splitting it off the tray removes the single-piece undercut: all parts
-// (incl. the Ø56.5 pad) drop straight into the open tray, then this ring is
-// fitted on top and its inner flange overhangs the pad edge to capture it.
-// PROVISIONAL geometry/height -- joinery to the tray (screws / thread / snap)
-// is still TBD; refine once the fastening method is chosen.
-ring_od = enclosure_od;             // flush with the enclosure outer wall
-ring_inner_od = 54.5;               // overhang the pad (Ø56.5) ~1 mm/side
-ring_th = 0.60;                     // kept below the pad crown so the cup meets the pad
+// Integrated centering rim. It is part of the bottom tray and surrounds the
+// TP-4 without covering it. The rim is intentionally just a low side wall:
+// every stack layer can drop in from the top, and the pad remains replaceable.
+rim_od = enclosure_od;              // flush with the enclosure outer wall
+rim_h = 0.50;                       // rises from pad bottom; well below pad top
+pad_to_rim_radial_gap = 0.00;       // nominal side contact for centering
 
 // Functional round parts.
 // pcb/ferrite/insulation shrink to 50 mm so they pass the heater-seat bore
 // opening and drop to the floor; only the heater/spreader/pad stay ~56 mm.
+use_aluminum_spreader = false;
 pcb_od = 50.0;
 pcb_th = 1.0;
 // Heater stays larger than the 50 mm stack so it lands on the seat step, but
-// trimmed to 55 mm so it clears the 55.6 mm retaining lip for top-loading.
+// trimmed to 55 mm so it clears the centering rim for top-loading.
 heater_od = 55.0;
 heater_th = 0.35;
+pad_od = 55.0;                      // cut TP-4 to sit inside the rim, not under it
+pad_th = 1.00;
+pad_crown_h = 0.00;                 // ARCTIC TP-4 samples are treated as flat sheets
 spreader_od = 54.5;
 spreader_th = 0.30;
-pad_od = 56.5;
-pad_th = 0.80;
-pad_crown_h = 0.45;
+rim_inner_od = pad_od + 2 * pad_to_rim_radial_gap;
+lip_top_below_pad = pad_th - rim_h;
 
 // Qi reference stack.
 // L1: Wuerth Elektronik 760308102207, WE-WPCC Qi RX coil.
@@ -89,8 +87,7 @@ f1_clearance_gap = 1.4;
 radial_clearance = 0.35;
 tray_inner_od = enclosure_od - 2 * wall;
 pcb_clear_od = pcb_od + 2 * radial_clearance;
-heater_clear_od = heater_od + 2 * radial_clearance;
-pad_clear_od = pad_od + 2 * radial_clearance;
+upper_stack_bore_od = rim_inner_od; // straight side wall: no inward ledge/lip
 
 // Z positions in assembled view.
 z_bottom_floor_top = bottom_floor_th;
@@ -100,14 +97,18 @@ z_pcb = z_ferrite + ferrite_th + 0.35;
 z_insulation = z_pcb + pcb_th + 0.25;
 z_heater = z_insulation + insulation_th + f1_clearance_gap;
 z_spreader = z_heater + heater_th;
-z_pad = z_spreader + spreader_th;
-z_ring = z_spreader - 0.20;
-bottom_tray_h = z_pad + pad_th - lip_below_pad;
+z_pad = z_spreader + (use_aluminum_spreader ? spreader_th : 0);
+z_rim = z_pad;
+rim_top_z = z_rim + rim_h;
+tray_body_h = z_rim;
+bottom_tray_h = rim_top_z;
 z_lip_pocket_bottom = z_spreader - spreader_pocket_depth;
 
 // Overall external height: tray floor bottom (z=0) to cup contact pad top.
 overall_height = z_pad + pad_th;
 echo(str("overall height (tray bottom -> pad top) = ", overall_height, " mm"));
+echo(str("integrated centering rim below pad top = ", lip_top_below_pad, " mm"));
+echo(str("pad-to-rim nominal radial gap = ", pad_to_rim_radial_gap, " mm"));
 
 // Heater cable drops internally from the heater underside to PCB pads.
 // Heater J1 pads in hardware/kicad/heater/heater.kicad_pcb are centered at
@@ -271,22 +272,25 @@ module bottom_tray() {
     maybe_cutaway()
       union() {
         difference() {
-          cyl(enclosure_od, bottom_tray_h);
+          cyl(enclosure_od, tray_body_h);
 
           // Stepped bore. Lower bore (pcb_clear_od) clears the 50 mm
           // pcb/ferrite/insulation/coil stack down to the floor. The upper bore
-          // opens to the pad clearance (pad_clear_od) and runs straight from the
-          // heater seat to the rim, so there is NO inward shelf or lip on the
-          // tray -- the wall is a single clean vertical surface and the Ø56.5
-          // pad drops straight in. The step face at z_heater is the heater seat:
-          // the heater lands on it while the 50 mm parts drop through the lower
-          // bore. The floor stays solid for Qi. Pad capture is by the separate
-          // top_retaining_ring fitted afterwards, not by the tray.
+          // opens to the centering-rim inner diameter and runs straight from
+          // the heater seat to the rim base. The step face at
+          // z_heater is the heater seat: the heater lands on it while the 50 mm
+          // parts drop through the lower bore. The floor stays solid for Qi.
+          // Pad lateral location is by the low integrated rim above this body;
+          // the pad is not tucked under or overlapped by the rim.
           translate([0, 0, bottom_floor_th])
             cyl(pcb_clear_od, z_heater - bottom_floor_th);
           translate([0, 0, z_heater])
-            cyl(pad_clear_od, bottom_tray_h - z_heater + 0.20);
+            cyl(upper_stack_bore_od, tray_body_h - z_heater + 0.20);
         }
+
+        // Integrated centering rim, printed as one piece with the tray.
+        translate([0, 0, z_rim])
+          annulus(rim_od, rim_inner_od, rim_h);
 
         // Two local support ribs with half-cylinder bosses rise from the
         // bottom floor and support the PCB outer edge. M2 plastic screws
@@ -300,28 +304,21 @@ module bottom_tray() {
       }
 }
 
-module top_retaining_ring() {
-  // Separate part: rests on the tray rim and overhangs the cup contact pad
-  // edge to retain it. Fitted after the pad is placed, so the inward overhang
-  // is no longer an assembly undercut. PROVISIONAL -- see ring_* constants.
-  color([0.20, 0.20, 0.22, 1.0])
-    maybe_cutaway()
-      translate([0, 0, bottom_tray_h])
-        annulus(ring_od, ring_inner_od, ring_th);
-}
-
 module cup_contact_pad() {
   color([0.88, 0.68, 0.32, 1.0])
     maybe_cutaway()
       union() {
+        // The TP-4 pad is cut to fit inside the centering rim. It is not tucked
+        // under the rim, so the whole pad remains replaceable from above.
         cyl(pad_od, pad_th);
 
-        // Slight convex crown for concave cup bottoms. The retaining ring
-        // intentionally stays below this surface so it does not create a
-        // cup-facing recess.
-        translate([0, 0, pad_th - 0.01])
-          scale([1, 1, pad_crown_h / (pad_od / 2)])
-            sphere(d = pad_od);
+        // Optional future crown. The first TP-4 direct-pad trial keeps this
+        // disabled because the purchased sheets are flat and thin.
+        if (pad_crown_h > 0) {
+          translate([0, 0, pad_th - 0.01])
+            scale([1, 1, pad_crown_h / (pad_od / 2)])
+              sphere(d = pad_od);
+        }
       }
 }
 
@@ -391,10 +388,6 @@ module assembly() {
     bottom_tray();
   }
 
-  if (show_top_retaining_ring) {
-    translate([0, 0, 8 * explode]) top_retaining_ring();
-  }
-
   if (show_reference_stack) {
     if (show_rx_coil_reference) {
       translate([0, 0, z_coil + 1 * explode]) rx_coil_reference();
@@ -412,7 +405,7 @@ module assembly() {
       translate([0, 0, z_heater + 5 * explode]) flexible_heater();
       translate([0, 0, z_heater + 5 * explode]) f1_reference();
     }
-    if (show_aluminum_spreader) {
+    if (use_aluminum_spreader && show_aluminum_spreader) {
       translate([0, 0, z_spreader + 6 * explode]) aluminum_spreader();
     }
     if (show_cup_contact_pad) {

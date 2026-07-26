@@ -452,6 +452,8 @@ v1 の手配は完了済み。以下は実際に発注・受領した内容。
 | `L1` | 8μH Qi RX コイル | Wuerth 760308102207 | DigiKey SO#100070575 (3個) | 到着済 (2026-07-06) |
 | `SHIELD1` | 60×60×0.5mm フェライトシート | Wuerth WE-FSFS 364105 | DigiKey 同注文 (3枚) | 到着済 (2026-07-06) |
 | 組立副資材 | — | Kapton テープ 10mm / 3M SRR-15 両面テープ (粗面用) | DigiKey / Amazon | 到着済 |
+| `MECH-PAD1` 候補 | cup contact pad | ARCTIC TP-4 100×100mm thermal pad samples | Amazon.co.jp | 発注済 (2026-07-26)。厚みは受領品で確認し、`0.5/1.0/1.5mm` 比較候補として扱う |
+| `MECH-INSUL1` 候補 | PCB-heater 間 insulation | TIHONORI 赤いシリコーン発泡シート 500×500mm 厚さ1mm | Amazon.co.jp | 発注済 (2026-07-26)。導電性/ESD品でないことを受領後テスターで確認する |
 | TX パッド | bring-up 用送電側 | Anker Zolo Magnetic Wireless Charging Pad (Qi2 認証, 15W, MagSafe 互換) | Amazon.de (2026-05-06, €19.99) | 到着済 (2026-05-09)。**USB-C PD 電源アダプタは別売・未手配** |
 
 TX パッド選定の注意 (v1 実機評価に効く):
@@ -465,7 +467,7 @@ TX パッド選定の注意 (v1 実機評価に効く):
 - aluminum spreader / top plate、bottom tray・retaining ring の筐体実物 (3D プリント・CNC いずれも未発注)
 - TX パッド用 USB-C PD 電源アダプタ、比較用のマグネットなし EPP TX パッド
 - heater harness の線材・コネクタ
-- TIM (サーマルグリス / ギャップパッド)、cup contact pad の実サンプル
+- TIM (サーマルグリス等。cup contact pad と insulation の初回サンプルは Amazon 発注済み)
 - 熱電対・ベンチ電源などの計測系
 
 ### v1 初回熱スタック評価方針 (2026-07-26)
@@ -474,7 +476,7 @@ TX パッド選定の注意 (v1 実機評価に効く):
 
 ```text
 [Cup]
-[cup contact pad: ARCTIC TP-4 1.0mm / 1.5mm / 0.5mm comparison]
+[cup contact pad: ARCTIC TP-4 flat sheet samples]
 [flexible heater]
 [F1 / TH2 on heater assembly]
 [insulation]
@@ -488,7 +490,9 @@ TX パッド選定の注意 (v1 実機評価に効く):
 
 - I2C bring-up、NVM 状態確認、heater 通電前の安全確認後に、最短で発熱・接触・F1/TH2 応答を観測する
 - aluminum spreader 由来の `FOD` / 渦電流 / 加工ばらつきを初回試験から切り離す
-- カップ底面の曲面に対し、TP-4 の厚み (`0.5mm`, `1.0mm`, `1.5mm`) と軽い圧縮で接触面積がどこまで取れるかを見る
+- カップ底面の曲面に対し、TP-4 の厚み (`0.5mm`, `1.0mm`, `1.5mm` 候補) と軽い圧縮で接触面積がどこまで取れるかを見る
+- TP-4 は薄い thermal pad sheet であり、単体で設計意図どおりの凸面 crown を作る材料ではない。初回 direct-pad 評価では、TP-4 は基本的に平面パッドとして扱い、カップ荷重と一体 rim による横方向の位置決めでカップ底へ追従させる。明確な凸面が必要なら、後続で下地形状または別成形の cup contact pad を検討する
+- top feature は pad を保持する retaining lip ではなく、bottom tray と一体の低い centering rim として扱う。rim は TP-4 の下半分程度を外側から囲むだけで、TP-4 の上面にも外周にも被せない。TP-4 外周は rim 内壁に nominal side contact する寸法で切り、上から置けるようにする。実物では TP-4 の切断精度と造形公差を見て、きつすぎる場合だけ微小な逃げを追加する。初回はカップ荷重と摩擦で十分か確認し、pad の浮きやズレが問題になる場合だけ最小限の仮固定を追加する
 
 制約と合否:
 
