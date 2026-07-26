@@ -495,6 +495,7 @@ TX パッド選定の注意 (v1 実機評価に効く):
 - top feature は pad を保持する retaining lip ではなく、bottom tray と一体の低い centering rim として扱う。rim は TP-4 の下半分程度を外側から囲むだけで、TP-4 の上面にも外周にも被せない。TP-4 外周は rim 内壁に nominal side contact する寸法で切り、上から置けるようにする。実物では TP-4 の切断精度と造形公差を見て、きつすぎる場合だけ微小な逃げを追加する。初回はカップ荷重と摩擦で十分か確認し、pad の浮きやズレが問題になる場合だけ最小限の仮固定を追加する
 - `L1` coil reference は Wuerth `760308102207` の公称 `40 x 40 x 1.2mm` に合っている。現行 PCB の H1/H2 mounting holes は KiCad 実データで中心基準 `(+21,-8)` / `(-21,+8)`、穴径 `2.4mm`。40mm角 coil を中央配置すると、M2 boss (`Ø5mm`) は coil envelope に約 `1.5mm`、PCB穴自体も約 `0.2mm` 入るため、bottom tray の H1/H2 screw bosses は v1 direct-pad enclosure では使わない。SCAD では PCB holes は reference として残し、bottom tray boss は default off にする
 - 40mm角 coil は丸角 `r≈6mm` としても角の最大半径が約 `25.8mm` になるため、旧 lower bore `Ø50.7mm` では4角が約 `0.45mm` 干渉する。v1 direct-pad enclosure では lower stack bore を `Ø52.5mm` 相当に広げ、coil/ferrite に切り欠きを要求する `stack_retention_ribs` も default off にする
+- PCB/ferrite の下面支持は細い rib ではなく、bottom tray の円形内側と RX coil の rounded-rect keepout の間にある左右2面の support shelf で行う。coil の導線はサイドから出るため、上下側には支持面を置かず、leadout と組立の逃げを残す。support shelf は bottom floor から ferrite 下面まで立ち上げ、coil footprint 内には樹脂を置かない
 
 制約と合否:
 

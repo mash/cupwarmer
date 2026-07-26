@@ -91,11 +91,18 @@ coil_corner_max_r = sqrt(2) * (coil_x / 2 - coil_corner_r) + coil_corner_r;
 coil_clear_od = 2 * (coil_corner_max_r + radial_clearance);
 lower_stack_bore_od = max(pcb_clear_od, ferrite_od + 2 * radial_clearance, coil_clear_od);
 upper_stack_bore_od = rim_inner_od; // straight side wall: no inward ledge/lip
+coil_pocket_clearance = 0.35;
+coil_pocket_x = coil_x + 2 * coil_pocket_clearance;
+coil_pocket_y = coil_y + 2 * coil_pocket_clearance;
+coil_pocket_corner_r = coil_corner_r + coil_pocket_clearance;
+lower_stack_support_od = lower_stack_bore_od;
 
 // Z positions in assembled view.
 z_bottom_floor_top = bottom_floor_th;
 z_coil = z_bottom_floor_top + 0.20;
 z_ferrite = z_coil + coil_th + 0.20;
+lower_stack_support_z = z_bottom_floor_top;
+lower_stack_support_h = z_ferrite - lower_stack_support_z;
 z_pcb = z_ferrite + ferrite_th + 0.35;
 z_insulation = z_pcb + pcb_th + 0.25;
 z_heater = z_insulation + insulation_th + f1_clearance_gap;
@@ -113,6 +120,7 @@ echo(str("overall height (tray bottom -> pad top) = ", overall_height, " mm"));
 echo(str("integrated centering rim below pad top = ", lip_top_below_pad, " mm"));
 echo(str("pad-to-rim nominal radial gap = ", pad_to_rim_radial_gap, " mm"));
 echo(str("lower stack bore OD = ", lower_stack_bore_od, " mm"));
+echo(str("coil pocket keepout = ", coil_pocket_x, " x ", coil_pocket_y, " mm"));
 
 // Heater cable drops internally from the heater underside to PCB pads.
 // Heater J1 pads in hardware/kicad/heater/heater.kicad_pcb are centered at
@@ -204,6 +212,23 @@ module rounded_rect_2d(x, y, r) {
 module rounded_box(x, y, r, h) {
   linear_extrude(height = h)
     rounded_rect_2d(x, y, r);
+}
+
+module lower_stack_support_shelf() {
+  // Broad left/right shelves in the margin between the round tray bore and the
+  // rounded-rect RX coil keepout. The top/bottom sides stay open for coil
+  // leadout and assembly clearance.
+  side_shelf_w = (lower_stack_support_od - coil_pocket_x) / 2;
+  translate([0, 0, lower_stack_support_z])
+    intersection() {
+      cyl(lower_stack_support_od, lower_stack_support_h);
+      union() {
+        translate([coil_pocket_x / 2, -lower_stack_support_od / 2, 0])
+          cube([side_shelf_w, lower_stack_support_od, lower_stack_support_h]);
+        translate([-lower_stack_support_od / 2, -lower_stack_support_od / 2, 0])
+          cube([side_shelf_w, lower_stack_support_od, lower_stack_support_h]);
+      }
+    }
 }
 
 module maybe_cutaway() {
@@ -302,6 +327,8 @@ module bottom_tray() {
         // Integrated centering rim, printed as one piece with the tray.
         translate([0, 0, z_rim])
           annulus(rim_od, rim_inner_od, rim_h);
+
+        lower_stack_support_shelf();
 
         // H1/H2-aligned screw bosses are intentionally optional. In the
         // current centered 40x40 mm L1 coil stack they collide with the coil
