@@ -396,8 +396,9 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - LED: D1（給電中インジ、VOUT_12V → R10(3k) → D1(red) → GND、`XL-1608SURC-04` / `C965798`）
 - GPIO0 LED: D2/R11（RX_VAA → R11(100Ω) → D2 → GPIO0、GPIO0 は NVM 設定前提の optional indicator）。DS14078 / UM3154 の GPIO function `0x29` (open-drain, active low output) で GPIO0 を sink 出力として使う前提。`0x02` は input + internal pull-down であり、LED 駆動設定ではない。UM3154 は 2.5 V LDO/VAA を LED 等の低電力外部回路に使えるとし、外部取り出し上限を 20 mA とするため、D2 電流は容量上問題ない。`VDD` は 1.1 V LDO で LED に不向き、`VOUT_12V` は GPIO0 へ 12 V 系を持ち込むため採用しない。
   - **R11 値の根拠 (2026-05-17 改定: 1k → 100Ω)**: 経路は `VAA(2.5V) → R11 → D2 (red XL-1608SURC, Vf typ 1.95V@20mA, low-current では Vf ≈ 1.7–1.85V) → U1.GPIO0 (open-drain sink, VOL ≈ 0.4V@sink)`。順方向電圧マージン = `2.5 − Vf − VOL ≈ 2.5 − 1.8 − 0.4 = 0.3V`。
-    - R11=1k だと I ≈ 0.3mA — XL-1608SURC のデータシート Vf 曲線がほぼ flat になる領域より下で発光が不安定、最悪 LED が消灯したまま見える。さらに GPIO0 が NVM 未設定時に高インピーダンス入力 (function `0x02`, pull-down 内蔵想定) になっている期間中は R11=1k 経由で漏れ電流が pull-down を引いて GPIO0 を不定化させる懸念がある。
-    - R11=100Ω なら I ≈ 3mA で LED が確実に点灯し、XL-1608SURC Vf データシートの 1–5mA 領域 (~1.85V) でマージンが取れる。U1.GPIO0 sink 電流 3mA は VAA LDO の 20mA 上限内、open-drain output の sink 能力 (typ 数 mA 以上) にも余裕。NVM 未設定時に GPIO0 が input pull-down になった場合の漏れも、R11 が小さく VAA 側のソースインピーダンスを下げるため、GPIO0 入力が "logical low" 側に引かれて誤動作するリスクは増えるが、`0x02` は LED 駆動 NVM が書かれていない bring-up 初期だけの状態であり、組立後 NVM 書込み (`0x29`) 完了で正常動作する。**bring-up checklist では NVM 書込前は D2/R11 の VAA 側を切る (R11 を DNP) か、NVM 書込み完了まで電源を入れない手順とする**。
+    - R11=1k だと I ≈ 0.3mA — XL-1608SURC のデータシート Vf 曲線がほぼ flat になる領域より下で発光が不安定、最悪 LED が消灯したまま見える。
+    - R11=100Ω なら I ≈ 3mA で LED が確実に点灯し、XL-1608SURC Vf データシートの 1–5mA 領域 (~1.85V) でマージンが取れる。U1.GPIO0 sink 電流 3mA は VAA LDO の 20mA 上限内、open-drain output の sink 能力 (typ 数 mA 以上) にも余裕。
+    - **訂正 (2026-07-26): GPIO0 の NVM 未設定 default は `0x02` (input + internal pull-down) ではなく `0x00` = Input, FLOATING** (DS14078 p.21 Table 11)。floating なら R11 経由の漏れ電流が引く内部 pull-down が存在しないため、「GPIO0 が不定化する」という旧記述の根拠は成立しない。これに伴い **旧 bring-up 手順「NVM 書込前は R11 を DNP する」は前提が崩れたので撤回する**。D2 は GPIO0 が sink しない限り単に点かないだけで、実害はない
 
 VOUT OVP 候補（PDF: `SMBJ15A.pdf`）:
 
@@ -476,6 +477,54 @@ TX パッド選定の注意 (v1 実機評価に効く):
 
 ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mismatch` 警告のみ。
 
+## NVM 書込み前提 (2026-07-26 調査)
+
+STWLC38 の NVM (RRAM) には **patch (FW) と configuration の 2 セクション**が入る。cupwarmer が必要とする設定はほぼ全部 `CFG` 属性レジスタで、DS14078 p.18 Table 5 が `CFG = accessible through GUI only` と定義するとおり **I2C ランタイム書込みでは持てず、NVM 書込みが必須**。
+
+### NVM 未書込でも動くこと (config 非依存)
+
+- 整流、POVP (VRECT>14V で low-side ON)、HOVP、TSHUT、VAA UVLO (2.0/2.1V)、IEXT SOVP スイッチ本体 (DS14078 p.11 §5.5)
+- VAA 2.5V / VDD 1.1V LDO の立ち上げ (外部 20mA まで)
+- 外部 NTC の**ハード比較器**しきい値 `VNTC,OTP = 0.55/0.59/0.65V`。これは DS14078 Table 4 の電気的特性であって config 値ではない
+- 「デジタルコアが起きるまでは default 設定で動作し、その後 NVM の config をロードする」(UM3154)
+
+### NVM 未書込では動かないこと (すべて `CFG`)
+
+| 項目 | default | cupwarmer の要求 | 効かないと何が起きるか |
+|---|---|---|---|
+| EPP VOUT 設定 | **EPP 9V / BPP 5V** | 12V | `RX EPP VOUT SET` は CFG のみ。**12V が出ずヒーターが設計電力で回らない** |
+| NTC 保護のアクション | — | enable | `RX ADC NTC EN PROT` / `EPT` / `VOUT OFF` が全部 CFG。**分圧が 69°C で当たっても VOUT を切る / EPT を送る動作が保証されない** |
+| FOD 係数 | 未校正 | 校正値 | BPP/EPP の CUR THR1-5、OFFSET0-5、RSER すべて CFG。校正手順は UM3154 §9.4 |
+| GPIO0 Func | `0x00` = Input, FLOATING | `0x29` | `D2` が駆動できない |
+| しきい値群 | — | — | OCP 1.75A / HOVP 16V / SOVP +4V / TSHUT 115°C / `RX THRES NTC` すべて CFG |
+| EPP ネゴシエーション | — | — | `RX NEG` (Extended Protocol 対応) が CFG。`RX MAX POWER` (0x00AB) のみ RW |
+
+**安全上の含意**: B-only fail-safe は「NTC が 69°C で当たったら STWLC38 が止める」前提だが、その止める動作自体が CFG。**NVM 未書込のまま heater を接続して通電してはいけない**。
+
+さらに UM3154 §5.7 は「patch/config がロードされていなければデバイスは通信を開始せず、したがって power transfer は成立しない」と記述する。つまり素の NVM なら継続受電自体が立たず、VRECT/VAA が立つのは ping 中の一過性ということになる。
+
+### 出荷時 NVM 状態は不明 — 最初にこれを読む
+
+**LCSC から来た STWLC38JRM の NVM が ST 工場で書込み済か空かは、DS / UM3154 / wiki のどこにも記述がない。** I2C が通ったら以下を読めば一発で判定できる (DS14078 p.18-19):
+
+- `0x0006-0x0007` NVM Patch ID
+- `0x000A-0x000B` Configuration ID
+- `0x002C/0x002D` NVM boot / CRC / section error
+
+### 書込み手段と、v1 基板での想定外の制約
+
+- 経路は **I2C のみ**。ST の GUI (`STSW-WPSTUDIO`) 経由か、ホスト MCU から `.h` ヘッダを流す 2 通り (UM3154 §4.6 / §9.5)。ファイルは `.memh` (patch / config 各 1 本) または両者を束ねた `.h`。patch は ST の STWLC38 製品ページで配布。RRAM の書換寿命は 1000 回
+- 書込みは **DC mode** で行う。TX から離した状態で **VOUT ピンに 3V 超 (推奨 5V) の外部 DC を印加**する (UM3154 §4.6、DS14078 p.11 §5.7)
+- **`J1` は 4 ピン (`RX_VAA` / `SYS_GND` / `I2C_SDA` / `I2C_SCL`) で VOUT 注入口がない**。`H1.pin1` の wire pad から入れることになる
+- VOUT に 5V を掛けるとゲート分圧 `R1=12k` / `R2=10k` で `VGS ≈ 2.27V` となり AO3400 が半 ON する。**DC mode 書込みは heater 未接続で行う**こと (回路図からの推論。v2 では J1 に VOUT 注入ピンを追加するか、書込み時にゲートを落とす手当てを検討)
+
+### ST / 実機で確認が要る点
+
+- 新品 STWLC38JRM の出荷時 NVM 状態 (上記レジスタで実測)
+- **NTC OTP の二系統問題**: DS Table 4 のハード比較器 0.59V と、DS Table 25 `RX THRES NTC` の「0-2.5V プログラマブル」が別物か同一か。cupwarmer の `R7=51k` 設計はハード側 0.59V 前提なので、**ここが config 依存だと 69°C trip 設計が崩れる**
+- UM3154 Table 9 の "STWLC38 default configuration" が STEVAL ボード固有 config かチップ default か
+- EPP モードで `RX BPP VOUT SET` (RW) を書いた場合に 12V が出るか (EPP 側 CFG が優先されるはずだが要実測)
+
 ## v1 bring-up ステータス (2026-07-26 時点)
 
 - **実装済 PCB を受領し、Qi 給電で LED 点灯を確認**。基板が最低限生きている (受電して電源が立つ) ところまで到達
@@ -493,9 +542,14 @@ ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mism
 
 未記録 (次回作業時に測って追記する):
 
-- 点灯したのが `D1` / `D2` のどちらか (`D2` が点いたなら `GPIO0` が動いている＝NVM 側の議論に進める)
-- `VRECT` / `VOUT_12V` の実測値
-- `R11` を DNP したかどうか。`D2`/`R11` は NVM 未書込時に `GPIO0` を不定化させうるため、bring-up 初期は DNP する手順だった (`docs/plans/202605012319-thermal-bringup-brushup.md`)
+- **点灯が連続だったか点滅だったか** — これが NVM 状態の判定に効く。UM3154 は STEVAL の D7 について「連続＝安定給電、点滅＝通信不安定/電力不足、消灯＝給電なし」と定義しており、**連続点灯なら Qi 通信が成立している＝NVM に有効な patch/config が入っている**ことになる (UM3154 §5.7 の対偶)。数秒周期のフラッシュなら TX の digital ping に同期しているだけで、NVM 未書込と整合する
+- `VRECT` / `VOUT_12V` の実測値。**default が EPP 9V なので、12V が出ていれば NVM は書かれている**
+
+点灯したのは回路構成から **`D1` でほぼ確定**:
+
+- `D1` は `VOUT_12V → R10(3k) → D1 → SYS_GND` で `GPIO0` と無関係。VOUT が立てば点く
+- `D2` は `RX_VAA → R11 → D2 → U1.F3 (GPIO0)` で、`GPIO0` が low へ sink しない限り電流が流れない。NVM 未書込時の `GPIO0` default は `0x00` (floating) なので **`D2` は原理的に点かない**
+- よって今回言えるのは「VOUT LDO が立った」まで。`GPIO0` / NVM については何も言えない
 
 未着手: コイル・ferrite の本固定、heater 接続、`RX_NTC` 分圧の DMM 確認 (`TP1`)、I2C service header (`J1`) 経由の NVM 書込、熱試験一式
 
