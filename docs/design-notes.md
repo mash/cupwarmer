@@ -125,11 +125,11 @@ F1 採用品（PDF: `wiki/raw/assets/xc-ksd9700-70-c156512.pdf` / datasheet 要�
 - 復帰温度: `50 ±10°C`
 - 定格: `AC250V / 5A`、`DC12V / 12A`、`DC24V / 10A`
 - 接触抵抗: `≤50mΩ`
-- body: `φ8.9 × 28mm` 金属缶 + `80mm` 浸錫ワイヤリード（先端 8mm 浸錫）。手はんだ可
+- body: 外装包絡 `28 × 8.9 × 5.1mm`、内部can相当 `20 × 7.5 × 3.7mm` + `80mm` 浸錫ワイヤリード（先端 8mm 浸錫）。手はんだ可
 - 認証: `CQC08002022252` / UL / TÜV / EN60730-2-9 / GB14536
 - 実装: heater hotspot へ密着、H+ リード直列。トッププレート裏面 / heater assembly 側に実装し PCB には載せない
 
-> **F1 部品変更 (2026-06-15)**: 低背化のため一旦 SMD の `Bourns NR72CB0` (`C183007`) を第一候補にしたが、JLCPCB flexible-heater 工程では `NR72CB0` も同等品 `SA77SB0` (`C143808`) も **laser welding 必須・手はんだ不可**（データシートで solder 禁止）と判明。手はんだ可能で 70°C 帯・自己復帰のリード品は JLC 在庫では `KSD9700-70` が事実上最小のため、当初部品である `KSD9700-70/5JSB/080C` (`C156512`) に戻した。代償は低背性で、`φ8.9 × 28mm` 缶は heater 下面の薄いスタックに収まらない → enclosure 側で逃げを作るか F1 を harness 側へ寄せる（Open Items 参照）。
+> **F1 部品変更 (2026-06-15)**: 低背化のため一旦 SMD の `Bourns NR72CB0` (`C183007`) を第一候補にしたが、JLCPCB flexible-heater 工程では `NR72CB0` も同等品 `SA77SB0` (`C143808`) も **laser welding 必須・手はんだ不可**（データシートで solder 禁止）と判明。手はんだ可能で 70°C 帯・自己復帰のリード品は JLC 在庫では `KSD9700-70` が事実上最小のため、当初部品である `KSD9700-70/5JSB/080C` (`C156512`) に戻した。代償は低背性で、`28 × 8.9 × 5.1mm` 外装包絡を heater 下面に横置きすると `5.7mm` 程度の heater 下クリアランスが必要になる。低背化する場合は F1 を harness 側へ寄せる（Open Items 参照）。
 
 今回のヒーター電流は `12V / 12Ω = 1A` 想定なので、`KSD9700-70` の `DC12V / 12A` 定格・`AC250V / 5A` に対して電圧・電流とも余裕が大きい（SMD 代替品にあった 9V contact rating の懸念も無い）。trip 後は機械接点が完全 open する自己復帰型で、`50 ±10°C` まで冷えると復帰する。v1 熱試験では trip/reset 温度、接点温度、再投入挙動を確認する。
 
@@ -446,7 +446,7 @@ v1 の手配は完了済み。以下は実際に発注・受領した内容。
 |---|---|---|---|---|
 | 制御 PCB + SMT | Ø50mm 4層 1.6mm厚 + 実装 5枚 | `cupwarmer-hw-gerbers_Y7` | JLCPCB W2026061317320516 (SMT026061360485) | 到着済 (2026-06-22 発送)。X線検査済、指摘なし |
 | `U1` | STWLC38JRM | — | JLCPCB parts 先行手配 POB0202605270340260 (5個) | PCBA で消費済 |
-| heater | Ø55mm 12V/12Ω/12W | JLCPCB flexible heater | JLCPCB W2026061317360571 / FH2026061328500004 (1枚) | 到着済 (2026-06-23 発送) |
+| heater | Ø55mm 12V/12Ω/12W, silicone film 0.5mm | JLCPCB flexible heater | JLCPCB W2026061317360571 / FH2026061328500004 (1枚) | 到着済 (2026-06-23 発送) |
 | `F1` | 独立ハード遮断 | KSD9700-70/5JSB/080C (C156512) | heater 組込として JLC が調達・実装 | heater に同梱。**単体予備なし** |
 | `TH2` | heater 内蔵 NTC | Murata NCP18WF104F12RB (C71280) 指定 | heater 組込 | heater に同梱。実装 MPN は受領品で要確認 |
 | `L1` | 8μH Qi RX コイル | Wuerth 760308102207 | DigiKey SO#100070575 (3個) | 到着済 (2026-07-06) |
@@ -492,11 +492,13 @@ TX パッド選定の注意 (v1 実機評価に効く):
 - aluminum spreader 由来の `FOD` / 渦電流 / 加工ばらつきを初回試験から切り離す
 - カップ底面の曲面に対し、TP-4 の厚み (`0.5mm`, `1.0mm`, `1.5mm` 候補) と軽い圧縮で接触面積がどこまで取れるかを見る
 - TP-4 は薄い thermal pad sheet であり、単体で設計意図どおりの凸面 crown を作る材料ではない。初回 direct-pad 評価では、TP-4 は基本的に平面パッドとして扱い、カップ荷重と一体 rim による横方向の位置決めでカップ底へ追従させる。明確な凸面が必要なら、後続で下地形状または別成形の cup contact pad を検討する
-- top feature は pad を保持する retaining lip ではなく、bottom tray と一体の低い centering rim として扱う。rim は TP-4 の下半分程度を外側から囲むだけで、TP-4 の上面にも外周にも被せない。TP-4 外周は rim 内壁に nominal side contact する寸法で切り、上から置けるようにする。実物では TP-4 の切断精度と造形公差を見て、きつすぎる場合だけ微小な逃げを追加する。初回はカップ荷重と摩擦で十分か確認し、pad の浮きやズレが問題になる場合だけ最小限の仮固定を追加する
+- top feature は pad を保持する retaining lip ではなく、bottom tray と一体の低い centering rim として扱う。rim は TP-4 の下半分程度を外側から囲むだけで、TP-4 の上面にも外周にも被せない。TP-4 外周は上から置けるようにし、3Dプリント公差と手切りTP-4のばらつきを見て `0.25mm` radial gap を初期値にする。初回はカップ荷重と摩擦で十分か確認し、pad の浮きやズレが問題になる場合だけ最小限の仮固定を追加する
+- JLCPCB flexible-heater 注文詳細では `Silicone Film Thickness = 0.5mm`。OpenSCAD の `heater_th` も 0.5mm に合わせる。注文詳細画面の thermostat switch は当初選択 `C183007` だが、JLCPCB email review で `C183007` / `C143808` はレーザー溶接必須として不適合、最終的に `C156512` へ変更して進行承認済み
 - `L1` coil reference は Wuerth `760308102207` の公称 `40 x 40 x 1.2mm` に合っている。現行 PCB の H1/H2 mounting holes は KiCad 実データで中心基準 `(+21,-8)` / `(-21,+8)`、穴径 `2.4mm`。40mm角 coil を中央配置すると、M2 boss (`Ø5mm`) は coil envelope に約 `1.5mm`、PCB穴自体も約 `0.2mm` 入るため、bottom tray の H1/H2 screw bosses は v1 direct-pad enclosure では使わない。SCAD では PCB holes は reference として残し、bottom tray boss は default off にする
 - JLCPCB の実発注詳細では制御PCB厚は `1.6mm`。OpenSCAD の `pcb_th` も 1.6mm に合わせる。KiCad の Gerber job metadata に残る `BoardThickness=1.18` は発注時のJLC選択値ではないため、筐体モデルでは実物優先で扱う
 - 40mm角 coil は丸角 `r≈6mm` としても角の最大半径が約 `25.8mm` になるため、旧 lower bore `Ø50.7mm` では4角が約 `0.45mm` 干渉する。v1 direct-pad enclosure では lower stack bore を `Ø52.5mm` 相当に広げ、coil/ferrite に切り欠きを要求する `stack_retention_ribs` も default off にする
 - PCB/ferrite の下面支持は細い rib ではなく、bottom tray の円形内側と RX coil の rounded-rect keepout の間にある左右2面の support shelf で行う。coil の導線はサイドから出るため、上下側には支持面を置かず、leadout と組立の逃げを残す。support shelf は bottom floor から ferrite 下面まで立ち上げ、coil footprint 内には樹脂を置かない
+- bottom floor は初回3Dプリントでは `1.2mm` にする。Qi距離を増やしすぎない範囲の上限だが、`1.0mm` より反り・薄肉破損リスクを下げられるため、MJF/SLS PA12等の非金属樹脂試作ではこの値を優先する
 
 制約と合否:
 
@@ -604,7 +606,7 @@ STWLC38 の NVM (RRAM) には **patch (FW) と configuration の 2 セクショ�
 - ~~heater footprint~~ → v1 は大型 solder pads / wire pads。外部 heater/F1 series assembly を手実装し、F1 はトッププレート裏面へ密着固定する
 - ~~cup contact layer material~~ → v1 第一候補はアルミナ充填シリコーンパッド。熱伝導シリコーンシート、グラファイトシート + 薄い絶縁フィルムは比較サンプルとして残す
 - ~~hard cutoff implementation choice~~ → F1 は手はんだ可能なリード品 `KSD9700-70/5JSB/080C` (`C156512`) を採用（trip `70±5°C`, reset `50±10°C`, `AC250V/5A`・`DC12V/12A`）。低背 SMD 候補 (`NR72CB0`/`SA77SB0`) は JLC 工程で溶接必須のため不採用
-- **F1 機械的クリアランス**: `KSD9700-70` は `φ8.9 × 28mm` 缶で従来の薄型スタック想定 (`f1_clearance_gap=1.4mm`) に収まらない。enclosure で逃げを作るか F1 を heater 中心から外して harness 側へ寄せ、hotspot 熱結合を別途確保するか要検討
+- **F1 機械的クリアランス**: `KSD9700-70` は外装包絡 `28 × 8.9 × 5.1mm`。現行SCADでは heater 下面に横置きし、`f1_clearance_gap=5.7mm` で実寸参照する。低背化が必要なら F1 を heater 中心から外して harness 側へ寄せ、hotspot 熱結合を別途確保するか要検討
 - **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制。手実装または機構固定を前提にする。詳細な固定候補は `hardware/mechanical/README.md`、熱試験記録は `hardware/test/thermal-test-template.md` に分離
 - ~~VOUT 過電圧保護 TVS~~ → `SMBJ15A` を第一候補に選定（`VR=15V`, `VBR=16.7-18.5V`, `VC=24.4V`, `600W`）
 - ~~LED-2 status indicator~~ → D2/R11 は `RX_VAA → R11(1k) → D2 → U1.F3(GPIO0)` に接続済み。`GPIO0 Func=0x29` (open-drain, active low output) の sink LED として使う。`0x02` input pull-down は LED 駆動ではない。UM3154 の 2.5 V LDO/VAA 外部低電力負荷許容 (20 mA max) に収まるため VAA のまま維持し、`VDD`/`VOUT_12V` へは移動しない。`RX_INTB` は R12 pull-up まで実装し、v1 では専用 header へは出さない。`I_HEATER_MON` は TP2 の 1-pin test point で観測する

@@ -41,7 +41,7 @@ $fn = 128;
 // Main envelope.
 enclosure_od = 60.0;
 wall = 1.6;
-bottom_floor_th = 1.0;
+bottom_floor_th = 1.2;
 spreader_pocket_od = 55.2;
 spreader_pocket_depth = 0.45;
 
@@ -50,7 +50,7 @@ spreader_pocket_depth = 0.45;
 // every stack layer can drop in from the top, and the pad remains replaceable.
 rim_od = enclosure_od;              // flush with the enclosure outer wall
 rim_h = 0.50;                       // rises from pad bottom; well below pad top
-pad_to_rim_radial_gap = 0.00;       // nominal side contact for centering
+pad_to_rim_radial_gap = 0.25;       // clearance for printed rim and hand-cut TP-4
 
 // Functional round parts.
 // pcb/ferrite/insulation shrink to 50 mm so they pass the heater-seat bore
@@ -62,7 +62,8 @@ pcb_th = 1.6;
 // Heater stays larger than the 50 mm stack so it lands on the seat step, but
 // trimmed to 55 mm so it clears the centering rim for top-loading.
 heater_od = 55.0;
-heater_th = 0.35;
+// JLCPCB flex-heater order W2026061317360571 uses 0.5 mm silicone film.
+heater_th = 0.50;
 pad_od = 55.0;                      // cut TP-4 to sit inside the rim, not under it
 pad_th = 1.00;
 pad_crown_h = 0.00;                 // ARCTIC TP-4 samples are treated as flat sheets
@@ -82,7 +83,19 @@ ferrite_od = 50.0;
 ferrite_th = 0.50;
 insulation_od = 50.0;
 insulation_th = 0.70;
-f1_clearance_gap = 1.4;
+
+// F1: Xucheng Elec KSD9700-70/5JSB/080C, LCSC C156512.
+// Datasheet envelope is about 28 x 8.9 x 5.1 mm including sleeve.
+// The protected can inside is about 20 x 7.5 x 3.7 mm. Model the larger sleeve
+// envelope lying flat on the heater underside, with the long axis along X.
+f1_body_l = 28.0;
+f1_body_w = 8.9;
+f1_body_h = 5.1;
+f1_body_r = 2.0;
+f1_install_clearance = 0.6;
+f1_clearance_gap = f1_body_h + f1_install_clearance;
+f1_lead_d = 0.8;
+f1_lead_visible_l = 8.0;
 
 // Assembly clearances.
 radial_clearance = 0.35;
@@ -133,22 +146,14 @@ heater_cable_d = 5.0;
 heater_cable_drop_h = z_heater - (z_pcb + pcb_th);
 heater_cable_slot_clearance = 0.40;
 
-// F1: Xucheng Elec KSD9700-70/5JSB/080C, LCSC C156512 (current part).
-// Leaded bimetal thermostat in a phi 8.9 x 28 mm metal can + 80 mm tinned leads.
+// F1 placement reference.
 // Reverted from SMD NR72CB0 (C183007) / SA77SB0 (C143808) because the JLCPCB
 // flexible-heater process requires laser welding for those; KSD9700-70 is
 // wire-solderable. JLCPCB heater service includes F1 in the heater assembly,
 // bonded to the heater hotspot in series with H+.
-// WARNING: the f1_* dims below are STALE SMD placeholders (4.8 x 3.2 x 0.89 mm)
-// and the 1.4 mm f1_clearance_gap no longer fits the can. Rework the stack to
-// the can geometry (pocket / relocate F1 off-center) before trusting this model.
-f1_x = 4.8;  // STALE placeholder; real part is a phi 8.9 x 28 mm can
-f1_y = 3.2;  // STALE placeholder
-f1_z = 0.89; // STALE placeholder; can lying flat is ~8.9 mm tall
-f1_corner_r = 0.35;
 f1_on_heater_x = 0;
 f1_on_heater_y = -14.0;
-f1_on_heater_z = -f1_z;
+f1_on_heater_z = -f1_body_h;
 
 // PCB support. H1/H2 are KiCad mounting holes on the 50 mm PCB, expressed
 // relative to the board/enclosure center at (100,100) in cupwarmer-hw.kicad_pcb.
@@ -192,6 +197,11 @@ stack_retention_slot_clearance = 0.35;
 
 module cyl(d, h) {
   cylinder(d = d, h = h);
+}
+
+module cyl_x(d, l) {
+  rotate([0, 90, 0])
+    cylinder(d = d, h = l, center = true);
 }
 
 module annulus(od, id, h) {
@@ -412,13 +422,23 @@ module rx_coil_reference() {
 }
 
 module f1_reference() {
-  // STALE SMD-placeholder box (see f1_* dims). Real F1 is KSD9700-70 (C156512),
-  // a phi 8.9 x 28 mm leaded can — this box must be reworked to that geometry.
-  // JLCPCB heater assembly places F1 on the heater bottom side, opposite the
-  // non-soldering adhesive side.
-  color([0.05, 0.05, 0.05, 1.0])
-    translate([f1_on_heater_x, f1_on_heater_y, f1_on_heater_z])
-      rounded_box(f1_x, f1_y, f1_corner_r, f1_z);
+  // JLCPCB heater assembly places F1 on the heater bottom side.
+  maybe_cutaway()
+    union() {
+      color([0.05, 0.05, 0.05, 1.0])
+        translate([f1_on_heater_x, f1_on_heater_y, f1_on_heater_z])
+          rounded_box(f1_body_l, f1_body_w, f1_body_r, f1_body_h);
+
+      color([0.75, 0.72, 0.65, 1.0])
+        for (offset = [-1.85, 1.85]) {
+          translate([
+            f1_on_heater_x - f1_body_l / 2 - f1_lead_visible_l / 2,
+            f1_on_heater_y + offset,
+            f1_on_heater_z + f1_body_h / 2
+          ])
+            cyl_x(f1_lead_d, f1_lead_visible_l);
+        }
+    }
 }
 
 module assembly() {
