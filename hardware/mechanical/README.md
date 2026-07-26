@@ -147,6 +147,8 @@ JLC flexible heater 注文時の候補:
 
 発注前に、lead-pad side と `Non-soldering Side` の向きを確認し、粘着面が aluminum spreader 側になり、lead exit が組立可能な向きになることを確認する。
 
+v1 は 2026-06-13 に発注済み (JLCPCB `FH2026061328500004`、2026-06-23 発送)。受領品で adhesive の有無・貼付面が上記どおりか、および engineering review で変更された NTC の dot adhesive 実装位置を実測で確認すること。review の詳細は `docs/design-notes.md` の「v1 engineering review の結果」を参照。
+
 ## Cup contact layer 評価
 
 v1 の第一候補はアルミナ充填シリコーンパッド。目的はカップ底面の湾曲に追従し、接触熱抵抗を下げつつ、Qi コイル近傍に大きな金属を置かないこと。

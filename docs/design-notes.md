@@ -202,6 +202,15 @@ JLCPCB 発注ノート:
 - ケーブルは底面 lead-pad エリアから引き出す。cupwarmer PCB harness は `H+`, `H-`, `NTC`, `NTC_GND` を個別線として期待する
 - Gerber 寸法は JLCPCB 上で 55mm × 55mm として自動検出されるはず
 
+#### v1 engineering review の結果 (2026-06-15, FH2026061328500004)
+
+JLCPCB heater 部門から 4 点の指摘があり、以下で合意して製造に入った。v2 の Gerber / 図面にはこれらを最初から織り込む。
+
+- **F1 (サーマルスイッチ) の実装位置**: 図面に指定がなかったため追記が必要だった。回答は「NTC 近傍・中央、NTC と同一面」
+- **NTC の封止方式変更**: 指定 NTC (`NCP18WF104F12RB`) は JLCPCB のシリコンパッド封止プロセスに通せない。**dot adhesive (点接着) 方式に変更**して製造。「中央ホットスポットで良好な接触を保ち、約 80°C で接着が保つこと」を条件に承諾した。熱応答と長期の接着信頼性は実機で要確認
+- **サーマルスイッチの実装制約**: 当初選定品と代案 `Bourns SA77SB0` (`C143808`) はいずれもレーザー溶接必須で手はんだ不可。JLC 提案の `KSD9700-70/5JSB/080C` (`C156512`) を採用した (12V/1A・70°C trip・最低背という要求に対する JLC カタログ内の最善解)
+- **ヒーターパッドの寸法調整**: シリコンヒーターパッドが相対的に大きいとの指摘。製造都合でのパッドサイズ・位置調整を許可した。実物の pad 位置は受領品で実測すること
+
 ## メカニカル設計
 
 位置ずれは `15W` でも性能と `FOD` に効く。
@@ -428,24 +437,69 @@ R3 / STWLC38JRM ADC 方針:
 - TH2 → `RX_NTC` (R7=51k と分圧、STWLC38 内蔵 OTP 入力)。70°C 時の NTC 抵抗は約15.36kΩで、理想値は `R7 = R_NTC × (2.5V / 0.59V - 1) ≈ 49.7kΩ`。51k は JLCPCB basic (`C23196`, `0603WAF5102T5E`) で、実装時の trip 目安は threshold min/typ/max で約71.8/69.3/65.8°C
 - BOM 初回照合: `bom.csv` は回路図 ref に合わせて heater harness, F1, TH2, Q1, R1/R2/R3/R7, LED/TVS/coil 周辺部品を反映済み。`TH2` は基板上 SMT 部品ではなく、JLCPCB silicone heater と同時注文する外部 heater NTC として BOM に残す。メカ部品 (`MECH-*`) も同じ `bom.csv` に統合し、JLCPCB / Seeed Fusion 発注時に SMT 形式へ抽出する
 
-### Off-board 部品 手配チェックリスト (2026-05-17 追記)
+### v1 手配実績 (2026-05-17 チェックリスト作成 → 2026-07-26 実績で更新)
 
-JLCPCB SMT 発注と分離して別ルートで手配が必要な部品 (PCB ＋ SMT 実装到着までに揃わないと bring-up が止まる):
+v1 の手配は完了済み。以下は実際に発注・受領した内容。
 
-| 部品 | 用途 | 候補 | 手配先 | 状態 |
+| 部品 | 用途 | 採用品 | 手配先 / 注文番号 | 状態 |
 |---|---|---|---|---|
-| `F1` | 独立ハード遮断 (heater 側実装) | KSD9700-70/5JSB/080C | LCSC C156512 | TODO |
-| heater (シリコンヒーター本体) | 12Ω 12W 想定 | JLCPCB 専用フォーム (flexheater.jlcpcb.com) | JLCPCB heater 部門 | TODO |
-| `TH2` | heater 内蔵 NTC | Murata NCP18WF104F12RB (C71280) | heater と同時注文で heater に組込 | TODO |
-| `L1` | 8μH Qi RX コイル | Wuerth 760308102207 | Mouser / Digi-Key | TODO |
-| `SHIELD1` | 60×60×0.5mm フェライトシート | Wuerth WE-FSFS 364105 | Wuerth distributor / Digi-Key | TODO |
+| 制御 PCB + SMT | Ø50mm 4層 + 実装 5枚 | `cupwarmer-hw-gerbers_Y7` | JLCPCB W2026061317320516 (SMT026061360485) | 到着済 (2026-06-22 発送)。X線検査済、指摘なし |
+| `U1` | STWLC38JRM | — | JLCPCB parts 先行手配 POB0202605270340260 (5個) | PCBA で消費済 |
+| heater | Ø55mm 12V/12Ω/12W | JLCPCB flexible heater | JLCPCB W2026061317360571 / FH2026061328500004 (1枚) | 到着済 (2026-06-23 発送) |
+| `F1` | 独立ハード遮断 | KSD9700-70/5JSB/080C (C156512) | heater 組込として JLC が調達・実装 | heater に同梱。**単体予備なし** |
+| `TH2` | heater 内蔵 NTC | Murata NCP18WF104F12RB (C71280) 指定 | heater 組込 | heater に同梱。実装 MPN は受領品で要確認 |
+| `L1` | 8μH Qi RX コイル | Wuerth 760308102207 | DigiKey SO#100070575 (3個) | 到着済 (2026-07-06) |
+| `SHIELD1` | 60×60×0.5mm フェライトシート | Wuerth WE-FSFS 364105 | DigiKey 同注文 (3枚) | 到着済 (2026-07-06) |
+| 組立副資材 | — | Kapton テープ 10mm / 3M SRR-15 両面テープ (粗面用) | DigiKey / Amazon | 到着済 |
+| TX パッド | bring-up 用送電側 | Anker Zolo Magnetic Wireless Charging Pad (Qi2 認証, 15W, MagSafe 互換) | Amazon.de (2026-05-06, €19.99) | 到着済 (2026-05-09)。**USB-C PD 電源アダプタは別売・未手配** |
 
-発注時のルール:
-- JLCPCB PCB+SMT 発注の **前に** 手配ステータスを確認し、リードタイム最長のもの (通常 heater + ferrite) を先行発注する
-- F1 と heater は同じ heater アセンブリ上に手実装するため、両方が揃わないと bring-up できない
+TX パッド選定の注意 (v1 実機評価に効く):
+
+- Qi2 **MPP** 認証パッドで**マグネットアレイ内蔵**。cupwarmer RX 側にマグネットは無いため、TX は MPP をネゴシエートできず EPP / BPP へフォールバックする想定。設計方針の EPP 15W 評価に使えるかは実測で確認する
+- TX 側マグネットアレイは RX コイル直下の磁性・金属構造物になるため、結合係数と `FOD` 挙動に効く。マグネットなしの EPP パッドとの比較サンプルを 1 台用意したほうがよい
+- 電源アダプタ別売。15W を引くには相応の USB-C PD 電源が要る
+
+未発注 (bring-up・熱試験に必要):
+
+- aluminum spreader / top plate、bottom tray・retaining ring の筐体実物 (3D プリント・CNC いずれも未発注)
+- TX パッド用 USB-C PD 電源アダプタ、比較用のマグネットなし EPP TX パッド
+- heater harness の線材・コネクタ
+- TIM (サーマルグリス / ギャップパッド)、cup contact pad の実サンプル
+- 熱電対・ベンチ電源などの計測系
+
+次回発注時のルール:
+- `U1` (STWLC38JRM) は JLC 無在庫。**parts 先行手配 → Private Inventory が "Complete" 表示 → PCBA 発注** の順を踏む必要がある (quote → pre-order → 入庫まで v1 では 5/25〜5/30)
+- リードタイム最長のもの (通常 heater + ferrite) を先行発注する
+- F1 と heater は同じ heater アセンブリ上に実装されるため、両方が揃わないと bring-up できない
 - coil + ferrite は実装後の L/Q/DCR/FOD 実測で構成変更の可能性あり、予備在庫を 1.5–2 倍持っておく
+- **v1 は heater・F1・TH2 が 1 台分のみで予備がない**。熱試験で焼損すると JLC heater の再手配に約 10 日 + 輸送がかかる
 
 ERC エラー: **0 件**。残りはローカルシンボルの `lib_symbol_mismatch` 警告のみ。
+
+## v1 bring-up ステータス (2026-07-26 時点)
+
+- **実装済 PCB を受領し、Qi 給電で LED 点灯を確認**。基板が最低限生きている (受電して電源が立つ) ところまで到達
+
+試験条件 (暫定・仮組み):
+
+- TX: Anker Zolo Qi2 15W パッド
+- RX: **裸の実装済 PCB をパッドに直置き**。コイル `L1` はリード線を手で剥いて基板のスルーホールに押し当てただけで、**はんだ付けなし**
+- ferrite (`SHIELD1`) なし、aluminum spreader なし、heater 未接続、筐体なし
+
+この結果から言えること / 言えないこと:
+
+- 言える: 受電経路が生きており、整流と VAA 系が立ち上がる。極性部品が致命的に逆付けではない (JLC CPL 回転リスクの一次クリア)
+- 言えない: 接触抵抗が不定、コイルの位置・向き・浮きが不定、ferrite なしで `L`/`Q` が設計値と乖離しているため、`VRECT`・効率・`FOD` の定量評価には一切使えない。共振設計 (`Cs=320nF`) の妥当性もこの試験では判定できない
+
+未記録 (次回作業時に測って追記する):
+
+- 点灯したのが `D1` / `D2` のどちらか (`D2` が点いたなら `GPIO0` が動いている＝NVM 側の議論に進める)
+- `VRECT` / `VOUT_12V` の実測値
+- `R11` を DNP したかどうか。`D2`/`R11` は NVM 未書込時に `GPIO0` を不定化させうるため、bring-up 初期は DNP する手順だった (`docs/plans/202605012319-thermal-bringup-brushup.md`)
+
+未着手: コイル・ferrite の本固定、heater 接続、`RX_NTC` 分圧の DMM 確認 (`TP1`)、I2C service header (`J1`) 経由の NVM 書込、熱試験一式
+
+ブロッカー: 筐体実物・harness 線材・TIM・PD 電源アダプタが未手配のため、スタック組立を伴う定量試験には入れない
 
 ## Open Items
 
