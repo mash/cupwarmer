@@ -468,6 +468,35 @@ TX パッド選定の注意 (v1 実機評価に効く):
 - TIM (サーマルグリス / ギャップパッド)、cup contact pad の実サンプル
 - 熱電対・ベンチ電源などの計測系
 
+### v1 初回熱スタック評価方針 (2026-07-26)
+
+初回の機構・熱評価は、加工が必要な `aluminum spreader` を後回しにし、`cup contact pad` を `flexible heater` の上へ直接載せる最小構成から始める。
+
+```text
+[Cup]
+[cup contact pad: ARCTIC TP-4 1.0mm / 1.5mm / 0.5mm comparison]
+[flexible heater]
+[F1 / TH2 on heater assembly]
+[insulation]
+[PCB]
+[ferrite]
+[RX coil]
+[bottom tray / temporary fixture]
+```
+
+この direct-pad 構成の目的:
+
+- I2C bring-up、NVM 状態確認、heater 通電前の安全確認後に、最短で発熱・接触・F1/TH2 応答を観測する
+- aluminum spreader 由来の `FOD` / 渦電流 / 加工ばらつきを初回試験から切り離す
+- カップ底面の曲面に対し、TP-4 の厚み (`0.5mm`, `1.0mm`, `1.5mm`) と軽い圧縮で接触面積がどこまで取れるかを見る
+
+制約と合否:
+
+- `aluminum spreader` なしでは heater pattern の局所発熱が cup contact pad 表面へ出やすい。top surface、F1 body、TH2/RX_NTC、coil/ferrite edge を熱電対で同時監視する
+- `cup contact pad` は全面接着しない。外周保持または仮固定に留め、カップ荷重で軽く圧縮する
+- カップなし通電は禁止。NVM / NTC protection / VOUT 実測が確認できるまでは heater を接続しない
+- 表面温度ムラ、F1/TH2 との温度相関、カップへの熱流が悪ければ、次段で `TP-4 + aluminum spreader + flexible heater` 構成を比較する
+
 次回発注時のルール:
 - `U1` (STWLC38JRM) は JLC 無在庫。**parts 先行手配 → Private Inventory が "Complete" 表示 → PCBA 発注** の順を踏む必要がある (quote → pre-order → 入庫まで v1 では 5/25〜5/30)
 - リードタイム最長のもの (通常 heater + ferrite) を先行発注する
