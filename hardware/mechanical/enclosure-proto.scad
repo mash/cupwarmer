@@ -42,15 +42,13 @@ $fn = 128;
 enclosure_od = 60.0;
 wall = 1.6;
 bottom_floor_th = 1.2;
-spreader_pocket_od = 55.2;
-spreader_pocket_depth = 0.45;
 
 // Integrated centering rim. It is part of the bottom tray and surrounds the
 // TP-4 without covering it. The rim is intentionally just a low side wall:
 // every stack layer can drop in from the top, and the pad remains replaceable.
 rim_od = enclosure_od;              // flush with the enclosure outer wall
 rim_h = 0.50;                       // rises from pad bottom; well below pad top
-pad_to_rim_radial_gap = 0.25;       // clearance for printed rim and hand-cut TP-4
+pad_to_rim_radial_gap = 0.40;       // clearance for printed rim and hand-cut TP-4
 
 // Functional round parts.
 // pcb/ferrite/insulation shrink to 50 mm so they pass the heater-seat bore
@@ -70,7 +68,7 @@ pad_crown_h = 0.00;                 // ARCTIC TP-4 samples are treated as flat s
 spreader_od = 54.5;
 spreader_th = 0.30;
 rim_inner_od = pad_od + 2 * pad_to_rim_radial_gap;
-lip_top_below_pad = pad_th - rim_h;
+rim_top_below_pad = pad_th - rim_h;
 
 // Qi reference stack.
 // L1: Wuerth Elektronik 760308102207, WE-WPCC Qi RX coil.
@@ -126,12 +124,11 @@ z_rim = z_pad;
 rim_top_z = z_rim + rim_h;
 tray_body_h = z_rim;
 bottom_tray_h = rim_top_z;
-z_lip_pocket_bottom = z_spreader - spreader_pocket_depth;
 
 // Overall external height: tray floor bottom (z=0) to cup contact pad top.
 overall_height = z_pad + pad_th;
 echo(str("overall height (tray bottom -> pad top) = ", overall_height, " mm"));
-echo(str("integrated centering rim below pad top = ", lip_top_below_pad, " mm"));
+echo(str("integrated centering rim below pad top = ", rim_top_below_pad, " mm"));
 echo(str("pad-to-rim nominal radial gap = ", pad_to_rim_radial_gap, " mm"));
 echo(str("lower stack bore OD = ", lower_stack_bore_od, " mm"));
 echo(str("coil pocket keepout = ", coil_pocket_x, " x ", coil_pocket_y, " mm"));
@@ -180,20 +177,6 @@ pcb_support_h = z_pcb - bottom_floor_th;
 pcb_support_boss_d = pcb_support_rib_w;
 pcb_support_pilot_d = 1.7;
 pcb_support_pilot_depth = 4.0;
-
-// Taller stack retention ribs. These collide with the centered 40x40 mm coil
-// unless the coil/ferrite are notched, so they are disabled in the v1 direct-pad
-// enclosure model. Keep the geometry for later revisions if perimeter datum
-// ribs are still useful after the coil support strategy is settled.
-use_stack_retention_ribs = false;
-stack_retention_rib_count = 4;
-stack_retention_rib_angle0 = 30;
-stack_retention_rib_w = 4.0;
-stack_retention_outer_r = enclosure_od / 2 - wall;
-stack_retention_rib_depth = stack_retention_outer_r - (spreader_pocket_od / 2 - 0.2 - 2.0);
-stack_retention_inner_r = stack_retention_outer_r - stack_retention_rib_depth;
-stack_retention_rib_h = z_lip_pocket_bottom - bottom_floor_th;
-stack_retention_slot_clearance = 0.35;
 
 module cyl(d, h) {
   cylinder(d = d, h = h);
@@ -254,14 +237,6 @@ module maybe_cutaway() {
   }
 }
 
-module stack_retention_ribs() {
-  for (i = [0 : stack_retention_rib_count - 1]) {
-    rotate([0, 0, i * 360 / stack_retention_rib_count + stack_retention_rib_angle0])
-      translate([stack_retention_inner_r, -stack_retention_rib_w / 2, bottom_floor_th])
-        cube([stack_retention_rib_depth, stack_retention_rib_w, stack_retention_rib_h]);
-  }
-}
-
 module pcb_support_ribs() {
   for (i = [0 : pcb_support_rib_count - 1]) {
     support_xy = pcb_support_holes[i];
@@ -302,18 +277,6 @@ module heater_cable_insulation_slot(h) {
     ]);
 }
 
-module stack_retention_edge_slots(h) {
-  slot_inner_r = stack_retention_inner_r - stack_retention_slot_clearance;
-  slot_depth = stack_retention_rib_depth + 2 * stack_retention_slot_clearance;
-  slot_w = stack_retention_rib_w + 2 * stack_retention_slot_clearance;
-
-  for (i = [0 : stack_retention_rib_count - 1]) {
-    rotate([0, 0, i * 360 / stack_retention_rib_count + stack_retention_rib_angle0])
-      translate([slot_inner_r, -slot_w / 2, -0.05])
-        cube([slot_depth, slot_w, h + 0.10]);
-  }
-}
-
 module bottom_tray() {
   color([0.18, 0.18, 0.18, 1.0])
     maybe_cutaway()
@@ -348,9 +311,6 @@ module bottom_tray() {
           pcb_support_ribs();
         }
 
-        if (use_stack_retention_ribs) {
-          stack_retention_ribs();
-        }
       }
 }
 
@@ -394,7 +354,6 @@ module insulation_layer() {
     maybe_cutaway()
       difference() {
         cyl(insulation_od, insulation_th);
-        stack_retention_edge_slots(insulation_th);
         heater_cable_insulation_slot(insulation_th);
       }
 }
@@ -404,7 +363,6 @@ module pcb_reference() {
     maybe_cutaway()
       difference() {
         cyl(pcb_od, pcb_th);
-        stack_retention_edge_slots(pcb_th);
         pcb_mounting_hole_cutouts(pcb_th);
       }
 }

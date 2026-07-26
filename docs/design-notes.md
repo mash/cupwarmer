@@ -16,14 +16,14 @@
 ```text
 [カップ]
    |
-[トッププレート] ← 熱伝導面（F1 を裏面に密着、温度ロガーは外付け）
-[熱拡散層 / ヒーター層]
+[cup contact pad] ← 熱伝導面（温度ロガーは外付け）
+[aluminum spreader（比較候補） / flexible heater]
+[F1 / heater NTC] ← heater assembly側。H1 4線ハーネス経由で RX_NTC へ入力
 [断熱層]
 [制御PCB] ← Qi 受電 + 電力制御
-[heater NTC] ← H1 4線ハーネス経由で RX_NTC へ入力
 [フェライトシート]
 [Qi 受電コイル]
-[底面シェル]
+[bottom tray]
    |
 [Qi EPP 15W 送電パッド]
 ```
@@ -86,7 +86,7 @@
   - Q1 候補: `AO3400` (SOT-23, RDS(ON)=28mΩ@VGS=10V, VGS_max ±12V)。I_heater = 0.8A での損失 ≈ 18mW で熱的に余裕。VGS マージンを上げたい場合は VGS ±20V 品（`DMN3404L` / `NTR4170N` 等）に置換。
 - 製品固有の温調ロジックは初版のスコープ外
 - `ENB` は未使用時 `GND` 固定を基本にする
-- `RX_NTC` には heater 内蔵 NTC (`TH2`) を接続し、R7 (51k → RX_VAA) と分圧する。STWLC38 DS14078 Table 4 の external NTC OTP threshold は `VNTC,OTP = 0.55/0.59/0.65V` (typ 0.59V) なので、`NCP18WF104F12RB` (R25=100k, B25/85=4260K) の約69°C で threshold に到達するよう R7 を選ぶ。DS14078 §10.4 の意図に合わせ、この入力は基板温度ではなく coil / ferrite / top plate / heater stack の過熱保護として扱う。`TH2` は基板上 SMT 部品ではなく、JLCPCB silicone heater 注文時に heater と同じ MPN 指定で一緒に手配する外部 NTC として BOM に残す
+- `RX_NTC` には heater 内蔵 NTC (`TH2`) を接続し、R7 (51k → RX_VAA) と分圧する。STWLC38 DS14078 Table 4 の external NTC OTP threshold は `VNTC,OTP = 0.55/0.59/0.65V` (typ 0.59V) なので、`NCP18WF104F12RB` (R25=100k, B25/85=4260K) の約69°C で threshold に到達するよう R7 を選ぶ。DS14078 §10.4 の意図に合わせ、この入力は基板温度ではなく coil / ferrite / cup contact pad / heater stack の過熱保護として扱う。`TH2` は基板上 SMT 部品ではなく、JLCPCB silicone heater 注文時に heater と同じ MPN 指定で一緒に手配する外部 NTC として BOM に残す
 - `INTB` は optional な bring-up / service 観測線として扱う
 - `IEXT` は `RCL + TVS` の clamp path を前提にする
 
@@ -103,15 +103,15 @@ v2 以降または製品版で必要な制御:
 
 ### 5. 保護方針
 
-- `NTC_A`: top plate / cup contact temperature は外部ロガーまたは将来センサで観測
-- `NTC_B`: heater 内蔵 NTC (`H1` pin2/pin3 → `RX_NTC` / `SYS_GND`, IC 内蔵 OTP)。board 温度センサではなく、coil / ferrite / top plate / heater stack の hotspot を STWLC38 側へ伝える保護入力として扱う
+- `NTC_A`: cup contact pad / cup contact temperature は外部ロガーまたは将来センサで観測
+- `NTC_B`: heater 内蔵 NTC (`H1` pin2/pin3 → `RX_NTC` / `SYS_GND`, IC 内蔵 OTP)。board 温度センサではなく、coil / ferrite / cup contact pad / heater stack の hotspot を STWLC38 側へ伝える保護入力として扱う
 - `F1`: independent hardware cutoff。v1 は手はんだ可能なリード品 `Xucheng Elec KSD9700-70/5JSB/080C` (`LCSC C156512`) を採用（低背 SMD 候補は JLC 工程で溶接必須のため不採用、下記参照）
 - `FOD`: Qi 側の停止系として扱う
 
 Heater / F1 接続方針:
 
 - v1 の `H1` footprint は heater power と heater NTC を同じ組立物として受ける4線大型 solder pads / wire pads として扱う
-- 接続順は `VOUT_12V -> F1 -> heater -> Q1 drain`。F1 は PCB 上に寝かせず、トッププレート裏面へ密着固定する
+- 接続順は `VOUT_12V -> F1 -> heater -> Q1 drain`。F1 は PCB 上に寝かせず、heater assembly 側で heater hotspot へ密着固定する
 - PCB 側には Q1 の近傍に **D3 (B5819W Schottky, SOD-123)** を flyback 還流ダイオードとして実装する。anode = `HEATER_OUT` (Q1.drain / H1.pin4)、cathode = `VOUT_12V` (H1.pin1)。Q1 OFF 時にハーネス寄生インダクタンスによる drain サージを VOUT へ還流させ、Q1 VDS を保護する
 - **F1 は heater アセンブリ側に実装する**。すなわち PCB 上には F1 用フットプリントを置かず、heater ピグテール (H+ 側) の途中に F1 を直列実装してからユーザーが H1.pin1 に半田付けする運用とする。PCB の H1.pin1 ネット名は VOUT_12V のままだが、heater 組立物 (heater + TH2 + F1) を一体として扱うことで Layer-4 独立ハード遮断を担保する。組立手順書とハーネス BOM に F1 の挿入位置 (heater H+ リード途中) を明記すること
 - flexible heater、heater NTC、F1 は手実装ワイヤで接続する。v1 では board-to-wire connector や FPC/FFC connector は採用しない
@@ -127,7 +127,7 @@ F1 採用品（PDF: `wiki/raw/assets/xc-ksd9700-70-c156512.pdf` / datasheet 要�
 - 接触抵抗: `≤50mΩ`
 - body: 外装包絡 `28 × 8.9 × 5.1mm`、内部can相当 `20 × 7.5 × 3.7mm` + `80mm` 浸錫ワイヤリード（先端 8mm 浸錫）。手はんだ可
 - 認証: `CQC08002022252` / UL / TÜV / EN60730-2-9 / GB14536
-- 実装: heater hotspot へ密着、H+ リード直列。トッププレート裏面 / heater assembly 側に実装し PCB には載せない
+- 実装: heater hotspot へ密着、H+ リード直列。heater assembly 側に実装し PCB には載せない
 
 > **F1 部品変更 (2026-06-15)**: 低背化のため一旦 SMD の `Bourns NR72CB0` (`C183007`) を第一候補にしたが、JLCPCB flexible-heater 工程では `NR72CB0` も同等品 `SA77SB0` (`C143808`) も **laser welding 必須・手はんだ不可**（データシートで solder 禁止）と判明。手はんだ可能で 70°C 帯・自己復帰のリード品は JLC 在庫では `KSD9700-70` が事実上最小のため、当初部品である `KSD9700-70/5JSB/080C` (`C156512`) に戻した。代償は低背性で、`28 × 8.9 × 5.1mm` 外装包絡を heater 下面に横置きすると `5.7mm` 程度の heater 下クリアランスが必要になる。低背化する場合は F1 を harness 側へ寄せる（Open Items 参照）。
 
@@ -187,7 +187,7 @@ F1 採用品（PDF: `wiki/raw/assets/xc-ksd9700-70-c156512.pdf` / datasheet 要�
 
 仕様と意図:
 
-- **外形 Ø55mm**: 熱スタック（aluminum spreader Ø54.5mm、heater seat Ø50.7/Ø57.2mm）に合わせたサイズで、Ø50mm の制御 PCB 基準ではない。spreader を覆い、bottom-tray の heater-seat 段に座り、Ø56.5mm の cup contact pad の下に収まる
+- **外形 Ø55mm**: 熱スタック（cup contact pad Ø55.0mm、aluminum spreader Ø54.5mm、heater seat 下部Ø52.3mm / 上部Ø55.8mm）に合わせたサイズで、Ø50mm の制御 PCB 基準ではない。spreader を覆い、bottom tray の heater-seat 段に座り、integrated centering rim 内へ上から落とし込める
 - 電気仕様: `12V` / 約 `12W` / nominal `12Ω`
 - 発熱素子材料の第一候補: FeCrAl 0.05mm（JLCPCB 側で nominal 12Ω に合わせ調整）
 - 底面引き出しパッド 4 つ: `H+`, `NTC`, `NTC_GND`, `H-`
@@ -227,7 +227,7 @@ JLCPCB heater 部門から 4 点の指摘があり、以下で合意して製造
 `FOD` は `15W` でも重要。次を分けて評価する。
 
 - 金属製カップ底面
-- 金属トッププレート
+- 内部 aluminum spreader
 - 位置ずれ
 - コイルからの距離増加
 - ヒーター材の損失
@@ -283,7 +283,7 @@ JLCPCB heater 部門から 4 点の指摘があり、以下で合意して製造
 - `via-in-pad` などは設計前に外注 DFM で確定
 - **筐体外径 φ60mm を上限**にする（2026-05-04 改定）。実機カップ底面（陶器マグ複数）を
   巻尺で測ったところ概ね `60mm` 前後のため、デバイス全体がカップ底に収まる外観を
-  優先する。筐体壁厚 `1.5-2mm` 想定で、**PCB 外形は φ56mm（半径 28mm）を上限**とする。
+  優先する。現行v1の制御PCB外形は **φ50mm** とし、heater / cup contact pad だけをφ55mm級にする。
 - Qi RX コイル本体 φ35mm はフェライト + スタンドオフで PCB 上空数 mm に浮かせる。
   外周リム 10.5mm では U1 + 受動全部は収まらないため、**U1 と周辺受動はコイル直下
   （PCB 中央寄り）に配置してよい**。これは Qi RX 設計の標準レイアウトで、コイルから
@@ -291,8 +291,8 @@ JLCPCB heater 部門から 4 点の指摘があり、以下で合意して製造
   限り問題ない。F1/H1/L1 半田パッドはコイル外周外（リム）に置いてピグテール線を
   外に出す。
 - **heater pigtail 引き出し方向の制約 (2026-05-17 追記)**: H1 ピグテール (H+, H-, NTC, NTC_GND の 4 線) は **PCB エッジに対して垂直に外側へ** 引き出し、PCB を回り込ませない。pigtail loop が L1 コイル磁束を切るような経路 (例: H1 から PCB エッジに沿って横方向 → 上方向 → 反対側、と PCB 周囲を半周以上巡る) は禁止。AC 1次磁束 (~100kHz, 数 mT) が pigtail loop を貫くと数 V 級の誘導電圧が乗り、Qi 送電機の FOD が金属異物として誤検出して送電停止する。組立指示書に「heater 線は H1 から最短距離で PCB 外へ出し、コイル中心側を横切らない」と明記すること。
-- cup contact layer と coil の距離は最小化しつつ、金属干渉は後で実測する
-- カップ側は湾曲している可能性が高いため、硬い平板 top plate ではなく、曲面追従できる柔軟な thermal interface / cup contact layer を優先して評価する
+- cup contact pad と coil の距離は最小化しつつ、金属干渉は後で実測する
+- カップ側は湾曲している可能性が高いため、硬い平板ではなく、曲面追従できる柔軟な thermal interface / cup contact pad を優先して評価する
 - v1 第一候補はアルミナ充填シリコーンパッドにする。電気絶縁性、曲面追従、熱伝導、Qi 近傍での扱いやすさのバランスを優先する
 - 比較サンプル候補:
   - 熱伝導シリコーンシート
@@ -320,7 +320,7 @@ flowchart TB
         RX[STWLC38JRM<br/>Qi RX / 整流 / 制御]
         VOUT[VOUT 12V]
         GATE[heater-control<br/>MOSFET + current path]
-        HEATER[ヒーター / top plate]
+        HEATER[flexible heater / cup contact pad]
 
         TX --> COIL
         COIL --> RX
@@ -331,7 +331,7 @@ flowchart TB
 
     subgraph PROTECT[Protection]
         direction LR
-        NTCA[NTC_A<br/>top plate]
+        NTCA[NTC_A<br/>cup contact pad]
         NTCB[NTC_B<br/>power hotspot]
         F1[F1<br/>独立ハード遮断]
         FOD[FOD / thermal protection]
@@ -389,7 +389,7 @@ DS14078 Figure 13 / Table 36 に合わせた修正後の状態:
 - `VOUT` → heater-control シートへ
 - ヒーター gate 分圧: R1 = 12k (VOUT_12V → Q1.G), R2 = 10k (Q1.G → GND) で VGS ≈ 5.45V。SMBJ15A clamp `VC ≈ 24.4V` 時は VGS ≈ 11.09V (VGS_max ±12V マージン 0.91V)。
 - D3 (B5819W Schottky SOD-123): flyback / freewheel ダイオード。anode=`HEATER_OUT`, cathode=`VOUT_12V`。Q1 OFF 遷移時のヒーターハーネス寄生インダクタンス由来 drain サージを VOUT bulk へ還流させる。
-- F1: `Xucheng Elec KSD9700-70/5JSB/080C` (`C156512`) を BOM に反映済み。トッププレート裏面 / heater hotspot に密着固定し、heater NTC と F1 trip/reset、再投入挙動を熱試験で確認する
+- F1: `Xucheng Elec KSD9700-70/5JSB/080C` (`C156512`) を BOM に反映済み。heater assembly 側で heater hotspot に密着固定し、heater NTC と F1 trip/reset、再投入挙動を熱試験で確認する
 - OVP TVS:
   - `Z3 = Littelfuse SMBJ15A`（VOUT_12V → cathode、anode → SYS_GND、VR=15V）。VOUT 出口近傍に配置
   - `Z4 = SMBJ18A`（VRECT → cathode、anode → SYS_GND、VR=18V）。VRECT 通常域 13–15V でリーク電流が無視できるよう VR=18V を選定し、VBR≈20V / VC=29.2V@20.55A で VRECT 35V 定格コンデンサに対して余裕を残す。U1 近傍 VRECT バルク帯に配置
@@ -464,7 +464,7 @@ TX パッド選定の注意 (v1 実機評価に効く):
 
 未発注 (bring-up・熱試験に必要):
 
-- aluminum spreader / top plate、bottom tray・retaining ring の筐体実物 (3D プリント・CNC いずれも未発注)
+- aluminum spreader、bottom tray 一体の integrated centering rim を含む筐体実物 (3D プリント・CNC いずれも未発注)
 - TX パッド用 USB-C PD 電源アダプタ、比較用のマグネットなし EPP TX パッド
 - heater harness の線材・コネクタ
 - TIM (サーマルグリス等。cup contact pad と insulation の初回サンプルは Amazon 発注済み)
@@ -492,11 +492,11 @@ TX パッド選定の注意 (v1 実機評価に効く):
 - aluminum spreader 由来の `FOD` / 渦電流 / 加工ばらつきを初回試験から切り離す
 - カップ底面の曲面に対し、TP-4 の厚み (`0.5mm`, `1.0mm`, `1.5mm` 候補) と軽い圧縮で接触面積がどこまで取れるかを見る
 - TP-4 は薄い thermal pad sheet であり、単体で設計意図どおりの凸面 crown を作る材料ではない。初回 direct-pad 評価では、TP-4 は基本的に平面パッドとして扱い、カップ荷重と一体 rim による横方向の位置決めでカップ底へ追従させる。明確な凸面が必要なら、後続で下地形状または別成形の cup contact pad を検討する
-- top feature は pad を保持する retaining lip ではなく、bottom tray と一体の低い centering rim として扱う。rim は TP-4 の下半分程度を外側から囲むだけで、TP-4 の上面にも外周にも被せない。TP-4 外周は上から置けるようにし、3Dプリント公差と手切りTP-4のばらつきを見て `0.25mm` radial gap を初期値にする。初回はカップ荷重と摩擦で十分か確認し、pad の浮きやズレが問題になる場合だけ最小限の仮固定を追加する
+- top feature は pad を上から押さえるリップではなく、bottom tray と一体の低い integrated centering rim として扱う。rim は TP-4 の下半分程度を外側から囲むだけで、TP-4 の上面にも外周にも被せない。TP-4 外周は上から置けるようにし、DMM PA12 MJFの造形公差と手切りTP-4のばらつきを見て `0.40mm` radial gap を初期値にする。初回はカップ荷重と摩擦で十分か確認し、pad の浮きやズレが問題になる場合だけ最小限の仮固定を追加する
 - JLCPCB flexible-heater 注文詳細では `Silicone Film Thickness = 0.5mm`。OpenSCAD の `heater_th` も 0.5mm に合わせる。注文詳細画面の thermostat switch は当初選択 `C183007` だが、JLCPCB email review で `C183007` / `C143808` はレーザー溶接必須として不適合、最終的に `C156512` へ変更して進行承認済み
 - `L1` coil reference は Wuerth `760308102207` の公称 `40 x 40 x 1.2mm` に合っている。現行 PCB の H1/H2 mounting holes は KiCad 実データで中心基準 `(+21,-8)` / `(-21,+8)`、穴径 `2.4mm`。40mm角 coil を中央配置すると、M2 boss (`Ø5mm`) は coil envelope に約 `1.5mm`、PCB穴自体も約 `0.2mm` 入るため、bottom tray の H1/H2 screw bosses は v1 direct-pad enclosure では使わない。SCAD では PCB holes は reference として残し、bottom tray boss は default off にする
 - JLCPCB の実発注詳細では制御PCB厚は `1.6mm`。OpenSCAD の `pcb_th` も 1.6mm に合わせる。KiCad の Gerber job metadata に残る `BoardThickness=1.18` は発注時のJLC選択値ではないため、筐体モデルでは実物優先で扱う
-- 40mm角 coil は丸角 `r≈6mm` としても角の最大半径が約 `25.8mm` になるため、旧 lower bore `Ø50.7mm` では4角が約 `0.45mm` 干渉する。v1 direct-pad enclosure では lower stack bore を `Ø52.5mm` 相当に広げ、coil/ferrite に切り欠きを要求する `stack_retention_ribs` も default off にする
+- 40mm角 coil は丸角 `r≈6mm` としても角の最大半径が約 `25.8mm` になるため、旧 lower bore `Ø50.7mm` では4角が約 `0.45mm` 干渉する。v1 direct-pad enclosure では lower stack bore を `Ø52.3mm` 相当に広げ、coil/ferrite に切り欠きを要求する旧 `stack_retention_ribs` はSCADから削除する
 - PCB/ferrite の下面支持は細い rib ではなく、bottom tray の円形内側と RX coil の rounded-rect keepout の間にある左右2面の support shelf で行う。coil の導線はサイドから出るため、上下側には支持面を置かず、leadout と組立の逃げを残す。support shelf は bottom floor から ferrite 下面まで立ち上げ、coil footprint 内には樹脂を置かない
 - bottom floor は初回3Dプリントでは `1.2mm` にする。Qi距離を増やしすぎない範囲の上限だが、`1.0mm` より反り・薄肉破損リスクを下げられるため、MJF/SLS PA12等の非金属樹脂試作ではこの値を優先する
 
@@ -603,11 +603,11 @@ STWLC38 の NVM (RRAM) には **patch (FW) と configuration の 2 セクショ�
 - **Cs 誘電体 3×100 nF C0G 1206 で確定 (2026-05-05)**: C1/C16/C17 (Cs primary 3×100 nF) は **Murata GRM31C5C1H104JA01L (LCSC C97946)**、100 nF 50 V C0G ±5% 1206 に更新済み。cup warmer は heater H1 + コイル損失で基板常時温間動作のため、X7R の温度 ±15% + DC bias 容量減で共振ドリフト → 効率低下・VRECT 変動。C0G (NP0、±30 ppm/°C、DC bias 影響なし) が必須。サイズは小さいほど良いが、JLCPCB DB 検索の結果 **100 nF/50 V C0G は 0603・0805 ともに存在せず、1206 のみ入手可**（C0G 体積効率の物理制約）。22 nF C0G 0805 多並列で代替する案は ~14 個必要 (35 mm²) で 3×1206 (15.4 mm²) より大幅にスペース消費。AC1/AC2 differential ~42 V peak のため 50 V 維持必須 (25 V 化で 0603/0805 を狙う案は不採用)。C18/C19 (10 nF NP0 0603) は既に C0G なので維持。
 - **Cd (C15) 削除 (2026-05-05)**: UM3154 §9.1.2 で「Cd は省略可、Qi 認証時の特定 TX への後方互換用途のみ」と明記。cupwarmer は Qi 認証取得しない方針なので C15 (3.3 nF NP0 / Walsin 0603N332J500CT) を sch + PCB + BOM から削除。共振点は Cd 付きの並列共振ではなく Cs 直列共振 (8 µH × 320 nF = ~99.5 kHz、`C18`/`C19` 修正前提) に依存。Cs/Cd 並列共振の変動要素が一つ減る。
 - ~~heater final resistance~~ → **12Ω 採用（暫定、12V/1A/12W）**。§3・heater README・`generate_heater.py` と一致。連続 1A 前提 (R3 shunt 評価上限・Q1 損失計算) と整合。熱試験で再調整
-- ~~heater footprint~~ → v1 は大型 solder pads / wire pads。外部 heater/F1 series assembly を手実装し、F1 はトッププレート裏面へ密着固定する
-- ~~cup contact layer material~~ → v1 第一候補はアルミナ充填シリコーンパッド。熱伝導シリコーンシート、グラファイトシート + 薄い絶縁フィルムは比較サンプルとして残す
+- ~~heater footprint~~ → v1 は大型 solder pads / wire pads。外部 heater/F1 series assembly を手実装し、F1 は heater assembly 側で heater hotspot へ密着固定する
+- ~~cup contact pad material~~ → v1 第一候補はアルミナ充填シリコーンパッド。熱伝導シリコーンシート、グラファイトシート + 薄い絶縁フィルムは比較サンプルとして残す
 - ~~hard cutoff implementation choice~~ → F1 は手はんだ可能なリード品 `KSD9700-70/5JSB/080C` (`C156512`) を採用（trip `70±5°C`, reset `50±10°C`, `AC250V/5A`・`DC12V/12A`）。低背 SMD 候補 (`NR72CB0`/`SA77SB0`) は JLC 工程で溶接必須のため不採用
 - **F1 機械的クリアランス**: `KSD9700-70` は外装包絡 `28 × 8.9 × 5.1mm`。現行SCADでは heater 下面に横置きし、`f1_clearance_gap=5.7mm` で実寸参照する。低背化が必要なら F1 を heater 中心から外して harness 側へ寄せ、hotspot 熱結合を別途確保するか要検討
-- **F1 取付**: トッププレート裏面に密着させオーバーシュート抑制。手実装または機構固定を前提にする。詳細な固定候補は `hardware/mechanical/README.md`、熱試験記録は `hardware/test/thermal-test-template.md` に分離
+- **F1 取付**: heater assembly 側で heater hotspot に密着させオーバーシュートを抑制する。手実装または機構固定を前提にする。詳細な固定候補は `hardware/mechanical/README.md`、熱試験記録は `hardware/test/thermal-test-template.md` に分離
 - ~~VOUT 過電圧保護 TVS~~ → `SMBJ15A` を第一候補に選定（`VR=15V`, `VBR=16.7-18.5V`, `VC=24.4V`, `600W`）
 - ~~LED-2 status indicator~~ → D2/R11 は `RX_VAA → R11(1k) → D2 → U1.F3(GPIO0)` に接続済み。`GPIO0 Func=0x29` (open-drain, active low output) の sink LED として使う。`0x02` input pull-down は LED 駆動ではない。UM3154 の 2.5 V LDO/VAA 外部低電力負荷許容 (20 mA max) に収まるため VAA のまま維持し、`VDD`/`VOUT_12V` へは移動しない。`RX_INTB` は R12 pull-up まで実装し、v1 では専用 header へは出さない。`I_HEATER_MON` は TP2 の 1-pin test point で観測する
 - ~~R3 電流センス~~ → v1 通常実装は `0Ω`。評価時のみ `0.05Ω` に差し替えてベンチ測定する。STWLC38JRM には R3 を読ませない
