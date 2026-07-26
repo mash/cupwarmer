@@ -87,6 +87,9 @@ f1_clearance_gap = 1.4;
 radial_clearance = 0.35;
 tray_inner_od = enclosure_od - 2 * wall;
 pcb_clear_od = pcb_od + 2 * radial_clearance;
+coil_corner_max_r = sqrt(2) * (coil_x / 2 - coil_corner_r) + coil_corner_r;
+coil_clear_od = 2 * (coil_corner_max_r + radial_clearance);
+lower_stack_bore_od = max(pcb_clear_od, ferrite_od + 2 * radial_clearance, coil_clear_od);
 upper_stack_bore_od = rim_inner_od; // straight side wall: no inward ledge/lip
 
 // Z positions in assembled view.
@@ -109,6 +112,7 @@ overall_height = z_pad + pad_th;
 echo(str("overall height (tray bottom -> pad top) = ", overall_height, " mm"));
 echo(str("integrated centering rim below pad top = ", lip_top_below_pad, " mm"));
 echo(str("pad-to-rim nominal radial gap = ", pad_to_rim_radial_gap, " mm"));
+echo(str("lower stack bore OD = ", lower_stack_bore_od, " mm"));
 
 // Heater cable drops internally from the heater underside to PCB pads.
 // Heater J1 pads in hardware/kicad/heater/heater.kicad_pcb are centered at
@@ -140,6 +144,11 @@ f1_on_heater_z = -f1_z;
 // PCB support. H1/H2 are KiCad mounting holes on the 50 mm PCB, expressed
 // relative to the board/enclosure center at (100,100) in cupwarmer-hw.kicad_pcb.
 // Keep these centers and pcb_mounting_hole_d in sync with the PCB footprint.
+// The screw bosses are disabled for the direct-pad enclosure study because a
+// 40x40 mm centered L1 coil overlaps both boss locations. Keep the PCB holes
+// visible, but do not print bosses in the bottom tray unless the coil/holes are
+// moved in a later PCB/mechanical revision.
+use_pcb_screw_bosses = false;
 pcb_support_holes = [
   [21.0, -8.0], // H1 = (121, 92)
   [-21.0, 8.0]  // H2 = (79, 108)
@@ -158,9 +167,11 @@ pcb_support_boss_d = pcb_support_rib_w;
 pcb_support_pilot_d = 1.7;
 pcb_support_pilot_depth = 4.0;
 
-// Taller stack retention ribs. These are molded with the bottom tray and pass
-// through local PCB/insulation edge notches. They act as perimeter datum ribs
-// for the heater/spreader stack, not as hard clamps on the heater.
+// Taller stack retention ribs. These collide with the centered 40x40 mm coil
+// unless the coil/ferrite are notched, so they are disabled in the v1 direct-pad
+// enclosure model. Keep the geometry for later revisions if perimeter datum
+// ribs are still useful after the coil support strategy is settled.
+use_stack_retention_ribs = false;
 stack_retention_rib_count = 4;
 stack_retention_rib_angle0 = 30;
 stack_retention_rib_w = 4.0;
@@ -274,8 +285,8 @@ module bottom_tray() {
         difference() {
           cyl(enclosure_od, tray_body_h);
 
-          // Stepped bore. Lower bore (pcb_clear_od) clears the 50 mm
-          // pcb/ferrite/insulation/coil stack down to the floor. The upper bore
+          // Stepped bore. Lower bore clears the 50 mm PCB/ferrite stack and the
+          // rounded 40x40 mm coil corners down to the floor. The upper bore
           // opens to the centering-rim inner diameter and runs straight from
           // the heater seat to the rim base. The step face at
           // z_heater is the heater seat: the heater lands on it while the 50 mm
@@ -283,7 +294,7 @@ module bottom_tray() {
           // Pad lateral location is by the low integrated rim above this body;
           // the pad is not tucked under or overlapped by the rim.
           translate([0, 0, bottom_floor_th])
-            cyl(pcb_clear_od, z_heater - bottom_floor_th);
+            cyl(lower_stack_bore_od, z_heater - bottom_floor_th);
           translate([0, 0, z_heater])
             cyl(upper_stack_bore_od, tray_body_h - z_heater + 0.20);
         }
@@ -292,15 +303,16 @@ module bottom_tray() {
         translate([0, 0, z_rim])
           annulus(rim_od, rim_inner_od, rim_h);
 
-        // Two local support ribs with half-cylinder bosses rise from the
-        // bottom floor and support the PCB outer edge. M2 plastic screws
-        // fasten the PCB to the boss tops. The center remains open for
-        // L1/ferrite keepout. pcb_support_holes track the 50 mm PCB H1/H2
-        // (r~22.5). The Ø50.7 lower bore now also guides the stack, so
-        // stack_retention_ribs may be droppable.
-        pcb_support_ribs();
+        // H1/H2-aligned screw bosses are intentionally optional. In the
+        // current centered 40x40 mm L1 coil stack they collide with the coil
+        // keepout, so the default enclosure relies on perimeter guidance.
+        if (use_pcb_screw_bosses) {
+          pcb_support_ribs();
+        }
 
-        stack_retention_ribs();
+        if (use_stack_retention_ribs) {
+          stack_retention_ribs();
+        }
       }
 }
 
