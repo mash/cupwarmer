@@ -42,11 +42,12 @@ $fn = 128;
 enclosure_od = 60.0;
 wall = 1.6;
 bottom_floor_th = 1.2;
+bottom_outer_chamfer = 1.2;
+top_outer_chamfer = 0.5;
 
 // Integrated centering rim. It is part of the bottom tray and surrounds the
 // TP-4 without covering it. The rim is intentionally just a low side wall:
 // every stack layer can drop in from the top, and the pad remains replaceable.
-rim_od = enclosure_od;              // flush with the enclosure outer wall
 rim_h = 0.50;                       // rises from pad bottom; well below pad top
 pad_to_rim_radial_gap = 0.40;       // clearance for printed rim and hand-cut TP-4
 
@@ -120,9 +121,7 @@ z_insulation = z_pcb + pcb_th + 0.25;
 z_heater = z_insulation + insulation_th + f1_clearance_gap;
 z_spreader = z_heater + heater_th;
 z_pad = z_spreader + (use_aluminum_spreader ? spreader_th : 0);
-z_rim = z_pad;
-rim_top_z = z_rim + rim_h;
-tray_body_h = z_rim;
+rim_top_z = z_pad + rim_h;
 bottom_tray_h = rim_top_z;
 
 // Overall external height: tray floor bottom (z=0) to cup contact pad top.
@@ -182,16 +181,25 @@ module cyl(d, h) {
   cylinder(d = d, h = h);
 }
 
+module tray_outer_body(d, h, bottom_chamfer, top_chamfer) {
+  r = d / 2;
+  bc = min(bottom_chamfer, r, h);
+  tc = min(top_chamfer, r, h - bc);
+
+  rotate_extrude(convexity = 10)
+    polygon([
+      [0, 0],
+      [r - bc, 0],
+      [r, bc],
+      [r, h - tc],
+      [r - tc, h],
+      [0, h]
+    ]);
+}
+
 module cyl_x(d, l) {
   rotate([0, 90, 0])
     cylinder(d = d, h = l, center = true);
-}
-
-module annulus(od, id, h) {
-  difference() {
-    cyl(od, h);
-    translate([0, 0, -0.05]) cyl(id, h + 0.10);
-  }
 }
 
 module rounded_rect_2d(x, y, r) {
@@ -282,12 +290,12 @@ module bottom_tray() {
     maybe_cutaway()
       union() {
         difference() {
-          cyl(enclosure_od, tray_body_h);
+          tray_outer_body(enclosure_od, bottom_tray_h, bottom_outer_chamfer, top_outer_chamfer);
 
           // Stepped bore. Lower bore clears the 50 mm PCB/ferrite stack and the
           // rounded 40x40 mm coil corners down to the floor. The upper bore
           // opens to the centering-rim inner diameter and runs straight from
-          // the heater seat to the rim base. The step face at
+          // the heater seat through the integrated centering rim. The step face at
           // z_heater is the heater seat: the heater lands on it while the 50 mm
           // parts drop through the lower bore. The floor stays solid for Qi.
           // Pad lateral location is by the low integrated rim above this body;
@@ -295,12 +303,8 @@ module bottom_tray() {
           translate([0, 0, bottom_floor_th])
             cyl(lower_stack_bore_od, z_heater - bottom_floor_th);
           translate([0, 0, z_heater])
-            cyl(upper_stack_bore_od, tray_body_h - z_heater + 0.20);
+            cyl(upper_stack_bore_od, bottom_tray_h - z_heater + 0.20);
         }
-
-        // Integrated centering rim, printed as one piece with the tray.
-        translate([0, 0, z_rim])
-          annulus(rim_od, rim_inner_od, rim_h);
 
         lower_stack_support_shelf();
 

@@ -16,7 +16,7 @@
 | **PCB** | `pcb_reference` / `pcb_*` | Ø50 × 1.6 | メイン基板。JLCPCB実発注厚に合わせる | board |
 | **ferrite** | `ferrite_reference` / `ferrite_*` | Ø50 × 0.50 | Qi 磁束シールド | shield |
 | **RX coil** | `rx_coil_reference` / `coil_*` | 40×40 × 1.20 | Qi 受電コイル L1 (Würth 760308102207) | L1（補足可）, rx coil reference |
-| **bottom tray** | `bottom_tray` | enclosure_od Ø60 | 開いた樹脂トレイ。全スタックを保持。底面は Qi 面。pad まで上から落とし込める | bottom shell, enclosure（文脈で可） |
+| **bottom tray** | `bottom_tray` | enclosure_od Ø60 / bottom chamfer 1.2 / top outer chamfer 0.5 | 開いた樹脂トレイ。全スタックを保持。底面は Qi 面。pad まで上から落とし込める | bottom shell, enclosure（文脈で可） |
 | **integrated centering rim** | bottom tray 一体 / `rim_*` | 外径Ø60 / 内径Ø55.8 / 高さ0.5 | cup contact padを横方向に位置決めする低い一体リム。pad上面や外周に被せない | top retaining ring, retaining lip, lip |
 | **heater seat** | bottom tray の bore 段差 @z_heater | 下部 Ø52.3 / 上部 Ø55.8 | flexible heater が乗る段差。下の Ø50部品と40mm角coil cornerを逃がし、上部ボアはpad/rim内径に一致 | ledge |
 | **lower stack support shelf** | `lower_stack_support_shelf` | 左右2面 / 高さ1.6 | 40mm角coilの上下リード出口を避け、左右の余白面でferrite/PCB stackを下から受ける | PCB support ribs, support rib |
@@ -118,6 +118,8 @@ L1 receiver coil は `Wuerth Elektronik 760308102207` を基準にする。外�
 | Internal aluminum spreader OD | 54-55mm | cup contact pad より小さくし、エッジを隠す |
 | Cup contact silicone pad OD | 55.0mm | 初回direct-pad構成。rim内へ上から落とし込む |
 | Bottom floor over RX coil | 1.2mm | 初回3Dプリントは反り・薄肉破損を避けるため0.8-1.2mm範囲の上限を使う |
+| Bottom outer chamfer | 1.2mm | Qi pad側の外周下端だけを面取りし、上側rim/内径形状には触れない |
+| Top outer chamfer | 0.5mm | 外周上端だけを面取りし、rim inner OD と pad clearance には触れない |
 | Side wall | 1.5-2.0mm | Ø50mm PCB / ferrite と40mm角coilの実物クリアランスは要確認 |
 | F1 clearance below heater | 5.7mm | KSD9700-70 外装包絡 `28 × 8.9 × 5.1mm` + installation clearance 0.6mm。heater下面に横置きする仮モデル |
 | Bottom tray wall height | 12.9mm | 現行SCADのrim top。F1横置き込みでpad topは約 `13.4mm` |

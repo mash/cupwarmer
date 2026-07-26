@@ -499,6 +499,7 @@ TX パッド選定の注意 (v1 実機評価に効く):
 - 40mm角 coil は丸角 `r≈6mm` としても角の最大半径が約 `25.8mm` になるため、旧 lower bore `Ø50.7mm` では4角が約 `0.45mm` 干渉する。v1 direct-pad enclosure では lower stack bore を `Ø52.3mm` 相当に広げ、coil/ferrite に切り欠きを要求する旧 `stack_retention_ribs` はSCADから削除する
 - PCB/ferrite の下面支持は細い rib ではなく、bottom tray の円形内側と RX coil の rounded-rect keepout の間にある左右2面の support shelf で行う。coil の導線はサイドから出るため、上下側には支持面を置かず、leadout と組立の逃げを残す。support shelf は bottom floor から ferrite 下面まで立ち上げ、coil footprint 内には樹脂を置かない
 - bottom floor は初回3Dプリントでは `1.2mm` にする。Qi距離を増やしすぎない範囲の上限だが、`1.0mm` より反り・薄肉破損リスクを下げられるため、MJF/SLS PA12等の非金属樹脂試作ではこの値を優先する
+- bottom tray の外周円は、Qi pad側の下端を `1.2mm`、上側外周端を `0.5mm` 面取りする。上側面取りは外周だけに留め、integrated centering rim の内径クリアランスには触れない
 
 制約と合否:
 
