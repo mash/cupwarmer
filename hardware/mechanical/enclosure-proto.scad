@@ -311,7 +311,7 @@ module top_retaining_ring() {
 }
 
 module cup_contact_pad() {
-  color([0.88, 0.68, 0.32, 0.65])
+  color([0.88, 0.68, 0.32, 1.0])
     maybe_cutaway()
       union() {
         cyl(pad_od, pad_th);
@@ -326,24 +326,24 @@ module cup_contact_pad() {
 }
 
 module aluminum_spreader() {
-  color([0.75, 0.78, 0.80, 0.85])
+  color([0.75, 0.78, 0.80, 1.0])
     maybe_cutaway()
       cyl(spreader_od, spreader_th);
 }
 
 module flexible_heater() {
-  color([0.78, 0.30, 0.16, 0.70])
+  color([0.78, 0.30, 0.16, 1.0])
     maybe_cutaway()
       cyl(heater_od, heater_th);
 
   // Four-wire heater/NTC cable drops internally to PCB pads.
-  color([0.95, 0.95, 0.95, 0.80])
+  color([0.95, 0.95, 0.95, 1.0])
     translate([heater_cable_x - heater_cable_w / 2, heater_cable_y - heater_cable_d / 2, -heater_cable_drop_h])
       cube([heater_cable_w, heater_cable_d, heater_cable_drop_h + heater_th]);
 }
 
 module insulation_layer() {
-  color([0.95, 0.92, 0.72, 0.55])
+  color([0.95, 0.92, 0.72, 1.0])
     maybe_cutaway()
       difference() {
         cyl(insulation_od, insulation_th);
@@ -353,7 +353,7 @@ module insulation_layer() {
 }
 
 module pcb_reference() {
-  color([0.05, 0.45, 0.18, 0.65])
+  color([0.05, 0.45, 0.18, 1.0])
     maybe_cutaway()
       difference() {
         cyl(pcb_od, pcb_th);
@@ -363,13 +363,13 @@ module pcb_reference() {
 }
 
 module ferrite_reference() {
-  color([0.08, 0.08, 0.08, 0.70])
+  color([0.08, 0.08, 0.08, 1.0])
     maybe_cutaway()
       cyl(ferrite_od, ferrite_th);
 }
 
 module rx_coil_reference() {
-  color([0.90, 0.52, 0.12, 0.70])
+  color([0.90, 0.52, 0.12, 1.0])
     maybe_cutaway()
       rounded_box(coil_x, coil_y, coil_corner_r, coil_th);
 }
@@ -379,7 +379,7 @@ module f1_reference() {
   // a phi 8.9 x 28 mm leaded can — this box must be reworked to that geometry.
   // JLCPCB heater assembly places F1 on the heater bottom side, opposite the
   // non-soldering adhesive side.
-  color([0.05, 0.05, 0.05, 0.85])
+  color([0.05, 0.05, 0.05, 1.0])
     translate([f1_on_heater_x, f1_on_heater_y, f1_on_heater_z])
       rounded_box(f1_x, f1_y, f1_corner_r, f1_z);
 }
