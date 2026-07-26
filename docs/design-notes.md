@@ -454,6 +454,7 @@ v1 の手配は完了済み。以下は実際に発注・受領した内容。
 | 組立副資材 | — | Kapton テープ 10mm / 3M SRR-15 両面テープ (粗面用) | DigiKey / Amazon | 到着済 |
 | `MECH-PAD1` 候補 | cup contact pad | ARCTIC TP-4 100×100mm thermal pad samples | Amazon.co.jp | 発注済 (2026-07-26)。厚みは受領品で確認し、`0.5/1.0/1.5mm` 比較候補として扱う |
 | `MECH-INSUL1` 候補 | PCB-heater 間 insulation | TIHONORI 赤いシリコーン発泡シート 500×500mm 厚さ1mm | Amazon.co.jp | 発注済 (2026-07-26)。導電性/ESD品でないことを受領後テスターで確認する |
+| `MECH-TRAY1` | bottom tray 一体の integrated centering rim 付き筐体 | `hardware/mechanical/enclosure-proto.stl`, PA12 MJF, 後加工なし | DMM.make 3DPRINT (注文番号未記録) | 発注済 (2026-07-26)。外径Ø60、bottom chamfer 1.2mm、top outer chamfer 0.5mm、rim inner Ø55.8mm |
 | TX パッド | bring-up 用送電側 | Anker Zolo Magnetic Wireless Charging Pad (Qi2 認証, 15W, MagSafe 互換) | Amazon.de (2026-05-06, €19.99) | 到着済 (2026-05-09)。**USB-C PD 電源アダプタは別売・未手配** |
 
 TX パッド選定の注意 (v1 実機評価に効く):
@@ -464,7 +465,7 @@ TX パッド選定の注意 (v1 実機評価に効く):
 
 未発注 (bring-up・熱試験に必要):
 
-- aluminum spreader、bottom tray 一体の integrated centering rim を含む筐体実物 (3D プリント・CNC いずれも未発注)
+- aluminum spreader
 - TX パッド用 USB-C PD 電源アダプタ、比較用のマグネットなし EPP TX パッド
 - heater harness の線材・コネクタ
 - TIM (サーマルグリス等。cup contact pad と insulation の初回サンプルは Amazon 発注済み)
@@ -593,7 +594,7 @@ STWLC38 の NVM (RRAM) には **patch (FW) と configuration の 2 セクショ�
 
 未着手: コイル・ferrite の本固定、heater 接続、`RX_NTC` 分圧の DMM 確認 (`TP1`)、I2C service header (`J1`) 経由の NVM 書込、熱試験一式
 
-ブロッカー: 筐体実物・harness 線材・TIM・PD 電源アダプタが未手配のため、スタック組立を伴う定量試験には入れない
+ブロッカー: harness 線材・TIM・PD 電源アダプタが未手配のため、スタック組立を伴う定量試験には入れない。筐体実物はDMM.make PA12 MJFで発注済み
 
 ## Open Items
 
