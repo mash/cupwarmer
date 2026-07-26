@@ -444,7 +444,7 @@ v1 の手配は完了済み。以下は実際に発注・受領した内容。
 
 | 部品 | 用途 | 採用品 | 手配先 / 注文番号 | 状態 |
 |---|---|---|---|---|
-| 制御 PCB + SMT | Ø50mm 4層 + 実装 5枚 | `cupwarmer-hw-gerbers_Y7` | JLCPCB W2026061317320516 (SMT026061360485) | 到着済 (2026-06-22 発送)。X線検査済、指摘なし |
+| 制御 PCB + SMT | Ø50mm 4層 1.6mm厚 + 実装 5枚 | `cupwarmer-hw-gerbers_Y7` | JLCPCB W2026061317320516 (SMT026061360485) | 到着済 (2026-06-22 発送)。X線検査済、指摘なし |
 | `U1` | STWLC38JRM | — | JLCPCB parts 先行手配 POB0202605270340260 (5個) | PCBA で消費済 |
 | heater | Ø55mm 12V/12Ω/12W | JLCPCB flexible heater | JLCPCB W2026061317360571 / FH2026061328500004 (1枚) | 到着済 (2026-06-23 発送) |
 | `F1` | 独立ハード遮断 | KSD9700-70/5JSB/080C (C156512) | heater 組込として JLC が調達・実装 | heater に同梱。**単体予備なし** |
@@ -494,6 +494,7 @@ TX パッド選定の注意 (v1 実機評価に効く):
 - TP-4 は薄い thermal pad sheet であり、単体で設計意図どおりの凸面 crown を作る材料ではない。初回 direct-pad 評価では、TP-4 は基本的に平面パッドとして扱い、カップ荷重と一体 rim による横方向の位置決めでカップ底へ追従させる。明確な凸面が必要なら、後続で下地形状または別成形の cup contact pad を検討する
 - top feature は pad を保持する retaining lip ではなく、bottom tray と一体の低い centering rim として扱う。rim は TP-4 の下半分程度を外側から囲むだけで、TP-4 の上面にも外周にも被せない。TP-4 外周は rim 内壁に nominal side contact する寸法で切り、上から置けるようにする。実物では TP-4 の切断精度と造形公差を見て、きつすぎる場合だけ微小な逃げを追加する。初回はカップ荷重と摩擦で十分か確認し、pad の浮きやズレが問題になる場合だけ最小限の仮固定を追加する
 - `L1` coil reference は Wuerth `760308102207` の公称 `40 x 40 x 1.2mm` に合っている。現行 PCB の H1/H2 mounting holes は KiCad 実データで中心基準 `(+21,-8)` / `(-21,+8)`、穴径 `2.4mm`。40mm角 coil を中央配置すると、M2 boss (`Ø5mm`) は coil envelope に約 `1.5mm`、PCB穴自体も約 `0.2mm` 入るため、bottom tray の H1/H2 screw bosses は v1 direct-pad enclosure では使わない。SCAD では PCB holes は reference として残し、bottom tray boss は default off にする
+- JLCPCB の実発注詳細では制御PCB厚は `1.6mm`。OpenSCAD の `pcb_th` も 1.6mm に合わせる。KiCad の Gerber job metadata に残る `BoardThickness=1.18` は発注時のJLC選択値ではないため、筐体モデルでは実物優先で扱う
 - 40mm角 coil は丸角 `r≈6mm` としても角の最大半径が約 `25.8mm` になるため、旧 lower bore `Ø50.7mm` では4角が約 `0.45mm` 干渉する。v1 direct-pad enclosure では lower stack bore を `Ø52.5mm` 相当に広げ、coil/ferrite に切り欠きを要求する `stack_retention_ribs` も default off にする
 - PCB/ferrite の下面支持は細い rib ではなく、bottom tray の円形内側と RX coil の rounded-rect keepout の間にある左右2面の support shelf で行う。coil の導線はサイドから出るため、上下側には支持面を置かず、leadout と組立の逃げを残す。support shelf は bottom floor から ferrite 下面まで立ち上げ、coil footprint 内には樹脂を置かない
 

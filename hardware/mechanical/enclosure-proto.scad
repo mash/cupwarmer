@@ -57,7 +57,8 @@ pad_to_rim_radial_gap = 0.00;       // nominal side contact for centering
 // opening and drop to the floor; only the heater/spreader/pad stay ~56 mm.
 use_aluminum_spreader = false;
 pcb_od = 50.0;
-pcb_th = 1.0;
+// JLCPCB PCBA order W2026061317320516 was manufactured as 1.6 mm FR-4.
+pcb_th = 1.6;
 // Heater stays larger than the 50 mm stack so it lands on the seat step, but
 // trimmed to 55 mm so it clears the centering rim for top-loading.
 heater_od = 55.0;
