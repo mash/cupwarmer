@@ -2,27 +2,11 @@
 
 ## Scratch / temporary files
 
-- The temporary working directory is **`./tmp/`** at the repo root.
-- All ephemeral artifacts (validation snapshots, ERC reports, netlists, SVG renders, baseline files, multi-line command bodies passed to `git`/`gh`, intermediate Python scripts, etc.) go under `./tmp/`.
-- Skills and scripts that emit `tmp/...` paths mean this directory.
-- `./tmp/` is git-ignored. Do not commit anything from it.
-- Always reference it with the literal `./tmp/` (or `tmp/` from repo root) — do not introduce a different scratch dir.
-
-## Reuse files instead of fanning out
-
-- For a recurring artifact (validation snapshot, ERC report, netlist, score JSON, baseline, command-body file), use **one stable filename per role** and overwrite it on each run.
-- Do not create timestamped, suffixed, or otherwise proliferating files (`tmp/foo-1.json`, `tmp/foo-pre-2.json`, `tmp/commit-msg-2.txt`). One file per role; the latest run replaces the previous.
-- If you need a before/after pair, two stable files is the cap (e.g. `tmp/score-pre.json`, `tmp/score-post.json`) — not a sequence per iteration.
-- Same for one-shot inputs to `git commit -F` / `gh pr create --body-file`: reuse `tmp/commit-msg.txt` / `tmp/pr-body.txt` rather than minting new names.
+- Scratch dir is **`./tmp/`** at the repo root (git-ignored). Every ephemeral artifact goes there: ERC/DRC reports, netlists, SVG/PNG renders, baselines, intermediate scripts, and command bodies for `git commit -F` / `gh pr create --body-file`.
+- Nothing generated lands at the repo root. Always the literal `./tmp/` — do not introduce another scratch dir.
+- `./tmp/` is disposable, not a record. Do not assume a file from an earlier session survives, and do not cite one as evidence. Anything worth keeping belongs in `docs/` or `wiki/`. Deleting stale contents is always safe — clear it out when it gets noisy.
 
 ## Reference material (datasheets, PDFs, source data)
 
-- PDFs, datasheets, and other relevant source data for the project are stored in **`./wiki/`**.
-- Search there first before fetching from the web or asking the user — the part/spec we need is likely already saved.
-- Before reading from or writing to `./wiki/`, read **`./wiki/README.md`** to understand the directory's conventions and index.
-
-## Task management
-
-- Tasks for this project live in the Notion "cupwarmer" page: https://www.notion.so/3569b43540b180f2a55ac06afaac2cee
-- The Tasks database under it (data source `collection://e40439a7-b55e-4247-bb7a-1a6d049f03ef`) is the source of truth for project todos. Add new tasks there with `Project` linked to the cupwarmer page.
-
+- Datasheets, PDFs, and source data live in **`./wiki/`** — search there before fetching from the web or asking.
+- Read **`./wiki/README.md`** first for that directory's conventions and index.
